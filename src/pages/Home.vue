@@ -4,9 +4,12 @@
             <Banners v-if="getHomePageBannersLoadingState === 'LOADING_SUCCESS'"
                 :banners="getHomePageBanners"
             ></Banners>
-            <VapasiQuote
+            <VapasiQuote 
                 screenName="HOME"
                 v-if="this.isMobile() && getCurrentLanguage().fullName == 'hindi' && false"></VapasiQuote>
+            <VapasiShayari 
+                screenName="HOME"
+                v-if="this.isMobile() && getCurrentLanguage().fullName == 'hindi'"></VapasiShayari>
             <VapasiJoke
                 screenName="HOME"
                 v-if="this.isMobile() && getCurrentLanguage().fullName == 'gujarati'"></VapasiJoke>
