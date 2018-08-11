@@ -77,7 +77,9 @@ export default {
         return {
             shouldShowModal: this.$route.query.postId ? true : false,
             language: constants.LANGUAGES.filter((eachLanguage) => eachLanguage.shortName === process.env.LANGUAGE)[0].fullName.toUpperCase(),
-            shayariList: []
+            shayariList: [],
+            shuffled: false,
+            shuffledIndex: []
         }
     },
     components: {
@@ -102,8 +104,18 @@ export default {
                 }
                 const shayariPreferenceNode = firebase.database().ref("EXPERIMENT").child("SHAYARI").child(that.language);
                 shayariPreferenceNode.on('value', (snapshot) => {
-                    const shayariPreferences = snapshot.val();
-                    that.shayariList = this.shuffle(shayariPreferences);
+                    var shayariPreferences = snapshot.val();
+                    var shayariListRandom;
+                    if(that.shuffled == false){
+                        for(var i = 0; i < shayariPreferences.length; i++) {
+                            that.shuffledIndex.push(i) 
+                        }
+                        shayariListRandom = that.shuffle(JSON.parse(JSON.stringify(shayariPreferences)));
+                        that.setPageOgTags()
+                    }
+                    else
+                        shayariListRandom = that.arrange(JSON.parse(JSON.stringify(shayariPreferences)))
+                    that.shayariList = shayariListRandom;
                 });
             });
         },
@@ -116,13 +128,25 @@ export default {
             // Pick a remaining element...
             randomIndex = Math.floor(Math.random() * currentIndex);
             currentIndex -= 1;
-
+            temporaryValue = this.shuffledIndex[currentIndex];
+            this.shuffledIndex[currentIndex] = this.shuffledIndex[randomIndex]; 
+            this.shuffledIndex[randomIndex] = temporaryValue;
             // And swap it with the current element.
             temporaryValue = array[currentIndex];
             array[currentIndex] = array[randomIndex];
             array[randomIndex] = temporaryValue;
           }
+          this.shuffled = true;
+          return array;
+        },
+        arrange(array) {
+          let arrayCopy = JSON.parse(JSON.stringify(array));
+          // While there remain elements to shuffle...
+          for (var i = 0; i < array.length; i++) {
 
+            // And swap it with the current element.
+            array[i] = arrayCopy[this.shuffledIndex[i]];
+          }
           return array;
         },
         setPageOgTags() {
@@ -161,9 +185,12 @@ export default {
                     let shayariList = snapshot.val();
                     for( var i = 0; i < shayariList.length; i++ ) {
                         if(postId == shayariList[i].id) {
+                            shayariList[i].likeCount = shayariList[i].likeCount == undefined ? 1 : shayariList[i].likeCount + 1;
+                            shayariList[i].lastUpdated = firebase.database.ServerValue.TIMESTAMP
+                            node = node.child(i)
                             node.update({
-                                "likeCount": shayariList[i].likeCount == undefined ? 1 : shayariList[i].likeCount + 1,
-                                "lastUpdated": firebase.database.ServerValue.TIMESTAMP
+                                "likeCount": shayariList[i].likeCount,
+                                "lastUpdated": shayariList[i].lastUpdated
                             });
                             break;
                         }
@@ -189,9 +216,12 @@ export default {
                     let shayariList = snapshot.val();
                     for( var i = 0; i < shayariList.length; i++ ) {
                         if(postId == shayariList[i].id) {
+                            shayariList[i].shareCount = shayariList[i].shareCount == undefined ? 1 : shayariList[i].shareCount + 1;
+                            shayariList[i].lastUpdated = firebase.database.ServerValue.TIMESTAMP
+                            node = node.child(i)
                             node.update({
-                                "shareCount": shayariList[i].shareCount == undefined ? 1 : shayariList[i].shareCount + 1,
-                                "lastUpdated": firebase.database.ServerValue.TIMESTAMP
+                                "shareCount": shayariList[i].shareCount,
+                                "lastUpdated": shayariList[i].lastUpdated
                             });
                             break;
                         }
@@ -202,11 +232,6 @@ export default {
 
             const textToShare = `${window.location.host}${window.location.pathname}${encodeURIComponent(`?postId=${postId}&utm_source=whatsapp&utm_medium=social&utm_campaign=shayari`)}`;
             window.open(`https://api.whatsapp.com/send?text=${textToShare}`);
-        }
-    },
-    watch: {
-        'shayariList'() {
-          this.setPageOgTags();
         }
     },
     mounted() {
