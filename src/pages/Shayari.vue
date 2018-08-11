@@ -1,40 +1,63 @@
 <template>
     <MainLayout>
-        <div class="vapasi">
-            <div v-for="shayari in shayariList">
-                <div class="horoscope-details">
-                    <div>
-                        <img :src="shayari.image" width=100%> </img>
+        <div class="shayari">
+            <div class="shayari-item card" v-for="(shayari, index) in shayariList" v-if="shayari.id == $route.query.postId && shouldShowModal && shayariList.length !== 0">
+                <div class="shayari-details">
+                    <img :src="shayari.image" />
+                </div>
+                <div class="social-icons">
+                    <div class="like-button social-button" @click="triggerLikeShareAnalytics(shayari.id)">
+                        <icon name="thumbs-o-up" scale="1.5"></icon>
+                        <span>{{shayari.likeCount | showThousandsInK(1)}}</span>
+                    </div>
+                    <div class="share-button social-button" @click="triggerWhatsappShareAnalytics(shayari.id)">
+                        <icon name="whatsapp" scale="1.5"></icon>
+                        <span>{{shayari.shareCount | showThousandsInK(1)}}</span>
                     </div>
                 </div>
-                <br>
-                <div class="social-icons">
-                    <span><img src="../assets/facebookImage.png" height="30" width="30" @click="triggerFacebookShareAnalytics"></span>
-                    <span ><img src="../assets/whatsappImage.png" height="30" width="30" @click="triggerWhatsappShareAnalytics"></span>
-                </div>
             </div>
-            <div class="vapasi-shadow vapasi-modal" v-if="shouldShowModal">
-                <p class="close" @click="resetModal()"><b>X</b></p>
-                <div class="horoscope-details">
-                  <div>
-                    <img :src="shayariList[this.$route.query.postId].image" width=100%> </img>
-                  </div>
+            <div class="shayari-item card" v-for="(shayari, index) in shayariList" v-if="shayari.active && shayari.id != $route.query.postId && shayariList.length !== 0">
+                <div class="shayari-details">
+                    <img :src="shayari.image" />
                 </div>
-                <br>
                 <div class="social-icons">
-                  <span><img src="../assets/facebookImage.png" height="30" width="30" @click="triggerFacebookShareAnalytics"></span>
-                  <span ><img src="../assets/whatsappImage.png" height="30" width="30" @click="triggerWhatsappShareAnalytics"></span>
+                    <div class="like-button social-button" @click="triggerLikeShareAnalytics(shayari.id)">
+                        <icon name="thumbs-o-up" scale="1.5"></icon>
+                        <span>{{shayari.likeCount | showThousandsInK(1)}}</span>
+                    </div>
+                    <div class="share-button social-button" @click="triggerWhatsappShareAnalytics(shayari.id)">
+                        <icon name="whatsapp" scale="1.5"></icon>
+                        <span>{{shayari.shareCount | showThousandsInK(1)}}</span>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- <div class="shayari-shadow shayari-modal" v-for="(shayari, index) in shayariList" v-if="shayari.id == $route.query.postId && shouldShowModal && shayariList.length !== 0">
+            <p class="close" @click="resetModal()"><b>X</b></p>
+            <div class="shayari-details">
+                <img :src="shayari.image" width=100%> </img>
+            </div>
+            <div class="social-icons">
+                <div class="like-button social-button" @click="triggerLikeShareAnalytics(shayari.id)">
+                    <icon name="thumbs-o-up" scale="1.5"></icon>
+                    <span>{{shayariList[$route.query.postId].likeCount | showThousandsInK(1)}}</span>
+                </div>
+                <div class="share-button social-button" @click="triggerWhatsappShareAnalytics(shayari.id)">
+                    <icon name="whatsapp" scale="1.5"></icon>
+                    <span>{{shayariList[$route.query.postId].shareCount | showThousandsInK(1)}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="modal-backdrop" v-if="shouldShowModal"></div> -->
     </MainLayout>
 </template>
 <script>
 import mixins from '@/mixins';
-import inViewport from 'vue-in-viewport-mixin';
 import constants from '@/constants';
 import WebPushUtil from '@/utils/WebPushUtil';
 import MainLayout from '@/layout/main-layout.vue';
+import 'vue-awesome/icons/whatsapp'
+import 'vue-awesome/icons/thumbs-o-up'
 import * as firebase from "firebase";
 import {
     mapGetters,
@@ -42,17 +65,8 @@ import {
 } from 'vuex';
 
 export default {
-    props: {
-        'in-viewport-once': {
-            default: true
-        },
-        'in-viewport-offset-top': {
-            default: -350
-        }
-    },
     mixins: [
-        mixins,
-        inViewport
+        mixins
     ],
     computed: {
         ...mapGetters([
@@ -63,7 +77,9 @@ export default {
         return {
             shouldShowModal: this.$route.query.postId ? true : false,
             language: constants.LANGUAGES.filter((eachLanguage) => eachLanguage.shortName === process.env.LANGUAGE)[0].fullName.toUpperCase(),
-            shayariList: []
+            shayariList: [],
+            shuffled: false,
+            shuffledIndex: []
         }
     },
     components: {
@@ -88,45 +104,134 @@ export default {
                 }
                 const shayariPreferenceNode = firebase.database().ref("EXPERIMENT").child("SHAYARI").child(that.language);
                 shayariPreferenceNode.on('value', (snapshot) => {
-                    const shayariPreferences = snapshot.val();
-                    that.shayariList = shayariPreferences;
-                    console.log(that.shayariList)
+                    var shayariPreferences = snapshot.val();
+                    var shayariListRandom;
+                    if(that.shuffled == false){
+                        for(var i = 0; i < shayariPreferences.length; i++) {
+                            that.shuffledIndex.push(i) 
+                        }
+                        shayariListRandom = that.shuffle(JSON.parse(JSON.stringify(shayariPreferences)));
+                        that.setPageOgTags()
+                    }
+                    else
+                        shayariListRandom = that.arrange(JSON.parse(JSON.stringify(shayariPreferences)))
+                    that.shayariList = shayariListRandom;
                 });
             });
         },
-        setPageOgTags() {
-            document.head.querySelector('meta[property="og:image"]').content = this.$route.query.postId ? (this.shayariList[this.$route.query.postId] ? this.shayariList[this.$route.query.postId].image : undefined) : (this.shayariList[0] ? this.shayariList[0].image : undefined);
+        shuffle(array) {
+          var currentIndex = array.length, temporaryValue, randomIndex;
+
+          // While there remain elements to shuffle...
+          while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+            temporaryValue = this.shuffledIndex[currentIndex];
+            this.shuffledIndex[currentIndex] = this.shuffledIndex[randomIndex]; 
+            this.shuffledIndex[randomIndex] = temporaryValue;
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+          }
+          this.shuffled = true;
+          return array;
         },
-        triggerFacebookShareAnalytics() {
-            FB.ui({
-                method: 'share_open_graph',
-                action_type: 'og.shares',
-                action_properties: JSON.stringify({
-                    object: {
-                        'og:url': `https://${window.location.host}${window.location.pathname}?utm_source=facebook&utm_medium=social&utm_campaign=shayari`,
-                        'og:title': '__("quote_of_the_day")',
-                        'og:description': this.getQuoteOfTheDay,
-                        'og:image': this.getQuoteImage
+        arrange(array) {
+          let arrayCopy = JSON.parse(JSON.stringify(array));
+          // While there remain elements to shuffle...
+          for (var i = 0; i < array.length; i++) {
+
+            // And swap it with the current element.
+            array[i] = arrayCopy[this.shuffledIndex[i]];
+          }
+          return array;
+        },
+        setPageOgTags() {
+            var flag = false;
+            for( var i = 0; i < this.shayariList.length; i++ ) {
+                if(this.$route.query.postId && this.$route.query.postId == this.shayariList[i].id) {
+                    document.head.querySelector('meta[property="og:image"]').content = this.shayariList[i].image;
+                    flag = true;
+                    break;
+                }
+            }
+            if(flag == false) {
+               for( var i = 0; i < this.shayariList.length; i++ ) {
+                    if(this.shayariList[i].active) {
+                        document.head.querySelector('meta[property="og:image"]').content = this.shayariList[i].image;
+                        flag = true;
+                        break;
                     }
-                })
+                } 
+            }
+        },
+        triggerLikeShareAnalytics(postId) {
+            const that = this;
+            import('firebase').then((firebase) => {
+                if (firebase.apps.length === 0) {
+                    const config = {
+                        apiKey: process.env.FIREBASE_API_KEY,
+                        authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+                        databaseURL: process.env.FIREBASE_DATABASE_URL,
+                        storageBucket: process.env.FIREBASE_STORAGE_BUCKET
+                    };
+                    firebase.initializeApp(config);
+                }
+                var node = firebase.database().ref("EXPERIMENT").child("SHAYARI").child(that.language);
+                node.once('value', (snapshot) => {
+                    let shayariList = snapshot.val();
+                    for( var i = 0; i < shayariList.length; i++ ) {
+                        if(postId == shayariList[i].id) {
+                            shayariList[i].likeCount = shayariList[i].likeCount == undefined ? 1 : shayariList[i].likeCount + 1;
+                            shayariList[i].lastUpdated = firebase.database.ServerValue.TIMESTAMP
+                            node = node.child(i)
+                            node.update({
+                                "likeCount": shayariList[i].likeCount,
+                                "lastUpdated": shayariList[i].lastUpdated
+                            });
+                            break;
+                        }
+                    }
+                });
             });
             this.triggerAnanlyticsEvent(`LIKE_VAPSISHAYARI_SHAYARI`, 'CONTROL', {'USER_ID': this.getUserDetails.userId});
         },
-        triggerWhatsappShareAnalytics() {
+        triggerWhatsappShareAnalytics(postId) {
+            const that = this;
+            import('firebase').then((firebase) => {
+                if (firebase.apps.length === 0) {
+                    const config = {
+                        apiKey: process.env.FIREBASE_API_KEY,
+                        authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+                        databaseURL: process.env.FIREBASE_DATABASE_URL,
+                        storageBucket: process.env.FIREBASE_STORAGE_BUCKET
+                    };
+                    firebase.initializeApp(config);
+                }
+                var node = firebase.database().ref("EXPERIMENT").child("SHAYARI").child(that.language);
+                node.once('value', (snapshot) => {
+                    let shayariList = snapshot.val();
+                    for( var i = 0; i < shayariList.length; i++ ) {
+                        if(postId == shayariList[i].id) {
+                            shayariList[i].shareCount = shayariList[i].shareCount == undefined ? 1 : shayariList[i].shareCount + 1;
+                            shayariList[i].lastUpdated = firebase.database.ServerValue.TIMESTAMP
+                            node = node.child(i)
+                            node.update({
+                                "shareCount": shayariList[i].shareCount,
+                                "lastUpdated": shayariList[i].lastUpdated
+                            });
+                            break;
+                        }
+                    }
+                });
+            });
             this.triggerAnanlyticsEvent(`SHAREWA_VAPSISHAYARI_SHAYARI`, 'CONTROL', {'USER_ID': this.getUserDetails.userId});
 
-            const textToShare = `${window.location.host}${window.location.pathname}${encodeURIComponent(`?postId=${1}&utm_source=whatsapp&utm_medium=social&utm_campaign=shayari`)}`;
+            const textToShare = `${window.location.host}${window.location.pathname}${encodeURIComponent(`?postId=${postId}&utm_source=whatsapp&utm_medium=social&utm_campaign=shayari`)}`;
             window.open(`https://api.whatsapp.com/send?text=${textToShare}`);
-        }
-    },
-    watch: {
-        'inViewport.now'(visible) {
-            if (visible) {
-                this.triggerAnanlyticsEvent(`VIEW_VAPSISHAYARI_SHAYARI`, 'CONTROL', {'USER_ID': this.getUserDetails.userId});
-            }
-        },
-        'shayariList'() {
-          this.setPageOgTags();
         }
     },
     mounted() {
@@ -136,40 +241,61 @@ export default {
 </script>
 
 <style lang="scss">
-.vapasi {
-    .vapasi-break {
-        @media screen and (min-width: 1400px) {
-            display: none;
+.shayari {
+    background: #f8f8f8;
+    margin-top: 85px;
+    min-height: 700px;
+    max-width: 600px;
+    margin: 0 auto;
+    @media screen and (max-width: 992px ) {
+        margin-top: 65px;
+    }
+}
+
+.shayari-item {
+    margin: 10px;
+}
+
+.shayari-details {
+    margin: 5px 5px 0;
+    img {
+        max-width: 100%;
+    }
+}
+
+.social-icons {
+    .social-button {
+        display: inline-block;
+        width: 49%;
+        padding: 10px 0;
+        span, i, .fa-icon {
+            vertical-align: middle;
+        }
+        &.share-button {
+            .fa-icon {
+                color: #48c631;
+            }
+        }
+        &.like-button {
+            .fa-icon {
+                color: #3b5998;
+            }
+        }
+        span {
+            font-size: 14px;
+            margin-left: 5px;
         }
     }
 }
 
-.vapasi-banner {
-    background: #ff9966;
-    background: -webkit-linear-gradient(to right, #ff5e62, #ff9966);
-    background: linear-gradient(to right, #ff5e62, #ff9966);
-    color: #fff;
-    display: flex;
-    width: 100%;
-    height: 100%;
-    padding: 3%;
-    cursor: pointer;
-    @media screen and (min-width: 1400px) {
-        padding-left: 500px;
-        padding-right: 400px;
-        height: 100px;
-        padding-top: 13px;
-    }
-}
-
-.vapasi-image {
+.shayari-image {
     flex: 1;
     @media screen and (min-width: 1400px) {
         font-size: 26px;
     }
 }
 
-.vapasi-text {
+.shayari-text {
     flex: 2;
     @media screen and (min-width: 1400px) {
         font-size: 26px;
@@ -177,13 +303,13 @@ export default {
     }
 }
 
-.vapasi-shadow {
+.shayari-shadow {
     -webkit-box-shadow: 0px 15px 54px -5px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 15px 54px -5px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 15px 54px -5px rgba(0, 0, 0, 0.75);
 }
 
-.vapasi-heading {
+.shayari-heading {
     font-weight: bold;
     font-size: 14px;
     text-align: left;
@@ -196,7 +322,7 @@ export default {
     }
 }
 
-.horoscope-button {
+.shayari-button {
     margin: 1px;
     text-align: center;
     font-weight: 200;
@@ -206,51 +332,27 @@ export default {
     }
 }
 
-.horoscope-button:hover {
+.shayari-button:hover {
     background-color: #F99BA7;
 }
 
-.modal-message {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.modal-backdrop {
+    background: rgba(0,0,0,0.5);
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
 }
-
-.horoscope-footer {
-    font-weight: bold;
-    font-size: 12px;
-    text-align: right;
-    padding: 3%;
-    cursor: pointer;
-}
-
-.vapasi-modal {
+.shayari-modal {
     position: fixed;
     z-index: 2;
     top: 20%;
     background-color: white;
     width: 90%;
-    margin-left: 5%;
-    @media screen and (min-width: 1400px) {
-        left: 20%;
-        width: 60%;
-    }
-    .horoscope-details {
-        text-align: left;
-        font-size: 18px;
-        padding-left: 3%;
-        padding-right: 3%;
-        .social-icons {
-            display: inline;
-            position: absolute;
-            cursor: pointer;
-            right: 10%;
-            bottom: 10%;
-            @media screen and (min-width: 1400px) {
-               right: 20%;
-            }
-        }
-    }
+    max-width: 500px;
+    left: 50%;
+    transform: translate(-50%,0);
 }
 
 .close {
