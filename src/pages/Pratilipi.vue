@@ -396,13 +396,7 @@ export default {
                 'USER_ID': this.getUserDetails.userId
             });
 
-            // this.checkEventStatus();
-
-            // if (this.getPratilipiData.eventId) {
-            //     this.checkEventStatus();
-            // } else {
-            //     this.$router.push(this.getPratilipiData.writePageUrl);
-            // }
+            this.$router.push(this.getPratilipiData.writePageUrl);
         },
 
         checkEventStatus(){
