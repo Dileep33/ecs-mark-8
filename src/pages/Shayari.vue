@@ -170,66 +170,71 @@ export default {
         },
         triggerLikeShareAnalytics(postId) {
             const that = this;
-            import('firebase').then((firebase) => {
-                if (firebase.apps.length === 0) {
-                    const config = {
-                        apiKey: process.env.FIREBASE_API_KEY,
-                        authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-                        databaseURL: process.env.FIREBASE_DATABASE_URL,
-                        storageBucket: process.env.FIREBASE_STORAGE_BUCKET
-                    };
-                    firebase.initializeApp(config);
-                }
-                var node = firebase.database().ref("EXPERIMENT").child("SHAYARI").child(that.language);
-                node.once('value', (snapshot) => {
-                    let shayariList = snapshot.val();
-                    for( var i = 0; i < shayariList.length; i++ ) {
-                        if(postId == shayariList[i].id) {
-                            shayariList[i].likeCount = shayariList[i].likeCount == undefined ? 1 : shayariList[i].likeCount + 1;
-                            shayariList[i].lastUpdated = firebase.database.ServerValue.TIMESTAMP
-                            node = node.child(i)
-                            node.update({
-                                "likeCount": shayariList[i].likeCount,
-                                "lastUpdated": shayariList[i].lastUpdated
-                            });
-                            break;
-                        }
+            if(!this.getCookie("shayari_hindi_like_"+postId)) {
+                import('firebase').then((firebase) => {
+                    if (firebase.apps.length === 0) {
+                        const config = {
+                            apiKey: process.env.FIREBASE_API_KEY,
+                            authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+                            databaseURL: process.env.FIREBASE_DATABASE_URL,
+                            storageBucket: process.env.FIREBASE_STORAGE_BUCKET
+                        };
+                        firebase.initializeApp(config);
                     }
+                    var node = firebase.database().ref("EXPERIMENT").child("SHAYARI").child(that.language);
+                    node.once('value', (snapshot) => {
+                        let shayariList = snapshot.val();
+                        for( var i = 0; i < shayariList.length; i++ ) {
+                            if(postId == shayariList[i].id) {
+                                shayariList[i].likeCount = shayariList[i].likeCount == undefined ? 1 : shayariList[i].likeCount + 1;
+                                shayariList[i].lastUpdated = firebase.database.ServerValue.TIMESTAMP
+                                node = node.child(i)
+                                node.update({
+                                    "likeCount": shayariList[i].likeCount,
+                                    "lastUpdated": shayariList[i].lastUpdated
+                                });
+                                this.setCookie("shayari_hindi_like_"+postId, 1, 30, "/")
+                                break;
+                            }
+                        }
+                    });
                 });
-            });
-            this.triggerAnanlyticsEvent(`LIKE_VAPSISHAYARI_SHAYARI`, 'CONTROL', {'USER_ID': this.getUserDetails.userId});
+                this.triggerAnanlyticsEvent(`LIKE_VAPSISHAYARI_SHAYARI`, 'CONTROL', {'USER_ID': this.getUserDetails.userId});
+            }
         },
         triggerWhatsappShareAnalytics(postId) {
             const that = this;
-            import('firebase').then((firebase) => {
-                if (firebase.apps.length === 0) {
-                    const config = {
-                        apiKey: process.env.FIREBASE_API_KEY,
-                        authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-                        databaseURL: process.env.FIREBASE_DATABASE_URL,
-                        storageBucket: process.env.FIREBASE_STORAGE_BUCKET
-                    };
-                    firebase.initializeApp(config);
-                }
-                var node = firebase.database().ref("EXPERIMENT").child("SHAYARI").child(that.language);
-                node.once('value', (snapshot) => {
-                    let shayariList = snapshot.val();
-                    for( var i = 0; i < shayariList.length; i++ ) {
-                        if(postId == shayariList[i].id) {
-                            shayariList[i].shareCount = shayariList[i].shareCount == undefined ? 1 : shayariList[i].shareCount + 1;
-                            shayariList[i].lastUpdated = firebase.database.ServerValue.TIMESTAMP
-                            node = node.child(i)
-                            node.update({
-                                "shareCount": shayariList[i].shareCount,
-                                "lastUpdated": shayariList[i].lastUpdated
-                            });
-                            break;
-                        }
+            if(!this.getCookie("shayari_hindi_share_"+postId)) {
+                import('firebase').then((firebase) => {
+                    if (firebase.apps.length === 0) {
+                        const config = {
+                            apiKey: process.env.FIREBASE_API_KEY,
+                            authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+                            databaseURL: process.env.FIREBASE_DATABASE_URL,
+                            storageBucket: process.env.FIREBASE_STORAGE_BUCKET
+                        };
+                        firebase.initializeApp(config);
                     }
+                    var node = firebase.database().ref("EXPERIMENT").child("SHAYARI").child(that.language);
+                    node.once('value', (snapshot) => {
+                        let shayariList = snapshot.val();
+                        for( var i = 0; i < shayariList.length; i++ ) {
+                            if(postId == shayariList[i].id) {
+                                shayariList[i].shareCount = shayariList[i].shareCount == undefined ? 1 : shayariList[i].shareCount + 1;
+                                shayariList[i].lastUpdated = firebase.database.ServerValue.TIMESTAMP
+                                node = node.child(i)
+                                node.update({
+                                    "shareCount": shayariList[i].shareCount,
+                                    "lastUpdated": shayariList[i].lastUpdated
+                                });
+                                this.setCookie("shayari_hindi_share_"+postId, 1, 30, "/")
+                                break;
+                            }
+                        }
+                    });
                 });
-            });
-            this.triggerAnanlyticsEvent(`SHAREWA_VAPSISHAYARI_SHAYARI`, 'CONTROL', {'USER_ID': this.getUserDetails.userId});
-
+                this.triggerAnanlyticsEvent(`SHAREWA_VAPSISHAYARI_SHAYARI`, 'CONTROL', {'USER_ID': this.getUserDetails.userId});
+            }
             const textToShare = `${window.location.host}${window.location.pathname}${encodeURIComponent(`?postId=${postId}&utm_source=whatsapp&utm_medium=social&utm_campaign=shayari`)}`;
             window.open(`https://api.whatsapp.com/send?text=${textToShare}`);
         }
