@@ -22,19 +22,19 @@ export default {
     setListPageInitialDataLoadingTrue(state) {
         state.loading_state = 'LOADING';
         state.data = [];
-        state.cursor = null;
         state.numberFound = 0;
-        state.title = '';
-        state.titleEn = '';
     },
 
     setListPageInitialDataLoadingSuccess(state, data) {
         state.loading_state = 'LOADING_SUCCESS';
         state.data = data.pratilipiList;
-        state.cursor = data.cursor;
-        state.numberFound = data.numberFound;
-        state.title = data.title;
-        state.titleEn = data.titleEn;
+        state.cursor = data.cursor ? data.cursor : data.limit + data.offset;
+        state.numberFound = data.numberFound ? data.numberFound : data.found;
+        
+        if (data.title) {
+            state.title = data.title;
+            state.titleEn = data.titleEn;
+        }
     },
 
     setListPageInitialDataLoadingError(state) {
@@ -56,7 +56,7 @@ export default {
             state.cursor = null;
         } else {
             state.data = state.data.concat(data.pratilipiList);
-            state.cursor = data.cursor;
+            state.cursor = data.cursor ? data.cursor : data.limit + data.offset;
         }
     },
 

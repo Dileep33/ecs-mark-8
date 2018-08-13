@@ -5,16 +5,23 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h1>{{ getPratilipiListTitle }}</h1>
-                        <PratilipiComponent
-                        :pratilipiData="pratilipiData"
-                        :key="pratilipiData.pratilipiId"
-                        v-for="pratilipiData in getPratilipiListData"
-                        v-if="getPratilipiListLoadingState === 'LOADING_SUCCESS' || getPratilipiListData.length !== 0"
-                        :addToLibrary="addToLibrary"
-                        :removeFromLibrary="removeFromLibrary"
-                        :screenName="'CATEGORY'"
-                        :screenLocation="'CATEGORYM'"
-                        ></PratilipiComponent>
+                        <div class="list-tabs" v-if="currentLocale === 'hi' && $route.params.list_page_url === 'lovestories'">
+                            <a href="#" @click="listchange" class="active" data-tab="tab-relevant">Relevant</a>
+                            <a href="#" @click="listchange" data-tab="tab-recent_published">New</a>
+                            <a href="#" @click="listchange" data-tab="tab-high_rated">Highly Rated</a>
+                        </div>
+                        <div class="tabs">
+                            <PratilipiComponent
+                            :pratilipiData="pratilipiData"
+                            :key="pratilipiData.pratilipiId"
+                            v-for="pratilipiData in getPratilipiListData"
+                            v-if="getPratilipiListLoadingState === 'LOADING_SUCCESS' || getPratilipiListData.length !== 0"
+                            :addToLibrary="addToLibrary"
+                            :removeFromLibrary="removeFromLibrary"
+                            :screenName="'CATEGORY'"
+                            :screenLocation="'CATEGORYM'"
+                            ></PratilipiComponent>
+                        </div>
                         <DummyLoader v-if="getPratilipiListLoadingState === 'LOADING'" :sectionCount="1" :className="{list: true}"></DummyLoader>
                     </div>
                 </div>
@@ -39,7 +46,9 @@ export default {
     data() {
         return {
             user_id: null,
-            scrollPosition: null
+            scrollPosition: null,
+            list_type: 'relevant',
+            currentLocale: process.env.LANGUAGE
         }
     },
     mixins: [
@@ -67,7 +76,23 @@ export default {
         ]),
         updateScroll(e) {
             this.scrollPosition = window.scrollY
-        }
+        },
+        listchange(event) {
+            event.preventDefault();
+            var tab_id = $(event.currentTarget).attr('data-tab');
+            $(".list-tabs a").removeClass("active");
+            $(event.currentTarget).addClass("active");
+            
+            const list_type = tab_id.split('tab-').pop();
+            this.list_type = list_type;
+            const { list_page_url } = this.$route.params;
+            this.fetchInitialListPagePratilipis({
+                language: this.getCurrentLanguage().fullName.toUpperCase(),
+                listName: list_page_url,
+                resultCount: 20,
+                listType: list_type
+            });
+        },
     },
     created() {
         console.log(this.$route)
@@ -99,7 +124,8 @@ export default {
                         this.fetchMorePratilipisForListPage({
                             language: eachLanguage.fullName.toUpperCase(),
                             listName: list_page_url,
-                            resultCount: 20
+                            resultCount: 20,
+                            listType: this.list_type
                         });
                     }
                 });
@@ -158,6 +184,22 @@ export default {
         padding-left: 10px;
         margin: 10px 0;
 	display:block;
+    }
+    .list-tabs {
+        border: 1px solid #e9e9e9;
+        a {
+            display: inline-block;
+            padding: 5px;
+            text-decoration: none;
+            color: #555;
+            font-weight: bold;
+            font-size: 15px;
+            border-right: 1px solid #e9e9e9;
+            text-align: center;
+            &:last-child {
+                border: 0;
+            }
+        }
     }
 }
 </style>
