@@ -187,7 +187,7 @@ export default {
 }
 </style>
 <style lang="scss">
-	.back, .forward {
+	.search-page .back, .search-page .forward {
 		position: absolute;
 		top: 40%;
 		z-index: 2;
@@ -234,10 +234,10 @@ export default {
             }
 		}
 	}
-	.back {
+	.search-page .back {
 		margin-left: -15px;
 	}
-	.forward {
+	.search-page .forward {
 		right: -15px;
 	}
 </style>
