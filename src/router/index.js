@@ -356,7 +356,6 @@ var router = new Router({
                         return import ('@/pages/experiments/reader/Reader_v1.vue');
                     } else if (bucketId >= 40 && bucketId < 80) {
                         return import ('@/pages/experiments/recommendation_v1/Reader.vue');
-
                     } else {
                         return new Promise((resolve, reject) => resolve(ReaderPageComponent));
                     }
