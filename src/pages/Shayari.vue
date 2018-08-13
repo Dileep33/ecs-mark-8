@@ -86,10 +86,10 @@ export default {
         MainLayout
     },
     methods: {
-        resetModal() {
-            this.shouldShowModal = false;
-            this.triggerAnanlyticsEvent(`CLOSE_VAPSISHAYARI_SHAYARI`, 'CONTROL', {'USER_ID': this.getUserDetails.userId});
-        },
+        // resetModal() {
+        //     this.shouldShowModal = false;
+        //     this.triggerAnanlyticsEvent(`CLOSE_VAPSISHAYARI_SHAYARI`, 'CONTROL', {'USER_ID': this.getUserDetails.userId});
+        // },
         fetchShayariList() {
             const that = this;
             import('firebase').then((firebase) => {
@@ -235,7 +235,7 @@ export default {
                 });
                 this.triggerAnanlyticsEvent(`SHAREWA_VAPSISHAYARI_SHAYARI`, 'CONTROL', {'USER_ID': this.getUserDetails.userId});
             }
-            const textToShare = `${window.location.host}${window.location.pathname}${encodeURIComponent(`?postId=${postId}&utm_source=whatsapp&utm_medium=social&utm_campaign=shayari`)}`;
+            const textToShare = `https://${window.location.host}${window.location.pathname}${encodeURIComponent(`?postId=${postId}&utm_source=whatsapp&utm_medium=social&utm_campaign=shayari`)}`;
             window.open(`https://api.whatsapp.com/send?text=${textToShare}`);
         }
     },

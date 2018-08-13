@@ -2162,6 +2162,11 @@ export default {
         "LOCATION": "VAPSIQUOTE",
         "ACTION": "CLICK"
     },
+    "CLICK_VAPSISHAYARI_HOME": {
+        "SCREEN_NAME": "HOME",
+        "LOCATION": "VAPSISHAYARI",
+        "ACTION": "CLICK"
+    },
     "NOTIFY_VAPSIQUOTE_HOME": {
         "SCREEN_NAME": "HOME",
         "LOCATION": "VAPSIQUOTE",
@@ -2185,6 +2190,11 @@ export default {
     "VIEW_VAPSIQUOTE_BOOK": {
         "SCREEN_NAME": "BOOK",
         "LOCATION": "VAPSIQUOTE",
+        "ACTION": "VIEW"
+    },
+    "VIEW_VAPSISHAYARI_HOME": {
+        "SCREEN_NAME": "HOME",
+        "LOCATION": "VAPSISHAYARI",
         "ACTION": "VIEW"
     },
     "CLICK_VAPSIQUOTE_BOOK": {
