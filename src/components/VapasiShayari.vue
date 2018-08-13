@@ -72,6 +72,9 @@ export default {
             display: none;
         }
     }
+    a, a:hover {
+        text-decoration: none;
+    }
 }
 
 .shayari-home-banner {

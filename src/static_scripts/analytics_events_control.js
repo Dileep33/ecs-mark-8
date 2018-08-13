@@ -2197,6 +2197,21 @@ export default {
         "LOCATION": "VAPSISHAYARI",
         "ACTION": "VIEW"
     },
+    "LIKE_VAPSISHAYARI_SHAYARI": {
+        "SCREEN_NAME": "SHAYARI",
+        "LOCATION": "VAPSISHAYARI",
+        "ACTION": "LIKE"
+    },
+    "SHAREWA_VAPSISHAYARI_SHAYARI": {
+        "SCREEN_NAME": "SHAYARI",
+        "LOCATION": "VAPSISHAYARI",
+        "ACTION": "SHAREWA"
+    },
+    "VIEWED_VAPSISHAYARI_SHAYARI": {
+        "SCREEN_NAME": "SHAYARI",
+        "LOCATION": "VAPSISHAYARI",
+        "ACTION": "VIEWED"
+    },
     "CLICK_VAPSIQUOTE_BOOK": {
         "SCREEN_NAME": "BOOK",
         "LOCATION": "VAPSIQUOTE",

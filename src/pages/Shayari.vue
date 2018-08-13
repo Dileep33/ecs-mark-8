@@ -2,51 +2,16 @@
     <MainLayout>
         <div class="shayari">
             <div class="shayari-item card" v-for="(shayari, index) in shayariList" v-if="shayari.id == $route.query.postId && shouldShowModal && shayariList.length !== 0">
-                <div class="shayari-details">
-                    <img :src="shayari.image" />
-                </div>
-                <div class="social-icons">
-                    <div class="like-button social-button" @click="triggerLikeShareAnalytics(shayari.id)">
-                        <icon name="thumbs-o-up" scale="1.5"></icon>
-                        <span>{{shayari.likeCount | showThousandsInK(1)}}</span>
-                    </div>
-                    <div class="share-button social-button" @click="triggerWhatsappShareAnalytics(shayari.id)">
-                        <icon name="whatsapp" scale="1.5"></icon>
-                        <span>{{shayari.shareCount | showThousandsInK(1)}}</span>
-                    </div>
-                </div>
+                <ShayariDetails :shayari="shayari"></ShayariDetails>
+                
             </div>
             <div class="shayari-item card" v-for="(shayari, index) in shayariList" v-if="shayari.active && shayari.id != $route.query.postId && shayariList.length !== 0">
-                <div class="shayari-details">
-                    <img :src="shayari.image" />
-                </div>
-                <div class="social-icons">
-                    <div class="like-button social-button" @click="triggerLikeShareAnalytics(shayari.id)">
-                        <icon name="thumbs-o-up" scale="1.5"></icon>
-                        <span>{{shayari.likeCount | showThousandsInK(1)}}</span>
-                    </div>
-                    <div class="share-button social-button" @click="triggerWhatsappShareAnalytics(shayari.id)">
-                        <icon name="whatsapp" scale="1.5"></icon>
-                        <span>{{shayari.shareCount | showThousandsInK(1)}}</span>
-                    </div>
-                </div>
+                <ShayariDetails :shayari="shayari" :index="index"></ShayariDetails>
             </div>
         </div>
         <!-- <div class="shayari-shadow shayari-modal" v-for="(shayari, index) in shayariList" v-if="shayari.id == $route.query.postId && shouldShowModal && shayariList.length !== 0">
-            <p class="close" @click="resetModal()"><b>X</b></p>
-            <div class="shayari-details">
-                <img :src="shayari.image" width=100%> </img>
-            </div>
-            <div class="social-icons">
-                <div class="like-button social-button" @click="triggerLikeShareAnalytics(shayari.id)">
-                    <icon name="thumbs-o-up" scale="1.5"></icon>
-                    <span>{{shayariList[$route.query.postId].likeCount | showThousandsInK(1)}}</span>
-                </div>
-                <div class="share-button social-button" @click="triggerWhatsappShareAnalytics(shayari.id)">
-                    <icon name="whatsapp" scale="1.5"></icon>
-                    <span>{{shayariList[$route.query.postId].shareCount | showThousandsInK(1)}}</span>
-                </div>
-            </div>
+            <p class="close" @click="resetModal(shayari.id)"><b>X</b></p>
+            <ShayariDetails :shayari="shayari"></ShayariDetails>
         </div>
         <div class="modal-backdrop" v-if="shouldShowModal"></div> -->
     </MainLayout>
@@ -56,6 +21,7 @@ import mixins from '@/mixins';
 import constants from '@/constants';
 import WebPushUtil from '@/utils/WebPushUtil';
 import MainLayout from '@/layout/main-layout.vue';
+import ShayariDetails from '@/components/ShayariDetails.vue';
 import 'vue-awesome/icons/whatsapp'
 import 'vue-awesome/icons/thumbs-o-up'
 import * as firebase from "firebase";
@@ -83,12 +49,13 @@ export default {
         }
     },
     components: {
-        MainLayout
+        MainLayout,
+        ShayariDetails
     },
     methods: {
-        // resetModal() {
+        // resetModal(postId) {
         //     this.shouldShowModal = false;
-        //     this.triggerAnanlyticsEvent(`CLOSE_VAPSISHAYARI_SHAYARI`, 'CONTROL', {'USER_ID': this.getUserDetails.userId});
+        //     this.triggerAnanlyticsEvent(`CLOSE_VAPSISHAYARI_SHAYARI`, 'CONTROL', {'USER_ID': this.getUserDetails.userId, "POST_ID": postId});
         // },
         fetchShayariList() {
             const that = this;
@@ -167,76 +134,6 @@ export default {
                     }
                 } 
             }
-        },
-        triggerLikeShareAnalytics(postId) {
-            const that = this;
-            if(!this.getCookie("shayari_hindi_like_"+postId)) {
-                import('firebase').then((firebase) => {
-                    if (firebase.apps.length === 0) {
-                        const config = {
-                            apiKey: process.env.FIREBASE_API_KEY,
-                            authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-                            databaseURL: process.env.FIREBASE_DATABASE_URL,
-                            storageBucket: process.env.FIREBASE_STORAGE_BUCKET
-                        };
-                        firebase.initializeApp(config);
-                    }
-                    var node = firebase.database().ref("EXPERIMENT").child("SHAYARI").child(that.language);
-                    node.once('value', (snapshot) => {
-                        let shayariList = snapshot.val();
-                        for( var i = 0; i < shayariList.length; i++ ) {
-                            if(postId == shayariList[i].id) {
-                                shayariList[i].likeCount = shayariList[i].likeCount == undefined ? 1 : shayariList[i].likeCount + 1;
-                                shayariList[i].lastUpdated = firebase.database.ServerValue.TIMESTAMP
-                                node = node.child(i)
-                                node.update({
-                                    "likeCount": shayariList[i].likeCount,
-                                    "lastUpdated": shayariList[i].lastUpdated
-                                });
-                                this.setCookie("shayari_hindi_like_"+postId, 1, 30, "/")
-                                break;
-                            }
-                        }
-                    });
-                });
-                this.triggerAnanlyticsEvent(`LIKE_VAPSISHAYARI_SHAYARI`, 'CONTROL', {'USER_ID': this.getUserDetails.userId});
-            }
-        },
-        triggerWhatsappShareAnalytics(postId) {
-            const that = this;
-            if(!this.getCookie("shayari_hindi_share_"+postId)) {
-                import('firebase').then((firebase) => {
-                    if (firebase.apps.length === 0) {
-                        const config = {
-                            apiKey: process.env.FIREBASE_API_KEY,
-                            authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-                            databaseURL: process.env.FIREBASE_DATABASE_URL,
-                            storageBucket: process.env.FIREBASE_STORAGE_BUCKET
-                        };
-                        firebase.initializeApp(config);
-                    }
-                    var node = firebase.database().ref("EXPERIMENT").child("SHAYARI").child(that.language);
-                    node.once('value', (snapshot) => {
-                        let shayariList = snapshot.val();
-                        for( var i = 0; i < shayariList.length; i++ ) {
-                            if(postId == shayariList[i].id) {
-                                shayariList[i].shareCount = shayariList[i].shareCount == undefined ? 1 : shayariList[i].shareCount + 1;
-                                shayariList[i].lastUpdated = firebase.database.ServerValue.TIMESTAMP
-                                node = node.child(i)
-                                node.update({
-                                    "shareCount": shayariList[i].shareCount,
-                                    "lastUpdated": shayariList[i].lastUpdated
-                                });
-                                this.setCookie("shayari_hindi_share_"+postId, 1, 30, "/")
-                                break;
-                            }
-                        }
-                    });
-                });
-                this.triggerAnanlyticsEvent(`SHAREWA_VAPSISHAYARI_SHAYARI`, 'CONTROL', {'USER_ID': this.getUserDetails.userId});
-            }
-            const textToShare = `https://${window.location.host}${window.location.pathname}${encodeURIComponent(`?postId=${postId}&utm_source=whatsapp&utm_medium=social&utm_campaign=shayari`)}`;
-            window.open(`https://api.whatsapp.com/send?text=${textToShare}`);
         }
     },
     mounted() {
@@ -265,6 +162,7 @@ export default {
     margin: 5px 5px 0;
     img {
         max-width: 100%;
+        min-height: 300px;
     }
 }
 
