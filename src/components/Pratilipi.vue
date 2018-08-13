@@ -7,7 +7,7 @@
             </div>
 	    <meta itemprop="inLanguage" v-bind:content="pratilipiData.language" />
             <router-link :to="redirectToReader ? pratilipiData.readPageUrl : pratilipiData.pageUrl" @click.native="triggerReadPratilipiEvent" :title="pratilipiData.title">
-                <PratilipiImage :coverImageUrl="pratilipiData.coverImageUrl"></PratilipiImage>
+                <PratilipiImage :coverImageUrl="pratilipiData.coverImageUrl" :displayTitle="pratilipiData.displayTitle"></PratilipiImage>
             </router-link>
             <div class="image-mask">
                 <span v-if="!hideAddToLibrary">
