@@ -1,8 +1,8 @@
 <template>
-    <div class="vapasi">
+    <div class="shayari-home">
         <router-link :to='"/shayaris"' @click.native="triggerShayariAnanlyticsEvent()">
-            <div class="vapasi-banner">
-                <div class="vapasi-text" >
+            <div class="shayari-home-banner">
+                <div class="shayari-home-text" >
                     <span>{{shayari}}</span>
                     <i class="material-icons">keyboard_arrow_right</i>
                 </div>
@@ -64,17 +64,17 @@ export default {
 </script>
 
 <style lang="scss">
-.vapasi {
+.shayari-home {
     padding-top: 10px;
     padding-bottom: 10px;
-    .vapasi-break {
+    .shayari-home-break {
         @media screen and (min-width: 1400px) {
             display: none;
         }
     }
 }
 
-.vapasi-banner {
+.shayari-home-banner {
     background: #4CAF50;
     color: white;
     display: flex;
@@ -91,7 +91,7 @@ export default {
     }
 }
 
-.vapasi-text {
+.shayari-home-text {
     flex: 2;
     font-size: 22px;
     @media screen and (min-width: 1400px) {
