@@ -104,5 +104,11 @@ export default {
     },
     setUserEmailIsValidLoadingError(state) {
         state.email_check.loading_state = 'LOADING_ERROR';
+    },
+
+    resetLoginError(state) {
+        if (state.loading_error_message) {
+            state.loading_error_message.message = null;
+        }
     }
 }
