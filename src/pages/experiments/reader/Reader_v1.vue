@@ -311,7 +311,7 @@ import WebPushStrip from '@/components/WebPushStrip.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
 import Recommendation from '@/components/Recommendation.vue';
 import OpenInApp from '@/components/OpenInApp.vue';
-import ShareStrip from '@/components/ShareStrip.vue';
+import ShareStrip from '@/components/experiments/ShareStrip/ShareStrip.vue';
 import NextPratilipiStrip from '@/components/NextPratilipiStrip.vue'
 import WebPushUtil from '@/utils/WebPushUtil';
 import { mapGetters, mapActions } from 'vuex';
@@ -751,6 +751,7 @@ export default {
         ])
     },
     created() {
+        console.log("IN reader v1");
         this.recordTime = new Date();
         this.fetchPratilipiDetails(this.$route.query.id);
         if (this.getPratilipiData && this.getPratilipiData.author) {
