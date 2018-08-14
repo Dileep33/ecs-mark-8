@@ -1,6 +1,6 @@
 <template>
-    <div 
-        class="pratilipi-image" v-lazy:background-image="pratilipiImageObject">
+    <div class="pratilipi-image">
+        <img v-lazy="pratilipiImageObject" :alt="displayTitle">
     </div>
 </template>
 
@@ -8,9 +8,13 @@
 import mixins from '@/mixins';
 
 export default {
-    name: 'Pratilipi',
+    name: 'PratilipiImage',
     props: {
         coverImageUrl: {
+            type: String,
+            required: true
+        },
+        displayTitle: {
             type: String,
             required: true
         }
@@ -27,7 +31,7 @@ export default {
         mixins
     ],
     methods: {
-        
+
     }
 }
 </script>
@@ -41,9 +45,13 @@ export default {
     position: relative;
     overflow: hidden;
     transition: all 0.5s;
-    &[lazy=loading] {
+    img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+    img[lazy=loading] {
         filter: blur(5px);
-        padding: 5px;
     }
 }
 </style>

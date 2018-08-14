@@ -97,7 +97,7 @@ export default {
         state.pratilipi_image_upload_state = 'LOADING';
     },
     setPratilipiImageUploadingSuccess(state, data) {
-        state.eventPratilipi.coverImage = data.coverImageUrl;
+        state.eventPratilipi.coverImageUrl = data.coverImageUrl;
         state.pratilipi_image_upload_state = 'LOADING_SUCCESS';
         console.log("image url ", state.eventPratilipi.coverImage);
     },

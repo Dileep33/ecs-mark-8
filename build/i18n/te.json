@@ -606,5 +606,8 @@
     "rating_loved_it": "చాలా బాగా నచ్చింది ",
     "read_next_pratilipi_here" : "రచన యొక్క తదుపరి భాగాన్ని ఇక్కడ చదవండి",
 
-    "welcome_pratilipi": "ప్రతిలిపిలోకి మీకు స్వాగతం"
+    "welcome_pratilipi": "ప్రతిలిపిలోకి మీకు స్వాగతం",
+    "event_submission_restricted_error" : "cannot submit more than 5 contents",
+    "event_unsubmit": "remove submission",
+    "event_submit": "submit book for event"
 }

@@ -96,7 +96,6 @@ export default {
 
     publishEntryForEvent({commit, state}, {eventId, eventEntryId}) {
         commit('setEventPratilipiSubmissionLoadingTrue');
-        // /event/entry/donotparticipate?eventId=1&eventEntryId=1
 
         DataAccessor.submitEntryToEvent(eventId, eventEntryId, (data) => {
             if (data.status === 200) {

@@ -57,7 +57,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         }
         const access_token = cookie.parse(req.headers.cookie || '').access_token;
         request.get({
-          url: 'https://gamma.pratilipi.com/user/accesstoken?accessToken=' + access_token,
+          url: 'https://hindi-gamma.pratilipi.com/api/user/accesstoken?accessToken=' + access_token,
           json: true
         }, function(errorInResponse, response, data) {
           res.cookie('access_token', data.accessToken, {

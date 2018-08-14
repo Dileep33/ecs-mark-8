@@ -6,7 +6,7 @@
                 {{ eventData.eventState }} <span></span>
             </div>
             <router-link :to="eventData.slug" @click.native="triggerEventClickedEvent" :title="eventData.name">
-                <PratilipiImage :coverImageUrl="eventData.bannerImageUrl "></PratilipiImage>
+                <PratilipiImage :coverImageUrl="eventData.bannerImageUrl" :displayTitle="eventData.name"></PratilipiImage>
             </router-link>
 
             <router-link :to="eventData.slug" @click.native="triggerEventClickedEvent" :title="eventData.name">

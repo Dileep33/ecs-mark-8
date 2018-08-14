@@ -185,5 +185,9 @@ export default {
                 commit('setUserEmailIsValidLoadingError');
             }
         });
+    },
+
+    resetLoginError({ commit }) {
+        commit('resetLoginError');
     }
 }

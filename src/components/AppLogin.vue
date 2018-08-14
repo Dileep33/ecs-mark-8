@@ -22,7 +22,7 @@
                     <span v-if="(getLoginError && getLoginError.email)">{{ getLoginError.email }}</span>
                     <span v-else>__("email_entered_incorrectly")</span>
                 </p>
-                <input type="email" @keyup.enter="checkEmailAndGoToSecondStep" :class="{error: emailIsInvalid || (getLoginError && getLoginError.email) }" v-model="email" class="form-control" :placeholder="'__("user_email")'">
+                <input type="email" @keyup.enter="checkEmailAndGoToSecondStep" :class="{error: emailIsInvalid || (getLoginError && getLoginError.email) }" v-model="email" class="form-control" :placeholder="'__("email")'">
                 <button type="button" @click="checkEmailAndGoToSecondStep">
                     <span>__("user_sign_in")</span>
                     <i class="material-icons">keyboard_arrow_right</i>
@@ -42,7 +42,7 @@
                     <span v-if="(getLoginError && getLoginError.name)">{{ getLoginError.name }}</span>
                     <span v-else>__("name_required")</span>
                 </p>
-                <input type="text" @keyup.enter="verifyAndSignupUser({ name, email, password, language: getCurrentLanguage().fullName.toUpperCase() })" :class="{error: nameIsInvalid || (getLoginError && getLoginError.name) }" v-model="name" class="form-control" :placeholder="'__("user_full_name")'">
+                <input type="text" ref="name" @keyup.enter="verifyAndSignupUser({ name, email, password, language: getCurrentLanguage().fullName.toUpperCase() })" :class="{error: nameIsInvalid || (getLoginError && getLoginError.name) }" v-model="name" class="form-control" :placeholder="'__("user_full_name")'">
             </div>
             <div class="form-group">
                 <p class="validation_error" v-if="emailIsInvalid || (getLoginError && getLoginError.email)">
@@ -50,7 +50,7 @@
                     <span v-if="(getLoginError && getLoginError.email)">{{ getLoginError.email }}</span>
                     <span v-else>__("email_entered_incorrectly")</span>
                 </p>
-                <input type="email" @keyup.enter="verifyAndSignupUser({ name, email, password, language: getCurrentLanguage().fullName.toUpperCase() })" :class="{error: emailIsInvalid || (getLoginError && getLoginError.email) }" v-model="email" class="form-control" :placeholder="'__("user_email")'">
+                <input type="email" @keyup.enter="verifyAndSignupUser({ name, email, password, language: getCurrentLanguage().fullName.toUpperCase() })" :class="{error: emailIsInvalid || (getLoginError && getLoginError.email) }" v-model="email" class="form-control" :placeholder="'__("email")'">
             </div>
             <div class="form-group">
                 <p class="validation_error" v-if="passwordIsInvalid || (getLoginError && getLoginError.password)">
@@ -85,7 +85,7 @@
                         <span v-if="(getLoginError && getLoginError.email)">{{ getLoginError.email }}</span>
                         <span v-else>__("email_entered_incorrectly")</span>
                     </p>
-                    <input type="email" @keyup.enter="validateAndLoginUser({email, password})" :class="{error: emailIsInvalid || (getLoginError && getLoginError.email) }" class="form-control" v-model="email" :placeholder="'__("user_email")'">
+                    <input type="email" @keyup.enter="validateAndLoginUser({email, password})" :class="{error: emailIsInvalid || (getLoginError && getLoginError.email) }" class="form-control" v-model="email" :placeholder="'__("email")'">
                 </div>
                 <div class="form-group">
                     <p class="validation_error" v-if="passwordIsInvalid || (getLoginError && getLoginError.password)">
@@ -93,7 +93,7 @@
                         <span v-if="(getLoginError && getLoginError.password)">{{ getLoginError.password }}</span>
                         <span v-else>__("password_minimum")</span>
                     </p>
-                    <input type="password"  @keyup.enter="validateAndLoginUser({email, password})" :class="{error: passwordIsInvalid || (getLoginError && getLoginError.password) }" class="form-control" v-model="password" :placeholder="'__("user_password")'">
+                    <input type="password" ref="password" @keyup.enter="validateAndLoginUser({email, password})" :class="{error: passwordIsInvalid || (getLoginError && getLoginError.password) }" class="form-control" v-model="password" :placeholder="'__("user_password")'">
                     <a v-if="!openForgotPasswordInTab" @click="triggerEventAndOpenForgotPasswordModal" href="#" class="forgot-pass">__("user_forgot_password")</a>
                     <router-link v-else :to="'/login#forgot-pass'" target="_blank" class="forgot-pass">__("user_forgot_password")</router-link>
                 </div>
@@ -152,23 +152,28 @@ export default {
         changeCurrentStep: {
             required: true,
             type: Function
+        },
+        shouldRemoveError: {
+            type: Boolean
+        },
+        resetShouldRemoveError: {
+            type: Function
         }
     },
     methods: {
         ...mapActions([
             'signupUser',
             'loginUser',
-            'checkIfUserValid'
+            'checkIfUserValid',
+            'resetLoginError'
         ]),
         goToSignup() {
-            this.changeCurrentStep('LANDED_LOGIN');
+            this.changeCurrentStep('REGISTRATION');
         },
         goToSignin() {
             this.changeCurrentStep('LOGIN');
         },
         checkEmailAndGoToSecondStep() {
-            console.log('this is getting fired');
-
             this.emailIsInvalid = !this.validateEmail(this.email);
 
             if (this.emailIsInvalid) {
@@ -215,15 +220,31 @@ export default {
             this.nameIsInvalid = false;
             this.emailIsInvalid = false;
             this.passwordIsInvalid = false;
+            this.resetLoginError();
         },
 
         'getEmailCheckingStatus.loading_state'(loadingState) {
             if (loadingState === 'LOADING_SUCCESS' && this.getEmailCheckingStatus.is_valid) {
                 this.changeCurrentStep('LOGIN');
+                setTimeout(() => {
+                    this.$refs.password.focus();
+                }, 500);
             } else if(loadingState === 'LOADING_SUCCESS' && !this.getEmailCheckingStatus.is_valid) {
                 this.changeCurrentStep('REGISTRATION');
+                setTimeout(() => {
+                    this.$refs.name.focus();
+                }, 500);
             } else if(loadingState === 'LOADING_ERROR') {
                 this.emailIsInvalid = true;
+            }
+        },
+        'shouldRemoveError'(shouldRemoveError) {
+            if (shouldRemoveError) {
+                this.nameIsInvalid = false;
+                this.emailIsInvalid = false;
+                this.passwordIsInvalid = false;
+                this.resetLoginError();
+                this.resetShouldRemoveError();
             }
         }
     },

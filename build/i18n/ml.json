@@ -607,5 +607,8 @@
     "rating_loved_it": "ഒരുപാട് ഇഷ്ടമായി",
     "read_next_pratilipi_here" : "ഈ രചനയുടെ അടുത്ത ഭാഗം ഇവിടെ വായിക്കൂ",
 
-    "welcome_pratilipi": "പ്രതിലിപിയിലേക്ക് സ്വാഗതം "
+    "welcome_pratilipi": "പ്രതിലിപിയിലേക്ക് സ്വാഗതം ",
+    "event_submission_restricted_error" : "cannot submit more than 5 contents",
+    "event_unsubmit": "രചന പിന്‍വലിക്കൂ",
+    "event_submit": "സമര്‍പ്പിക്കൂ"
 }

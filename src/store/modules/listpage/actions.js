@@ -2,9 +2,22 @@ import DataAccessor from '@/utils/DataAccessor'
 
 export default {
 
-    fetchInitialListPagePratilipis({ commit, state }, { listName, language, resultCount }) {
+    fetchInitialListPagePratilipis({ commit, state }, { listName, language, resultCount, listType, timeFilter }) {
         commit('setListPageInitialDataLoadingTrue');
-        DataAccessor.getPratilipiListByListName(listName, null, null, resultCount, language, function(data) {
+        
+        let pratilipiListFunction;
+        switch (listType) {
+            case 'high_rated':
+                pratilipiListFunction = DataAccessor.getHighRatedPratilipiListByListName;
+                break;
+            case 'recent_published':
+                pratilipiListFunction = DataAccessor.getRecentPratilipiListByListName;
+                break;
+            default:
+                pratilipiListFunction = DataAccessor.getPratilipiListByListName;
+        }
+        
+        pratilipiListFunction(listName, null, null, resultCount, language, timeFilter, function(data) {
             if (data.status === 200) {
                 console.log("Response: " , data.response);
                 commit('setListPageInitialDataLoadingSuccess', data.response);
@@ -14,9 +27,21 @@ export default {
         });
     },
 
-    fetchMorePratilipisForListPage({ commit, state }, { listName, language, resultCount }) {
+    fetchMorePratilipisForListPage({ commit, state }, { listName, language, resultCount, listType, timeFilter }) {
         commit('setListPageDynamicLoadingTrue');
-        DataAccessor.getPratilipiListByListName(listName, state.cursor, null, resultCount, language, function(data) {
+        let pratilipiListFunction;
+        switch (listType) {
+            case 'high_rated':
+                pratilipiListFunction = DataAccessor.getHighRatedPratilipiListByListName;
+                break;
+            case 'recent_published':
+                pratilipiListFunction = DataAccessor.getRecentPratilipiListByListName;
+                break;
+            default:
+                pratilipiListFunction = DataAccessor.getPratilipiListByListName;
+        }
+        
+        pratilipiListFunction(listName, state.cursor, null, resultCount, language, timeFilter, function(data) {
             if (data.status === 200) {
                 commit('setListPageDynamicLoadingSuccess', data.response);
             } else {

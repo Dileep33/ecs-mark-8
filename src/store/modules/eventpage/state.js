@@ -19,5 +19,4 @@ export default {
 
     cancelEventPratilipiParticipationSate : 'LOADING',
     eventPratilipiSubmissionState : 'LOADING',
-    eventPratilipiPublishSate : 'LOADING',
 }

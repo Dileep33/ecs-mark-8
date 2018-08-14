@@ -325,7 +325,6 @@ export function getReferrerData() {
 export function triggerAnanlyticsEvent(eventName, experimentType, eventProperty) {
 
     let eventProps;
-    console.log("event experiment is ", eventName ,experimentType);
     switch(true) {
         case (experimentType === 'CONTROL'):
             eventProps = { ...controlAnalyticsEvents[eventName] };

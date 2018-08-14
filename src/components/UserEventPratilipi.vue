@@ -1,10 +1,10 @@
 <template>
     <div class="pratilipi-wrap" :class="{ 'event-participate-page': isEventParticipatePage }">
         <div class="pratilipi">
-            <router-link :to="pratilipiData.readUrl" v-if="pratilipiData.eventState != 'SUBMISSION'">
-                <PratilipiImage :coverImageUrl="pratilipiData.coverImageUrl"></PratilipiImage>
+            <router-link :to="pratilipiData.readUrl" v-if="pratilipiData.readUrl && pratilipiData.eventState != 'SUBMISSION'">
+                <PratilipiImage :coverImageUrl="pratilipiData.coverImageUrl" :displayTitle="pratilipiData.title"></PratilipiImage>
             </router-link>
-            <PratilipiImage :coverImageUrl="pratilipiData.coverImageUrl" v-else></PratilipiImage>
+            <PratilipiImage :coverImageUrl="pratilipiData.coverImageUrl" :displayTitle="pratilipiData.title" v-else></PratilipiImage>
             <div class="pratilipi-details container">
                 <div class="row">
                     <div class="col-8 pratilipi-title-container">
@@ -16,20 +16,17 @@
                         </button>
                         <div class="dropdown-menu" aria-labelledby="EventMoreOptions" @click.prevent="">
 
-                            <button class="btn options-btn" v-if="pratilipiData.submissionState == 'SUBMITTED'" @click.prevent="moveToDrafts()">__('pratilipi_move_to_drafts')</button>
-                            <button class="btn options-btn " v-if="pratilipiData.submissionState == 'DRAFT'" @click.prevent="publishEntry()">__('review_submit_review')</button>
+                            <button class="btn options-btn" v-if="pratilipiData.submissionState == 'SUBMITTED'" @click.prevent="moveToDrafts()">__('event_unsubmit')</button>
+                            <button class="btn options-btn " v-if="pratilipiData.submissionState == 'DRAFT'" @click.prevent="publishEntry()">__('event_submit')</button>
                             <button type="button" class="btn options-btn" @click.prevent="deleteEventEntry()">
                                 __('pratilipi_delete_content')
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div v-if="pratilipiData.author && pratilipiData.author.displayName" class="row">
                     <div class="col-6 author-title-container">
                         <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ pratilipiData.author.displayName }}</span></span>
-                    </div>
-                    <div class="col-6">
-                        <span class="date" v-if="pratilipiData.submissionState == 'SUBMITTED'" > {{ pratilipiData.submissionDate | convertDate }}</span>
                     </div>
                 </div>
                 <div class="row" v-if="pratilipiData.eventState != 'SUBMISSION'">
@@ -72,7 +69,7 @@ import PratilipiImage from '@/components/PratilipiImage';
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-    name: 'Pratilipi',
+    name: 'EventPratilipi',
     props: {
         pratilipiData: {
             type: Object,
@@ -87,11 +84,15 @@ export default {
     ],
     data() {
         return {
+            submissionStart : false,
         }
     },
     computed: {
         ...mapGetters([
             'getUserDetails',
+        ]),
+        ...mapGetters('eventpage',[
+            'getPratilipiSubmissionState'
         ]),
     },
     methods: {
@@ -107,14 +108,29 @@ export default {
             'moveEntryToDrafts',
             'publishEntryForEvent',
         ]),
+        ...mapActions([
+            'setConfirmModalAction'
+        ]),
+
+        ...mapActions('alert', [
+            'triggerAlert'
+        ]),
+
         publishEntry() {
+            this.submissionStart = true;
             this.publishEntryForEvent({eventId : this.pratilipiData.eventId, eventEntryId : this.pratilipiData.eventEntryId});
         },
         moveToDrafts() {
             this.moveEntryToDrafts({eventId : this.pratilipiData.eventId, eventEntryId : this.pratilipiData.eventEntryId})
         },
         deleteEventEntry() {
-            this.deleteEntryFromEvent({eventId : this.pratilipiData.eventId, eventEntryId : this.pratilipiData.eventEntryId});
+            this.setConfirmModalAction({
+                action: `eventpage/deleteEntryFromEvent`,
+                heading: 'event_participate_confirm_submission',
+                message: 'event_participate_cannot_change_drafts',
+                data: {eventId : this.pratilipiData.eventId, eventEntryId : this.pratilipiData.eventEntryId}
+            });
+            this.openPrimaryConfirmationModal();
         },
         showMoreOptions() {
             console.log("Call Analytics");
@@ -122,6 +138,17 @@ export default {
 
     },
     watch : {
+        'getPratilipiSubmissionState'(state) {
+            if (state == 'LOADING_ERROR' && this.submissionStart) {
+                this.triggerAlert({message: '__("event_submission_restricted_error")', timer: 3000});
+                this.submissionStart = false;
+            }
+
+            if (state == 'LOADING_SUCCESS'){
+                this.submissionStart = false;
+            }
+
+        }
     },
     created(){
     },

@@ -4,7 +4,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body login">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="removeErrors()">
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <button type="button" v-if="currentStep !== 'LANDED_LOGIN'" class="back" @click="goToFirstStep">
@@ -12,10 +12,18 @@
                     </button>
                     <div class="login-menu">
                         <a href="#" class="signup active" v-if="currentStep === 'REGISTRATION'" data-tab="signup">__("user_sign_up")</a>
-                        <a href="#" class="signin active" v-else data-tab="signin">__("user_sign_in")</a>
+                        <a href="#" class="signin active" v-else data-tab="signin">
+                            <!-- __("user_sign_in") -->
+                        </a>
                     </div>
                     <Login :openForgotPasswordInTab="true"></Login>
-                    <Register :currentStep="currentStep" :changeCurrentStep="changeCurrentStep" :openForgotPasswordInTab="true"></Register>
+                    <Register
+                        :currentStep="currentStep"
+                        :changeCurrentStep="changeCurrentStep"
+                        :openForgotPasswordInTab="true"
+                        :shouldRemoveError="shouldRemoveError"
+                        :resetShouldRemoveError="resetShouldRemoveError"
+                    ></Register>
                 </div>
             </div>
         </div>
@@ -33,7 +41,8 @@ export default {
         return {
             email: '',
             password: '',
-            currentStep: 'LANDED_LOGIN'
+            currentStep: 'LANDED_LOGIN',
+            shouldRemoveError: false
         }
     },
     computed: {
@@ -89,6 +98,13 @@ export default {
         },
         goToFirstStep() {
             this.currentStep = 'LANDED_LOGIN';
+        },
+        removeErrors() {
+            console.log('time to remove errors');
+            this.shouldRemoveError = true;
+        },
+        resetShouldRemoveError() {
+            this.shouldRemoveError = false;
         },
         tabsignup(event) {
             event.preventDefault();
@@ -149,7 +165,7 @@ button.back {
     max-height: initial;
 }
 .login-menu {
-    border-bottom: 1px solid #e9e9e9;
+    // border-bottom: 1px solid #e9e9e9;
     padding: 8px 0 10px;
     text-align: center;
     overflow: hidden;
