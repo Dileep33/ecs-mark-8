@@ -6,8 +6,8 @@
                     <div class="book-details col-md-12 col-lg-5 p-0">
                         <div class="card">
                             <div class="book-image-container">
-                                <div class="book-image"
-                                     v-bind:style="{ backgroundImage: 'url(' + getPratilipiData.coverImageUrl  + ')' }">
+                                <div class="book-image">
+                                     <img :src="getPratilipiData.coverImageUrl" :alt="getPratilipiData.title">
                                     <meta itemprop="image" v-bind:content="getPratilipiData.coverImageUrl" />
                                     <div class="progress-bar-read">
                                         <div
@@ -962,6 +962,11 @@ export default {
                     width: 200px;
                     height: 300px;
                     position: relative;
+                    img {
+                        object-fit: cover;
+                        width: 100%;
+                        height: 100%;
+                    }
                     .progress-bar-read {
                         height: 8px;
                         position: absolute;
