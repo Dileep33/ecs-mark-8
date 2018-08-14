@@ -563,34 +563,40 @@ export default {
             function(response, status) { processGetResponse(response, status, aCallBack) });
     },
 
-    getPratilipiListByListName: (listName, cursor, offset, resultCount, language, aCallBack) => {
+    getPratilipiListByListName: (listName, cursor, offset, resultCount, language, timeFilter, aCallBack) => {
         if (listName == null) return;
         var params = { "listName": listName, "state": "PUBLISHED", "language": language };
         if (cursor != null) params["cursor"] = cursor;
         if (offset != null) params["offset"] = offset;
         if (resultCount != null) params["resultCount"] = resultCount;
+        if (timeFilter.fromSec != null) params["fromSec"] = timeFilter.fromSec;
+        if (timeFilter.toSec != null) params["toSec"] = timeFilter.toSec;
         httpUtil.get(API_PREFIX + PRATILIPI_LIST_API,
             null,
             params,
             function(response, status) { processGetResponse(response, status, aCallBack) });
     },
     
-    getRecentPratilipiListByListName: (listName, offset, cursor, resultCount, language, aCallBack) => {
+    getRecentPratilipiListByListName: (listName, offset, cursor, resultCount, language, timeFilter, aCallBack) => {
         if (listName == null) return;
         var params = { "category": "romance", "language": language };
         if (offset != null) params["offset"] = offset;
         if (resultCount != null) params["resultCount"] = resultCount;
+        if (timeFilter.fromSec != null) params["fromSec"] = timeFilter.fromSec;
+        if (timeFilter.toSec != null) params["toSec"] = timeFilter.toSec;
         httpUtil.get(API_PREFIX + PRATILIPI_LIST_RECENT_API,
             null,
             params,
             function(response, status) { processGetResponse(response, status, aCallBack) });
     },
     
-    getHighRatedPratilipiListByListName: (listName, offset, cursor, resultCount, language, aCallBack) => {
+    getHighRatedPratilipiListByListName: (listName, offset, cursor, resultCount, language, timeFilter, aCallBack) => {
         if (listName == null) return;
         var params = { "category": "romance", "language": language };
         if (offset != null) params["offset"] = offset;
         if (resultCount != null) params["resultCount"] = resultCount;
+        if (timeFilter.fromSec != null) params["fromSec"] = timeFilter.fromSec;
+        if (timeFilter.toSec != null) params["toSec"] = timeFilter.toSec;
         httpUtil.get(API_PREFIX + PRATILIPI_LIST_HIGH_RATED_API,
             null,
             params,

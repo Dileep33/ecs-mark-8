@@ -2,7 +2,7 @@ import DataAccessor from '@/utils/DataAccessor'
 
 export default {
 
-    fetchInitialListPagePratilipis({ commit, state }, { listName, language, resultCount, listType }) {
+    fetchInitialListPagePratilipis({ commit, state }, { listName, language, resultCount, listType, timeFilter }) {
         commit('setListPageInitialDataLoadingTrue');
         
         let pratilipiListFunction;
@@ -17,7 +17,7 @@ export default {
                 pratilipiListFunction = DataAccessor.getPratilipiListByListName;
         }
         
-        pratilipiListFunction(listName, null, null, resultCount, language, function(data) {
+        pratilipiListFunction(listName, null, null, resultCount, language, timeFilter, function(data) {
             if (data.status === 200) {
                 console.log("Response: " , data.response);
                 commit('setListPageInitialDataLoadingSuccess', data.response);

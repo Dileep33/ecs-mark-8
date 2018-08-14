@@ -14,9 +14,9 @@
                             </div>
                             <div class="clear"></div>
                             <div class="sorting-menu">
-                                <span class="sort-item" @click="sortList">< 2 mins</span>
-                                <span class="sort-item" @click="sortList">2 - 5 mins</span>
-                                <span class="sort-item" @click="sortList">> 5 mins</span>
+                                <span class="sort-item" @click="sortList($event, null, 120)">< 2 mins</span>
+                                <span class="sort-item" @click="sortList($event, 120, 300)">2 - 5 mins</span>
+                                <span class="sort-item" @click="sortList($event, 300, null)">> 5 mins</span>
                                 <div class="sort-item link-clear" @click="clearSortList">
                                     <i class="material-icons">close</i>
                                     <span>clear</span>
@@ -63,7 +63,11 @@ export default {
             user_id: null,
             scrollPosition: null,
             list_type: 'relevant',
-            currentLocale: process.env.LANGUAGE
+            currentLocale: process.env.LANGUAGE,
+            timeFilter: {
+                fromSec: null,
+                toSec: null
+            }
         }
     },
     mixins: [
@@ -105,21 +109,26 @@ export default {
                 language: this.getCurrentLanguage().fullName.toUpperCase(),
                 listName: list_page_url,
                 resultCount: 20,
-                listType: list_type
+                listType: list_type,
+                timeFilter: this.timeFilter
             });
         },
         toggleSortMenu() {
             $(".sorting-menu").toggle();
             $(".sorting").toggleClass("active");
         },
-        sortList(event) {
+        sortList(event, fromSec, toSec) {
             $(".sorting-menu span").removeClass("active");
             $(event.currentTarget).addClass("active");
             $(".link-clear").show();
+            
+            this.timeFilter = { fromSec, toSec }
         },
         clearSortList() {
             $(".sorting-menu span").removeClass("active");
             $(".link-clear").hide();
+            
+            this.timeFilter = { fromSec: null, toSec: null }
         }
     },
     created() {
@@ -133,7 +142,8 @@ export default {
                 this.fetchInitialListPagePratilipis({
                     language: eachLanguage.fullName.toUpperCase(),
                     listName: list_page_url,
-                    resultCount: 20
+                    resultCount: 20,
+                    timeFilter: this.timeFilter
                 });
             }
         });
@@ -153,7 +163,8 @@ export default {
                             language: eachLanguage.fullName.toUpperCase(),
                             listName: list_page_url,
                             resultCount: 20,
-                            listType: this.list_type
+                            listType: this.list_type,
+                            timeFilter: this.timeFilter
                         });
                     }
                 });
@@ -166,13 +177,25 @@ export default {
                     this.fetchInitialListPagePratilipis({
                         language: eachLanguage.fullName.toUpperCase(),
                         listName: list_page_url,
-                        resultCount: 20
+                        resultCount: 20,
+                        timeFilter: this.timeFilter
                     });
                 }
             });
         },
         'getPageTitle'(title) {
             document.title = title;
+        },
+        'timeFilter'(timeFilter) {
+            console.log("TIME: ", timeFilter);
+            
+            this.fetchInitialListPagePratilipis({
+                language: this.getCurrentLanguage().fullName.toUpperCase(),
+                listName: this.$route.params.list_page_url,
+                resultCount: 20,
+                listType: this.list_type,
+                timeFilter: this.timeFilter
+            });
         }
     },
     mounted() {
