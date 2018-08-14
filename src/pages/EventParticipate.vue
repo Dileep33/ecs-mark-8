@@ -303,8 +303,8 @@ export default {
 
             this.setConfirmModalAction({
                 action: `eventparticipate/updateDescriptionAndTags`,
-                heading: 'event_participate_confirm_submission',
-                message: 'event_participate_cannot_change_drafts',
+                heading: 'pratilipi_confirm_delete_content',
+                message: 'pratilipi_confirm_delete_content',
                 data: { eventPratilipiId: this.pratilipiId, description: this.description || '', state: 'EVENT' }
             });
             this.openPrimaryConfirmationModal();
@@ -392,6 +392,8 @@ export default {
                 if (this.currentStep == 1){
                     this.routeToNextStep();
                 }
+            } else if ( state == 'LOADING_ERROR') {
+                this.triggerAlert({message: '__("event_submission_restricted_error")', timer: 3000})
             }
         },
         'getEventChapterCreatingState'(state) {
@@ -533,9 +535,16 @@ export default {
         'getEventEntrySubmitState'(state) {
             console.log("entry submission state ius ", state);
             if (state === 'LOADING_SUCCESS'){
+                this.triggerAnanlyticsEvent('LANDED_SUBMITPRATILIPI_EVENTPARTICIPATE', 'CONTROL', {
+                    'USER_ID': this.getUserDetails.userId
+                });
+
                 this.$router.push({
                     path: `/event/${this.$route.params.eventSlug}/`
                 });
+
+            } else if ( state === 'LOADING_ERROR' ) {
+                this.triggerAlert({message: '__("event_submission_restricted_error")', timer: 3000})
             }
         },
     },
@@ -561,7 +570,9 @@ export default {
 
     },
     mounted() {
-
+        this.triggerAnanlyticsEvent('LANDED_CREATEPRATILIPI_EVENTPARTICIPATE', 'CONTROL', {
+            'USER_ID': this.getUserDetails.userId
+        });
     },
     destroyed() {
         window.removeEventListener('scroll', this.updateScroll);

@@ -145,15 +145,15 @@ export default {
 
 
     setCancelEventPratilipiParticipationLoadingError(state) {
-        state.cancelEventPratilipiParticipationSate = 'LOADING_ERROR'
+        state.cancelEventPratilipiParticipationState = 'LOADING_ERROR'
     },
 
     setEventPratilipiSubmissionLoadingTrue(state) {
-        state.eventPratilipiSubmissionSate = 'LOADING'
+        state.eventPratilipiSubmissionState = 'LOADING'
     },
 
     setEventPratilipiSubmissionLoadingSuccess(state, data) {
-        state.eventPratilipiSubmissionSate = 'LOADING_SUCCESS';
+        state.eventPratilipiSubmissionState = 'LOADING_SUCCESS';
         state.event.drafts.forEach((pratilipi, index) => {
             if(data.eventEntryId == pratilipi.eventEntryId){
                 console.log(JSON.stringify(pratilipi), index);
@@ -165,24 +165,11 @@ export default {
 
 
     setEventPratilipiSubmissionLoadingError(state) {
-        state.eventPratilipiSubmissionSate = 'LOADING_ERROR'
-    },
-
-    setEventPratilipiPublishLoadingTrue(state) {
-        state.eventPratilipiPublishSate = 'LOADING'
-    },
-
-    setEventPratilipiPublishLoadingSuccess(state, data) {
-        state.eventPratilipiPublishSate = 'LOADING_SUCCESS';
-    },
-
-
-    setEventPratilipiPublishLoadingError(state) {
-        state.eventPratilipiPublishSate = 'LOADING_ERROR'
+        state.eventPratilipiSubmissionState = 'LOADING_ERROR'
     },
 
     setEventPratilipiDeletionLoadingTrue(state) {
-        state.eventPratilipiDeletionSate = 'LOADING'
+        state.eventPratilipiDeletionState = 'LOADING'
     },
 
     setEventPratilipiDeletionLoadingSuccess(state, data) {

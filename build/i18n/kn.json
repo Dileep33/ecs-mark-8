@@ -606,5 +606,8 @@
     "rating_loved_it": "ತುಂಬಾ ಇಷ್ಟವಾಯಿತು ",
     "read_next_pratilipi_here" : "ಈ ಕಾದಂಬರಿಯ ಮುಂದಿನ ಅಧ್ಯಾಯವನ್ನು ಓದಲು ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ",
 
-    "welcome_pratilipi": "ಪ್ರತಿಲಿಪಿಗೆ ನಿಮಗೆ ಸ್ವಾಗತ"
+    "welcome_pratilipi": "ಪ್ರತಿಲಿಪಿಗೆ ನಿಮಗೆ ಸ್ವಾಗತ",
+    "event_submission_restricted_error" : "cannot submit more than 5 contents",
+    "event_unsubmit": "ಅನ್ಸಬ್ಮಿಟ್ ಮಾಡಿ",
+    "event_submit": "ಸಬ್ಮಿಟ್ ಮಾಡಿ"
 }

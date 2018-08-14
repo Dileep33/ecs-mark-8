@@ -606,5 +606,8 @@
     "rating_loved_it": "மிகப் பிடித்திருந்தது",
     "read_next_pratilipi_here" : "படைப்பின் அடுத்த பாகத்தை படிக்க:",
 
-    "welcome_pratilipi": "பிரதிலிபிக்கு வரவேற்கிறோம்"
+    "welcome_pratilipi": "பிரதிலிபிக்கு வரவேற்கிறோம்",
+    "event_submission_restricted_error" : "cannot submit more than 5 contents",
+    "event_unsubmit": "சமர்ப்பித்ததை நீக்க",
+    "event_submit": "சமர்ப்பிக்க"
 }

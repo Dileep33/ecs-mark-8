@@ -628,5 +628,8 @@
     "zodiac_sagittarius" :  "धनु",
     "read_next_pratilipi_here" : "साहित्याचा पुढील भाग येथे वाचा",
 
-    "welcome_pratilipi": "प्रतिलिपि मध्ये आपले स्वागत आहे"
+    "welcome_pratilipi": "प्रतिलिपि मध्ये आपले स्वागत आहे",
+    "event_submission_restricted_error" : "cannot submit more than 5 contents",
+    "event_unsubmit": "भाग घेऊ नका",
+    "event_submit": "भाग घ्या"
 }

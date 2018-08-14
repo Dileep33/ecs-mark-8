@@ -74,7 +74,6 @@ export default {
     watch: {
         'scrollPosition'(newScrollPosition){
             const nintyPercentOfList = ( 50 / 100 ) * $('.static-page').innerHeight();
-            console.log("scroll", nintyPercentOfList, newScrollPosition);
             if (newScrollPosition > nintyPercentOfList &&
                 this.getEventsLoadingState !== 'LOADING' &&
                 this.getEventsFound >= this.getEventsOffset && this.getEventsOffset > 0) {

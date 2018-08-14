@@ -8,10 +8,9 @@
                             <div class="head-title">{{ getEventData.name }}</div>
                             <img :src="getEventData.bannerImageUrl" alt="">
                             <div class="desc" v-html="getEventData.description"></div>
-                            <router-link v-if="getEventData.eventState == 'SUBMISSION'"
+                            <router-link class="participate-link" v-if="getEventData.eventState == 'SUBMISSION'"
                                          :to="{path: `${getEventData.slug}/participate/`}">
-                                <button type="button" class="participate_btn" name="button" @click="
-                            ">__('event_participate')</button>
+                                <button type="button" class="participate_btn" name="button">__('event_participate')</button>
                             </router-link>
                         </div>
                     </div>
@@ -24,7 +23,6 @@
                                 <UserEventPratilipiComponent
                                 :pratilipiData="{
                                     pratilipiId: pratilipiData.pratilipiId,
-                                    author: pratilipiData.author,
                                     title: pratilipiData.displayTitle,
                                     coverImageUrl: pratilipiData.coverImageUrl || 'https://0.ptlp.co/pratilipi/cover',
                                     type: pratilipiData.type,
@@ -52,7 +50,6 @@
                                 <UserEventPratilipiComponent
                                 :pratilipiData="{
                                     pratilipiId: pratilipiData.pratilipiId,
-                                    author: pratilipiData.author,
                                     title: pratilipiData.displayTitle,
                                     coverImageUrl: pratilipiData.coverImageUrl || 'https://0.ptlp.co/pratilipi/cover',
                                     type: pratilipiData.type,
@@ -236,7 +233,6 @@ export default {
         border-radius: 0;
         margin: 10px 0;
         padding: 0;
-        text-align: center;
         .head-title {
             font-size: 18px;
             font-weight: bold;
@@ -253,6 +249,9 @@ export default {
             text-align: left;
             padding: 10px;
             font-size: 14px;
+        }
+        .participate-link {
+            text-align: right;
         }
         .participate_btn {
             background: #d0021b;

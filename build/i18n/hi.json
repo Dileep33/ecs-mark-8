@@ -609,5 +609,8 @@
     "rating_liked_it": "अच्छा लगा",
     "rating_loved_it": "बहुत पसन्द आया",
     "read_next_pratilipi_here" : "कहानी का अगला भाग पढने के लिये यहाँ क्लिक करें ",
-    "welcome_pratilipi": "प्रतिलिपि पर आपका स्वागत है "
+    "welcome_pratilipi": "प्रतिलिपि पर आपका स्वागत है ",
+    "event_submission_restricted_error" : "cannot submit more than 5 contents",
+    "event_submit": "भाग लें",
+    "event_unsubmit": "भाग न लें "
 }

@@ -611,5 +611,8 @@
     "rating_liked_it": "સારું લાગ્યું ",
     "rating_loved_it": "બહુ જ સરસ ",
     "read_next_pratilipi_here" : "વાર્તાનો આગળનો ભાગ વાંચવા માટે અહીં ક્લિક કરો",
-    "welcome_pratilipi": "પ્રતિલિપિ પર આપનું સ્વાગત છે"
+    "welcome_pratilipi": "પ્રતિલિપિ પર આપનું સ્વાગત છે",
+    "event_submission_restricted_error" : "cannot submit more than 5 contents",
+    "event_submit": "ભાગ લો",
+    "event_unsubmit": "ભાગ ન લો"
 }

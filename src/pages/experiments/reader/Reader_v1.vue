@@ -163,6 +163,7 @@
                                     :contextId="getPratilipiData.pratilipiId"
                                     :context="'readPage'"
                                     :themeColor="readingMode"
+                                    :experimentId="'WREC002'"
                                     screenName="READER"
                                     screenLocation="RECOMMENDBOOK"
                                     v-if="getPratilipiData && getPratilipiData.pratilipiId"
