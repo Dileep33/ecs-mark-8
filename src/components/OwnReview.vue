@@ -90,6 +90,9 @@ export default {
         'in-viewport-once': {
             default: true
         },
+        'in-viewport-offset-top': {
+            default: -200
+        },
         screenName: {
             type: String,
             required: true

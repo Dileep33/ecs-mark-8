@@ -73,6 +73,12 @@ export default {
             type: Object,
             required: true
         },
+        index: {
+            type: Number
+        },
+        position: {
+            type: Number
+        },
         addToLibrary: {
             type: Function
         },
@@ -130,7 +136,9 @@ export default {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.pratilipiData);
             this.triggerAnanlyticsEvent(`LIBRARYADD_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
                 ...pratilipiAnalyticsData,
-                'USER_ID': this.getUserDetails.userId
+                'USER_ID': this.getUserDetails.userId,
+                'INDEX': this.index,
+                'POSITION': this.position
             });
             if (this.getUserDetails.isGuest) {
                 // throw popup modal
@@ -145,7 +153,9 @@ export default {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.pratilipiData);
             this.triggerAnanlyticsEvent(`LIBRARYREMOVE_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
                 ...pratilipiAnalyticsData,
-                'USER_ID': this.getUserDetails.userId
+                'USER_ID': this.getUserDetails.userId,
+                'INDEX': this.index,
+                'POSITION': this.position
             });
             this.removeFromLibrary(pratilipiId);
         },
@@ -154,14 +164,18 @@ export default {
             let action = this.redirectToReader && this.screenLocation === 'LIBRARY' ? 'READBOOK' : 'CLICKBOOK';
             this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
                 ...pratilipiAnalyticsData,
-                'USER_ID': this.getUserDetails.userId
+                'USER_ID': this.getUserDetails.userId,
+                'INDEX': this.index,
+                'POSITION': this.position
             });
         },
         openShareModal() {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.pratilipiData);
             this.triggerAnanlyticsEvent(`CLICKSHRBOOK_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
                 ...pratilipiAnalyticsData,
-                'USER_ID': this.getUserDetails.userId
+                'USER_ID': this.getUserDetails.userId,
+                'INDEX': this.index,
+                'POSITION': this.position
             });
             this.setShareDetails({ data: this.pratilipiData, type: 'PRATILIPI', screen_name: this.screenName, screen_location: this.screenLocation });
             $('#share_modal').modal('show');

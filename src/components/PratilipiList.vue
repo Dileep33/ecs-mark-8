@@ -32,6 +32,8 @@
                     :redirectToReader="redirectToReader"
                     :screenName="screenName"
                 	:screenLocation="screenLocation"
+                    :index="index"
+                    :position="position"
                     ></PratilipiComponent>
 					<router-link :to="listPageUrl" v-if="listPageUrl" class="view_more">
 						<div class="view_more_card">
@@ -59,6 +61,9 @@ export default {
     		type: Array,
     		required: true
     	},
+        position: {
+            type: Number
+        },
         title: {
             type: String,
             require: true
@@ -77,6 +82,9 @@ export default {
         },
         'in-viewport-once': {
             default: true
+        },
+        'in-viewport-offset-top': {
+            default: -350
         },
         screenName: {
             type: String,
@@ -134,13 +142,15 @@ export default {
         triggerListLink() {
             this.triggerAnanlyticsEvent(`CLICKCOLLECTION_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
                 'USER_ID': this.getUserDetails.userId,
-                'PARENT_ID': this.listPageUrl
+                'PARENT_ID': this.listPageUrl,
+                'POSITION': this.position
             });
         },
         triggerMoreListLink() {
             this.triggerAnanlyticsEvent(`CLICKMORECOLLECTION_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
                 'USER_ID': this.getUserDetails.userId,
-                'PARENT_ID': this.listPageUrl
+                'PARENT_ID': this.listPageUrl,
+                'POSITION': this.position
             });
         }
     },
@@ -160,7 +170,8 @@ export default {
                 if (this.screenName === 'HOME') {
                     this.triggerAnanlyticsEvent(`VIEWED_COLLECTIONS_HOME`, 'CONTROL', {
                         'USER_ID': this.getUserDetails.userId,
-                        'PARENT_ID': this.listPageUrl
+                        'PARENT_ID': this.listPageUrl,
+                        'POSITION': this.position
                     });
                 }
             }
