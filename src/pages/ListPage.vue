@@ -106,6 +106,25 @@ export default {
             $(".list-tabs a").removeClass("active");
             $(event.currentTarget).addClass("active");
             
+            if (tab_id === 'tab-relevant') {
+                this.triggerAnanlyticsEvent('GORELEVENT_CATEGORYM_CATEGORY', 'CONTROL', {
+                    'USER_ID': this.getUserDetails.userId,
+                    'PARENT_ID': this.$route.params.list_page_url
+                });
+            }
+            else if (tab_id === 'tab-recent_published') {
+                this.triggerAnanlyticsEvent('GOLATEST_CATEGORYM_CATEGORY', 'CONTROL', {
+                    'USER_ID': this.getUserDetails.userId,
+                    'PARENT_ID': this.$route.params.list_page_url
+                });
+            }
+            else if (tab_id === 'tab-high_rated') {
+                this.triggerAnanlyticsEvent('GOHIGHRATED_CATEGORYM_CATEGORY', 'CONTROL', {
+                    'USER_ID': this.getUserDetails.userId,
+                    'PARENT_ID': this.$route.params.list_page_url
+                });
+            }
+            
             const list_type = tab_id.split('tab-').pop();
             this.list_type = list_type;
             const { list_page_url } = this.$route.params;
@@ -130,6 +149,13 @@ export default {
             this.timeText = timeText;
             
             this.timeFilter = { fromSec, toSec }
+            
+            this.triggerAnanlyticsEvent('FILTER_CATEGORYM_CATEGORY', 'CONTROL', {
+                'USER_ID': this.getUserDetails.userId,
+                'PARENT_ID': this.$route.params.list_page_url,
+                'FILTER_TAB': this.list_type,
+                'FILTER_ITEM': timeText
+            });
         },
         clearSortList() {
             $(".sorting-menu span").removeClass("active");
