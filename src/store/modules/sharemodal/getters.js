@@ -3,42 +3,51 @@ export default {
     getShareType: state => state.share_type,
 
     getFacebookShareUrl: (state) => {
+        let shareUrl;
         switch(state.share_type) {
             case 'PRATILIPI':
-                return `https://www.facebook.com/dialog/share?app_id=${process.env.FACEBOOK_APP_ID}&display=popup&href=https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}&redirect_uri=https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}&p[title]=${state.share_data.title}`;
+                shareUrl = encodeURIComponent(`https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}?utm_campaign=Shared&utm_source=facebook`);
+                return `https://www.facebook.com/dialog/share?app_id=${process.env.FACEBOOK_APP_ID}&display=popup&href=${shareUrl}&redirect_uri=${shareUrl}&p[title]=${state.share_data.title}`;
                 break;
             case 'AUTHOR':
-                return `https://www.facebook.com/dialog/share?app_id=${process.env.FACEBOOK_APP_ID}&display=popup&href=https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}&redirect_uri=https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}&p[title]=${state.share_data.displayName}`;
+                shareUrl = encodeURIComponent(`https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}?utm_campaign=SharedProfile&utm_source=facebook`)
+                return `https://www.facebook.com/dialog/share?app_id=${process.env.FACEBOOK_APP_ID}&display=popup&href=${shareUrl}&redirect_uri=${shareUrl}&p[title]=${state.share_data.displayName}`;
                 break;
         }
     },
     getTwitterUrl: (state) => {
+        let shareUrl;
         switch(state.share_type) {
             case 'PRATILIPI':
+                shareUrl = encodeURIComponent(`https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}?utm_campaign=Shared&utm_source=twitter`);
                 return `http://twitter.com/share?text=${state.share_data.title}&url=https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}`;
             case 'AUTHOR':
+                shareUrl = encodeURIComponent(`https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}?utm_campaign=SharedProfile&utm_source=twitter`)
                 return `http://twitter.com/share?text=${state.share_data.title}&url=https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}`;
         }
     },
 
     getGooglePlusUrl: (state) => {
+        let shareUrl;
         switch(state.share_type) {
             case 'PRATILIPI':
-                return `https://plus.google.com/share?url=https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}`;
+                shareUrl = encodeURIComponent(`https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}?utm_campaign=Shared&utm_source=googlep`);
+                return `https://plus.google.com/share?url=${shareUrl}`;
             case 'AUTHOR':
-                return `https://plus.google.com/share?url=https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}`;
+                shareUrl = encodeURIComponent(`https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}?utm_campaign=SharedProfile&utm_source=googlep`)
+                return `https://plus.google.com/share?url=${shareUrl}`;
         }
     },
 
     getWhatsAppUri: (state) => {
-        let encodedUrl;
+        let shareUrl;
         switch(state.share_type) {
             case 'PRATILIPI':
-                encodedUrl = encodeURI(`${state.share_data.title} https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}`);
-                return `https://api.whatsapp.com/send?text=${encodedUrl}`
+                shareUrl = encodeURIComponent(`https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}?utm_campaign=Shared&utm_source=whatsapp`);
+                return `https://api.whatsapp.com/send?text=${shareUrl}`
             case 'AUTHOR':
-                encodedUrl = encodeURI(`${state.share_data.title} https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}`);
-                return `https://api.whatsapp.com/send?text=${encodedUrl}`
+                shareUrl = encodeURIComponent(`https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}?utm_campaign=SharedProfile&utm_source=whatsapp`);
+                return `https://api.whatsapp.com/send?text=${shareUrl}`
         }
     },
 
@@ -50,14 +59,14 @@ export default {
                 return `https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}`;
         }
     },
-    
+
     getScreenDetails: (state) => {
         return {
             screen_location: state.screen_location,
             screen_name: state.screen_name
         }
     },
-    
+
     getPratilipiData: (state) => {
         if (state.share_type === 'PRATILIPI') {
             return state.share_data;
