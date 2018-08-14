@@ -17,6 +17,8 @@ const PAGE_API = "/page";
 const PAGE_CONTENT_API = "/page/content";
 const PRATILIPI_API = "/pratilipi?_apiVer=2";
 const PRATILIPI_LIST_API = "/pratilipi/list?_apiVer=3";
+const PRATILIPI_LIST_RECENT_API = "/stats/recent_published";
+const PRATILIPI_LIST_HIGH_RATED_API = "/stats/high_rated";
 const PRATILIPI_CONTENT_API = "/pratilipi/content";
 const PRATILIPI_CONTENT_INDEX_API = "/pratilipi/content/index";
 const PRATILIPI_TAGS_UPDATE_API = "/pratilipi/tags/update";
@@ -561,13 +563,41 @@ export default {
             function(response, status) { processGetResponse(response, status, aCallBack) });
     },
 
-    getPratilipiListByListName: (listName, cursor, offset, resultCount, language, aCallBack) => {
+    getPratilipiListByListName: (listName, cursor, offset, resultCount, language, timeFilter, aCallBack) => {
         if (listName == null) return;
         var params = { "listName": listName, "state": "PUBLISHED", "language": language };
         if (cursor != null) params["cursor"] = cursor;
         if (offset != null) params["offset"] = offset;
         if (resultCount != null) params["resultCount"] = resultCount;
+        if (timeFilter.fromSec != null) params["fromSec"] = timeFilter.fromSec;
+        if (timeFilter.toSec != null) params["toSec"] = timeFilter.toSec;
         httpUtil.get(API_PREFIX + PRATILIPI_LIST_API,
+            null,
+            params,
+            function(response, status) { processGetResponse(response, status, aCallBack) });
+    },
+    
+    getRecentPratilipiListByListName: (listName, offset, cursor, resultCount, language, timeFilter, aCallBack) => {
+        if (listName == null) return;
+        var params = { "category": "romance", "language": language };
+        if (offset != null) params["offset"] = offset;
+        if (resultCount != null) params["resultCount"] = resultCount;
+        if (timeFilter.fromSec != null) params["fromSec"] = timeFilter.fromSec;
+        if (timeFilter.toSec != null) params["toSec"] = timeFilter.toSec;
+        httpUtil.get(API_PREFIX + PRATILIPI_LIST_RECENT_API,
+            null,
+            params,
+            function(response, status) { processGetResponse(response, status, aCallBack) });
+    },
+    
+    getHighRatedPratilipiListByListName: (listName, offset, cursor, resultCount, language, timeFilter, aCallBack) => {
+        if (listName == null) return;
+        var params = { "category": "romance", "language": language };
+        if (offset != null) params["offset"] = offset;
+        if (resultCount != null) params["resultCount"] = resultCount;
+        if (timeFilter.fromSec != null) params["fromSec"] = timeFilter.fromSec;
+        if (timeFilter.toSec != null) params["toSec"] = timeFilter.toSec;
+        httpUtil.get(API_PREFIX + PRATILIPI_LIST_HIGH_RATED_API,
             null,
             params,
             function(response, status) { processGetResponse(response, status, aCallBack) });

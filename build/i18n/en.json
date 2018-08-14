@@ -598,4 +598,11 @@
     "event_submission_restricted_error" : "cannot submit more than 5 contents",
     "event_submit": "submit",
     "event_unsubmit": "unsubmit"
+    "read_next_pratilipi_here" : "Read the next part of this book here",
+
+    "sorting_relevant": "Relevant",
+    "sorting_latest": "Latest",
+    "sorting_highly_rated": "Highly Rated",
+    "sorting_clear": "Clear",
+    "sorting_showing_results": "Showing results for"
 }
