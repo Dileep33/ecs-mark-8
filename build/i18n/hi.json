@@ -609,5 +609,11 @@
     "rating_liked_it": "अच्छा लगा",
     "rating_loved_it": "बहुत पसन्द आया",
     "read_next_pratilipi_here" : "कहानी का अगला भाग पढने के लिये यहाँ क्लिक करें ",
-    "welcome_pratilipi": "प्रतिलिपि पर आपका स्वागत है "
+    "welcome_pratilipi": "प्रतिलिपि पर आपका स्वागत है ",
+    
+    "sorting_relevant": "आपके लिए",
+    "sorting_latest": "नया",
+    "sorting_highly_rated": "लोकप्रिय",
+    "sorting_clear": "हटाए",
+    "sorting_showing_results": "खोज के परिणाम"
 }
