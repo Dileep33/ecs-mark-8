@@ -7,7 +7,7 @@
             <VapasiQuote
                 screenName="HOME"
                 v-if="this.isMobile() && getCurrentLanguage().fullName == 'hindi' && false"></VapasiQuote>
-            <VapasiShayari 
+            <VapasiShayari
                 screenName="HOME"
                 v-if="this.isMobile() && getCurrentLanguage().fullName == 'hindi'"></VapasiShayari>
             <VapasiJoke
@@ -23,6 +23,7 @@
                         :title="eachSection.title"
                         :listPageUrl="eachSection.listPageUrl"
                         :screenName="'HOME'"
+                        :position="index"
                         :screenLocation="'COLLECTIONS'"
                         v-bind="{ addToLibrary, removeFromLibrary }"
                 ></PratilipiListComponent>
