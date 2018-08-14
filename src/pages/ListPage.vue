@@ -6,22 +6,25 @@
                     <div class="col-md-12">
                         <h1>{{ getPratilipiListTitle }}</h1>
                         <div class="list-tabs" v-if="currentLocale === 'hi' && $route.params.list_page_url === 'lovestories'">
-                            <a href="#" @click="listchange" class="active" data-tab="tab-relevant">Relevant</a>
-                            <a href="#" @click="listchange" data-tab="tab-recent_published">New</a>
-                            <a href="#" @click="listchange" data-tab="tab-high_rated">Highly Rated</a>
-                            <div class="sorting" @click="toggleSortMenu">
+                            <a href="#" @click="listchange" class="active" data-tab="tab-relevant">__("sorting_relevant")</a>
+                            <a href="#" @click="listchange" data-tab="tab-recent_published">__("sorting_latest")</a>
+                            <a href="#" @click="listchange" data-tab="tab-high_rated">__("sorting_highly_rated")</a>
+                            <div class="sorting" @click="toggleSortMenu" v-if="list_type != 'relevant'">
                                 <icon name="filter"></icon>
                             </div>
                             <div class="clear"></div>
                             <div class="sorting-menu">
-                                <span class="sort-item" @click="sortList($event, null, 120)">< 2 mins</span>
-                                <span class="sort-item" @click="sortList($event, 120, 300)">2 - 5 mins</span>
-                                <span class="sort-item" @click="sortList($event, 300, null)">> 5 mins</span>
+                                <span class="sort-item" @click='sortList($event, null, 120, "< 2 mins")'>< 2 mins</span>
+                                <span class="sort-item" @click='sortList($event, 120, 300, "2 - 5 mins")'>2 - 5 mins</span>
+                                <span class="sort-item" @click='sortList($event, 300, null, "> 5 mins")'>> 5 mins</span>
                                 <div class="sort-item link-clear" @click="clearSortList">
                                     <i class="material-icons">close</i>
-                                    <span>clear</span>
+                                    <span>__("sorting_clear")</span>
                                 </div>
                             </div>
+                        </div>
+                        <div class="filter-helper" v-if="timeText && list_type != 'relevant'">
+                            __("sorting_showing_results") <span class="time-text">{{ timeText }}</span>
                         </div>
                         
                         <div class="tabs">
@@ -67,7 +70,8 @@ export default {
             timeFilter: {
                 fromSec: null,
                 toSec: null
-            }
+            },
+            timeText: null
         }
     },
     mixins: [
@@ -115,18 +119,26 @@ export default {
         },
         toggleSortMenu() {
             $(".sorting-menu").toggle();
-            $(".sorting").toggleClass("active");
         },
-        sortList(event, fromSec, toSec) {
+        sortList(event, fromSec, toSec, timeText) {
             $(".sorting-menu span").removeClass("active");
             $(event.currentTarget).addClass("active");
+            $(".sorting-menu").hide();
+            $(".sorting").addClass("active");
             $(".link-clear").show();
+            
+            this.timeText = timeText;
             
             this.timeFilter = { fromSec, toSec }
         },
         clearSortList() {
             $(".sorting-menu span").removeClass("active");
             $(".link-clear").hide();
+            $(".sorting").removeClass("active");
+            $(".sorting-menu").hide();
+            
+            this.timeText = null;
+            
             
             this.timeFilter = { fromSec: null, toSec: null }
         }
@@ -187,8 +199,6 @@ export default {
             document.title = title;
         },
         'timeFilter'(timeFilter) {
-            console.log("TIME: ", timeFilter);
-            
             this.fetchInitialListPagePratilipis({
                 language: this.getCurrentLanguage().fullName.toUpperCase(),
                 listName: this.$route.params.list_page_url,
@@ -304,23 +314,36 @@ export default {
                 color: #d0021b;
             }
         }
-        .link-clear {
-            background: none;
-            color: #2874f0;
-            text-decoration: none;
-            display: block;
-            text-align: center;
-            display: none;
-            font-size: 12px;
-            padding: 5px 5px 0;
-            cursor: pointer;
-            i {
-                vertical-align: middle;
-                font-size: 14px;
-            }
-            span {
-                vertical-align: middle;
-            }
+    }
+    .link-clear {
+        background: none;
+        color: #2874f0;
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
+        display: none;
+        font-size: 12px;
+        padding: 5px 5px 0;
+        cursor: pointer;
+        i {
+            vertical-align: middle;
+            font-size: 14px;
+        }
+        span {
+            vertical-align: middle;
+        }
+    }
+    .filter-helper {
+        font-size: 14px;
+        padding: 5px 0 0;
+        span.time-text {
+            background: #e9e9e9;
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            color: #d0021b;
+            margin-left: 5px;
+            font-size: 13px;
         }
     }
 }

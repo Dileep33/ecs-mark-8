@@ -27,7 +27,7 @@ export default {
         });
     },
 
-    fetchMorePratilipisForListPage({ commit, state }, { listName, language, resultCount, listType }) {
+    fetchMorePratilipisForListPage({ commit, state }, { listName, language, resultCount, listType, timeFilter }) {
         commit('setListPageDynamicLoadingTrue');
         let pratilipiListFunction;
         switch (listType) {
@@ -41,7 +41,7 @@ export default {
                 pratilipiListFunction = DataAccessor.getPratilipiListByListName;
         }
         
-        pratilipiListFunction(listName, state.cursor, null, resultCount, language, function(data) {
+        pratilipiListFunction(listName, state.cursor, null, resultCount, language, timeFilter, function(data) {
             if (data.status === 200) {
                 commit('setListPageDynamicLoadingSuccess', data.response);
             } else {
