@@ -112,6 +112,7 @@ export default {
             editRatingMode: false,
             isSaveActive: false,
             ratingHelper: null,
+            initialRating: null
         }
     },
     computed: {
@@ -174,11 +175,12 @@ export default {
                 data.pageName = this.$route.meta.store;
                 // this.saveOrUpdateReview(data);
                 this.openLoginModal(this.$route.meta.store, 'REVIEW', this.screenLocation);
-                this.cancelReview();
+                this.closeReview();
             } else {
                 data.pageName = this.$route.meta.store;
                 this.saveOrUpdateReview(data);
-                this.cancelReview();
+                this.closeReview();
+                this.initialRating = data.rating;
             }
         },
         checkAndDeleteReview(e) {
@@ -196,6 +198,13 @@ export default {
             $(".write-review-btn").hide();
         },
         cancelReview(e) {
+            $(".review-box").hide();
+            $(".write-review-btn").fadeIn();
+            $('.rating input').prop('checked', false);
+            this.editRatingMode = false;
+            this.updateRatingInStore( { review : this.newReview, pratilipiId : this.userPratilipiData.pratilipiId, pageName : this.$route.meta.store, rating : parseInt(this.initialRating)});
+        },
+        closeReview(e) {
             $(".review-box").hide();
             $(".write-review-btn").fadeIn();
             $('.rating input').prop('checked', false);
@@ -233,7 +242,8 @@ export default {
         }
     },
     created() {
-        this.newReview = this.userPratilipiData.review;
+        this.newReview = { ...this.userPratilipiData }.review;
+        this.initialRating = { ...this.userPratilipiData }.rating;
     },
     mounted() {
         this.ratingHelperText();
