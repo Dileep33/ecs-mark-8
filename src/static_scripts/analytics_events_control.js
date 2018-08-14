@@ -2162,6 +2162,11 @@ export default {
         "LOCATION": "VAPSIQUOTE",
         "ACTION": "CLICK"
     },
+    "CLICK_VAPSISHAYARI_HOME": {
+        "SCREEN_NAME": "HOME",
+        "LOCATION": "VAPSISHAYARI",
+        "ACTION": "CLICK"
+    },
     "NOTIFY_VAPSIQUOTE_HOME": {
         "SCREEN_NAME": "HOME",
         "LOCATION": "VAPSIQUOTE",
@@ -2186,6 +2191,26 @@ export default {
         "SCREEN_NAME": "BOOK",
         "LOCATION": "VAPSIQUOTE",
         "ACTION": "VIEW"
+    },
+    "VIEW_VAPSISHAYARI_HOME": {
+        "SCREEN_NAME": "HOME",
+        "LOCATION": "VAPSISHAYARI",
+        "ACTION": "VIEW"
+    },
+    "LIKE_VAPSISHAYARI_SHAYARI": {
+        "SCREEN_NAME": "SHAYARI",
+        "LOCATION": "VAPSISHAYARI",
+        "ACTION": "LIKE"
+    },
+    "SHAREWA_VAPSISHAYARI_SHAYARI": {
+        "SCREEN_NAME": "SHAYARI",
+        "LOCATION": "VAPSISHAYARI",
+        "ACTION": "SHAREWA"
+    },
+    "VIEWED_VAPSISHAYARI_SHAYARI": {
+        "SCREEN_NAME": "SHAYARI",
+        "LOCATION": "VAPSISHAYARI",
+        "ACTION": "VIEWED"
     },
     "CLICK_VAPSIQUOTE_BOOK": {
         "SCREEN_NAME": "BOOK",

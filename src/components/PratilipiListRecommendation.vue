@@ -7,7 +7,7 @@
             </h2>
 	        <div class="pratilipi-list" v-if="pratilipiList.length > 0">
                     <div
-                        class="pratilipi-recommendation col-md-4 col-sm-12"
+                        class="pratilipi-recommendation"
                         v-for="(eachPratilipi, index) in pratilipiList"
                         v-bind:key="eachPratilipi.pratilipiId + index">
                         <PratilipiComponent
@@ -191,8 +191,7 @@ export default {
 			.pratilipi-list {
 				padding: 5px 10px;
                 .pratilipi-recommendation {
-                    display: flex !important;
-                    justify-content: center !important;
+                    display: inline-block;
                 }
 			}
 		}
