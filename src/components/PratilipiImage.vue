@@ -8,7 +8,7 @@
 import mixins from '@/mixins';
 
 export default {
-    name: 'Pratilipi',
+    name: 'PratilipiImage',
     props: {
         coverImageUrl: {
             type: String,
@@ -31,7 +31,7 @@ export default {
         mixins
     ],
     methods: {
-        
+
     }
 }
 </script>

@@ -1,10 +1,10 @@
 <template>
     <div class="pratilipi-wrap" :class="{ 'event-participate-page': isEventParticipatePage }">
         <div class="pratilipi">
-            <router-link :to="pratilipiData.readUrl" v-if="pratilipiData.eventState != 'SUBMISSION'">
-                <PratilipiImage :coverImageUrl="pratilipiData.coverImageUrl"></PratilipiImage>
+            <router-link :to="pratilipiData.readUrl" v-if="pratilipiData.readUrl && pratilipiData.eventState != 'SUBMISSION'">
+                <PratilipiImage :coverImageUrl="pratilipiData.coverImageUrl" :displayTitle="pratilipiData.title"></PratilipiImage>
             </router-link>
-            <PratilipiImage :coverImageUrl="pratilipiData.coverImageUrl" v-else></PratilipiImage>
+            <PratilipiImage :coverImageUrl="pratilipiData.coverImageUrl" :displayTitle="pratilipiData.title" v-else></PratilipiImage>
             <div class="pratilipi-details container">
                 <div class="row">
                     <div class="col-8 pratilipi-title-container">
@@ -69,7 +69,7 @@ import PratilipiImage from '@/components/PratilipiImage';
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-    name: 'Pratilipi',
+    name: 'EventPratilipi',
     props: {
         pratilipiData: {
             type: Object,
