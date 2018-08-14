@@ -9,7 +9,21 @@
                             <a href="#" @click="listchange" class="active" data-tab="tab-relevant">Relevant</a>
                             <a href="#" @click="listchange" data-tab="tab-recent_published">New</a>
                             <a href="#" @click="listchange" data-tab="tab-high_rated">Highly Rated</a>
+                            <div class="sorting" @click="toggleSortMenu">
+                                <icon name="filter"></icon>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="sorting-menu">
+                                <span class="sort-item" @click="sortList">< 2 mins</span>
+                                <span class="sort-item" @click="sortList">2 - 5 mins</span>
+                                <span class="sort-item" @click="sortList">> 5 mins</span>
+                                <div class="sort-item link-clear" @click="clearSortList">
+                                    <i class="material-icons">close</i>
+                                    <span>clear</span>
+                                </div>
+                            </div>
                         </div>
+                        
                         <div class="tabs">
                             <PratilipiComponent
                             :pratilipiData="pratilipiData"
@@ -38,6 +52,7 @@ import DummyLoader from '@/components/DummyLoader.vue';
 import PratilipiComponent from '@/components/Pratilipi.vue';
 import PageNotFound from '@/components/404.vue';
 import constants from '@/constants'
+import 'vue-awesome/icons/filter'
 import mixins from '@/mixins';
 import { mapGetters, mapActions } from 'vuex'
 
@@ -93,6 +108,19 @@ export default {
                 listType: list_type
             });
         },
+        toggleSortMenu() {
+            $(".sorting-menu").toggle();
+            $(".sorting").toggleClass("active");
+        },
+        sortList(event) {
+            $(".sorting-menu span").removeClass("active");
+            $(event.currentTarget).addClass("active");
+            $(".link-clear").show();
+        },
+        clearSortList() {
+            $(".sorting-menu span").removeClass("active");
+            $(".link-clear").hide();
+        }
     },
     created() {
         console.log(this.$route)
@@ -186,18 +214,89 @@ export default {
 	display:block;
     }
     .list-tabs {
-        border: 1px solid #e9e9e9;
+        border-bottom: 1px solid #e9e9e9;
+        margin: 5px 0;
+        max-width: 90%;
+        position: relative;
+        clear: both;
+        height: 34px;
         a {
-            display: inline-block;
+            display: block;
             padding: 5px;
+            margin-right: 10px;
             text-decoration: none;
             color: #555;
-            font-weight: bold;
-            font-size: 15px;
-            border-right: 1px solid #e9e9e9;
+            font-size: 14px;
             text-align: center;
-            &:last-child {
-                border: 0;
+            float: left;
+            border-bottom: 2px solid #fff;
+            &.active {
+                color: #d0021b;
+                border-color: #d0021b;
+            }
+        }
+        .sorting {
+            float: right;
+            margin-right: 0;
+            background: #e9e9e9;
+            border-radius: 4px;
+            padding: 3px 7px 0;
+            cursor: pointer;
+            .fa-icon {
+                vertical-align: text-top;
+            }
+            &.active .fa-icon {
+                color: #d0021b;
+            }
+        }
+    }
+    .clear {
+        clear: both;
+    }
+    .sorting-menu {
+        position: absolute;
+        top: 34px;
+        right: 0;
+        background: #fff;
+        padding: 10px;
+        border: 1px solid #e9e9e9;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        border-radius: 4px;
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+        z-index: 10;
+        max-width: 180px;
+        text-align: right;
+        display: none;
+        span.sort-item {
+            background: #e9e9e9;
+            color: #555;
+            padding: 5px 10px;
+            border-radius: 15px;
+            display: inline-block;
+            margin: 2px;
+            font-size: 12px;
+            cursor: pointer;
+            &.active {
+                color: #d0021b;
+            }
+        }
+        .link-clear {
+            background: none;
+            color: #2874f0;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            display: none;
+            font-size: 12px;
+            padding: 5px 5px 0;
+            cursor: pointer;
+            i {
+                vertical-align: middle;
+                font-size: 14px;
+            }
+            span {
+                vertical-align: middle;
             }
         }
     }
