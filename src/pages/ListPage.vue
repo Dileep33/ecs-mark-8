@@ -107,7 +107,7 @@ export default {
             $(event.currentTarget).addClass("active");
             
             if (tab_id === 'tab-relevant') {
-                this.triggerAnanlyticsEvent('GORELEVENT_CATEGORYM_CATEGORY', 'CONTROL', {
+                this.triggerAnanlyticsEvent('GORELEVANT_CATEGORYM_CATEGORY', 'CONTROL', {
                     'USER_ID': this.getUserDetails.userId,
                     'PARENT_ID': this.$route.params.list_page_url
                 });
