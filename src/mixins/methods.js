@@ -399,13 +399,40 @@ export function triggerAnanlyticsEvent(eventName, experimentType, eventProperty)
             console.info('SKIPPING EVENT');
         }
 
-        ga('send', {
-            hitType: 'event',
-            eventCategory: eventProps.LOCATION,
-            eventAction: eventProps.ACTION,
-            eventLabel: eventProps.SCREEN_NAME,
-            'dimension7':  eventProps.EXPERIMENT_ID
-        });
+        switch (eventName) {
+            case 'GOCREATE_HEADER_GLOBAL':
+            case 'GOHOME_HEADER_GLOBAL':
+            case 'GODISCOVER_HEADER_GLOBAL':
+            case 'GOLOGIN_HEADER_GLOBAL':
+                ga('send', {
+                    hitType: 'event',
+                    eventCategory: 'BOTTOMBAR',
+                    eventAction: eventProps.ACTION,
+                    eventLabel: eventProps.SCREEN_NAME,
+                    'dimension7':  eventProps.EXPERIMENT_ID
+                });
+                break;
+            case 'GOLANGUAGE_HEADER_GLOBAL':
+            case 'GOHOME_HEADER_GLOBAL':
+            case 'LANDED_SEARCHM_SEARCH':
+            case 'GONOTIFPAGE_HEADER_GLOBAL':
+                ga('send', {
+                    hitType: 'event',
+                    eventCategory: 'TOPBAR',
+                    eventAction: eventProps.ACTION,
+                    eventLabel: eventProps.SCREEN_NAME,
+                    'dimension7':  eventProps.EXPERIMENT_ID
+                });
+                break;
+            default:
+                ga('send', {
+                    hitType: 'event',
+                    eventCategory: eventProps.LOCATION,
+                    eventAction: eventProps.ACTION,
+                    eventLabel: eventProps.SCREEN_NAME,
+                    'dimension7':  eventProps.EXPERIMENT_ID
+                });
+        }
 
         eventProperty['EXPERIMENT_ID'] = eventProps.EXPERIMENT_ID;
 

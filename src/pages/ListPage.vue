@@ -8,12 +8,13 @@
                         <PratilipiComponent
                         :pratilipiData="pratilipiData"
                         :key="pratilipiData.pratilipiId"
-                        v-for="pratilipiData in getPratilipiListData"
+                        v-for="(pratilipiData, index) in getPratilipiListData"
                         v-if="getPratilipiListLoadingState === 'LOADING_SUCCESS' || getPratilipiListData.length !== 0"
                         :addToLibrary="addToLibrary"
                         :removeFromLibrary="removeFromLibrary"
                         :screenName="'CATEGORY'"
                         :screenLocation="'CATEGORYM'"
+                        :position="position"
                         ></PratilipiComponent>
                         <DummyLoader v-if="getPratilipiListLoadingState === 'LOADING'" :sectionCount="1" :className="{list: true}"></DummyLoader>
                     </div>
@@ -92,7 +93,7 @@ export default {
             const { list_page_url } = this.$route.params;
 
             if (newScrollPosition + sbHeight > nintyPercentOfList && this.getPratilipiListLoadingState !== 'LOADING' && this.getPratilipiListCursor !== null) {
-                
+
                 const currentLocale = process.env.LANGUAGE;
                 constants.LANGUAGES.forEach((eachLanguage) => {
                     if (eachLanguage.shortName === currentLocale) {

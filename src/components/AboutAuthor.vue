@@ -65,7 +65,7 @@ export default {
             default: true
         },
         'in-viewport-offset-top': {
-            default: -56
+            default: -200
         },
         pratilipiData: {
             type: Object,
@@ -111,7 +111,7 @@ export default {
             } else {
                 // your element doesn't have overflow
                 this.showShowMoreOfSummary = false;
-            }   
+            }
         },
         checkUserAndFollowAuthor() {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.pratilipiData);
@@ -147,7 +147,7 @@ export default {
             if (state === 'LOADING_SUCCESS') {
                 const that = this;
                 setTimeout(() => {
-                    that.detectOverflow();    
+                    that.detectOverflow();
                 }, 0);
             }
         },
@@ -158,7 +158,7 @@ export default {
                     ...pratilipiAnalyticsData,
                     'USER_ID': this.getUserDetails.userId
                 });
-                
+
             }
         }
     },

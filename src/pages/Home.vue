@@ -20,6 +20,7 @@
                         :title="eachSection.title"
                         :listPageUrl="eachSection.listPageUrl"
                         :screenName="'HOME'"
+                        :position="index"
                         :screenLocation="'COLLECTIONS'"
                         v-bind="{ addToLibrary, removeFromLibrary }"
                 ></PratilipiListComponent>
