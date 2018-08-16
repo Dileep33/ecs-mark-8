@@ -12,11 +12,28 @@ COPY .babelrc .babelrc
 COPY .eslintignore .eslintignore
 COPY .eslintrc.js .eslintrc.js
 COPY .postcssrc.js .postcssrc.js
+COPY static static
 COPY index.html index.html
 COPY build build
 COPY config config
-COPY static static
-COPY src src
+COPY old_build old_build
+
+COPY src/bootstrap src/bootstrap
+COPY src/assets src/assets
+COPY src/App.vue src/App.vue
+COPY src/constants src/constants
+COPY src/sw.js src/sw.js
+COPY src/main.js src/main.js
+COPY src/enum src/enum
+COPY src/layout src/layout
+COPY src/filters src/filters
+COPY src/mixins src/mixins
+COPY src/router src/router
+COPY src/static_scripts src/static_scripts
+COPY src/utils src/utils
+COPY src/store src/store
+COPY src/components src/components
+COPY src/pages src/pages
 
 RUN REALM=PROD LANGUAGE=bn npm run build
 RUN REALM=PROD LANGUAGE=gu npm run build
@@ -27,7 +44,6 @@ RUN REALM=PROD LANGUAGE=mr npm run build
 RUN REALM=PROD LANGUAGE=ta npm run build
 RUN REALM=PROD LANGUAGE=te npm run build
 
-COPY old_build old_build
 COPY server.js .
 
 EXPOSE 80
