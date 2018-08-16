@@ -94,7 +94,8 @@ export default {
                     else
                         shayariListRandom = that.arrange(JSON.parse(JSON.stringify(shayariPreferences)))
                     that.shayariList = shayariListRandom;
-                    that.shayariList.push(postIdShayari);
+                    if(postIdShayari)
+                        that.shayariList.push(postIdShayari);
                 });
             });
         },
