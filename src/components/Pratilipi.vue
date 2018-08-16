@@ -41,6 +41,8 @@
 			    </span>
                         </span>
                         <meta itemprop="ratingCount" v-bind:content="pratilipiData.ratingCount" />
+                        <meta itemprop="bestRating" v-bind:content="5"/>
+                        <meta itemprop="worstRating" v-bind:content="1"/>
                     </div>
                     <div class="read-count">
                         <i class="material-icons">remove_red_eye</i>

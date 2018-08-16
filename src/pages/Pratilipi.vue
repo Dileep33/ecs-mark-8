@@ -60,6 +60,8 @@
                             <div class="book-stats" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
                                 <span class="avg-rating stars-green" ><span class="rating-text" itemprop="ratingValue">{{ getPratilipiData.averageRating | round(1) }}</span> <i class="material-icons">star_rate</i></span>
                                 <span class="review-count"> <span itemprop="ratingCount">{{ getPratilipiData.ratingCount }}</span> __("rating_ratings")</span>
+                                <meta itemprop="bestRating" v-bind:content="5"/>
+                                <meta itemprop="worstRating" v-bind:content="1"/>
                             </div>
                             <div class="book-stats">
                                 <span class="read-time" >__("pratilipi_reading_time"): <time itemprop="timeRequired" v-bind:datetime="getPratilipiData.readingTime | readingTimeSchemaOrgFormat">{{ getPratilipiData.readingTime | showInMinutesOrHours }}</time></span>
