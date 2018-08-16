@@ -2,7 +2,7 @@
     <MainLayout>
         <div class="shayari">
             <div class="shayari-item card" v-for="(shayari, index) in shayariList" v-if="shayari.id == $route.query.postId && shouldShowModal && shayariList.length !== 0">
-                <ShayariDetails :shayari="shayari"></ShayariDetails>
+                <ShayariDetails :shayari="shayari" :index="index"></ShayariDetails>
                 
             </div>
             <div class="shayari-item card" v-for="(shayari, index) in shayariList" v-if="shayari.active && shayari.id != $route.query.postId && shayariList.length !== 0">
@@ -11,7 +11,7 @@
         </div>
         <!-- <div class="shayari-shadow shayari-modal" v-for="(shayari, index) in shayariList" v-if="shayari.id == $route.query.postId && shouldShowModal && shayariList.length !== 0">
             <p class="close" @click="resetModal(shayari.id)"><b>X</b></p>
-            <ShayariDetails :shayari="shayari"></ShayariDetails>
+            <ShayariDetails :shayari="shayari" :index="index"></ShayariDetails>
         </div>
         <div class="modal-backdrop" v-if="shouldShowModal"></div> -->
     </MainLayout>
@@ -73,10 +73,11 @@ export default {
                 shayariPreferenceNode.on('value', (snapshot) => {
                     let shayariPreferencess = snapshot.val();
                     let shayariPreferences = [];
-                    let postId = this.$route.query.postId;
+                    let postId = that.$route.query.postId;
+                    let postIdShayari;
                     for(var i = 0; i < shayariPreferencess.length; i++) {
-                        if(postId && shayariPreferences[i].id == postId && shayariPreferences[i].active == false) {
-                            shayariPreferences.push(shayariPreferencess[i]);
+                        if(postId && shayariPreferencess[i].id == postId && shayariPreferencess[i].active == false) {
+                            postIdShayari = shayariPreferencess[i];
                         }
                         if(shayariPreferencess[i].active) {
                             shayariPreferences.push(shayariPreferencess[i]);
@@ -93,6 +94,7 @@ export default {
                     else
                         shayariListRandom = that.arrange(JSON.parse(JSON.stringify(shayariPreferences)))
                     that.shayariList = shayariListRandom;
+                    that.shayariList.push(postIdShayari);
                 });
             });
         },
