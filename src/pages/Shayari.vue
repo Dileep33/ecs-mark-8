@@ -73,7 +73,11 @@ export default {
                 shayariPreferenceNode.on('value', (snapshot) => {
                     let shayariPreferencess = snapshot.val();
                     let shayariPreferences = [];
+                    let postId = this.$route.query.postId;
                     for(var i = 0; i < shayariPreferencess.length; i++) {
+                        if(postId && shayariPreferences[i].id == postId && shayariPreferences[i].active == false) {
+                            shayariPreferences.push(shayariPreferencess[i]);
+                        }
                         if(shayariPreferencess[i].active) {
                             shayariPreferences.push(shayariPreferencess[i]);
                         }
