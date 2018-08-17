@@ -34,17 +34,14 @@ COPY src/store src/store
 COPY src/components src/components
 COPY src/pages src/pages
 
-#RUN REALM=PROD LANGUAGE=bn npm run build
-#RUN REALM=PROD LANGUAGE=gu npm run build
-#RUN REALM=PROD LANGUAGE=hi npm run build
-#RUN REALM=PROD LANGUAGE=kn npm run build
-#RUN REALM=PROD LANGUAGE=ml npm run build
-#RUN REALM=PROD LANGUAGE=mr npm run build
-#RUN REALM=PROD LANGUAGE=ta npm run build
-#RUN REALM=PROD LANGUAGE=te npm run build
-
-RUN REALM=PROD LANGUAGE=bn npm run build & LANGUAGE=gu npm run build & LANGUAGE=hi npm run build & LANGUAGE=kn npm run build && sleep 60
-RUN REALM=PROD LANGUAGE=ml npm run build & LANGUAGE=mr npm run build & LANGUAGE=ta npm run build & LANGUAGE=te npm run build && sleep 60
+RUN REALM=PROD LANGUAGE=bn npm run build
+RUN REALM=PROD LANGUAGE=gu npm run build
+RUN REALM=PROD LANGUAGE=hi npm run build
+RUN REALM=PROD LANGUAGE=kn npm run build
+RUN REALM=PROD LANGUAGE=ml npm run build
+RUN REALM=PROD LANGUAGE=mr npm run build
+RUN REALM=PROD LANGUAGE=ta npm run build
+RUN REALM=PROD LANGUAGE=te npm run build
 
 COPY server.js .
 
