@@ -15,15 +15,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="typing-wrap" v-if="!chatHasEnded">
+                        <div class="typing-wrap" v-show="!chatHasEnded">
                             <div class="typing">
                                 <span></span>
                                 <span></span>
                                 <span></span>
                             </div>
                         </div>
+                        <div class="extras" v-if="chatHasEnded">
+                            <div class="btn-next-story" @click="nextStory()">Next Story</div>
+                        </div>
                     </div>
-                    
                 </div>
             </div>
         </div>
@@ -49,38 +51,53 @@ export default {
         }
     },
     methods: {
-        scrollToBottom() {
-          chatBody.scrollTop = chatBody.scrollHeight;
+        loadStories() {
+            const that = this;
+            const { chatSlug } = this.$route.params;
+            const chatStoryData = chatStories[chatSlug];
+            
+            this.chatStoryData = chatStoryData;
+            this.sender = chatStoryData.messages[0].sender_name;
+            
+            let timePassed = 0;
+            this.chatStoryData.messages.forEach((eachMessage, index) => {
+                const lengthOfMessage = eachMessage.message.split(' ').length;
+                const timeToTypeInSec = lengthOfMessage * 1.25;
+                timePassed += timeToTypeInSec;
+                setTimeout(() => {
+                    that.liveMessages.push(eachMessage);
+                    console.log(eachMessage.message);
+                    $("#chatStoryBody").animate({ scrollTop: $("#chatStoryBody")[0].scrollHeight}, 1000);
+                }, timePassed * 1000);
+            });
+        },
+        nextStory() {
+          const chatStorySlugs = Object.keys(chatStories);
+          const chatStorySlugsExceptCurrentOne = chatStorySlugs.filter(eachChatStorySlug => eachChatStorySlug !== this.$route.params.chatSlug)
+          
+          const numberOfPossibleChatStories = chatStorySlugsExceptCurrentOne.length;
+          const randomChat = Math.floor(Math.random() * (numberOfPossibleChatStories - 1));
+
+          this.$router.push('/chat-story/' + chatStorySlugsExceptCurrentOne[randomChat]);
+          this.$data.chatStoryData = null;
+          this.$data.sender = null;
+          this.$data.liveMessages = [];
+          this.$data.chatHasEnded = false;
+          this.loadStories();
         }
     },
     watch: {
         'liveMessages'(liveMessages) {
             if (liveMessages.length === this.chatStoryData.messages.length) {
                 this.chatHasEnded = true;
+                setTimeout(() => {
+                    $("#chatStoryBody").animate({ scrollTop: $("#chatStoryBody")[0].scrollHeight}, 1000);
+                }, 1000)
             }
         }
     },
     created() {
-        const that = this;
-        const { chatSlug } = this.$route.params;
-        const chatStoryData = chatStories[chatSlug];
-        const chatBody = document.getElementById('messages');
-        
-        
-        this.chatStoryData = chatStoryData;
-        this.sender = chatStoryData.messages[0].sender_name;
-        
-        let timePassed = 0;
-        this.chatStoryData.messages.forEach((eachMessage, index) => {
-            const lengthOfMessage = eachMessage.message.split(' ').length;
-            const timeToTypeInSec = lengthOfMessage * 1.25;
-            timePassed += timeToTypeInSec;
-            setTimeout(() => {
-                that.liveMessages.push(eachMessage);
-                console.log(eachMessage.message);
-                $('#chatStoryBody')[0].scrollHeight;
-            }, timePassed * 1000);
-        });
+        this.loadStories();
     }
 }
 </script>
@@ -107,7 +124,7 @@ export default {
         overflow-y: auto;
         background: #f9f9f9;
         width: 100%;
-        height: calc(100vh - 170px);
+        height: calc(100vh - 180px);
         margin-top: 10px;
         .chat-date {
             text-align: center;
@@ -246,6 +263,22 @@ export default {
                 position: relative;
                 white-space: pre-line;
             }
+        }
+    }
+    .extras {
+        background: #fff;
+        padding: 10px;
+        width: 100%;
+        .btn-next-story {
+            background: #d0021b;
+            padding: 5px 10px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 14px;
+            border-radius: 3px;
+            margin: 5px auto;
+            max-width: 150px;
+            cursor: pointer;
         }
     }
 }
