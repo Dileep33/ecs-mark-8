@@ -53,10 +53,10 @@ export default {
         ShayariDetails
     },
     methods: {
-        // resetModal(postId) {
-        //     this.shouldShowModal = false;
-        //     this.triggerAnanlyticsEvent(`CLOSE_VAPSISHAYARI_SHAYARI`, 'CONTROL', {'USER_ID': this.getUserDetails.userId, "POST_ID": postId});
-        // },
+        resetModal(postId) {
+            this.shouldShowModal = false;
+            this.triggerAnanlyticsEvent(`CLOSE_VAPSISHAYARI_SHAYARI`, 'CONTROL', {'USER_ID': this.getUserDetails.userId, "POST_ID": postId});
+        },
         fetchShayariList() {
             const that = this;
             import('firebase').then((firebase) => {

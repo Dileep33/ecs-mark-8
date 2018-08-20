@@ -2262,6 +2262,11 @@ export default {
         "LOCATION": "VAPSIQUOTE",
         "ACTION": "CLOSE"
     },
+    "CLOSE_VAPSISHAYARI_SHAYARI": {
+        "SCREEN_NAME": "SHAYARI",
+        "LOCATION": "VAPSISHAYARI",
+        "ACTION": "CLOSE"
+    },
     "VIEW_VAPSIHOROSCOPE_HOME": {
         "SCREEN_NAME": "HOME",
         "LOCATION": "VAPSIHOROSCOPE",
