@@ -1228,3 +1228,4 @@ export default {
 	font-weight: inherit;
     }
 </style>
+

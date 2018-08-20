@@ -59,6 +59,17 @@
                     }
                 },
                 {
+                    "categoryUrl": "/books",
+                    "title": "ಸಮಗ್ರ",
+                    "analyticsCategoryName": "books",
+                    "imageFileName": "event_generic3.jpg",
+                    "pratilipiListData": {
+                        "language": "KANNADA",
+                        "state": "PUBLISHED",
+                        "listName": "books"
+                    }
+                },
+                {
                     "categoryUrl": "/dhaaraavaahi",
                     "title": "ಧಾರಾವಾಹಿ",
                     "analyticsCategoryName": "serials",
@@ -166,17 +177,6 @@
                         "language": "KANNADA",
                         "state": "PUBLISHED",
                         "listName": "otherstories"
-                    }
-                },
-                {
-                    "categoryUrl": "/books",
-                    "title": "ಸಮಗ್ರ",
-                    "analyticsCategoryName": "books",
-                    "imageFileName": "event_generic3.jpg",
-                    "pratilipiListData": {
-                        "language": "KANNADA",
-                        "state": "PUBLISHED",
-                        "listName": "books"
                     }
                 }
             ]
