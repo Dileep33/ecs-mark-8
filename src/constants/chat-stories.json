@@ -1,0 +1,110 @@
+{
+    "chat-story-1": {
+        "url-slug": "chat-story-1",
+        "title": "Chat Story 1",
+        "messages": [
+            {
+                "sender_name": "Libin",
+                "message": "Hi"
+            },
+            {
+                "sender_name": "Roshan",
+                "message": "Hello"
+            },
+            {
+                "sender_name": "Libin",
+                "message": "How are you?"
+            },
+            {
+                "sender_name": "Libin",
+                "message": "da"
+            },
+            {
+                "sender_name": "Roshan",
+                "message": "fo"
+            },
+            {
+                "sender_name": "Libin",
+                "message": "Hello"
+            },
+            {
+                "sender_name": "Libin",
+                "message": "How are you?"
+            },
+            {
+                "sender_name": "Roshan",
+                "message": "da"
+            },
+            {
+                "sender_name": "Libin",
+                "message": "fo"
+            },
+            {
+                "sender_name": "Libin",
+                "message": "Hello"
+            },
+            {
+                "sender_name": "Roshan",
+                "message": "How are you?"
+            },
+            {
+                "sender_name": "Libin",
+                "message": "da"
+            }
+        ]
+    },
+    "chat-story-2": {
+        "url-slug": "chat-story-2",
+        "title": "Chat Story 2",
+        "messages": [
+            {
+                "sender_name": "Libin",
+                "message": "Hi"
+            },
+            {
+                "sender_name": "Roshan",
+                "message": "Hello"
+            },
+            {
+                "sender_name": "Libin",
+                "message": "How are you?"
+            },
+            {
+                "sender_name": "Libin",
+                "message": "da"
+            },
+            {
+                "sender_name": "Roshan",
+                "message": "fo"
+            },
+            {
+                "sender_name": "Libin",
+                "message": "Hello"
+            },
+            {
+                "sender_name": "Libin",
+                "message": "How are you?"
+            },
+            {
+                "sender_name": "Roshan",
+                "message": "da"
+            },
+            {
+                "sender_name": "Libin",
+                "message": "fo"
+            },
+            {
+                "sender_name": "Libin",
+                "message": "Hello"
+            },
+            {
+                "sender_name": "Roshan",
+                "message": "How are you?"
+            },
+            {
+                "sender_name": "Libin",
+                "message": "da"
+            }
+        ]
+    }
+}
