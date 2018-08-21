@@ -1,64 +1,56 @@
 <template>
     <div class="writer-container">
-        <div class="static-page page-wrap">
-            <div class="container">
-                <div id="mySidenav" class="sidenav">
-                    <a href="javascript:void(0)" class="closebtn" @click="closeNav">&times;</a>
-                    <a class="chapters" :class="{ 'selected-chapter': selectedChapter === index }" v-for="(eachChapter, index) in getContents.index" :key="index">
-                        <span class="chapter-title" @click="selectChapter(index)">
-                            <span v-if="getContents.index[index].title">{{ decodeURIComponent(getContents.index[index].title)}}</span>
-                            <span v-else>__('writer_chapter') &nbsp; &nbsp; {{ index + 1 }}</span>
-                        </span>
-                        <i class="material-icons chapter-delete" @click="deleteContentChapter(getContents.index[index].chapterNo)">delete</i>
-                    </a>
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" @click="closeNav">&times;</a>
+            <a class="chapters" :class="{ 'selected-chapter': selectedChapter === index }" v-for="(eachChapter, index) in getContents.index" :key="index">
+                <span class="chapter-title" @click="selectChapter(index)">
+                    <span v-if="getContents.index[index].title">{{ decodeURIComponent(getContents.index[index].title)}}</span>
+                    <span v-else>__('writer_chapter') &nbsp; &nbsp; {{ index + 1 }}</span>
+                </span>
+                <i class="material-icons chapter-delete" @click="deleteContentChapter(getContents.index[index].chapterNo)">delete</i>
+            </a>
 
-                    <a class="chapter-add" @click="addChapter">
-                        <i class="material-icons">add</i>
-                    </a>
+            <a class="chapter-add" @click="addChapter">
+                <i class="material-icons">add</i>
+            </a>
+        </div>
+        <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+        <div id="main">
+            <div class="row">
+                <div class="col-12 chapter">
+                    <div class="follow-btn-w-count" @click="openNav"><!-- Follow Button -->
+                        <button>
+                            <i class="material-icons">list</i>
+                        </button><span><b>__('writer_chapter')</b></span>
+                    </div>
+                    <TranslatingInput :value="decodeURIComponent(contentTitle)" placeholder="__('writer_add_chapter_title')" :oninput="updateTitle"></TranslatingInput>
                 </div>
-                <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
-                <div id="main">
-                    <div>
-                        <div class="row">
-                            <div class="col-12 chapter">
-                                <div class="follow-btn-w-count" @click="openNav"><!-- Follow Button -->
-                                    <button>
-                                        <i class="material-icons">list</i>
-                                    </button><span><b>__('writer_chapter')</b></span>
-                                </div>
-                                <TranslatingInput :value="decodeURIComponent(contentTitle)" placeholder="__('writer_add_chapter_title')" :oninput="updateTitle"></TranslatingInput>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 save-button">
-                                <button class="btn btn-block btn-danger" style="float: right;" @click="autoSaveContents">__("save_changes")</button>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="writer-wrapper">
-                                    <!-- Use any element to open the sidenav -->
-                                    <div class="writer-area" contenteditable="true"></div>
-                                    <ul class="word-suggestions-dropdown" :class="{hidden: suggestions.length === 0}">
-                                        <li :class="{ active: index === selectedSuggestion }" @click="selectSuggestion(eachSuggestion)" :key="index" v-for="(eachSuggestion, index ) in suggestions">{{ eachSuggestion }}</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
+            </div>
+            <div class="row">
+                <div class="col-12 save-button">
+                    <button class="btn btn-block btn-danger" style="float: right;" @click="autoSaveContents">__("save_changes")</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="writer-wrapper">
+                        <!-- Use any element to open the sidenav -->
+                        <div class="writer-area" contenteditable="true"></div>
+                        <ul class="word-suggestions-dropdown" :class="{hidden: suggestions.length === 0}">
+                            <li :class="{ active: index === selectedSuggestion }" @click="selectSuggestion(eachSuggestion)" :key="index" v-for="(eachSuggestion, index ) in suggestions">{{ eachSuggestion }}</li>
+                        </ul>
                     </div>
                 </div>
-                <Spinner v-if="getContentLoadingState === 'LOADING'"></Spinner>
             </div>
-            <div class="backdrop"></div>
         </div>
+        <Spinner v-if="getContentLoadingState === 'LOADING'"></Spinner>
+        <div class="backdrop"></div>
         <input name="image" id="image_input" type="file" accept="image/*" style="display: none;">
         <input type="hidden" id="field_name" value="" />
     </div>
 </template>
 
 <script>
-import MainLayout from '@/layout/main-layout.vue';
 import constants from '@/constants';
 import mixins from '@/mixins';
 import TranslatingInput from '@/components/TranslatingInput.vue';
@@ -68,7 +60,6 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
     components: {
-        MainLayout,
         TranslatingInput,
         Spinner,
         UserEventPratilipiComponent
@@ -382,7 +373,7 @@ export default {
                 force_p_newlines: true,
                 remove_trailing_brs: false,
                 autoresize_min_height: 300,
-                autoresize_bottom_margin: 100,
+                autoresize_bottom_margin: 10,
 
                 formats: {
                     bold:
@@ -844,211 +835,12 @@ export default {
 
 <style lang="scss" scoped>
 .writer-container {
-    margin-bottom: -90px;
-}
-.step-container {
-    width: Auto; margin: 0 auto;
-}
-.static-page {
-    margin-top: 85px;
-    text-align: left;
-    min-height: 600px;
-    @media screen and (max-width: 992px ) {
-        margin-top: 65px;
-    }
-    h2 {
-        font-size: 22px;
-        font-weight: bold;
-        text-align: left;
-        border-left: 3px solid #d0021b;
-        padding-left: 10px;
-        margin: 10px 0;
-        @media screen and (max-width: 992px ) {
-            font-size: 18px;
-        }
-    }
-
-    // Define vars we'll be using
-    $brand-success: #d0021b;
-    $loader-size: 7em;
-    $check-height: $loader-size/2;
-    $check-width: $check-height/2;
-    $check-left: ($loader-size/6 + $loader-size/12);
-    $check-thickness: 3px;
-    $check-color: $brand-success;
-    .circle-loader {
-        margin: auto;
-        margin-top: 30px;
-        margin-bottom: $loader-size/2;
-        border: 1px solid rgba(0, 0, 0, 0.2);
-        border-left-color: $check-color;
-        animation: loader-spin 1.2s infinite linear;
-        position: relative;
-        display: inline-block;
-        vertical-align: top;
-        border-radius: 50%;
-        width: $loader-size;
-        height: $loader-size;
-    }
-    .load-complete {
-        -webkit-animation: none;
-        animation: none;
-        border-color: $check-color;
-        transition: border 500ms ease-out;
-    }
-     .checkmark {
-        display: none;
-         &.draw:after {
-             animation-duration: 800ms;
-             animation-timing-function: ease;
-             animation-name: checkmark;
-             transform: scaleX(-1) rotate(135deg);
-        }
-         &:after {
-             opacity: 1;
-             height: $check-height;
-             width: $check-width;
-             transform-origin: left top;
-             border-right: $check-thickness solid $check-color;
-             border-top: $check-thickness solid $check-color;
-             content: '';
-             left: $check-left;
-             top: $check-height;
-             position: absolute;
-        }
-    }
-     @keyframes loader-spin {
-         0% {
-             transform: rotate(0deg);
-        }
-         100% {
-             transform: rotate(360deg);
-        }
-    }
-     @keyframes checkmark {
-         0% {
-             height: 0;
-             width: 0;
-             opacity: 1;
-        }
-         20% {
-             height: 0;
-             width: $check-width;
-             opacity: 1;
-        }
-         40% {
-             height: $check-height;
-             width: $check-width;
-             opacity: 1;
-        }
-         100% {
-             height: $check-height;
-             width: $check-width;
-             opacity: 1;
-        }
-    }
-
-
     .btn-submit {
         background: #d0021b;
         color: #fff;
         border: 0;
         font-size: 14px;
         float: right;
-    }
-    .mb-10 {
-        margin-bottom: 10px;
-    }
-    .event-image, .book-image {
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        margin: 0;
-        width: 100%;
-        height: 100%;
-        min-height: 200px;
-        position: relative;
-    }
-
-    .update-img {
-        position: absolute;
-        bottom: 0;
-        left: 45%;
-        background: rgba(255,255,255,0.4);
-        border: 0;
-        outline: none;
-        cursor: pointer;
-        padding: 5px 10px;
-        text-align: center;
-        i {
-            vertical-align: middle;
-            font-size: 18px;
-        }
-    }
-
-    .tag-sections {
-        margin: 10px 0;
-        text-align: left;
-        .tag-section-title {
-            font-size: 16px;
-            font-weight: bold;
-            padding: 10px 0;
-        }
-        .tag-section-body {
-            font-size: 16px;
-            .all-tags {
-                display: inline-block;
-                background: #fff;
-                border: 1px solid #e9e9e9;
-                border-radius: 15px;
-                color: #212121;
-                margin: 5px 4px;
-                padding: 5px 10px;
-                font-size: 14px;
-                cursor: pointer;
-                &.active {
-                    background: #e9e9e9;
-                }
-                &.new-tag {
-                    i {
-                        font-size: 18px;
-                        vertical-align: middle;
-                        padding-left: 5px;
-                    }
-                }
-            }
-            .form-group {
-                margin-bottom: 0;
-            }
-            .form-control {
-                font-size: 14px;
-            }
-            .add-category {
-                background: none;
-                padding: 0;
-                margin-left: 10px;
-                i {
-                    vertical-align: middle;
-                }
-            }
-        }
-    }
-
-    .head-title {
-        text-align: left;
-        font-weight: bold;
-        font-size: 18px;
-        border-left: 3px solid #d0021b;
-        padding-left: 10px;
-        margin: 10px 0;
-    }
-
-    .description-input{
-        width: 100%;
-        border: none;
-        border-bottom-width: 2px;
-        border-bottom-color: #b2beb5;
-        border-bottom-style: solid;
     }
 
     /* The side navigation menu */
@@ -1199,68 +991,6 @@ export default {
     @media screen and (max-height: 450px) {
         .sidenav {padding-top: 15px;}
         .sidenav a {font-size: 18px;}
-    }
-    .steps {
-        text-align: left;
-        position: relative;
-        margin: 0 0 20px;
-        .step {
-            display: inline-block;
-            width: 33%;
-            z-index: 1;
-            position: relative;
-            &:after {
-                content:'';
-                position: absolute;
-                width:100%;
-                height:2px;
-                background-color: #ddd;
-                top: 20px;
-                left: -50%;
-                z-index: -1;
-            }
-            &:first-child:after {
-                content:none;
-            }
-            p {
-                font-size: 12px;
-                text-align: center;
-                margin: 5px 0;
-                line-height: 16px;
-            }
-            span {
-                // display: none;
-            }
-            i {
-                vertical-align: middle;
-                font-size: 18px;
-                line-height: 40px;
-                display: none;
-            }
-        }
-        .step-1 {
-            z-index: 4;
-        }
-        .step-2 {
-            z-index: 3;
-        }
-        .step-3 {
-            z-index: 2;
-        }
-        .step-number {
-            width: 40px;
-            height: 40px;
-            text-align: center;
-            font-size: 14px;
-            border-radius: 50%;
-            line-height: 40px;
-            margin: 0 auto;
-            background: #e9e9e9;
-        }
-        .active .step-number {
-            background: #d0021b;
-            color: #fff;
-        }
     }
     .writer-navigation {
         margin: 10px 0;
