@@ -154,12 +154,14 @@ export default {
         margin-top: 10px;
         position: relative;
         background-color: #f0e7df;
-        background-repeat: repeat;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: url('/static/chat-default.jpg');
         &.love {
-            background-image: url(https://i.pinimg.com/originals/16/70/6f/16706f756004ee44b3a67f655a193232.jpg);
+            background-image: url('/static/chat-love.jpg');
         }
         &.horror {
-            background-image: url();
+            background-image: url('/static/chat-horror.jpg');
         }
         .chat-date {
             text-align: center;
