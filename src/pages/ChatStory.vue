@@ -8,9 +8,9 @@
                     </div>
                     <div id="chatStoryBody" class="chat-body">
                         <div id="all-messages" class="all-messages">
-                            <div>
-                                <div class="chat-story" v-for="eachMessage in liveMessages" :class="{'sender': eachMessage.sender_name === sender, 'self': eachMessage.sender_name !== sender }">
-                                    <span class="name">{{ eachMessage.sender_name }}</span>
+                            <div class="chat-item" v-for="eachMessage in liveMessages" :class="{'sender': eachMessage.sender_name === sender, 'self': eachMessage.sender_name !== sender }">
+                                <span class="name">{{ eachMessage.sender_name }}</span>
+                                <div class="chat-story">
                                     <span class="story-text">{{ eachMessage.message }}</span>
                                 </div>
                             </div>
@@ -73,7 +73,7 @@ export default {
                     that.liveMessages.push(eachMessage);
                     console.log(eachMessage.message);
                     $("#chatStoryBody").animate({ scrollTop: $("#chatStoryBody")[0].scrollHeight}, 1000);
-                }, timePassed * 100);
+                }, timePassed * 500);
             });
         },
         nextStory() {
@@ -130,6 +130,8 @@ export default {
         border-left: 3px solid #d0021b;
         padding-left: 10px;
         margin: 10px 0;
+        position: relative;
+        z-index: 1;
     }
     .chat-body {
         text-align: center;
@@ -138,6 +140,8 @@ export default {
         width: 100%;
         height: calc(100vh - 170px);
         margin-top: 10px;
+        position: relative;
+        background: url(https://i.pinimg.com/originals/16/70/6f/16706f756004ee44b3a67f655a193232.jpg) repeat;
         .chat-date {
             text-align: center;
             margin: 7px 0;
@@ -216,6 +220,35 @@ export default {
                 left: -5px;
             }
         }
+        .chat-item {
+            &.sender {
+                float: left;
+                margin: 5px 45px 5px 20px;
+            }
+            &.self {
+                float: right;
+                margin: 5px 20px 5px 45px;
+                .chat-story {
+                    background-color: #FFBAC2;
+                }
+            }
+            &.sender .chat-story::before {
+                box-shadow: -1px 1px 1px 0 rgba(164, 152, 135, 0.32);
+                left: -5px;
+            }
+            
+            &.self .chat-story::before {
+                background-color: #FFBAC2;
+                box-shadow: 1px -1px 1px 0 rgba(164, 152, 135, 0.32);
+                right: -5px;
+                transform: rotate(1deg) skew(-45deg);
+                -moz-transform: rotate(1deg) skew(-45deg);
+                -ms-transform: rotate(1deg) skew(-45deg);
+                -o-transform: rotate(1deg) skew(-45deg);
+                -webkit-transform: rotate(1deg) skew(-45deg);
+                top: 0;
+            }
+        }
         .chat-story {
             background-color: #fff;
             border-radius: 5px;
@@ -243,30 +276,6 @@ export default {
                 -webkit-transform: rotate(45deg) skew(-45deg);
                 width: 20px;
             }
-            &.sender {
-                float: left;
-                margin: 5px 45px 5px 20px;
-            }
-            &.sender::before {
-                box-shadow: -1px 1px 1px 0 rgba(164, 152, 135, 0.32);
-                left: -5px;
-            }
-            &.self {
-                background-color: #FFBAC2;
-                float: right;
-                margin: 5px 20px 5px 45px;
-            }
-            &.self::before {
-                background-color: #FFBAC2;
-                box-shadow: 1px -1px 1px 0 rgba(164, 152, 135, 0.32);
-                right: -5px;
-                transform: rotate(1deg) skew(-45deg);
-                -moz-transform: rotate(1deg) skew(-45deg);
-                -ms-transform: rotate(1deg) skew(-45deg);
-                -o-transform: rotate(1deg) skew(-45deg);
-                -webkit-transform: rotate(1deg) skew(-45deg);
-                top: 0;
-            }
             .name {
                 font-weight: bold;
                 font-size: 12px;
@@ -276,11 +285,23 @@ export default {
                 white-space: pre-line;
             }
         }
+        &::before {
+            background: rgba(255,255,255,0.8);
+            content: "";
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
     }
     .extras {
         background: #fff;
         padding: 10px;
         width: 100%;
+        position: relative;
+        z-index: 1;
         .btn-next-story {
             background: #d0021b;
             padding: 5px 10px;
