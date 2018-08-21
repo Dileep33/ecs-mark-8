@@ -1,6 +1,7 @@
 {
     "chat-story-1": {
         "url-slug": "chat-story-1",
+        "storyType": "horror",
         "title": "Chat Story 1",
         "messages": [
             {
@@ -55,6 +56,7 @@
     },
     "chat-story-2": {
         "url-slug": "chat-story-2",
+        "storyType": "love",
         "title": "Chat Story 2",
         "messages": [
             {

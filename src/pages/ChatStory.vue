@@ -5,8 +5,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h2>{{ chatStoryData.title }}</h2>
+                        <div class="btn-next-story" @click="nextStory()">Next Story</div>
                     </div>
-                    <div id="chatStoryBody" class="chat-body">
+                    <div id="chatStoryBody" class="chat-body" :class="chatStoryData.storyType">
                         <div id="all-messages" class="all-messages">
                             <div class="chat-item" v-for="eachMessage in liveMessages" :class="{'sender': eachMessage.sender_name === sender, 'self': eachMessage.sender_name !== sender }">
                                 <span class="name">{{ eachMessage.sender_name }}</span>
@@ -23,6 +24,10 @@
                             </div>
                         </div>
                         <div class="extras" v-if="chatHasEnded">
+                            <div class="social-btn share-btn" @click="shareWhatsApp">
+                                <icon name="whatsapp" scale="1.5"></icon>
+                                <span>__("share")</span>
+                            </div>
                             <div class="btn-next-story" @click="nextStory()">Next Story</div>
                         </div>
                     </div>
@@ -41,6 +46,8 @@
 import MainLayout from '@/layout/main-layout.vue';
 import Spinner from '@/components/Spinner.vue';
 import chatStories from '@/constants/chat-stories.json';
+import 'vue-awesome/icons/whatsapp'
+import 'vue-awesome/icons/thumbs-o-up'
 
 export default {
     components: {
@@ -96,7 +103,11 @@ export default {
               $(".chatstory-page").hide();
               $(".end-of-stories").fadeIn();
           }
-        }
+      },
+      shareWhatsApp() {
+          const textToShare = `https://${window.location.host}${window.location.pathname}${encodeURIComponent(`?utm_source=whatsapp&utm_medium=social&utm_campaign=chatStories`)}`;
+          window.open(`https://api.whatsapp.com/send?text=${textToShare}`);
+      }
     },
     watch: {
         'liveMessages'(liveMessages) {
@@ -132,6 +143,7 @@ export default {
         margin: 10px 0;
         position: relative;
         z-index: 1;
+        float: left;
     }
     .chat-body {
         text-align: center;
@@ -141,7 +153,14 @@ export default {
         height: calc(100vh - 170px);
         margin-top: 10px;
         position: relative;
-        background: url(https://i.pinimg.com/originals/16/70/6f/16706f756004ee44b3a67f655a193232.jpg) repeat;
+        background-color: #f0e7df;
+        background-repeat: repeat;
+        &.love {
+            background-image: url(https://i.pinimg.com/originals/16/70/6f/16706f756004ee44b3a67f655a193232.jpg);
+        }
+        &.horror {
+            background-image: url();
+        }
         .chat-date {
             text-align: center;
             margin: 7px 0;
@@ -220,16 +239,27 @@ export default {
                 left: -5px;
             }
         }
+        .chat-wrap {
+            overflow: hidden;
+        }
         .chat-item {
+            width: 100%;
             &.sender {
                 float: left;
                 margin: 5px 45px 5px 20px;
+                .chat-story {
+                    float: left;
+                }
             }
             &.self {
                 float: right;
                 margin: 5px 20px 5px 45px;
                 .chat-story {
                     background-color: #FFBAC2;
+                    float: right;
+                }
+                .name {
+                    text-align: right;
                 }
             }
             &.sender .chat-story::before {
@@ -247,6 +277,15 @@ export default {
                 -o-transform: rotate(1deg) skew(-45deg);
                 -webkit-transform: rotate(1deg) skew(-45deg);
                 top: 0;
+            }
+            .name {
+                font-size: 9px;
+                font-weight: bold;
+                position: relative;
+                z-index: 1;
+                display: block;
+                text-align: left;
+                margin: 0 0 5px;
             }
         }
         .chat-story {
@@ -276,10 +315,6 @@ export default {
                 -webkit-transform: rotate(45deg) skew(-45deg);
                 width: 20px;
             }
-            .name {
-                font-weight: bold;
-                font-size: 12px;
-            }
             .story-text {
                 position: relative;
                 white-space: pre-line;
@@ -298,20 +333,51 @@ export default {
     }
     .extras {
         background: #fff;
+        border-top: 1px solid #e9e9e9;
         padding: 10px;
         width: 100%;
         position: relative;
         z-index: 1;
         .btn-next-story {
+            float: none;
             background: #d0021b;
-            padding: 5px 10px;
-            color: #fff;
-            font-weight: bold;
             font-size: 14px;
-            border-radius: 3px;
-            margin: 5px auto;
-            max-width: 150px;
-            cursor: pointer;
+            display: inline-block;
+            height: 34px;
+            margin: 10px 5px;
+        }
+        .social-btn {
+            background: #e9e9e9;
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin: 10px 5px;
+            .fa-icon {
+                vertical-align: middle;
+                color: #48c631;
+            }
+            span {
+                vertical-align: middle;
+                padding-left: 5px;
+                font-size: 14px;
+            }
+        }
+    }
+    .btn-next-story {
+        background: rgba(208, 2, 27,0.5);
+        padding: 5px 10px;
+        color: #fff;
+        font-weight: bold;
+        font-size: 12px;
+        border-radius: 3px;
+        margin: 5px auto;
+        max-width: 150px;
+        cursor: pointer;
+        z-index: 1;
+        position: relative;
+        float: right;
+        &:hover {
+            background: #d0021b;
         }
     }
 }
