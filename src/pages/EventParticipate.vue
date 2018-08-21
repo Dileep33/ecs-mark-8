@@ -859,7 +859,7 @@ export default {
                 box-sizing: none;
                 outline: none;
                 border-radius: 15px;
-                padding: 5px 10px;
+                padding: 5px 20px;
                 cursor: pointer;
                 &.next {
                     background: #d0021b;

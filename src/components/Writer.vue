@@ -27,11 +27,6 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 save-button">
-                    <button class="btn btn-block btn-danger" style="float: right;" @click="autoSaveContents">__("save_changes")</button>
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-md-12">
                     <div class="writer-wrapper">
                         <!-- Use any element to open the sidenav -->
@@ -40,6 +35,7 @@
                             <li :class="{ active: index === selectedSuggestion }" @click="selectSuggestion(eachSuggestion)" :key="index" v-for="(eachSuggestion, index ) in suggestions">{{ eachSuggestion }}</li>
                         </ul>
                     </div>
+                    <button class="auto-save btn btn-danger" @click="autoSaveContents">__("save_changes")</button>
                 </div>
             </div>
         </div>
@@ -1107,6 +1103,10 @@ export default {
     }
     .form-control.error {
         border-color: #d00b12;
+    }
+    .auto-save {
+        float: right;
+        margin: 10px 0 0;
     }
 }
 </style>
