@@ -162,6 +162,7 @@ export default {
         }
         &.horror {
             background-image: url('/static/chat-horror.jpg');
+            background-size: contain;
         }
         .chat-date {
             text-align: center;
