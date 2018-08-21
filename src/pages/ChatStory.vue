@@ -29,6 +29,11 @@
                 </div>
             </div>
         </div>
+        <div class="end-of-stories">
+            <i class="material-icons">check_circle_outline</i>
+            <h3>You have read all the stories!!!</h3>
+            <p>Come back tomorrow for more new stories.</p>
+        </div>
     </MainLayout>
 </template>
 
@@ -68,22 +73,29 @@ export default {
                     that.liveMessages.push(eachMessage);
                     console.log(eachMessage.message);
                     $("#chatStoryBody").animate({ scrollTop: $("#chatStoryBody")[0].scrollHeight}, 1000);
-                }, timePassed * 1000);
+                }, timePassed * 100);
             });
         },
         nextStory() {
           const chatStorySlugs = Object.keys(chatStories);
-          const chatStorySlugsExceptCurrentOne = chatStorySlugs.filter(eachChatStorySlug => eachChatStorySlug !== this.$route.params.chatSlug)
+          const { chatSlug } = this.$route.params;
+          const storyNumber = chatStorySlugs.length;
           
-          const numberOfPossibleChatStories = chatStorySlugsExceptCurrentOne.length;
-          const randomChat = Math.floor(Math.random() * (numberOfPossibleChatStories - 1));
-
-          this.$router.push('/chat-story/' + chatStorySlugsExceptCurrentOne[randomChat]);
-          this.$data.chatStoryData = null;
-          this.$data.sender = null;
-          this.$data.liveMessages = [];
-          this.$data.chatHasEnded = false;
-          this.loadStories();
+          const currentIndex = chatStorySlugs.indexOf(chatSlug);
+          const nextStorySlug = chatStorySlugs[currentIndex + 1];
+          
+          if ((currentIndex + 1) < storyNumber) {
+              this.$router.push('/chat-story/' + nextStorySlug);
+              this.$data.chatStoryData = null;
+              this.$data.sender = null;
+              this.$data.liveMessages = [];
+              this.$data.chatHasEnded = false;
+              this.loadStories();
+          }
+          else {
+              $(".chatstory-page").hide();
+              $(".end-of-stories").fadeIn();
+          }
         }
     },
     watch: {
@@ -124,7 +136,7 @@ export default {
         overflow-y: auto;
         background: #f9f9f9;
         width: 100%;
-        height: calc(100vh - 180px);
+        height: calc(100vh - 170px);
         margin-top: 10px;
         .chat-date {
             text-align: center;
@@ -280,6 +292,25 @@ export default {
             max-width: 150px;
             cursor: pointer;
         }
+    }
+}
+.end-of-stories {
+    background: #fff;
+    padding: 70px 0;
+    margin-top: 65px;
+    min-height: 500px;
+    display: none;
+    i {
+        font-size: 50px;
+        color: #4CAF50;
+    }
+    h3 {
+        font-size: 22px;
+        font-weight: normal;
+        color: #4CAF50;
+    }
+    p {
+        font-size: 14px;
     }
 }
 </style>
