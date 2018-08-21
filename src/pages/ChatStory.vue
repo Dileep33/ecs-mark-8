@@ -9,8 +9,8 @@
                     </div>
                     <div id="chatStoryBody" class="chat-body" :class="chatStoryData.storyType">
                         <div id="all-messages" class="all-messages">
-                            <div class="chat-item" v-for="eachMessage in liveMessages" :class="{'sender': eachMessage.sender_name === sender, 'self': eachMessage.sender_name !== sender }">
-                                <span class="name">{{ eachMessage.sender_name }}</span>
+                            <div class="chat-item" v-for="(eachMessage, index) in liveMessages" :class="{'sender': eachMessage.sender_name === sender, 'self': eachMessage.sender_name !== sender }">
+                                <span class="name" v-if="(liveMessages[index - 1] && liveMessages[index - 1].sender_name !== eachMessage.sender_name) || !liveMessages[index - 1]">{{ eachMessage.sender_name }}</span>
                                 <div class="chat-story">
                                     <span class="story-text">{{ eachMessage.message }}</span>
                                 </div>
