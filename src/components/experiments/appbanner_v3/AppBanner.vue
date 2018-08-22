@@ -3,10 +3,8 @@
         <div class="app-banner container" v-if="isAndroid()">
             <div class="row">
                 <button class="close" @click="closeBanner"><i class="material-icons">close</i></button>
-                <div class="col-2 logo" @click="downloadApp">
-                    <img src="../../../assets/pratilipi_logo.png" alt="logo">
-                </div>
-                <div class="col-10 app-info" @click="downloadApp">
+                <div class="logo" @click="downloadApp">
+                    <img src="/static/logo-red-white.png" alt="logo">
                     <span class="name">__("pratilipi_app_click_download")</span>
                 </div>
             </div>
@@ -138,14 +136,16 @@ export default {
 
 <style lang="scss" scoped>
     .app-banner {
-        margin-top: 70px;
-        box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+        box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.50);
         position: relative;
         z-index: 2;
         padding-bottom: 5px;
         padding-top: 5px;
-        background: #266a1f;
+        background: #D0021B;
         color: #fff;
+        margin: 70px auto 0;
+        width: 96%;
+        border-radius: 7px;
         button.close {
             position: absolute;
             right: 5px;
@@ -156,9 +156,16 @@ export default {
         }
         .logo {
             padding: 0;
+            margin: 0 auto;
+            width: 100%;
             img {
                 width: 100%;
                 max-width: 40px;
+                vertical-align: middle;
+            }
+            span {
+                vertical-align: middle;
+                font-weight: bold;
             }
         }
         .app-info {
