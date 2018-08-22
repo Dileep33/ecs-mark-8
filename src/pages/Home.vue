@@ -6,13 +6,15 @@
             ></Banners>
             <VapasiShayari 
                 screenName="HOME"
-                v-if="this.isMobile() && getCurrentLanguage().fullName == 'hindi'"></VapasiShayari>
+                v-if="this.isMobile() && getCurrentLanguage().fullName == 'hindi' && (parseInt(this.getCookie('bucketId')) || 0) >= 11 && (parseInt(this.getCookie('bucketId')) || 0) < 40"></VapasiShayari>
+            <!--
             <VapasiJoke
                 screenName="HOME"
                 v-if="this.isMobile() && getCurrentLanguage().fullName == 'gujarati'"></VapasiJoke>
             <VapasiHoroscope
                 screenName="HOME"
                 v-if="this.isMobile() && getCurrentLanguage().fullName == 'marathi'"></VapasiHoroscope>
+            -->
             <DummyLoader v-if="getHomePageLoadingState === 'LOADING'"></DummyLoader>
             <div v-if="getHomePageLoadingState === 'LOADING_SUCCESS'" v-for="(eachSection, index) in getHomePageSections" v-bind:key="eachSection.listPageUrl">
                 <PratilipiListComponent
@@ -66,10 +68,10 @@
     import PratilipiListComponent from '@/components/PratilipiList.vue';
     import MainLayout from '@/layout/main-layout.vue';
     import Banners from '@/components/Banners.vue';
-    import VapasiQuote from '@/components/VapasiQuote.vue';
+    // import VapasiQuote from '@/components/VapasiQuote.vue';
     import VapasiShayari from '@/components/VapasiShayari.vue';
-    import VapasiHoroscope from '@/components/VapasiHoroscope.vue';
-    import VapasiJoke from '@/components/VapasiJoke.vue';
+    // import VapasiHoroscope from '@/components/VapasiHoroscope.vue';
+    // import VapasiJoke from '@/components/VapasiJoke.vue';
     import ServerError from '@/components/ServerError.vue';
     import WebPushStrip from '@/components/WebPushStrip.vue';
     import WebPushModal from '@/components/WebPushModal.vue';
@@ -133,10 +135,10 @@ import { mapGetters, mapActions } from 'vuex'
             DummyLoader,
             WebPushStrip,
             WebPushModal,
-            VapasiQuote,
+            // VapasiQuote,
             VapasiShayari,
-            VapasiHoroscope,
-            VapasiJoke
+            // VapasiHoroscope,
+            // VapasiJoke
         },
         created() {
             this.fetchBanners(this.getCurrentLanguage().fullName.toUpperCase());

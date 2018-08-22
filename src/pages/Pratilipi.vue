@@ -60,6 +60,8 @@
                             <div class="book-stats" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
                                 <span class="avg-rating stars-green" ><span class="rating-text" itemprop="ratingValue">{{ getPratilipiData.averageRating | round(1) }}</span> <i class="material-icons">star_rate</i></span>
                                 <span class="review-count"> <span itemprop="ratingCount">{{ getPratilipiData.ratingCount }}</span> __("rating_ratings")</span>
+                                <meta itemprop="bestRating" v-bind:content="5"/>
+                                <meta itemprop="worstRating" v-bind:content="1"/>
                             </div>
                             <div class="book-stats">
                                 <span class="read-time" >__("pratilipi_reading_time"): <time itemprop="timeRequired" v-bind:datetime="getPratilipiData.readingTime | readingTimeSchemaOrgFormat">{{ getPratilipiData.readingTime | showInMinutesOrHours }}</time></span>
@@ -777,8 +779,13 @@ export default {
                 }, 0);
             }
 
-            if (status === 'LOADING_SUCCESS') {
-                this.readPageUrl = this.getPratilipiData.newReadPageUrl && this.isTestEnvironment() ? this.getPratilipiData.newReadPageUrl : this.getPratilipiData.readPageUrl
+            if (status === 'LOADING_SUCCESS') {        
+                let bucketId = parseInt(this.getCookie('bucketId')) || 0
+                this.readPageUrl = 
+                    this.getPratilipiData.newReadPageUrl && 
+                    this.isTestEnvironment()
+                    // (this.isTestEnvironment() || (bucketId >= 11 && bucketId < 20))
+                    ? this.getPratilipiData.newReadPageUrl : this.getPratilipiData.readPageUrl
             }
 
             this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.nextPratilipi && this.getPratilipiData.nextPratilipi.pratilipiId > 0;
@@ -1226,3 +1233,4 @@ export default {
 	font-weight: inherit;
     }
 </style>
+

@@ -33,7 +33,7 @@
                                     <Spinner></Spinner>
                                 </div>
                             </div>
-                            <div class="profile-user-name" itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ getAuthorData.name }}</span></div>
+                            <div class="profile-user-name" itemprop="name">{{ getAuthorData.name }}</div>
                             <div class="profile-read-by">__("author_readby_count")</div>
                             <div class="profile-summary" v-if="getAuthorData.summary || getAuthorData.hasAccessToUpdate">
                                 <div class="head-title">

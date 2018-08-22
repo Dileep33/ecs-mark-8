@@ -120,13 +120,16 @@ export default {
         DataAccessor.createOrUpdateReview(pratilipiId, rating, null, () => commit('setPratilipiRatingUpdateSuccess', rating))
     },
 
-    saveOrUpdateReview ({commit, state}, {review, pratilipiId}) {
+    saveOrUpdateReview ({commit, state}, {pratilipiId, rating, review}) {
         if (state.userPratilipi.data.rating == null) {
             commit('alert/triggerAlertView', 'need_rating', {root: true})
             setTimeout(() => commit('alert/triggerAlertHide', null, {root: true}), 3000)
             return
         }
-        DataAccessor.createOrUpdateReview(pratilipiId, null, review, () => commit('setPratilipiReviewUpdateSuccess', review))
+        DataAccessor.createOrUpdateReview(pratilipiId, rating, review, () => {
+            commit('setPratilipiRatingUpdateSuccess', rating)
+            commit('setPratilipiReviewUpdateSuccess', review)
+        })
     },
 
     deleteReview ({commit}, pratilipiId) {

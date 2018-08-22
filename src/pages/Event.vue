@@ -8,7 +8,7 @@
                             <div class="head-title">{{ getEventData.name }}</div>
                             <img :src="getEventData.bannerImageUrl" alt="">
                             <div class="desc" v-html="getEventData.description"></div>
-                            <router-link class="participate-link" v-if="getEventData.eventState == 'SUBMISSION'"
+                            <router-link class="participate-link" v-if="getEventData.eventState == 'SUBMISSION' && !blockedIds.includes(getEventData.eventId)"
                                          :to="{path: `${getEventData.slug}/participate/`}">
                                 <button type="button" class="participate_btn" name="button">__('event_participate')</button>
                             </router-link>
@@ -130,7 +130,8 @@ export default {
     data() {
         return {
             scrollPosition: null,
-            canParticipate: false
+            canParticipate: false,
+            blockedIds: [6900000000000117, 6900000000000114, 6900000000000112]
         }
     },
     mixins: [

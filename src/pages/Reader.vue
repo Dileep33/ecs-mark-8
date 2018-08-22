@@ -200,7 +200,9 @@
                             <i class="material-icons">star_rate</i>
 			    <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
                             	<span itemprop="ratingCount">{{ getPratilipiData.ratingCount }}</span>
-				<meta itemprop="ratingValue" v-bind:content="getPratilipiData.averageRating | round(1)" />	
+        			<meta itemprop="ratingValue" v-bind:content="getPratilipiData.averageRating | round(1)" />	
+                    <meta itemprop="bestRating" v-bind:content="5"/>
+                    <meta itemprop="worstRating" v-bind:content="1"/>    
 			    </span>
                         </div>
                         <div class="add-to-lib">
