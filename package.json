@@ -12,7 +12,8 @@
     "build": "node build/build.js",
     "server": "node server.js",
     "build_prod": "bash build/build_prod.sh",
-    "generate_nav": "node build/generate_nav.js"
+    "generate_nav": "node build/generate_nav.js",
+    "get_chat_stories": "node build/get_chat_stories.js"
   },
   "dependencies": {
     "bootstrap": "4.0.0",
