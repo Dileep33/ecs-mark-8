@@ -2,7 +2,7 @@
     <MainLayout>
         <div class="chatstory-page page-wrap">
             <div class="container">
-                <div class="row">
+                <div class="row" v-if="chatStoryData">
                     <div class="col-md-12">
                         <h2>{{ chatStoryData.title }}</h2>
                         <div class="btn-next-story" @click="nextStory()">Next Story</div>
@@ -67,7 +67,7 @@ export default {
             const that = this;
             const { chatSlug } = this.$route.params;
             const chatStoryData = chatStories[chatSlug];
-            
+
             this.chatStoryData = chatStoryData;
             this.sender = chatStoryData.messages[0].sender_name;
             
@@ -98,9 +98,7 @@ export default {
 
             if ((currentIndex + 1) < storyNumber) {
               this.$router.push('/chat-story/' + nextStorySlug);
-              this.loadStories();
-            }
-            else {
+            } else {
               $(".chatstory-page").hide();
               $(".end-of-stories").fadeIn();
             }
@@ -111,8 +109,11 @@ export default {
       }
     },
     watch: {
+        '$route.params.chatSlug'() {
+            this.loadStories();
+        },
         'liveMessages'(liveMessages) {
-            if (liveMessages.length === this.chatStoryData.messages.length) {
+            if (this.chatStoryData !== null && liveMessages.length === this.chatStoryData.messages.length) {
                 this.chatHasEnded = true;
                 setTimeout(() => {
                     $("#chatStoryBody").animate({ scrollTop: $("#chatStoryBody")[0].scrollHeight}, 1000);
@@ -270,7 +271,7 @@ export default {
                 box-shadow: -1px 1px 1px 0 rgba(164, 152, 135, 0.32);
                 left: -5px;
             }
-            
+
             &.self .chat-story::before {
                 background-color: #FFBAC2;
                 box-shadow: 1px -1px 1px 0 rgba(164, 152, 135, 0.32);
