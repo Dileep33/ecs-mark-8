@@ -148,6 +148,7 @@ export default {
         border-radius: 7px;
         button.close {
             position: absolute;
+            margin: 0;
             right: 5px;
             top: 12px;
             z-index: 2;
