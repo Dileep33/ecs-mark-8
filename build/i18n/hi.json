@@ -617,5 +617,8 @@
     "sorting_latest": "नया",
     "sorting_highly_rated": "लोकप्रिय",
     "sorting_clear": "हटाए",
-    "sorting_showing_results": "खोज के परिणाम"
+    "sorting_showing_results": "खोज के परिणाम",
+
+    "login_popup_story_added_to_library": "आपकी लाइब्रेरी में कहानी सफलतापूर्वक जुड़ गई है| कभी भी पढने के लिए अभी साइन अप करें",
+    "login_popup_read_and_rate_stories": "इस तरह की और कहानियाँ पढ़ें तथा रेट करें "
 }

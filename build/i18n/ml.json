@@ -610,5 +610,8 @@
     "welcome_pratilipi": "പ്രതിലിപിയിലേക്ക് സ്വാഗതം ",
     "event_submission_restricted_error" : "cannot submit more than 5 contents",
     "event_unsubmit": "രചന പിന്‍വലിക്കൂ",
-    "event_submit": "സമര്‍പ്പിക്കൂ"
+    "event_submit": "സമര്‍പ്പിക്കൂ",
+
+    "login_popup_story_added_to_library": "ഈ രചന താങ്കളുടെ ലൈബ്രറിയില്‍ ചേര്‍ത്തിരിക്കുന്നു. ഇത് എപ്പോള്‍ വേണമെങ്കിലും വായിക്കാനായി സൈനപ്പ് ചെയ്യൂ ",
+    "login_popup_read_and_rate_stories": "ഇതു പോലുള്ള ഒരുപാട് കഥകള്‍ വായിക്കുകയും റേറ്റ് ചെയ്യുകയും ചെയ്യൂ "
 }

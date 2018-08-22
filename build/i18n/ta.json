@@ -609,5 +609,8 @@
     "welcome_pratilipi": "பிரதிலிபிக்கு வரவேற்கிறோம்",
     "event_submission_restricted_error" : "cannot submit more than 5 contents",
     "event_unsubmit": "சமர்ப்பித்ததை நீக்க",
-    "event_submit": "சமர்ப்பிக்க"
+    "event_submit": "சமர்ப்பிக்க",
+
+    "login_popup_story_added_to_library": "படைப்பு உங்கள் நூலகத்தில் சேர்க்கப்பட்டுவிட்டது. வாசிப்பதற்கு சைஃன்-அப் செய்யவும்.",
+    "login_popup_read_and_rate_stories": "இதேபோன்ற பல கதைகளை வாசித்து மதிப்பீடு செய்யவும்"
 }

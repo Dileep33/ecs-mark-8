@@ -601,5 +601,7 @@
     "welcome_pratilipi": "প্রতিলিপিতে আপনাকে স্বাগত জানাই",
     "event_submission_restricted_error" : "cannot submit more than 5 contents",
     "event_submit": "অংশগ্রহণ করুন",
-    "event_unsubmit": "অংশগ্রহণ থেকে বিরত থাকুন"
+    "event_unsubmit": "অংশগ্রহণ থেকে বিরত থাকুন",
+
+    "login_popup_story_added_to_library": "আপনার লাইব্রেরীতে কাহিনী সফলভাবে যুক্ত হয়েছে। যখন খুশি পড়তে হলে এখন সাইন আপ করুন।"
 }
