@@ -78,31 +78,32 @@ export default {
                 timePassed += timeToTypeInSec;
                 setTimeout(() => {
                     that.liveMessages.push(eachMessage);
-                    console.log(eachMessage.message);
-                    $("#chatStoryBody").animate({ scrollTop: $("#chatStoryBody")[0].scrollHeight}, 1000);
+                    // console.log(eachMessage.message);
+                    $("#chatStoryBody").animate({ scrollTop: $("#chatStoryBody")[0].scrollHeight}, 500);
                 }, timePassed * 500);
             });
         },
         nextStory() {
-          const chatStorySlugs = Object.keys(chatStories);
-          const { chatSlug } = this.$route.params;
-          const storyNumber = chatStorySlugs.length;
-          
-          const currentIndex = chatStorySlugs.indexOf(chatSlug);
-          const nextStorySlug = chatStorySlugs[currentIndex + 1];
-          
-          if ((currentIndex + 1) < storyNumber) {
+            this.chatStoryData = null;
+            this.sender = null;
+            this.liveMessages = [];
+            this.chatHasEnded = false;
+
+            const chatStorySlugs = Object.keys(chatStories);
+            const { chatSlug } = this.$route.params;
+            const storyNumber = chatStorySlugs.length;
+
+            const currentIndex = chatStorySlugs.indexOf(chatSlug);
+            const nextStorySlug = chatStorySlugs[currentIndex + 1];
+
+            if ((currentIndex + 1) < storyNumber) {
               this.$router.push('/chat-story/' + nextStorySlug);
-              this.$data.chatStoryData = null;
-              this.$data.sender = null;
-              this.$data.liveMessages = [];
-              this.$data.chatHasEnded = false;
               this.loadStories();
-          }
-          else {
+            }
+            else {
               $(".chatstory-page").hide();
               $(".end-of-stories").fadeIn();
-          }
+            }
       },
       shareWhatsApp() {
           const textToShare = `https://${window.location.host}${window.location.pathname}${encodeURIComponent(`?utm_source=whatsapp&utm_medium=social&utm_campaign=chatStories`)}`;
@@ -296,6 +297,7 @@ export default {
             border-radius: 5px;
             box-shadow: 0 1px 1px 0 rgba(164, 152, 135, 0.32), 0 0 1px 0 #A39F98;
             display: inline-block;
+            max-width: 90%;
             padding: 10px 15px;
             position: relative;
             vertical-align: top;
