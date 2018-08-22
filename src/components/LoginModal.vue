@@ -72,9 +72,24 @@ export default {
                 $(".overlay, .overlay-1, .overlay-2").hide();
 
                 const referDetails = localStorage.getItem('login_modal_refer_details') ? JSON.parse(localStorage.getItem('login_modal_refer_details')) : {};
+
+                let experimentId = 'CONTROL';
+                if (this.getCookie('bucket_id') >= 71 && this.getCookie('bucket_id') < 100) {
+                    switch (referDetails.REFER_ACTION) {
+                        case 'LIBRARYADD':
+                            experimentId = 'WSU001';
+                            break;
+                        case 'REVIEW':
+                            experimentId = 'WSU002';
+                            break;
+                        default:
+                            experimentId = 'CONTROL';
+                            break;
+                    }
+                }
                 switch(this.getLoginSource) {
                     case 'EMAIL':
-                        this.triggerAnanlyticsEvent('SIGNINSUC_EMAIL_GLOBAL', 'CONTROL', {
+                        this.triggerAnanlyticsEvent('SIGNINSUC_EMAIL_GLOBAL', experimentId, {
                             'USER_ID': this.getUserDetails.userId,
                             ...referDetails
                         });
@@ -83,19 +98,19 @@ export default {
 
                 switch(this.getSignupSource) {
                     case 'EMAIL':
-                        this.triggerAnanlyticsEvent('SIGNUPSUC_EMAIL_GLOBAL', 'CONTROL', {
+                        this.triggerAnanlyticsEvent('SIGNUPSUC_EMAIL_GLOBAL', experimentId, {
                             'USER_ID': this.getUserDetails.userId,
                             ...referDetails
                         });
                         break;
                     case 'FACEBOOK':
-                        this.triggerAnanlyticsEvent('SIGNUPSUC_FACEBOOK_GLOBAL', 'CONTROL', {
+                        this.triggerAnanlyticsEvent('SIGNUPSUC_FACEBOOK_GLOBAL', experimentId, {
                             'USER_ID': this.getUserDetails.userId,
                             ...referDetails
                         });
                         break;
                     case 'GOOGLE':
-                        this.triggerAnanlyticsEvent('SIGNUPSUC_GOOGLE_GLOBAL', 'CONTROL', {
+                        this.triggerAnanlyticsEvent('SIGNUPSUC_GOOGLE_GLOBAL', experimentId, {
                             'USER_ID': this.getUserDetails.userId,
                             ...referDetails
                         });
