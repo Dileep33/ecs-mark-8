@@ -74,14 +74,14 @@ export default {
 
             let timePassed = 0;
             this.chatStoryData.messages.forEach((eachMessage, index) => {
-                const lengthOfMessage = eachMessage.message.split(' ').length;
-                const timeToTypeInSec = lengthOfMessage * 1.25;
-                timePassed += timeToTypeInSec;
                 const timeOut = setTimeout(() => {
                     that.liveMessages.push(eachMessage);
                     // console.log(eachMessage.message);
                     $("#chatStoryBody").animate({ scrollTop: $("#chatStoryBody")[0].scrollHeight}, 500);
                 }, timePassed * 500);
+                const lengthOfMessage = eachMessage.message.split(' ').length;
+                const timeToTypeInSec = lengthOfMessage * 0.65;
+                timePassed += timeToTypeInSec;
 
                 this.timeouts.push(timeOut);
             });
@@ -169,9 +169,16 @@ export default {
         &.love {
             background-image: url('/static/chat-love.jpg');
         }
-        &.horror {
+        &.horror, &.suspense {
             background-image: url('/static/chat-horror.jpg');
-            background-size: contain;
+            background-size: 100%;
+            background-position: top center;
+            &::before {
+                background: rgba(0, 0, 0, 0);
+            }
+            .name {
+                color: #fff;
+            }
         }
         .chat-date {
             text-align: center;
@@ -291,7 +298,7 @@ export default {
                 top: 0;
             }
             .name {
-                font-size: 9px;
+                font-size: 10px;
                 font-weight: bold;
                 position: relative;
                 z-index: 1;
