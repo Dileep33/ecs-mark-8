@@ -143,11 +143,16 @@ export default {
         position: relative;
         z-index: 2;
         padding-bottom: 5px;
+        padding-top: 5px;
+        background: #266a1f;
+        color: #fff;
         button.close {
             position: absolute;
             right: 5px;
-            top: 5px;
+            top: 12px;
             z-index: 2;
+            color: #fff;
+            text-shadow: none;
         }
         .logo {
             padding: 0;
@@ -162,7 +167,7 @@ export default {
             font-size: 16px;
             .name {
                 font-weight: bold;
-                margin-top: 6px;
+                margin-top: 7px;
                 display: block;
             }
         }
