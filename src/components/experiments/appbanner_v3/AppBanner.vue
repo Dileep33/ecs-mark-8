@@ -47,7 +47,7 @@ export default {
             this.cross_count++;
             
             const SCREEN_NAME = this.getAnalyticsPageSource(this.$route.meta.store);
-            this.triggerAnanlyticsEvent(`DISMISS_APPBANNER_GLOBAL`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`DISMISS_APPBANNER_GLOBAL`, 'WAB002', {
                 'USER_ID': this.getUserDetails.userId,
                 SCREEN_NAME
             });
@@ -62,7 +62,7 @@ export default {
         downloadApp() {
             this.click_count++;
             const SCREEN_NAME = this.getAnalyticsPageSource(this.$route.meta.store);
-            this.triggerAnanlyticsEvent(`GETANDROID_APPBANNER_GLOBAL`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`GETANDROID_APPBANNER_GLOBAL`, 'WAB002', {
                 'USER_ID': this.getUserDetails.userId,
                 SCREEN_NAME
             });
@@ -106,7 +106,7 @@ export default {
         'inViewport.now': function(visible) {
             if (visible && this.showBanner && this.isAndroid()) {
                 const SCREEN_NAME = this.getAnalyticsPageSource(this.$route.meta.store);
-                this.triggerAnanlyticsEvent(`VIEWED_APPBANNER_GLOBAL`, 'CONTROL', {
+                this.triggerAnanlyticsEvent(`VIEWED_APPBANNER_GLOBAL`, 'WAB002', {
                     'USER_ID': this.getUserDetails.userId,
                     SCREEN_NAME
                 });
