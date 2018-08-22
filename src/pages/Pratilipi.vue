@@ -1,4 +1,4 @@
-<template>
+``<template>
     <MainLayout>
         <div class="pratilipi-page page-wrap">
             <div class="container">
@@ -186,11 +186,12 @@
                     </div>-->
 
                     <div class="book-synopsis col-md-12 col-lg-7 p-0">
-                        <div class="chat-stories">
+                        <!-- Chat Story Strip -->
+                        <!-- <div class="chat-stories">
                             <router-link :to="'/chat-story/chat-story-1'">
                                 Read Chat Stories <i class="material-icons">keyboard_arrow_right</i>
                             </router-link>
-                        </div>
+                        </div> -->
                         <div class="card">
                             <div v-if="getPratilipiData.summary.trim() || getPratilipiData.state === 'DRAFTED' || getPratilipiData.hasAccessToUpdate">
                                 <div class="head-title">__("pratilipi_summary")
