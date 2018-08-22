@@ -6,7 +6,7 @@
             ></Banners>
             <VapasiShayari 
                 screenName="HOME"
-                v-if="this.isMobile() && getCurrentLanguage().fullName == 'hindi'"></VapasiShayari>
+                v-if="this.isMobile() && getCurrentLanguage().fullName == 'hindi' && (parseInt(this.getCookie('bucketId')) || 0) >= 11 && (parseInt(this.getCookie('bucketId')) || 0) < 40"></VapasiShayari>
             <!--
             <VapasiJoke
                 screenName="HOME"
