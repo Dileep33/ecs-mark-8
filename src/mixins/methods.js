@@ -36,6 +36,12 @@ export function openLoginModal(pageSource, action, location) {
         REFER_LOCATION: location
 
     });
+    localStorage.setItem('login_modal_refer_details', JSON.stringify({
+        REFER_SCREEN: getAnalyticsPageSource(pageSource),
+        REFER_ACTION: action,
+        REFER_LOCATION: location
+
+    }));
     $('#login_modal').modal('show');
 }
 
