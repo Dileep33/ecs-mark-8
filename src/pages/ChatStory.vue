@@ -59,7 +59,8 @@ export default {
             chatStoryData: null,
             sender: null,
             liveMessages: [],
-            chatHasEnded: false
+            chatHasEnded: false,
+            timeouts: []
         }
     },
     methods: {
@@ -70,17 +71,19 @@ export default {
 
             this.chatStoryData = chatStoryData;
             this.sender = chatStoryData.messages[0].sender_name;
-            
+
             let timePassed = 0;
             this.chatStoryData.messages.forEach((eachMessage, index) => {
                 const lengthOfMessage = eachMessage.message.split(' ').length;
                 const timeToTypeInSec = lengthOfMessage * 1.25;
                 timePassed += timeToTypeInSec;
-                setTimeout(() => {
+                const timeOut = setTimeout(() => {
                     that.liveMessages.push(eachMessage);
                     // console.log(eachMessage.message);
                     $("#chatStoryBody").animate({ scrollTop: $("#chatStoryBody")[0].scrollHeight}, 500);
                 }, timePassed * 500);
+
+                this.timeouts.push(timeOut);
             });
         },
         nextStory() {
@@ -88,6 +91,10 @@ export default {
             this.sender = null;
             this.liveMessages = [];
             this.chatHasEnded = false;
+            this.timeouts.forEach((eachTimeout) => {
+                clearTimeout(eachTimeout);
+            });
+            this.timeouts = [];
 
             const chatStorySlugs = Object.keys(chatStories);
             const { chatSlug } = this.$route.params;
