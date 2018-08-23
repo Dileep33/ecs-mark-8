@@ -2476,5 +2476,25 @@ export default {
         "SCREEN_NAME": "CHATSTORY",
         "LOCATION": "CHATEND",
         "ACTION": "SHAREWA"
+    },
+    "VIEWED_CHATSTRIP_HOME": {
+        "SCREEN_NAME": "HOME",
+        "LOCATION": "CHATSTRIP",
+        "ACTION": "VIEWED"
+    },
+    "CLICKED_CHATSTRIP_HOME": {
+        "SCREEN_NAME": "HOME",
+        "LOCATION": "CHATSTRIP",
+        "ACTION": "CLICKED"
+    },
+    "VIEWED_CHATSTRIP_BOOK": {
+        "SCREEN_NAME": "BOOK",
+        "LOCATION": "CHATSTRIP",
+        "ACTION": "VIEWED"
+    },
+    "CLICKED_CHATSTRIP_BOOK": {
+        "SCREEN_NAME": "BOOK",
+        "LOCATION": "CHATSTRIP",
+        "ACTION": "CLICKED"
     }
 };
