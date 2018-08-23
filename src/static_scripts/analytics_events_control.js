@@ -2456,5 +2456,25 @@ export default {
         "SCREEN_NAME": "CHATSTORY",
         "LOCATION": "CHATSTORYM",
         "ACTION": "LANDED"
+    },
+    "CLICKED_NEXTSTORY_CHATSTORY": {
+        "SCREEN_NAME": "CHATSTORY",
+        "LOCATION": "NEXTSTORY",
+        "ACTION": "CLICKED"
+    },
+    "LANDED_CHATEND_CHATSTORY": {
+        "SCREEN_NAME": "CHATSTORY",
+        "LOCATION": "CHATEND",
+        "ACTION": "LANDED"
+    },
+    "LANDED_FINISHED_CHATSTORY": {
+        "SCREEN_NAME": "CHATSTORY",
+        "LOCATION": "FINISHED",
+        "ACTION": "LANDED"
+    },
+    "SHAREWA_CHATEND_CHATSTORY": {
+        "SCREEN_NAME": "CHATSTORY",
+        "LOCATION": "CHATEND",
+        "ACTION": "SHAREWA"
     }
 };

@@ -5,7 +5,7 @@
                 <div class="row" v-if="chatStoryData">
                     <div class="col-md-12">
                         <h2>{{ chatStoryData.title }}</h2>
-                        <div class="btn-next-story" @click="nextStory()">Next Story</div>
+                        <div class="btn-next-story" @click="nextStory('top')">Next Story</div>
                     </div>
                     <div id="chatStoryBody" class="chat-body" :class="chatStoryData.storyType">
                         <div id="all-messages" class="all-messages">
@@ -28,7 +28,7 @@
                                 <icon name="whatsapp" scale="1.5"></icon>
                                 <span>__("share")</span>
                             </div>
-                            <div class="btn-next-story" @click="nextStory()">Next Story</div>
+                            <div class="btn-next-story" @click="nextStory('bottom')">Next Story</div>
                         </div>
                     </div>
                 </div>
@@ -96,7 +96,13 @@ export default {
                 this.timeouts.push(timeOut);
             });
         },
-        nextStory() {
+        nextStory(position) {
+            this.triggerAnanlyticsEvent('CLICKED_NEXTSTORY_CHATSTORY', 'CONTROL', {
+                'USER_ID': this.getUserDetails.userId,
+                'PARENT_ID': this.chatStoryData['url-slug'],
+                'BUTTON': position
+            });
+            
             this.chatStoryData = null;
             this.sender = null;
             this.liveMessages = [];
@@ -118,9 +124,17 @@ export default {
             } else {
               $(".chatstory-page").hide();
               $(".end-of-stories").fadeIn();
+              this.triggerAnanlyticsEvent('LANDED_FINISHED_CHATSTORY', 'CONTROL', {
+                  'USER_ID': this.getUserDetails.userId
+              });
             }
       },
       shareWhatsApp() {
+          this.triggerAnanlyticsEvent('SHAREWA_CHATEND_CHATSTORY', 'CONTROL', {
+              'USER_ID': this.getUserDetails.userId,
+              'PARENT_ID': this.chatStoryData['url-slug']
+          });
+          
           const textToShare = `https://${window.location.host}${window.location.pathname}${encodeURIComponent(`?utm_source=whatsapp&utm_medium=social&utm_campaign=chatStories`)}`;
           window.open(`https://api.whatsapp.com/send?text=${textToShare}`);
       }
@@ -139,6 +153,10 @@ export default {
                 setTimeout(() => {
                     $("#chatStoryBody").animate({ scrollTop: $("#chatStoryBody")[0].scrollHeight}, 1000);
                 }, 1000)
+                this.triggerAnanlyticsEvent('LANDED_CHATEND_CHATSTORY', 'CONTROL', {
+                    'USER_ID': this.getUserDetails.userId,
+                    'PARENT_ID': this.chatStoryData['url-slug']
+                });
             }
         }
     },
