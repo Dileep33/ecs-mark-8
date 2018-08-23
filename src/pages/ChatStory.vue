@@ -90,8 +90,14 @@ export default {
                     $("#chatStoryBody").animate({ scrollTop: $("#chatStoryBody")[0].scrollHeight}, 1000);
                 }, timePassed * 1000);
                 const lengthOfMessage = eachMessage.message.split(' ').length;
-                const timeToTypeInSec = lengthOfMessage * 0.32;
-                timePassed += timeToTypeInSec;
+                if (lengthOfMessage <= 3) {
+                    const timeToTypeInSec = (lengthOfMessage * 0.32) + 2;
+                    timePassed += timeToTypeInSec;
+                }
+                else {
+                    const timeToTypeInSec = lengthOfMessage * 0.32;
+                    timePassed += timeToTypeInSec;
+                }
 
                 this.timeouts.push(timeOut);
             });
@@ -195,7 +201,7 @@ export default {
         overflow-y: auto;
         background: #f9f9f9;
         width: 100%;
-        height: calc(100vh - 170px);
+        height: calc(100vh - 180px);
         margin-top: 10px;
         position: relative;
         background-color: #f0e7df;
