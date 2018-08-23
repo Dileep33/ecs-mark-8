@@ -187,7 +187,7 @@
 
                     <div class="book-synopsis col-md-12 col-lg-7 p-0">
                         <!-- Chat Story Strip -->
-                        <ChatStrip v-if="this.isMobile()"
+                        <ChatStrip v-if="this.isMobile() && getCurrentLanguage().fullName == 'hindi'"
                             screenName="BOOK"
                             stripPosition="MIDDLE"
                             ></ChatStrip>

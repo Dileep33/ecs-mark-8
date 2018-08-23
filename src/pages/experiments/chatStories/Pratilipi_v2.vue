@@ -5,7 +5,7 @@
                 <div class="row" v-if="getPratilipiLoadingState === 'LOADING_SUCCESS'" itemscope itemtype="http://schema.org/Book">
                     <div class="book-details col-md-12 col-lg-5 p-0">
                         <!-- Chat Story Strip -->
-                        <ChatStrip v-if="this.isMobile()"
+                        <ChatStrip v-if="this.isMobile() && getCurrentLanguage().fullName == 'hindi'"
                             screenName="BOOK"
                             stripPosition="TOP"
                             ></ChatStrip>

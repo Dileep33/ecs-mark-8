@@ -5,7 +5,7 @@
                 :banners="getHomePageBanners"
             ></Banners>
             <!-- Chat Story Strip -->
-            <ChatStrip v-if="this.isMobile()"
+            <ChatStrip v-if="this.isMobile() && getCurrentLanguage().fullName == 'hindi'"
                 screenName="HOME"
                 stripPosition="MIDDLE"
                 ></ChatStrip>
