@@ -4,7 +4,7 @@
         <AppBannerOne v-if="getCookie('bucket_id') > 70 && getCookie('bucket_id') <= 80"></AppBannerOne>
         <AppBannerTwo v-else-if="getCookie('bucket_id') > 80 && getCookie('bucket_id') <= 90"></AppBannerTwo>
         <AppBannerThree v-else-if="getCookie('bucket_id') > 90 && getCookie('bucket_id') <= 100"></AppBannerThree>
-        <AppBanner v-else></AppBanner>
+        <AppBanner v-else-if="(getCookie('bucket_id') >= 0 && getCookie('bucket_id') <= 40 && currentLocale === 'language-hi') || currentLocale !== 'language-hi'"></AppBanner>
         <slot></slot>
         <PratilipiModal></PratilipiModal>
         <LoginModal></LoginModal>
