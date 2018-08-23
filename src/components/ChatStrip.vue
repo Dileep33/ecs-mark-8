@@ -70,7 +70,7 @@ export default {
 
 <style lang="scss">
 .chat-stories {
-    background: #03A9F4;
+    background: #d0021b;
     max-width: 100%;
     margin: 10px 10px 0;
     clear: both;
