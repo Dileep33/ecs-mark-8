@@ -4,7 +4,10 @@ export default {
     notification_count: 0,
     pending_messages: false,
     logout_user: false,
-    post_login_action: {},
+    post_login_action: {
+        action: null,
+        data: null
+    },
     loading_error_message: {},
     login_source: null,
     signup_source: null,

@@ -1127,6 +1127,11 @@ export default {
         "LOCATION": "BOOKEND",
         "ACTION": "RATE"
     },
+    "REVIEW_BOOKEND_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "BOOKEND",
+        "ACTION": "REVIEW"
+    },
     "SHAREBOOKFB_BOOKEND_READER": {
         "SCREEN_NAME": "READER",
         "LOCATION": "BOOKEND",
@@ -2255,6 +2260,11 @@ export default {
     "CLOSE_VAPSIQUOTE_BOOK": {
         "SCREEN_NAME": "BOOK",
         "LOCATION": "VAPSIQUOTE",
+        "ACTION": "CLOSE"
+    },
+    "CLOSE_VAPSISHAYARI_SHAYARI": {
+        "SCREEN_NAME": "SHAYARI",
+        "LOCATION": "VAPSISHAYARI",
         "ACTION": "CLOSE"
     },
     "VIEW_VAPSIHOROSCOPE_HOME": {

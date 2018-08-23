@@ -40,5 +40,6 @@ export default {
             return 3
         }
     },
-    getEmailCheckingStatus: state => state.email_check
+    getEmailCheckingStatus: state => state.email_check,
+    getPostLoginAction: state => state.post_login_action
 }

@@ -779,8 +779,13 @@ export default {
                 }, 0);
             }
 
-            if (status === 'LOADING_SUCCESS') {
-                this.readPageUrl = this.getPratilipiData.newReadPageUrl && this.isTestEnvironment() ? this.getPratilipiData.newReadPageUrl : this.getPratilipiData.readPageUrl
+            if (status === 'LOADING_SUCCESS') {        
+                let bucketId = parseInt(this.getCookie('bucketId')) || 0
+                this.readPageUrl = 
+                    this.getPratilipiData.newReadPageUrl && 
+                    this.isTestEnvironment()
+                    // (this.isTestEnvironment() || (bucketId >= 11 && bucketId < 20))
+                    ? this.getPratilipiData.newReadPageUrl : this.getPratilipiData.readPageUrl
             }
 
             this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.nextPratilipi && this.getPratilipiData.nextPratilipi.pratilipiId > 0;

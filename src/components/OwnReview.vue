@@ -142,22 +142,23 @@ export default {
 
             // update rating here
             this.updateRatingInStore( { review : this.newReview, pratilipiId : this.userPratilipiData.pratilipiId, pageName : this.$route.meta.store, rating : parseInt(e.target.value)});
+            this.isSaveActive = true;
 
-            if (this.getUserDetails.isGuest) {
-                $('#star1').prop('checked', false);
-                $('#star2').prop('checked', false);
-                $('#star3').prop('checked', false);
-                $('#star4').prop('checked', false);
-                $('#star5').prop('checked', false);
-                // this.setAfterLoginAction({ action: `reviews/setPratilipiRating`, data: {
-                //     rating: newRating,
-                //     pratilipiId: this.userPratilipiData.pratilipiId,
-                //     pageName: this.$route.meta.store
-                // } });
-                this.openLoginModal(this.$route.meta.store, 'RATE', this.screenLocation);
-            } else {
-                this.isSaveActive = true;
-            }
+            // if (this.getUserDetails.isGuest) {
+            //     $('#star1').prop('checked', false);
+            //     $('#star2').prop('checked', false);
+            //     $('#star3').prop('checked', false);
+            //     $('#star4').prop('checked', false);
+            //     $('#star5').prop('checked', false);
+            //     // this.setAfterLoginAction({ action: `reviews/setPratilipiRating`, data: {
+            //     //     rating: newRating,
+            //     //     pratilipiId: this.userPratilipiData.pratilipiId,
+            //     //     pageName: this.$route.meta.store
+            //     // } });
+            //     this.openLoginModal(this.$route.meta.store, 'RATE', this.screenLocation);
+            // } else {
+            //     this.isSaveActive = true;
+            // }
         },
         checkAndUpdateReview(data) {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.pratilipiData);
@@ -174,6 +175,7 @@ export default {
             if (this.getUserDetails.isGuest) {
                 data.pageName = this.$route.meta.store;
                 // this.saveOrUpdateReview(data);
+                this.setAfterLoginAction({ action: `reviews/saveOrUpdateReview`, data });
                 this.openLoginModal(this.$route.meta.store, 'REVIEW', this.screenLocation);
                 this.closeReview();
             } else {
