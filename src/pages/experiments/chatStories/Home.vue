@@ -4,9 +4,11 @@
             <Banners v-if="getHomePageBannersLoadingState === 'LOADING_SUCCESS'"
                 :banners="getHomePageBanners"
             ></Banners>
-            <VapasiShayari 
+            <!-- Chat Story Strip -->
+            <ChatStrip v-if="this.isMobile() && getCurrentLanguage().fullName == 'hindi'"
                 screenName="HOME"
-                v-if="this.isMobile() && getCurrentLanguage().fullName == 'hindi' && (parseInt(this.getCookie('bucketId')) || 0) >= 11 && (parseInt(this.getCookie('bucketId')) || 0) < 40"></VapasiShayari>
+                stripPosition="MIDDLE"
+                ></ChatStrip>
             <!--
             <VapasiJoke
                 screenName="HOME"
@@ -68,16 +70,13 @@
     import PratilipiListComponent from '@/components/PratilipiList.vue';
     import MainLayout from '@/layout/main-layout.vue';
     import Banners from '@/components/Banners.vue';
-    // import VapasiQuote from '@/components/VapasiQuote.vue';
-    import VapasiShayari from '@/components/VapasiShayari.vue';
-    // import VapasiHoroscope from '@/components/VapasiHoroscope.vue';
-    // import VapasiJoke from '@/components/VapasiJoke.vue';
     import ServerError from '@/components/ServerError.vue';
     import WebPushStrip from '@/components/WebPushStrip.vue';
     import WebPushModal from '@/components/WebPushModal.vue';
     import constants from '@/constants'
     import mixins from '@/mixins'
     import WebPushUtil from '@/utils/WebPushUtil'
+    import ChatStrip from '@/components/ChatStrip.vue'
 
 
 import { mapGetters, mapActions } from 'vuex'
@@ -135,10 +134,7 @@ import { mapGetters, mapActions } from 'vuex'
             DummyLoader,
             WebPushStrip,
             WebPushModal,
-            // VapasiQuote,
-            VapasiShayari,
-            // VapasiHoroscope,
-            // VapasiJoke
+            ChatStrip
         },
         created() {
             this.fetchBanners(this.getCurrentLanguage().fullName.toUpperCase());

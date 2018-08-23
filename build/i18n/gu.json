@@ -614,5 +614,8 @@
     "welcome_pratilipi": "પ્રતિલિપિ પર આપનું સ્વાગત છે",
     "event_submission_restricted_error" : "cannot submit more than 5 contents",
     "event_submit": "ભાગ લો",
-    "event_unsubmit": "ભાગ ન લો"
+    "event_unsubmit": "ભાગ ન લો",
+
+    "login_popup_story_added_to_library": "આપની લાઈબ્રેરીમાં વાર્તા સફળતાપુર્વક ઉમેરી દેવામાં આવી છે.સાઈન અપ કરો અને ગમે ત્યારે વાંચો. ",
+    "login_popup_read_and_rate_stories": "આ પ્રકારની વધારે વાર્તાઓ વાંચો અને રેટ કરો. "
 }

@@ -3,8 +3,10 @@ import controlAnalyticsEvents from '@/static_scripts/analytics_events_control'
 import readerV1AnalyticsEvents from '@/static_scripts/experiment_events/reader_v1'
 import readerV2AnalyticsEvents from '@/static_scripts/experiment_events/reader_v2'
 import recommendationV1AnalyticsEvents from '@/static_scripts/experiment_events/recommendation_v1'
+import appLoginV1AnalyticsEvents from '@/static_scripts/experiment_events/applogin_v1'
 
 const recommendation_v1 = ['WREC001'];
+const applogin_v1 = ['WSU001', 'WSU002'];
 
 let REFERRER_EVENT;
 let REFERRER_EXPERIMENTID;
@@ -30,12 +32,33 @@ export function translateWord(word, callback) {
 }
 
 export function openLoginModal(pageSource, action, location) {
-    triggerAnanlyticsEvent('LANDED_REGISTERM_GLOBAL', 'CONTROL', {
+
+    let experimentId = 'CONTROL';
+    if (getCookie('bucket_id') >= 71 && getCookie('bucket_id') < 100) {
+        switch (action) {
+            case 'LIBRARYADD':
+                experimentId = 'WSU001';
+                break;
+            case 'REVIEW':
+                experimentId = 'WSU002';
+                break;
+            default:
+                experimentId = 'CONTROL';
+                break;
+        }
+    }
+    triggerAnanlyticsEvent('LANDED_REGISTERM_GLOBAL', experimentId, {
         REFER_SCREEN: getAnalyticsPageSource(pageSource),
         REFER_ACTION: action,
         REFER_LOCATION: location
 
     });
+    localStorage.setItem('login_modal_refer_details', JSON.stringify({
+        REFER_SCREEN: getAnalyticsPageSource(pageSource),
+        REFER_ACTION: action,
+        REFER_LOCATION: location
+
+    }));
     $('#login_modal').modal('show');
 }
 
@@ -331,6 +354,9 @@ export function triggerAnanlyticsEvent(eventName, experimentType, eventProperty)
             break;
         case (experimentType === 'WREC001'):
             eventProps = { ...recommendationV1AnalyticsEvents[eventName] };
+            break;
+        case (experimentType === 'WSU001' || experimentType === 'WSU002'):
+            eventProps = { ...appLoginV1AnalyticsEvents[eventName] };
             break;
         default:
             eventProps = { ...controlAnalyticsEvents[eventName] };

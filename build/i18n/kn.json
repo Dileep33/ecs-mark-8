@@ -609,5 +609,8 @@
     "welcome_pratilipi": "ಪ್ರತಿಲಿಪಿಗೆ ನಿಮಗೆ ಸ್ವಾಗತ",
     "event_submission_restricted_error" : "cannot submit more than 5 contents",
     "event_unsubmit": "ಅನ್ಸಬ್ಮಿಟ್ ಮಾಡಿ",
-    "event_submit": "ಸಬ್ಮಿಟ್ ಮಾಡಿ"
+    "event_submit": "ಸಬ್ಮಿಟ್ ಮಾಡಿ",
+
+    "login_popup_story_added_to_library": "ಕಥೆಯನ್ನು ನಿಮ್ಮ ಗ್ರಂಥಾಲಯಕ್ಕೆ ಯಶಸ್ವಿಯಾಗಿ ಸೇರಿಸಲಾಗಿದೆ. ಸೈನ್ ಅಪ್ ಆಗುವ ಮೂಲಕ ಯಾವುದೇ ಸಮಯದಲ್ಲಿ ಓದಿರಿ.",
+    "login_popup_read_and_rate_stories": "ಇದೇ ರೀತಿಯ ಕಥೆಗಳನ್ನು ಇನ್ನೂ ಹೆಚ್ಚು ಓದಿ ಮತ್ತು ರೇಟಿಂಗ್ ನೀಡಿ"
 }

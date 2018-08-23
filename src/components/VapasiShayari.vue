@@ -78,7 +78,7 @@ export default {
 }
 
 .shayari-home-banner {
-    background: #4CAF50;
+    background: #383838;
     color: white;
     display: flex;
     width: 90%;

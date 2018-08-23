@@ -631,5 +631,8 @@
     "welcome_pratilipi": "प्रतिलिपि मध्ये आपले स्वागत आहे",
     "event_submission_restricted_error" : "cannot submit more than 5 contents",
     "event_unsubmit": "भाग घेऊ नका",
-    "event_submit": "भाग घ्या"
+    "event_submit": "भाग घ्या",
+
+    "login_popup_story_added_to_library": "कथा आपल्या लायब्ररीमध्ये समाविष्ट करण्यात आली आहे. आपल्याला हवे तेव्हा वाचण्याकरता साइन अप करा. ",
+    "login_popup_read_and_rate_stories": "अशाप्रकारच्या अनेक कथा वाचा तसेच रेट करा. "
 }

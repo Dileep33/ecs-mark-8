@@ -1,19 +1,19 @@
 <template>
     <MainLayout>
         <div class="shayari">
-            <div class="shayari-item card" v-for="(shayari, index) in shayariList" v-if="shayari.id == $route.query.postId && shouldShowModal && shayariList.length !== 0">
+            <!-- <div class="shayari-item card" v-for="(shayari, index) in shayariList" v-if="shayari.id == $route.query.postId && shouldShowModal && shayariList.length !== 0">
                 <ShayariDetails :shayari="shayari" :index="index"></ShayariDetails>
                 
-            </div>
+            </div> -->
             <div class="shayari-item card" v-for="(shayari, index) in shayariList" v-if="shayari.active && shayari.id != $route.query.postId && shayariList.length !== 0">
                 <ShayariDetails :shayari="shayari" :index="index"></ShayariDetails>
             </div>
         </div>
-        <!-- <div class="shayari-shadow shayari-modal" v-for="(shayari, index) in shayariList" v-if="shayari.id == $route.query.postId && shouldShowModal && shayariList.length !== 0">
+        <div class="shayari-shadow shayari-modal" v-for="(shayari, index) in shayariList" v-if="shayari.id == $route.query.postId && shouldShowModal && shayariList.length !== 0">
             <p class="close" @click="resetModal(shayari.id)"><b>X</b></p>
             <ShayariDetails :shayari="shayari" :index="index"></ShayariDetails>
         </div>
-        <div class="modal-backdrop" v-if="shouldShowModal"></div> -->
+        <div class="modal-backdrop" v-if="shouldShowModal"></div>
     </MainLayout>
 </template>
 <script>
@@ -53,10 +53,10 @@ export default {
         ShayariDetails
     },
     methods: {
-        // resetModal(postId) {
-        //     this.shouldShowModal = false;
-        //     this.triggerAnanlyticsEvent(`CLOSE_VAPSISHAYARI_SHAYARI`, 'CONTROL', {'USER_ID': this.getUserDetails.userId, "POST_ID": postId});
-        // },
+        resetModal(postId) {
+            this.shouldShowModal = false;
+            this.triggerAnanlyticsEvent(`CLOSE_VAPSISHAYARI_SHAYARI`, 'CONTROL', {'USER_ID': this.getUserDetails.userId, "POST_ID": postId});
+        },
         fetchShayariList() {
             const that = this;
             import('firebase').then((firebase) => {

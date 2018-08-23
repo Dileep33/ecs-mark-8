@@ -609,5 +609,8 @@
     "welcome_pratilipi": "ప్రతిలిపిలోకి మీకు స్వాగతం",
     "event_submission_restricted_error" : "cannot submit more than 5 contents",
     "event_unsubmit": "remove submission",
-    "event_submit": "submit book for event"
+    "event_submit": "submit book for event",
+
+    "login_popup_story_added_to_library": "కథ విజయవంతంగా మీ గ్రంధాలయానికి జోడించబడింది.చదవడానికి సైన్ అప్ అవ్వండి. ",
+    "login_popup_read_and_rate_stories": "మరిన్ని ఇలాంటి కథలను చదవండి మరియు రేటింగ్ ఇవ్వండి. "
 }

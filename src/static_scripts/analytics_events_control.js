@@ -1127,6 +1127,11 @@ export default {
         "LOCATION": "BOOKEND",
         "ACTION": "RATE"
     },
+    "REVIEW_BOOKEND_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "BOOKEND",
+        "ACTION": "REVIEW"
+    },
     "SHAREBOOKFB_BOOKEND_READER": {
         "SCREEN_NAME": "READER",
         "LOCATION": "BOOKEND",
@@ -2257,6 +2262,11 @@ export default {
         "LOCATION": "VAPSIQUOTE",
         "ACTION": "CLOSE"
     },
+    "CLOSE_VAPSISHAYARI_SHAYARI": {
+        "SCREEN_NAME": "SHAYARI",
+        "LOCATION": "VAPSISHAYARI",
+        "ACTION": "CLOSE"
+    },
     "VIEW_VAPSIHOROSCOPE_HOME": {
         "SCREEN_NAME": "HOME",
         "LOCATION": "VAPSIHOROSCOPE",
@@ -2451,5 +2461,50 @@ export default {
         "SCREEN_NAME": "EVENTPARTICIPATE",
         "LOCATION": "CREATEPRATILIPI",
         "ACTION": "LANDED"
+    },
+    "LANDED_CHATSTORYM_CHATSTORY": {
+        "SCREEN_NAME": "CHATSTORY",
+        "LOCATION": "CHATSTORYM",
+        "ACTION": "LANDED"
+    },
+    "CLICKED_NEXTSTORY_CHATSTORY": {
+        "SCREEN_NAME": "CHATSTORY",
+        "LOCATION": "NEXTSTORY",
+        "ACTION": "CLICKED"
+    },
+    "LANDED_CHATEND_CHATSTORY": {
+        "SCREEN_NAME": "CHATSTORY",
+        "LOCATION": "CHATEND",
+        "ACTION": "LANDED"
+    },
+    "LANDED_FINISHED_CHATSTORY": {
+        "SCREEN_NAME": "CHATSTORY",
+        "LOCATION": "FINISHED",
+        "ACTION": "LANDED"
+    },
+    "SHAREWA_CHATEND_CHATSTORY": {
+        "SCREEN_NAME": "CHATSTORY",
+        "LOCATION": "CHATEND",
+        "ACTION": "SHAREWA"
+    },
+    "VIEWED_CHATSTRIP_HOME": {
+        "SCREEN_NAME": "HOME",
+        "LOCATION": "CHATSTRIP",
+        "ACTION": "VIEWED"
+    },
+    "CLICKED_CHATSTRIP_HOME": {
+        "SCREEN_NAME": "HOME",
+        "LOCATION": "CHATSTRIP",
+        "ACTION": "CLICKED"
+    },
+    "VIEWED_CHATSTRIP_BOOK": {
+        "SCREEN_NAME": "BOOK",
+        "LOCATION": "CHATSTRIP",
+        "ACTION": "VIEWED"
+    },
+    "CLICKED_CHATSTRIP_BOOK": {
+        "SCREEN_NAME": "BOOK",
+        "LOCATION": "CHATSTRIP",
+        "ACTION": "CLICKED"
     }
 };
