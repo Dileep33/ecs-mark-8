@@ -48,11 +48,21 @@ import Spinner from '@/components/Spinner.vue';
 import chatStories from '@/constants/chat-stories.json';
 import 'vue-awesome/icons/whatsapp'
 import 'vue-awesome/icons/thumbs-o-up'
+import mixins from '@/mixins';
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
     components: {
         MainLayout,
         Spinner
+    },
+    mixins: [
+        mixins
+    ],
+    computed: {
+        ...mapGetters([
+            'getUserDetails'
+        ])
     },
     data() {
         return {
@@ -77,10 +87,10 @@ export default {
                 const timeOut = setTimeout(() => {
                     that.liveMessages.push(eachMessage);
                     // console.log(eachMessage.message);
-                    $("#chatStoryBody").animate({ scrollTop: $("#chatStoryBody")[0].scrollHeight}, 500);
-                }, timePassed * 500);
+                    $("#chatStoryBody").animate({ scrollTop: $("#chatStoryBody")[0].scrollHeight}, 1000);
+                }, timePassed * 1000);
                 const lengthOfMessage = eachMessage.message.split(' ').length;
-                const timeToTypeInSec = lengthOfMessage * 0.65;
+                const timeToTypeInSec = lengthOfMessage * 0.32;
                 timePassed += timeToTypeInSec;
 
                 this.timeouts.push(timeOut);
@@ -118,6 +128,10 @@ export default {
     watch: {
         '$route.params.chatSlug'() {
             this.loadStories();
+            this.triggerAnanlyticsEvent('LANDED_CHATSTORYM_CHATSTORY', 'CONTROL', {
+                'USER_ID': this.getUserDetails.userId,
+                'PARENT_ID': this.chatStoryData['url-slug']
+            });
         },
         'liveMessages'(liveMessages) {
             if (this.chatStoryData !== null && liveMessages.length === this.chatStoryData.messages.length) {
@@ -130,6 +144,10 @@ export default {
     },
     created() {
         this.loadStories();
+        this.triggerAnanlyticsEvent('LANDED_CHATSTORYM_CHATSTORY', 'CONTROL', {
+            'USER_ID': this.getUserDetails.userId,
+            'PARENT_ID': this.chatStoryData['url-slug']
+        });
     }
 }
 </script>

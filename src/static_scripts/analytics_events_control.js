@@ -2451,5 +2451,10 @@ export default {
         "SCREEN_NAME": "EVENTPARTICIPATE",
         "LOCATION": "CREATEPRATILIPI",
         "ACTION": "LANDED"
+    },
+    "LANDED_CHATSTORYM_CHATSTORY": {
+        "SCREEN_NAME": "CHATSTORY",
+        "LOCATION": "CHATSTORYM",
+        "ACTION": "LANDED"
     }
 };
