@@ -116,7 +116,7 @@
                             </div>
 			    <meta itemprop="inLanguage" v-bind:content="getPratilipiData.language" />
                             <meta itemprop="image" v-bind:content="getPratilipiData.coverImageUrl" />
-			    <meta v-for="tag in selectedTags" itemprop="genre" v-bind:content="tag.nameEn"/> 
+			    <meta v-for="tag in selectedTags" itemprop="genre" v-bind:content="tag.nameEn"/>
                             <Spinner v-if="getPratilipiContentLoadingState !== 'LOADING_SUCCESS'"></Spinner>
                             <div class="book-navigation p-lr-15" v-if="getPratilipiContentLoadingState === 'LOADING_SUCCESS'">
                                 <div class="prev" v-if="selectedChapter != 1" @click="goToPreviousChapter">__("reader_prev_chapter")</div>
@@ -200,9 +200,9 @@
                             <i class="material-icons">star_rate</i>
 			    <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
                             	<span itemprop="ratingCount">{{ getPratilipiData.ratingCount }}</span>
-        			<meta itemprop="ratingValue" v-bind:content="getPratilipiData.averageRating | round(1)" />	
+        			<meta itemprop="ratingValue" v-bind:content="getPratilipiData.averageRating | round(1)" />
                     <meta itemprop="bestRating" v-bind:content="5"/>
-                    <meta itemprop="worstRating" v-bind:content="1"/>    
+                    <meta itemprop="worstRating" v-bind:content="1"/>
 			    </span>
                         </div>
                         <div class="add-to-lib">
@@ -817,25 +817,14 @@ export default {
                 this.selectedChapter = 1;
                 return;
             }
-            if (this.getPratilipiData.contentType === 'PRATILIPI') {
-                this.fetchPratilipiContentForHTML({ pratilipiId: this.getPratilipiData.pratilipiId, chapterNo: Number(newValue) });
-                this.selectedChapter = newValue;
-            }
-            if (this.getPratilipiData.contentType === 'IMAGE') {
-                if (this.getPratilipiData.pratilipiId != this.$route.query.id) {
-                    this.fetchPratilipiContentForIMAGE({ pratilipiId: this.getPratilipiData.pratilipiId, chapterNo: Number(newValue) });
-                }
-                this.selectedChapter = newValue;
-            }
+            this.fetchPratilipiContentForHTML({ pratilipiId: this.getPratilipiData.pratilipiId, chapterNo: Number(newValue) });
+            this.selectedChapter = newValue;
+
         },
         'getPratilipiData.pratilipiId'(newId, oldId) {
             this.clearCachedContents();
-            if (this.getPratilipiData.contentType === 'PRATILIPI') {
-                this.fetchPratilipiContentForHTML({ pratilipiId: newId, chapterNo: this.$route.query.chapterNo ? Number(this.$route.query.chapterNo) : 1 });
-            }
-            if (this.getPratilipiData.contentType === 'IMAGE') {
-                this.fetchPratilipiContentForIMAGE({ pratilipiId: newId, chapterNo: this.$route.query.chapterNo ? Number(this.$route.query.chapterNo) : 1 });
-            }
+
+            this.fetchPratilipiContentForHTML({ pratilipiId: newId, chapterNo: this.$route.query.chapterNo ? Number(this.$route.query.chapterNo) : 1 });
             this.fetchAuthorDetails();
             // default value for webPushModalTriggered is false
             this.webPushModalTriggered = false;
