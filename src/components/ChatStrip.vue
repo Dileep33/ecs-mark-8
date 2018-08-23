@@ -1,7 +1,7 @@
 <template>
     <div class="chat-stories">
         <router-link :to="'/chat-story/' + firstChatStorySlug" @click.native="triggerChatStripAnalytics()">
-            <span>Read Chat Stories</span>
+            <span>__("chatstory_strip")</span>
             <i class="material-icons">keyboard_arrow_right</i>
         </router-link>
     </div>

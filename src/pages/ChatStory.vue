@@ -5,7 +5,7 @@
                 <div class="row" v-if="chatStoryData">
                     <div class="col-md-12">
                         <h2>{{ chatStoryData.title }}</h2>
-                        <div class="btn-next-story" @click="nextStory('top')">Next Story</div>
+                        <div class="btn-next-story" @click="nextStory('top')">__("chatstory_next")</div>
                     </div>
                     <div id="chatStoryBody" class="chat-body" :class="chatStoryData.storyType">
                         <div id="all-messages" class="all-messages">
@@ -28,7 +28,7 @@
                                 <icon name="whatsapp" scale="1.5"></icon>
                                 <span>__("share")</span>
                             </div>
-                            <div class="btn-next-story" @click="nextStory('bottom')">Next Story</div>
+                            <div class="btn-next-story" @click="nextStory('bottom')">__("chatstory_next")</div>
                         </div>
                     </div>
                 </div>
@@ -36,8 +36,8 @@
         </div>
         <div class="end-of-stories">
             <i class="material-icons">check_circle_outline</i>
-            <h3>You have read all the stories!!!</h3>
-            <p>Come back tomorrow for more new stories.</p>
+            <h3>__("chatstory_finish_1")</h3>
+            <p>__("chatstory_finish_2")</p>
         </div>
     </MainLayout>
 </template>
