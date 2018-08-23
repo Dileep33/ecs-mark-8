@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h1>{{ getPratilipiListTitle }}</h1>
-                        <div class="list-tabs" v-if="currentLocale === 'hi' && $route.params.list_page_url === 'lovestories'">
+                        <div class="list-tabs" v-if="currentLocale === 'hi'">
                             <a href="#" @click="listchange" class="active" data-tab="tab-relevant">__("sorting_relevant")</a>
                             <a href="#" @click="listchange" data-tab="tab-recent_published">__("sorting_latest")</a>
                             <a href="#" @click="listchange" data-tab="tab-high_rated">__("sorting_highly_rated")</a>

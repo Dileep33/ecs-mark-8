@@ -579,7 +579,7 @@ export default {
     
     getRecentPratilipiListByListName: (listName, offset, cursor, resultCount, language, timeFilter, aCallBack) => {
         if (listName == null) return;
-        var params = { "category": "romance", "language": language };
+        var params = { "category": listName, "language": language };
         if (offset != null) params["offset"] = offset;
         if (resultCount != null) params["resultCount"] = resultCount;
         if (timeFilter.fromSec != null) params["fromSec"] = timeFilter.fromSec;
@@ -592,7 +592,7 @@ export default {
     
     getHighRatedPratilipiListByListName: (listName, offset, cursor, resultCount, language, timeFilter, aCallBack) => {
         if (listName == null) return;
-        var params = { "category": "romance", "language": language };
+        var params = { "category": listName, "language": language };
         if (offset != null) params["offset"] = offset;
         if (resultCount != null) params["resultCount"] = resultCount;
         if (timeFilter.fromSec != null) params["fromSec"] = timeFilter.fromSec;
