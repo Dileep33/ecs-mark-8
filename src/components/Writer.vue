@@ -340,7 +340,7 @@ export default {
                 // inline: true,
                 height: 400,
                 block_formats: 'Paragraph=p;',
-                plugins: ['autoresize autolink lists link image', 'paste'],
+                plugins: ['autoresize autolink lists link image', 'paste','spellchecker'],
                 menubar: false,
                 statusbar: false,
                 toolbar: 'bold italic underline | CustomLeftAlign CustomCenterAlign CustomRightAlign | CustomBlockquote link imageCustom | Ulist Olist',
@@ -359,7 +359,7 @@ export default {
                 paste_remove_styles_if_webkit: false,
                 paste_text_linebreaktype: "p",
 
-                browser_spellcheck: false,
+                browser_spellcheck: true,
                 allow_conditional_comments: false,
                 allow_html_in_named_anchor: false,
                 entity_encoding: 'raw',
