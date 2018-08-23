@@ -165,7 +165,16 @@ var router = new Router({
     routes: [{
             path: '/',
             name: 'Home',
-            component: Home,
+            component: () => {
+                if (getCookie('bucket_id') > 10 && getCookie('bucket_id') <= 70) {
+                    return import ('@/pages/experiments/chatStories/Home.vue');
+                }
+                else {
+                    return new Promise((resolve) => {
+                        resolve(Home)
+                    });
+                }
+            },
             meta: {
                 'store': 'homepage',
                 'title': '__("seo_home_page") | __("pratilipi")',
@@ -226,8 +235,11 @@ var router = new Router({
             name: 'Pratilipi',
             component: () => {
                 if (process.env.REALM === 'PROD') {
-                    if (getCookie('bucket_id') > 30 && getCookie('bucket_id') <= 60) {
-                        return import ('@/pages/experiments/recommendation_v1/Pratilipi.vue');
+                    if ((getCookie('bucket_id') > 10 && getCookie('bucket_id') <= 40) || (getCookie('bucket_id') > 70 && getCookie('bucket_id') <= 100)) {
+                        return import ('@/pages/experiments/chatStories/Pratilipi_v1.vue');
+                    }
+                    else if (getCookie('bucket_id') > 40 && getCookie('bucket_id') <= 70) {
+                        return import ('@/pages/experiments/chatStories/Pratilipi_v2.vue');
                     } else {
                         return new Promise((resolve) => {
                             resolve(PratilipiPageComponent)
