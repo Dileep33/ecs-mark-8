@@ -1,5 +1,5 @@
 <template>
-    <div class="footer-wrap">
+    <div class="footer-wrap" v-if="$route.name !== 'ChatStory'">
         <div class="top-footer">
             <div class="container">
                 <div class="row">

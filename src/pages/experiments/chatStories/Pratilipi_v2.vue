@@ -4,6 +4,11 @@
             <div class="container">
                 <div class="row" v-if="getPratilipiLoadingState === 'LOADING_SUCCESS'" itemscope itemtype="http://schema.org/Book">
                     <div class="book-details col-md-12 col-lg-5 p-0">
+                        <!-- Chat Story Strip -->
+                        <ChatStrip v-if="this.isMobile() && getCurrentLanguage().fullName == 'hindi'"
+                            screenName="BOOK"
+                            stripPosition="TOP"
+                            ></ChatStrip>
                         <div class="card">
                             <div class="book-image-container">
                                 <div class="book-image">
@@ -298,6 +303,7 @@ import VapasiQuote from '@/components/VapasiQuote.vue';
 import VapasiHoroscope from '@/components/VapasiHoroscope.vue';
 import VapasiJoke from '@/components/VapasiJoke.vue';
 import PratilipiPublishShareModal from '@/components/PratilipiPublishShareModal.vue';
+import ChatStrip from '@/components/ChatStrip.vue'
 
 export default {
     name: 'Pratilipi',
@@ -696,6 +702,7 @@ export default {
         VapasiJoke,
         NextPratilipiStrip,
         PratilipiPublishShareModal,
+        ChatStrip
     },
     mounted() {
         window.addEventListener('scroll', this.updateScroll);
@@ -779,13 +786,8 @@ export default {
                 }, 0);
             }
 
-            if (status === 'LOADING_SUCCESS') {        
-                let bucketId = parseInt(this.getCookie('bucketId')) || 0
-                this.readPageUrl = 
-                    this.getPratilipiData.newReadPageUrl && 
-                    this.isTestEnvironment()
-                    // (this.isTestEnvironment() || (bucketId >= 11 && bucketId < 20))
-                    ? this.getPratilipiData.newReadPageUrl : this.getPratilipiData.readPageUrl
+            if (status === 'LOADING_SUCCESS') {
+                this.readPageUrl = this.getPratilipiData.newReadPageUrl && this.isTestEnvironment() ? this.getPratilipiData.newReadPageUrl : this.getPratilipiData.readPageUrl
             }
 
             this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.nextPratilipi && this.getPratilipiData.nextPratilipi.pratilipiId > 0;

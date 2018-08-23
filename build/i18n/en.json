@@ -602,5 +602,9 @@
     "sorting_latest": "Latest",
     "sorting_highly_rated": "Highly Rated",
     "sorting_clear": "Clear",
-    "sorting_showing_results": "Showing results for"
+    "sorting_showing_results": "Showing results for",
+    "chatstory_strip": "Read Chat Stories",
+    "chatstory_next": "Next Story",
+    "chatstory_finish_1": "You have read all the stories!!!",
+    "chatstory_finish_2": "Come back tomorrow for more new stories."
 }

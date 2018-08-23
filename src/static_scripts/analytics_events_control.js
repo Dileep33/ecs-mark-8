@@ -2461,5 +2461,50 @@ export default {
         "SCREEN_NAME": "EVENTPARTICIPATE",
         "LOCATION": "CREATEPRATILIPI",
         "ACTION": "LANDED"
+    },
+    "LANDED_CHATSTORYM_CHATSTORY": {
+        "SCREEN_NAME": "CHATSTORY",
+        "LOCATION": "CHATSTORYM",
+        "ACTION": "LANDED"
+    },
+    "CLICKED_NEXTSTORY_CHATSTORY": {
+        "SCREEN_NAME": "CHATSTORY",
+        "LOCATION": "NEXTSTORY",
+        "ACTION": "CLICKED"
+    },
+    "LANDED_CHATEND_CHATSTORY": {
+        "SCREEN_NAME": "CHATSTORY",
+        "LOCATION": "CHATEND",
+        "ACTION": "LANDED"
+    },
+    "LANDED_FINISHED_CHATSTORY": {
+        "SCREEN_NAME": "CHATSTORY",
+        "LOCATION": "FINISHED",
+        "ACTION": "LANDED"
+    },
+    "SHAREWA_CHATEND_CHATSTORY": {
+        "SCREEN_NAME": "CHATSTORY",
+        "LOCATION": "CHATEND",
+        "ACTION": "SHAREWA"
+    },
+    "VIEWED_CHATSTRIP_HOME": {
+        "SCREEN_NAME": "HOME",
+        "LOCATION": "CHATSTRIP",
+        "ACTION": "VIEWED"
+    },
+    "CLICKED_CHATSTRIP_HOME": {
+        "SCREEN_NAME": "HOME",
+        "LOCATION": "CHATSTRIP",
+        "ACTION": "CLICKED"
+    },
+    "VIEWED_CHATSTRIP_BOOK": {
+        "SCREEN_NAME": "BOOK",
+        "LOCATION": "CHATSTRIP",
+        "ACTION": "VIEWED"
+    },
+    "CLICKED_CHATSTRIP_BOOK": {
+        "SCREEN_NAME": "BOOK",
+        "LOCATION": "CHATSTRIP",
+        "ACTION": "CLICKED"
     }
 };

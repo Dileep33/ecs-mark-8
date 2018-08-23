@@ -5,7 +5,7 @@
                 <div class="row" v-if="chatStoryData">
                     <div class="col-md-12">
                         <h2>{{ chatStoryData.title }}</h2>
-                        <div class="btn-next-story" @click="nextStory()">Next Story</div>
+                        <div class="btn-next-story" @click="nextStory('top')">__("chatstory_next")</div>
                     </div>
                     <div id="chatStoryBody" class="chat-body" :class="chatStoryData.storyType">
                         <div id="all-messages" class="all-messages">
@@ -28,7 +28,7 @@
                                 <icon name="whatsapp" scale="1.5"></icon>
                                 <span>__("share")</span>
                             </div>
-                            <div class="btn-next-story" @click="nextStory()">Next Story</div>
+                            <div class="btn-next-story" @click="nextStory('bottom')">__("chatstory_next")</div>
                         </div>
                     </div>
                 </div>
@@ -36,8 +36,8 @@
         </div>
         <div class="end-of-stories">
             <i class="material-icons">check_circle_outline</i>
-            <h3>You have read all the stories!!!</h3>
-            <p>Come back tomorrow for more new stories.</p>
+            <h3>__("chatstory_finish_1")</h3>
+            <p>__("chatstory_finish_2")</p>
         </div>
     </MainLayout>
 </template>
@@ -48,11 +48,21 @@ import Spinner from '@/components/Spinner.vue';
 import chatStories from '@/constants/chat-stories.json';
 import 'vue-awesome/icons/whatsapp'
 import 'vue-awesome/icons/thumbs-o-up'
+import mixins from '@/mixins';
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
     components: {
         MainLayout,
         Spinner
+    },
+    mixins: [
+        mixins
+    ],
+    computed: {
+        ...mapGetters([
+            'getUserDetails'
+        ])
     },
     data() {
         return {
@@ -77,16 +87,22 @@ export default {
                 const timeOut = setTimeout(() => {
                     that.liveMessages.push(eachMessage);
                     // console.log(eachMessage.message);
-                    $("#chatStoryBody").animate({ scrollTop: $("#chatStoryBody")[0].scrollHeight}, 500);
-                }, timePassed * 500);
+                    $("#chatStoryBody").animate({ scrollTop: $("#chatStoryBody")[0].scrollHeight}, 1000);
+                }, timePassed * 1000);
                 const lengthOfMessage = eachMessage.message.split(' ').length;
-                const timeToTypeInSec = lengthOfMessage * 0.65;
+                const timeToTypeInSec = lengthOfMessage * 0.32;
                 timePassed += timeToTypeInSec;
 
                 this.timeouts.push(timeOut);
             });
         },
-        nextStory() {
+        nextStory(position) {
+            this.triggerAnanlyticsEvent('CLICKED_NEXTSTORY_CHATSTORY', 'CONTROL', {
+                'USER_ID': this.getUserDetails.userId,
+                'PARENT_ID': this.chatStoryData['url-slug'],
+                'BUTTON': position
+            });
+            
             this.chatStoryData = null;
             this.sender = null;
             this.liveMessages = [];
@@ -108,9 +124,17 @@ export default {
             } else {
               $(".chatstory-page").hide();
               $(".end-of-stories").fadeIn();
+              this.triggerAnanlyticsEvent('LANDED_FINISHED_CHATSTORY', 'CONTROL', {
+                  'USER_ID': this.getUserDetails.userId
+              });
             }
       },
       shareWhatsApp() {
+          this.triggerAnanlyticsEvent('SHAREWA_CHATEND_CHATSTORY', 'CONTROL', {
+              'USER_ID': this.getUserDetails.userId,
+              'PARENT_ID': this.chatStoryData['url-slug']
+          });
+          
           const textToShare = `https://${window.location.host}${window.location.pathname}${encodeURIComponent(`?utm_source=whatsapp&utm_medium=social&utm_campaign=chatStories`)}`;
           window.open(`https://api.whatsapp.com/send?text=${textToShare}`);
       }
@@ -118,6 +142,10 @@ export default {
     watch: {
         '$route.params.chatSlug'() {
             this.loadStories();
+            this.triggerAnanlyticsEvent('LANDED_CHATSTORYM_CHATSTORY', 'CONTROL', {
+                'USER_ID': this.getUserDetails.userId,
+                'PARENT_ID': this.chatStoryData['url-slug']
+            });
         },
         'liveMessages'(liveMessages) {
             if (this.chatStoryData !== null && liveMessages.length === this.chatStoryData.messages.length) {
@@ -125,11 +153,19 @@ export default {
                 setTimeout(() => {
                     $("#chatStoryBody").animate({ scrollTop: $("#chatStoryBody")[0].scrollHeight}, 1000);
                 }, 1000)
+                this.triggerAnanlyticsEvent('LANDED_CHATEND_CHATSTORY', 'CONTROL', {
+                    'USER_ID': this.getUserDetails.userId,
+                    'PARENT_ID': this.chatStoryData['url-slug']
+                });
             }
         }
     },
     created() {
         this.loadStories();
+        this.triggerAnanlyticsEvent('LANDED_CHATSTORYM_CHATSTORY', 'CONTROL', {
+            'USER_ID': this.getUserDetails.userId,
+            'PARENT_ID': this.chatStoryData['url-slug']
+        });
     }
 }
 </script>
