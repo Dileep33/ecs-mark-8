@@ -186,12 +186,6 @@
                     </div>-->
 
                     <div class="book-synopsis col-md-12 col-lg-7 p-0">
-                        <!-- Chat Story Strip -->
-                        <!-- <div class="chat-stories">
-                            <router-link :to="'/chat-story/chat-story-1'">
-                                Read Chat Stories <i class="material-icons">keyboard_arrow_right</i>
-                            </router-link>
-                        </div> -->
                         <div class="card">
                             <div v-if="getPratilipiData.summary.trim() || getPratilipiData.state === 'DRAFTED' || getPratilipiData.hasAccessToUpdate">
                                 <div class="head-title">__("pratilipi_summary")
@@ -1214,26 +1208,6 @@ export default {
                 i {
                     font-size: 20px;
                 }
-            }
-        }
-        .chat-stories {
-            background: #03A9F4;
-            max-width: 100%;
-            margin: 10px 10px 0;
-            clear: both;
-            a {
-                margin: 0;
-                padding: 10px 0;
-                text-decoration: none;
-                font-size: 16px;
-                color: #fff;
-                width: 100%;
-                display: block;
-                font-weight: bold;
-                text-align: center;
-            }
-            i {
-                vertical-align: middle;
             }
         }
     }
