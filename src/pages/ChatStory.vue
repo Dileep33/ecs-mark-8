@@ -201,8 +201,9 @@ export default {
         overflow-y: auto;
         background: #f9f9f9;
         width: 100%;
-        height: calc(100vh - 180px);
-        margin-top: 10px;
+        max-width: 750px;
+        margin: 10px auto 0;
+        height: calc(100vh - 150px);
         position: relative;
         background-color: #f0e7df;
         background-repeat: no-repeat;
@@ -304,7 +305,7 @@ export default {
             overflow: hidden;
         }
         .chat-item {
-            width: 100%;
+            width: 90%;
             &.sender {
                 float: left;
                 margin: 5px 45px 5px 20px;
@@ -396,7 +397,7 @@ export default {
     .extras {
         background: #fff;
         border-top: 1px solid #e9e9e9;
-        padding: 10px;
+        padding: 10px 0 0;
         width: 100%;
         position: relative;
         z-index: 1;
@@ -406,14 +407,14 @@ export default {
             font-size: 14px;
             display: inline-block;
             height: 34px;
-            margin: 10px 5px;
+            margin: 10px 5px 0;
         }
         .social-btn {
             background: #e9e9e9;
             display: inline-block;
             padding: 5px 10px;
             border-radius: 4px;
-            margin: 10px 5px;
+            margin: 10px 5px 0;
             .fa-icon {
                 vertical-align: middle;
                 color: #48c631;
@@ -432,7 +433,7 @@ export default {
         font-weight: bold;
         font-size: 12px;
         border-radius: 3px;
-        margin: 5px auto;
+        margin: 8px auto 5px;
         max-width: 150px;
         cursor: pointer;
         z-index: 1;
