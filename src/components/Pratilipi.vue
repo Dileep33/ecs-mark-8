@@ -25,7 +25,7 @@
             <router-link :to="redirectToReader ? pratilipiData.readPageUrl : pratilipiData.pageUrl" @click.native="triggerReadPratilipiEvent" :title="pratilipiData.displayTitle">
                 <div class="pratilipi-details">
                     <span class="title" itemprop="name">{{ pratilipiData.displayTitle }}</span>
-                    <span v-if="!hideAuthorName" class="author" itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ pratilipiData.author.name }}</span></span>
+                    <span v-if="!hideAuthorName" class="author" itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ pratilipiData.author.name ||  pratilipiData.author.displayName }}</span></span>
                     <p v-if="pratilipiData.cardSummary" class="summary">{{ pratilipiData.cardSummary }}</p>
 		    <meta itemprop="text" v-bind:content="pratilipiData.summary" />
 		    <meta itemprop="datePublished" v-bind:datetime="pratilipiData.listingDateMillis | listingDateSchemaOrgFormat" />
