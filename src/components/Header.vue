@@ -75,7 +75,7 @@
                 </div>
             </div>
         </header>
-        <div class="d-block d-lg-none footer-menu" v-if="!hideFooter">
+        <div class="d-block d-lg-none footer-menu" v-if="!hideFooter && this.$route.name !== 'ChatStory'">
             <MainMenu :userDetails="userDetails"></MainMenu>
         </div>
         <div class="unread-message capsule" v-if="showUnreadCapsule" @click="triggerCapsuleClick">

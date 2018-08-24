@@ -92,7 +92,7 @@ export default {
 
     removeFromLibrary({ commit, state }, pratilipiId) {
         DataAccessor.addOrRemoveFromLibrary(pratilipiId, false, (response) => {
-            commit('alert/triggerAlertView', '__('removed_from_library')', { root: true });
+            commit('alert/triggerAlertView', '__("removed_from_library")', { root: true });
             setTimeout(() => {
                 commit('alert/triggerAlertHide', null, { root: true });
             }, 3000);
@@ -104,7 +104,7 @@ export default {
 
     removeFromLibraryPublished({ commit, state }, pratilipiId) {
         DataAccessor.addOrRemoveFromLibrary(pratilipiId, false, (response) => {
-            commit('alert/triggerAlertView', '__('removed_from_library')', { root: true });
+            commit('alert/triggerAlertView', '__("removed_from_library")', { root: true });
             setTimeout(() => {
                 commit('alert/triggerAlertHide', null, { root: true });
             }, 3000);
@@ -116,7 +116,7 @@ export default {
 
     addToLibraryPublished({ commit, state }, pratilipiId) {
         DataAccessor.addOrRemoveFromLibrary(pratilipiId, true, (response) => {
-            commit('alert/triggerAlertView', '__('added_to_library')', { root: true });
+            commit('alert/triggerAlertView', '__("added_to_library")', { root: true });
             setTimeout(() => {
                 commit('alert/triggerAlertHide', null, { root: true });
             }, 3000);

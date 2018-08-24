@@ -90,8 +90,14 @@ export default {
                     $("#chatStoryBody").animate({ scrollTop: $("#chatStoryBody")[0].scrollHeight}, 1000);
                 }, timePassed * 1000);
                 const lengthOfMessage = eachMessage.message.split(' ').length;
-                const timeToTypeInSec = lengthOfMessage * 0.32;
-                timePassed += timeToTypeInSec;
+                if (lengthOfMessage <= 3) {
+                    const timeToTypeInSec = (lengthOfMessage * 0.32) + 2;
+                    timePassed += timeToTypeInSec;
+                }
+                else {
+                    const timeToTypeInSec = lengthOfMessage * 0.32;
+                    timePassed += timeToTypeInSec;
+                }
 
                 this.timeouts.push(timeOut);
             });
@@ -137,6 +143,9 @@ export default {
           
           const textToShare = `https://${window.location.host}${window.location.pathname}${encodeURIComponent(`?utm_source=whatsapp&utm_medium=social&utm_campaign=chatStories`)}`;
           window.open(`https://api.whatsapp.com/send?text=${textToShare}`);
+      },
+      onResizeWindow() {
+          $('.chat-body').css({ height: (window.innerHeight - 120) });
       }
     },
     watch: {
@@ -166,6 +175,12 @@ export default {
             'USER_ID': this.getUserDetails.userId,
             'PARENT_ID': this.chatStoryData['url-slug']
         });
+    },
+    mounted() {
+        if(this.isMobile()) {
+            $('.chat-body').css({ height: (window.innerHeight - 120) });
+            $(window).on('resize', this.onResizeWindow);
+        }
     }
 }
 </script>
@@ -195,8 +210,9 @@ export default {
         overflow-y: auto;
         background: #f9f9f9;
         width: 100%;
-        height: calc(100vh - 170px);
-        margin-top: 10px;
+        max-width: 750px;
+        margin: 10px auto 0;
+        height: calc(100vh - 120px);
         position: relative;
         background-color: #f0e7df;
         background-repeat: no-repeat;
@@ -298,7 +314,7 @@ export default {
             overflow: hidden;
         }
         .chat-item {
-            width: 100%;
+            width: 90%;
             &.sender {
                 float: left;
                 margin: 5px 45px 5px 20px;
@@ -390,7 +406,7 @@ export default {
     .extras {
         background: #fff;
         border-top: 1px solid #e9e9e9;
-        padding: 10px;
+        padding: 10px 0;
         width: 100%;
         position: relative;
         z-index: 1;
@@ -426,7 +442,7 @@ export default {
         font-weight: bold;
         font-size: 12px;
         border-radius: 3px;
-        margin: 5px auto;
+        margin: 8px auto 5px;
         max-width: 150px;
         cursor: pointer;
         z-index: 1;

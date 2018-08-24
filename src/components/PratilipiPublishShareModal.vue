@@ -176,7 +176,7 @@ export default {
                     a.twitter .social-icon  {
                         background: #00aced;
                     }
-                    a.google .social-icon { 
+                    a.google .social-icon {
                         background: #dd4b39;
                     }
                     a.whatsapp .social-icon {
