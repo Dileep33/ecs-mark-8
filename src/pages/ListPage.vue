@@ -16,7 +16,9 @@
                             <div class="sorting-menu">
                                 <span class="sort-item" @click='sortList($event, null, 120, "< 2 mins")'>< 2 mins</span>
                                 <span class="sort-item" @click='sortList($event, 120, 300, "2 - 5 mins")'>2 - 5 mins</span>
-                                <span class="sort-item" @click='sortList($event, 300, null, "> 5 mins")'>> 5 mins</span>
+                                <span class="sort-item" @click='sortList($event, 300, 1800, "5 mins - 30 mins")'>5 mins - 30 mins</span>
+                                <span class="sort-item" @click='sortList($event, 1800, 3600, "30 mins - 1 hr")'>30 mins - 1 hr</span>
+                                <span class="sort-item" @click='sortList($event, 3600, null, "> 1 hr")'>> 1 hr</span>
                                 <div class="sort-item link-clear" @click="clearSortList">
                                     <i class="material-icons">close</i>
                                     <span>__("sorting_clear")</span>
