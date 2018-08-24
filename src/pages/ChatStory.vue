@@ -406,7 +406,7 @@ export default {
     .extras {
         background: #fff;
         border-top: 1px solid #e9e9e9;
-        padding: 10px 0 0;
+        padding: 10px 0;
         width: 100%;
         position: relative;
         z-index: 1;
@@ -416,14 +416,14 @@ export default {
             font-size: 14px;
             display: inline-block;
             height: 34px;
-            margin: 10px 5px 0;
+            margin: 10px 5px;
         }
         .social-btn {
             background: #e9e9e9;
             display: inline-block;
             padding: 5px 10px;
             border-radius: 4px;
-            margin: 10px 5px 0;
+            margin: 10px 5px;
             .fa-icon {
                 vertical-align: middle;
                 color: #48c631;
