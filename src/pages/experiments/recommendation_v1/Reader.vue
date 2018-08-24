@@ -816,25 +816,13 @@ export default {
                 this.selectedChapter = 1;
                 return;
             }
-            if (this.getPratilipiData.contentType === 'PRATILIPI') {
-                this.fetchPratilipiContentForHTML({ pratilipiId: this.getPratilipiData.pratilipiId, chapterNo: Number(newValue) });
-                this.selectedChapter = newValue;
-            }
-            if (this.getPratilipiData.contentType === 'IMAGE') {
-                if (this.getPratilipiData.pratilipiId != this.$route.query.id) {
-                    this.fetchPratilipiContentForIMAGE({ pratilipiId: this.getPratilipiData.pratilipiId, chapterNo: Number(newValue) });
-                }
-                this.selectedChapter = newValue;
-            }
+            this.fetchPratilipiContentForHTML({ pratilipiId: this.getPratilipiData.pratilipiId, chapterNo: Number(newValue) });
+            this.selectedChapter = newValue;
+
         },
         'getPratilipiData.pratilipiId'(newId, oldId) {
             this.clearCachedContents();
-            if (this.getPratilipiData.contentType === 'PRATILIPI') {
-                this.fetchPratilipiContentForHTML({ pratilipiId: newId, chapterNo: this.$route.query.chapterNo ? Number(this.$route.query.chapterNo) : 1 });
-            }
-            if (this.getPratilipiData.contentType === 'IMAGE') {
-                this.fetchPratilipiContentForIMAGE({ pratilipiId: newId, chapterNo: this.$route.query.chapterNo ? Number(this.$route.query.chapterNo) : 1 });
-            }
+            this.fetchPratilipiContentForHTML({ pratilipiId: newId, chapterNo: this.$route.query.chapterNo ? Number(this.$route.query.chapterNo) : 1 });
             this.fetchAuthorDetails();
             // default value for webPushModalTriggered is false
             this.webPushModalTriggered = false;
