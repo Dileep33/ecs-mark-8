@@ -6,18 +6,18 @@
                     <div class="col-md-12">
                         <h1>{{ getPratilipiListTitle }}</h1>
                         <div class="list-tabs" v-if="currentLocale === 'hi'">
-                            <a href="#" @click="listchange" class="active" data-tab="tab-relevant">__("sorting_relevant")</a>
+                            <a href="#" @click="listchange" data-tab="tab-relevant">__("sorting_relevant")</a>
                             <a href="#" @click="listchange" data-tab="tab-recent_published">__("sorting_latest")</a>
-                            <a href="#" @click="listchange" data-tab="tab-high_rated">__("sorting_highly_rated")</a>
+                            <a href="#" @click="listchange" class="active" data-tab="tab-high_rated">__("sorting_highly_rated")</a>
                             <div class="sorting" @click="toggleSortMenu" v-if="list_type != 'relevant'">
                                 <icon name="filter"></icon>
                             </div>
                             <div class="clear"></div>
                             <div class="sorting-menu">
-                                <span class="sort-item" @click='sortList($event, null, 120, "< 2 mins")'>< 2 mins</span>
-                                <span class="sort-item" @click='sortList($event, 120, 300, "2 - 5 mins")'>2 - 5 mins</span>
-                                <span class="sort-item" @click='sortList($event, 300, 1800, "5 mins - 30 mins")'>5 mins - 30 mins</span>
-                                <span class="sort-item" @click='sortList($event, 1800, 3600, "30 mins - 1 hr")'>30 mins - 1 hr</span>
+                                <span class="sort-item" @click='sortList($event, null, 119, "< 2 mins")'>< 2 mins</span>
+                                <span class="sort-item" @click='sortList($event, 120, 299, "2 - 5 mins")'>2 - 5 mins</span>
+                                <span class="sort-item" @click='sortList($event, 300, 1799, "5 mins - 30 mins")'>5 mins - 30 mins</span>
+                                <span class="sort-item" @click='sortList($event, 1800, 3599, "30 mins - 1 hr")'>30 mins - 1 hr</span>
                                 <span class="sort-item" @click='sortList($event, 3600, null, "> 1 hr")'>> 1 hr</span>
                                 <div class="sort-item link-clear" @click="clearSortList">
                                     <i class="material-icons">close</i>
@@ -67,7 +67,7 @@ export default {
         return {
             user_id: null,
             scrollPosition: null,
-            list_type: 'relevant',
+            list_type: 'high_rated',
             currentLocale: process.env.LANGUAGE,
             timeFilter: {
                 fromSec: null,
@@ -177,16 +177,31 @@ export default {
         const { list_page_url } = this.$route.params;
 
         const currentLocale = process.env.LANGUAGE;
-        constants.LANGUAGES.forEach((eachLanguage) => {
-            if (eachLanguage.shortName === currentLocale) {
-                this.fetchInitialListPagePratilipis({
-                    language: eachLanguage.fullName.toUpperCase(),
-                    listName: list_page_url,
-                    resultCount: 20,
-                    timeFilter: this.timeFilter
-                });
-            }
-        });
+        if (currentLocale == 'hi') {
+            constants.LANGUAGES.forEach((eachLanguage) => {
+                if (eachLanguage.shortName === currentLocale) {
+                    this.fetchInitialListPagePratilipis({
+                        language: eachLanguage.fullName.toUpperCase(),
+                        listName: list_page_url,
+                        resultCount: 20,
+                        listType: this.list_type,
+                        timeFilter: this.timeFilter
+                    });
+                }
+            });
+        }
+        else {
+            constants.LANGUAGES.forEach((eachLanguage) => {
+                if (eachLanguage.shortName === currentLocale) {
+                    this.fetchInitialListPagePratilipis({
+                        language: eachLanguage.fullName.toUpperCase(),
+                        listName: list_page_url,
+                        resultCount: 20,
+                        timeFilter: this.timeFilter
+                    });
+                }
+            });
+        }
     },
     watch: {
         'scrollPosition'(newScrollPosition){
