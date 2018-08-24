@@ -143,6 +143,9 @@ export default {
           
           const textToShare = `https://${window.location.host}${window.location.pathname}${encodeURIComponent(`?utm_source=whatsapp&utm_medium=social&utm_campaign=chatStories`)}`;
           window.open(`https://api.whatsapp.com/send?text=${textToShare}`);
+      },
+      onResizeWindow() {
+          $('.chat-body').css({ height: (window.innerHeight - 120) });
       }
     },
     watch: {
@@ -172,6 +175,12 @@ export default {
             'USER_ID': this.getUserDetails.userId,
             'PARENT_ID': this.chatStoryData['url-slug']
         });
+    },
+    mounted() {
+        if(this.isMobile()) {
+            $('.chat-body').css({ height: (window.innerHeight - 120) });
+            $(window).on('resize', this.onResizeWindow);
+        }
     }
 }
 </script>
@@ -203,7 +212,7 @@ export default {
         width: 100%;
         max-width: 750px;
         margin: 10px auto 0;
-        height: calc(100vh - 150px);
+        height: calc(100vh - 120px);
         position: relative;
         background-color: #f0e7df;
         background-repeat: no-repeat;
