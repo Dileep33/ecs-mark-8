@@ -166,7 +166,7 @@ var router = new Router({
             path: '/',
             name: 'Home',
             component: () => {
-                if (getCookie('bucket_id') > 10 && getCookie('bucket_id') <= 70) {
+                if (getCookie('bucket_id') > 40 && getCookie('bucket_id') <= 100) {
                     return import ('@/pages/experiments/chatStories/Home.vue');
                 }
                 else {
