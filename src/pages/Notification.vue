@@ -41,7 +41,7 @@
                             </ul>
                             <p class="message" v-if="getNotificationLoadingState === 'LOADING_SUCCESS' && getNotifications.length == 0">__("notifications_no_notifications")</p>
                             <p class="message" v-if="getNotificationLoadingState === 'LOADING_ERROR'">
-                                <ServerError :action="'fetchInitialNotifications'" :data="{language: getCurrentLanguage().fullName.toUpperCase(), resultCount: 20}" :message="'__('notifications_load_failed')'"></ServerError>
+                                <ServerError :action="'fetchInitialNotifications'" :data="{language: getCurrentLanguage().fullName.toUpperCase(), resultCount: 20}" :message="'__("notifications_load_failed")'"></ServerError>
                             </p>
                         </div>
 

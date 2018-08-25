@@ -28,7 +28,7 @@ export default {
         commit('setUpdateAuthorLoadingTrue');
         DataAccessor.createOrUpdateAuthor(authorData, (response) => {
             commit('setUpdateAuthorLoadingSuccess', response);
-            commit('alert/triggerAlertView', '__('updated_author_info_success')', { root: true });
+            commit('alert/triggerAlertView', '__("updated_author_info_success")', { root: true });
             setTimeout(() => {
                 commit('alert/triggerAlertHide', null, { root: true });
             }, 3000);
@@ -39,7 +39,7 @@ export default {
 
     updateUserPassword({ commit, state }, { oldPassword, newPassword }) {
         DataAccessor.updateUserPassword(oldPassword, newPassword, (response) => {
-            commit('alert/triggerAlertView', '__('password_change_success')', { root: true });
+            commit('alert/triggerAlertView', '__("password_change_success")', { root: true });
             setTimeout(() => {
                 commit('alert/triggerAlertHide', null, { root: true });
             }, 3000);
@@ -52,7 +52,7 @@ export default {
             }, 3000);
 
             commit('setUpdateAuthorLoadingError');
-        });  
+        });
     },
 
     // This is for unsubscribe non logged in page

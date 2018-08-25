@@ -4,7 +4,7 @@ export default {
 
     fetchInitialListPagePratilipis({ commit, state }, { listName, language, resultCount, listType, timeFilter }) {
         commit('setListPageInitialDataLoadingTrue');
-        
+
         let pratilipiListFunction;
         switch (listType) {
             case 'high_rated':
@@ -16,7 +16,7 @@ export default {
             default:
                 pratilipiListFunction = DataAccessor.getPratilipiListByListName;
         }
-        
+
         pratilipiListFunction(listName, null, null, resultCount, language, timeFilter, function(data) {
             if (data.status === 200) {
                 console.log("Response: " , data.response);
@@ -40,19 +40,19 @@ export default {
             default:
                 pratilipiListFunction = DataAccessor.getPratilipiListByListName;
         }
-        
+
         pratilipiListFunction(listName, state.cursor, null, resultCount, language, timeFilter, function(data) {
             if (data.status === 200) {
                 commit('setListPageDynamicLoadingSuccess', data.response);
             } else {
                 commit('setListPageDynamicLoadingError');
             }
-        });  
+        });
     },
 
     addToLibrary({ commit, state }, pratilipiId) {
         DataAccessor.addOrRemoveFromLibrary(pratilipiId, true, (response) => {
-            commit('alert/triggerAlertView', '__('added_to_library')', { root: true });
+            commit('alert/triggerAlertView', '__("added_to_library")', { root: true });
             setTimeout(() => {
                 commit('alert/triggerAlertHide', null, { root: true });
             }, 3000);
@@ -64,7 +64,7 @@ export default {
 
     removeFromLibrary({ commit, state }, pratilipiId) {
         DataAccessor.addOrRemoveFromLibrary(pratilipiId, false, (response) => {
-            commit('alert/triggerAlertView', '__('removed_from_library')', { root: true });
+            commit('alert/triggerAlertView', '__("removed_from_library")', { root: true });
             setTimeout(() => {
                 commit('alert/triggerAlertHide', null, { root: true });
             }, 3000);
