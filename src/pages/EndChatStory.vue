@@ -24,7 +24,7 @@
                     </div>
                     <ul>
                         <li :class="eachStory.storyType" v-for="(eachStory, index) in allStories" v-if="eachStory.storyType === selectedFilter || selectedFilter === null">
-                            <router-link :to="'/chat-story/' + eachStory['url-slug']">
+                            <router-link :to="'/chat-story/' + eachStory['url-slug']" @click.native="triggerArchiveAnalytics(eachStory['url-slug'])">
                                 <div class="story-name">{{ eachStory.title }}</div>
                             </router-link>
                         </li>
@@ -68,12 +68,22 @@ export default {
             $('.filtering-menu').hide();
             $('.filter').addClass("active");
             $(".link-clear").show();
+            this.triggerAnanlyticsEvent('FILTER_CHATSTORY_ARCHIVE', 'CONTROL', {
+                'USER_ID': this.getUserDetails.userId,
+                'FILTER': storyType
+            });
         },
         clearFilterList() {
             this.selectedFilter = null;
             $('.filter').removeClass("active");
             $('.filtering-menu').hide();
             $(".link-clear").hide();
+        },
+        triggerArchiveAnalytics(url) {
+            this.triggerAnanlyticsEvent('CLICKED_CHATSTORY_ARCHIVE', 'CONTROL', {
+                'USER_ID': this.getUserDetails.userId,
+                'PARENT_ID': url
+            });
         }
     },
     created() {
@@ -116,6 +126,7 @@ export default {
         font-size: 16px;
         text-align: left;
         float: left;
+        margin-left: 5px;
     }
     .clear {
         clear: both;
