@@ -25,6 +25,9 @@
                     <ul>
                         <li :class="eachStory.storyType" v-for="(eachStory, index) in allStories" v-if="eachStory.storyType === selectedFilter || selectedFilter === null">
                             <router-link :to="'/chat-story/' + eachStory['url-slug']" @click.native="triggerArchiveAnalytics(eachStory['url-slug'])">
+                                <div class="story-type" :class="eachStory.storyType">
+                                    {{ eachStory.storyType }} <span></span>
+                                </div>
                                 <div class="story-name">{{ eachStory.title }}</div>
                             </router-link>
                         </li>
@@ -148,11 +151,11 @@ export default {
                 text-align: left;
                 display: inline-block;
                 background: #f8f9fa;
-                margin: 5px;
+                margin: 5px 7px;
                 border-radius: 4px;
-                width: 46%;
+                width: 45%;
                 max-width: 160px;
-                height: 100px;
+                height: 110px;
                 position: relative;
                 background-repeat: no-repeat;
                 background-position: center;
@@ -201,7 +204,6 @@ export default {
                     padding: 0;
                     display: block;
                     position: relative;
-                    overflow: hidden;
                     height: 100%;
                     .story-name {
                         background: rgba(255,255,255,0.8);
@@ -212,6 +214,9 @@ export default {
                         font-weight: bold;
                         color: #555;
                         font-size: 14px;
+                        overflow: auto;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
                     }
                 }
             }
@@ -297,6 +302,79 @@ export default {
         }
         span {
             vertical-align: middle;
+        }
+    }
+    .story-type {
+        font-size: 11px;
+        line-height: 20px;
+        font-weight: 700;
+        color: #fff;
+        padding: 0 20px 3px;
+        background: #555;
+        position: absolute;
+        top: 10px;
+        left: -10px;
+        z-index: 1;
+        height: 21px;
+        &:before {
+            content: '';
+            position: absolute;
+            border-left: 0px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 21px solid #555;
+            bottom: -3px;
+            left: 50%;
+            margin-left: 0px;
+            left: 100%;
+            padding-bottom: 3px;
+        }
+        &:after {
+            content: '';
+            position: absolute;
+            border-top: 0 solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid #555;
+            top: 100%;
+            left: -10px;
+            left: 0;
+        }
+        span {
+            content: '';
+            position: absolute;
+            border-top: 0 solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid rgba(0, 0, 0, 0.2);
+            top: 100%;
+            left: -10px;
+            left: 0;
+            z-index: 9;
+        }
+        &.love {
+            background: #e83e8c;
+        }
+        &.love:before {
+            border-top: 21px solid #e83e8c;
+        }
+        &.love:after {
+            border-right: 10px solid #e83e8c;
+        }
+        &.women {
+            background: #6f42c1;
+        }
+        &.women:before {
+            border-top: 21px solid #6f42c1;
+        }
+        &.women:after {
+            border-right: 10px solid #6f42c1;
+        }
+        &.horror, &.suspense {
+            background: #dc3545;
+        }
+        &.horror:before, &.suspense:before {
+            border-top: 21px solid #dc3545;
+        }
+        &.horror:after, &.suspense:after {
+            border-right: 10px solid #dc3545;
         }
     }
 }
