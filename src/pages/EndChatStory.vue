@@ -105,7 +105,7 @@ export default {
 <style lang="scss">
 .end-of-stories {
     background: #fff;
-    padding: 30px 10px;
+    padding: 20px 10px;
     margin: 65px auto 0;
     max-width: 768px;
     min-height: 500px;
@@ -121,12 +121,15 @@ export default {
     }
     p {
         font-size: 14px;
+        margin-bottom: 20px;
     }
     h4 {
         font-size: 16px;
         text-align: left;
         float: left;
         margin-left: 5px;
+        border-left: 3px solid #d0021b;
+        padding-left: 10px;
     }
     .clear {
         clear: both;
@@ -147,12 +150,69 @@ export default {
                 background: #f8f9fa;
                 margin: 5px;
                 border-radius: 4px;
-                width: 150px;
+                width: 46%;
+                max-width: 160px;
+                height: 100px;
                 position: relative;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+                background-image: url('/static/chat-default.jpg');
+                border: 1px solid #e9e9e9;
+                &.love {
+                    background-image: url('/static/chat-love.jpg');
+                }
+                &.friendship {
+                    background-image: url('/static/chat-friendship.jpg');
+                    background-position: center bottom;
+                }
+                &.social {
+                    background-image: url('/static/chat-social.jpg');
+                }
+                &.women {
+                    background-image: url('/static/chat-women.jpg');
+                }
+                &.society {
+                    background-image: url('/static/chat-society.jpg');
+                    &::before {
+                        background: rgba(255,255,255,0.5);
+                    }
+                }
+                &.suspense {
+                    background-image: url('/static/chat-suspense.jpg');
+                }
+                &.horror {
+                    background-image: url('/static/chat-horror.jpg');
+                    background-position: center top;
+                }
+                &::before {
+                    background: rgba(255,255,255,0.2);
+                    content: "";
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    border-radius: 4px;
+                    top: 0;
+                    left: 0;
+                }
                 a {
                     color: #555;
-                    padding: 15px 10px;
+                    padding: 0;
                     display: block;
+                    position: relative;
+                    overflow: hidden;
+                    height: 100%;
+                    .story-name {
+                        background: rgba(255,255,255,0.8);
+                        padding: 10px;
+                        width: 100%;
+                        position: absolute;
+                        bottom: 0;
+                        font-weight: bold;
+                        color: #555;
+                        font-size: 14px;
+                    }
                 }
             }
         }
