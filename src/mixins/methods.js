@@ -4,6 +4,7 @@ import readerV1AnalyticsEvents from '@/static_scripts/experiment_events/reader_v
 import readerV2AnalyticsEvents from '@/static_scripts/experiment_events/reader_v2'
 import recommendationV1AnalyticsEvents from '@/static_scripts/experiment_events/recommendation_v1'
 import appLoginV1AnalyticsEvents from '@/static_scripts/experiment_events/applogin_v1'
+import ratingStickersV1AnalyticsEvents from '@/static_scripts/experiment_events/rating_stickers_v1'
 
 const recommendation_v1 = ['WREC001'];
 const applogin_v1 = ['WSU001', 'WSU002'];
@@ -357,6 +358,9 @@ export function triggerAnanlyticsEvent(eventName, experimentType, eventProperty)
             break;
         case (experimentType === 'WSU001' || experimentType === 'WSU002'):
             eventProps = { ...appLoginV1AnalyticsEvents[eventName] };
+            break;
+        case (experimentType === 'WRAT001'):
+            eventProps = { ...ratingStickersV1AnalyticsEvents[eventName] };
             break;
         default:
             eventProps = { ...controlAnalyticsEvents[eventName] };

@@ -362,20 +362,14 @@ var router = new Router({
             path: '/read',
             name: 'Reader_Page',
             component: () => {
-                if (process.env.REALM === 'PROD') {
-                    let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 42;
-                    console.log("bucket id ", bucketId);
-                    if (bucketId >= 40 && bucketId < 80) {
-                        return import ('@/pages/experiments/recommendation_v1/Reader.vue');
-                    } else {
-                        return new Promise((resolve, reject) => resolve(ReaderPageComponent));
-                    }
-
-                } else if (process.env.REALM === 'PROD_BRIDGE') {
-                    return new Promise((resolve, reject) => resolve(ReaderPageComponent));
-                } else {
-                    return new Promise((resolve, reject) => resolve(ReaderPageComponent));
-                }
+                let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 42;
+                console.log("bucket id ", bucketId);
+                return import ('@/pages/experiments/rating_stickers_v1/Reader.vue');
+                // if (bucketId >= 40 && bucketId < 80) {
+                //     return import ('@/pages/experiments/recommendation_v1/Reader.vue');
+                // } else {
+                //     return new Promise((resolve, reject) => resolve(ReaderPageComponent));
+                // }
             },
             meta: {
                 'store': 'readerpage',
