@@ -606,5 +606,6 @@
     "chatstory_strip": "Read Chat Stories",
     "chatstory_next": "Next Story",
     "chatstory_finish_1": "You have read all the stories!!!",
-    "chatstory_finish_2": "Come back tomorrow for more new stories."
+    "chatstory_finish_2": "Come back tomorrow for more new stories.",
+    "chatstory_all_stories": "See all stories"
 }

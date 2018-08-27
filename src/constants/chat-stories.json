@@ -2,6 +2,7 @@
     "chat-story-1": {
         "url-slug": "chat-story-1",
         "storyType": "horror",
+        "storyTypeNative": "हॉरर",
         "title": "अनहोनी ",
         "messages": [
             {
@@ -105,6 +106,7 @@
     "chat-story-2": {
         "url-slug": "chat-story-2",
         "storyType": "social",
+        "storyTypeNative": "सामाजिक",
         "title": "सपना",
         "messages": [
             {
@@ -228,6 +230,7 @@
     "chat-story-3": {
         "url-slug": "chat-story-3",
         "storyType": "love",
+        "storyTypeNative": "प्रेम",
         "title": "इस्तेमाल",
         "messages": [
             {
@@ -327,6 +330,7 @@
     "chat-story-4": {
         "url-slug": "chat-story-4",
         "storyType": "suspense",
+        "storyTypeNative": "सस्पेंस",
         "title": "रॉंग नंबर",
         "messages": [
             {
@@ -462,6 +466,7 @@
     "chat-story-5": {
         "url-slug": "chat-story-5",
         "storyType": "love",
+        "storyTypeNative": "प्रेम",
         "title": "कॉर्नर टेबल",
         "messages": [
             {
@@ -517,6 +522,7 @@
     "chat-story-6": {
         "url-slug": "chat-story-6",
         "storyType": "love",
+        "storyTypeNative": "प्रेम",
         "title": "कॉफ़ी कैफ़े",
         "messages": [
             {
@@ -568,6 +574,7 @@
     "chat-story-1-day2": {
         "url-slug": "chat-story-1-day2",
         "storyType": "love",
+        "storyTypeNative": "प्रेम",
         "title": "रोल वापसी",
         "messages": [
             {
@@ -671,6 +678,7 @@
     "chat-story-2-day2": {
         "url-slug": "chat-story-2-day2",
         "storyType": "women",
+        "storyTypeNative": "स्त्री विशेष",
         "title": "सोच ",
         "messages": [
             {
@@ -774,6 +782,7 @@
     "chat-story-3-day2": {
         "url-slug": "chat-story-3-day2",
         "storyType": "love",
+        "storyTypeNative": "प्रेम",
         "title": "बुरांस के फूल",
         "messages": [
             {
@@ -873,6 +882,7 @@
     "chat-story-4-day2": {
         "url-slug": "chat-story-4-day2",
         "storyType": "women",
+        "storyTypeNative": "स्त्री विशेष",
         "title": "नहले पर दहला",
         "messages": [
             {
@@ -1020,6 +1030,7 @@
     "chat-story-5-day2": {
         "url-slug": "chat-story-5-day2",
         "storyType": "horror",
+        "storyTypeNative": "हॉरर",
         "title": "भूत",
         "messages": [
             {
@@ -1099,6 +1110,7 @@
     "chat-story-1-day3": {
         "url-slug": "chat-story-1-day3",
         "storyType": "love",
+        "storyTypeNative": "प्रेम",
         "title": "ब्लाक",
         "messages": [
             {
@@ -1186,6 +1198,7 @@
     "chat-story-2-day3": {
         "url-slug": "chat-story-2-day3",
         "storyType": "love",
+        "storyTypeNative": "प्रेम",
         "title": "लव मैरेज",
         "messages": [
             {
@@ -1337,6 +1350,7 @@
     "chat-story-3-day3": {
         "url-slug": "chat-story-3-day3",
         "storyType": "friendship",
+        "storyTypeNative": "दोस्ती",
         "title": "दोस्ती",
         "messages": [
             {
@@ -1436,6 +1450,7 @@
     "chat-story-4-day3": {
         "url-slug": "chat-story-4-day3",
         "storyType": "women",
+        "storyTypeNative": "स्त्री विशेष",
         "title": "समझ",
         "messages": [
             {
@@ -1511,6 +1526,7 @@
     "chat-story-1-day4": {
         "url-slug": "chat-story-1-day4",
         "storyType": "society",
+        "storyTypeNative": "सामाजिक",
         "title": "पिछड़ी सोच",
         "messages": [
             {
@@ -1598,6 +1614,7 @@
     "chat-story-2-day4": {
         "url-slug": "chat-story-2-day4",
         "storyType": "suspense",
+        "storyTypeNative": "सस्पेंस",
         "title": "बचपन",
         "messages": [
             {
@@ -1689,6 +1706,7 @@
     "chat-story-3-day4": {
         "url-slug": "chat-story-3-day4",
         "storyType": "suspense",
+        "storyTypeNative": "सस्पेंस",
         "title": "ब्लैकमेल",
         "messages": [
             {
@@ -1812,6 +1830,7 @@
     "chat-story-4-day4": {
         "url-slug": "chat-story-4-day4",
         "storyType": "suspense",
+        "storyTypeNative": "सस्पेंस",
         "title": "सोशल मीडिया",
         "messages": [
             {

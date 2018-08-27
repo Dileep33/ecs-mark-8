@@ -32,6 +32,7 @@ import AdminEventSubmissions from '@/pages/AdminEventSubmissions'
 import AdminEventSubmission from '@/pages/AdminEventSubmission'
 import ShayariPageComponent from '@/pages/Shayari.vue'
 import ChatStoryComponent from '@/pages/ChatStory.vue'
+import EndChatStoryComponent from '@/pages/EndChatStory.vue'
 
 import {
     getCookie
@@ -589,6 +590,14 @@ var router = new Router({
             path: '/chat-story/:chatSlug',
             name: 'ChatStory',
             component: ChatStoryComponent,
+            meta: {
+                'title': '__("seo_home_page")',
+                metaTags: _getDefaultPageOGTags('pratilipipage')
+            }
+        }, {
+            path: '/end-chat-stories',
+            name: 'EndChatStory',
+            component: EndChatStoryComponent,
             meta: {
                 'title': '__("seo_home_page")',
                 metaTags: _getDefaultPageOGTags('pratilipipage')
