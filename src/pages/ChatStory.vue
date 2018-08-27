@@ -218,17 +218,11 @@ export default {
         &.friendship {
             background-image: url('/static/chat-friendship.jpg');
         }
-        &.social {
+        &.social, &.society  {
             background-image: url('/static/chat-social.jpg');
         }
         &.women {
             background-image: url('/static/chat-women.jpg');
-        }
-        &.society {
-            background-image: url('/static/chat-society.jpg');
-            &::before {
-                background: rgba(255, 255, 255, 0.9);
-            }
         }
         &.suspense {
             background-image: url('/static/chat-suspense.jpg');
