@@ -1,9 +1,15 @@
 <template>
     <li class="ownReview">
         <div  v-if="authorId !== getUserDetails.authorId" class="comment-main-level">
-            <div class="comment-avatar"><img :src="userPratilipiData.userId == 0 ? defaultAuthorImage : getLowResolutionImage(userPratilipiData.userImageUrl)" alt="author"></div>
+            <div class="selected-rating">
+                <img v-if="userPratilipiData.rating == 1" class="rating-stickers" src="../../../../static/rating_stickers/1.png" >
+                <img v-if="userPratilipiData.rating == 2" class="rating-stickers" src="../../../../static/rating_stickers/2.png" >
+                <img v-if="userPratilipiData.rating == 3" class="rating-stickers" src="../../../../static/rating_stickers/3.png" >
+                <img v-if="userPratilipiData.rating == 4" class="rating-stickers" src="../../../../static/rating_stickers/4.png" >
+                <img v-if="userPratilipiData.rating == 5" class="rating-stickers" src="../../../../static/rating_stickers/5.png" >
+            </div>
             <div class="comment-box">
-                <div class="already-rated"  v-if="userPratilipiData.reviewDateMillis != null && !editRatingMode">
+                <div class="already-rated"  v-if="(userPratilipiData.reviewDateMillis != null && !editRatingMode) || !shouldShowRatingSelection">
                     <button class="btn more-options" type="button" id="ownReviewMoreOptions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="material-icons">more_vert</i>
                     </button>
@@ -19,7 +25,7 @@
                         <h6 class="comment-name"><router-link :to="userPratilipiData.userProfilePageUrl">{{ userPratilipiData.userName }}</router-link></h6>
                         <span>{{ userPratilipiData.reviewDateMillis | convertDate }}</span>
                     </div>
-                    <div class="rating">
+                    <div class="rating" v-if="userPratilipiData.rating">
                         <i class="material-icons" v-for="index in Number(parseInt(userPratilipiData.rating))" :key="index + Math.random()">star</i>
                         <i class="material-icons" v-for="index in 5 - Number(parseInt(userPratilipiData.rating))" :key="index + Math.random()">star_border</i>
                     </div>
@@ -39,14 +45,15 @@
                     </div>
                 </div>
                 <div class="rate-now" v-if="!userPratilipiData.reviewDateMillis || editRatingMode">
-                    <span class="text">__("rating_your_rating")</span>
-                    <fieldset class="rating" @click="openReview">
-                        <input  type="radio" id="star5" name="rating" value="5" :checked="userPratilipiData.rating == 5" @change="changeRating"/><label class = "full star" for="star5"></label>
-                        <input  type="radio" id="star4" name="rating" value="4" :checked="userPratilipiData.rating == 4" @change="changeRating"/><label class = "full star" for="star4"></label>
-                        <input  type="radio" id="star3" name="rating" value="3" :checked="userPratilipiData.rating == 3" @change="changeRating"/><label class = "full star" for="star3"></label>
-                        <input  type="radio" id="star2" name="rating" value="2" :checked="userPratilipiData.rating == 2" @change="changeRating"/><label class = "full star" for="star2"></label>
-                        <input  type="radio" id="star1" name="rating" value="1" :checked="userPratilipiData.rating == 1" @change="changeRating"/><label class = "full star" for="star1"></label>
+                    <fieldset class="rating" @click="openReview" v-if="shouldShowRatingSelection">
+                        <img @click="changeRating(1)" class="rating-stickers" :class="{ 'selected': userPratilipiData.rating === 1 }" src="../../../../static/rating_stickers/1.png" />
+                        <img @click="changeRating(2)" class="rating-stickers" :class="{ 'selected': userPratilipiData.rating === 2 }" src="../../../../static/rating_stickers/2.png" />
+                        <img @click="changeRating(3)" class="rating-stickers" :class="{ 'selected': userPratilipiData.rating === 3 }" src="../../../../static/rating_stickers/3.png" />
+                        <img @click="changeRating(4)" class="rating-stickers" :class="{ 'selected': userPratilipiData.rating === 4 }" src="../../../../static/rating_stickers/4.png" />
+                        <img @click="changeRating(5)" class="rating-stickers" :class="{ 'selected': userPratilipiData.rating === 5 }" src="../../../../static/rating_stickers/5.png" />
+                        <span class="text">__("rating_your_rating")</span>
                     </fieldset>
+
                     <p class="rating-helper"></p>
                     <button class="btn btn-primary write-review-btn" v-if="!userPratilipiData.review || userPratilipiData.review === ''" @click="openReview">__("review_write_a_review")</button>
                     <button class="btn btn-primary write-review-btn" @click="openReview" v-else>__("review_edit_review")</button>
@@ -112,7 +119,8 @@ export default {
             editRatingMode: false,
             isSaveActive: false,
             ratingHelper: null,
-            initialRating: null
+            initialRating: null,
+            shouldShowRatingSelection: true
         }
     },
     computed: {
@@ -133,33 +141,39 @@ export default {
         ...mapActions([
             'setAfterLoginAction'
         ]),
-        changeRating(e) {
+        changeRating(ratingValue) {
             // let action = this.userPratilipiData.rating ? 'EDITRATE' : 'RATE';
             let action = 'RATE';
-            this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, 'WRAT001', {
                 'USER_ID': this.getUserDetails.userId,
-                'ENTITY_VALUE': e.target.value
+                'ENTITY_VALUE': ratingValue
             });
 
             // update rating here
-            this.updateRatingInStore( { review : this.newReview, pratilipiId : this.userPratilipiData.pratilipiId, pageName : this.$route.meta.store, rating : parseInt(e.target.value)});
+            this.updateRatingInStore( { review : this.newReview, pratilipiId : this.userPratilipiData.pratilipiId, pageName : this.$route.meta.store, rating : parseInt(ratingValue)});
             this.isSaveActive = true;
+            this.shouldShowRatingSelection = false;
+            this.editRatingMode = true;
 
-            // if (this.getUserDetails.isGuest) {
-            //     $('#star1').prop('checked', false);
-            //     $('#star2').prop('checked', false);
-            //     $('#star3').prop('checked', false);
-            //     $('#star4').prop('checked', false);
-            //     $('#star5').prop('checked', false);
-            //     // this.setAfterLoginAction({ action: `reviews/setPratilipiRating`, data: {
-            //     //     rating: newRating,
-            //     //     pratilipiId: this.userPratilipiData.pratilipiId,
-            //     //     pageName: this.$route.meta.store
-            //     // } });
-            //     this.openLoginModal(this.$route.meta.store, 'RATE', this.screenLocation);
-            // } else {
-            //     this.isSaveActive = true;
-            // }
+            if (this.getUserDetails.isGuest) {
+                // $('#star1').prop('checked', false);
+                // $('#star2').prop('checked', false);
+                // $('#star3').prop('checked', false);
+                // $('#star4').prop('checked', false);
+                // $('#star5').prop('checked', false);
+                this.setAfterLoginAction({ action: `reviews/setPratilipiRating`, data: {
+                    rating: ratingValue,
+                    pratilipiId: this.userPratilipiData.pratilipiId,
+                    pageName: this.$route.meta.store
+                } });
+                this.openLoginModal(this.$route.meta.store, 'RATE', this.screenLocation);
+            } else {
+                this.setPratilipiRating({
+                    rating: ratingValue,
+                    pratilipiId: this.userPratilipiData.pratilipiId,
+                    pageName: this.$route.meta.store
+                });
+            }
         },
         checkAndUpdateReview(data) {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.pratilipiData);
@@ -188,12 +202,14 @@ export default {
         },
         checkAndDeleteReview(e) {
             this.deleteReview({ pratilipiId: this.userPratilipiData.pratilipiId, pageName: this.$route.meta.store });
+            this.shouldShowRatingSelection = true;
         },
         openReviewAndEditRating() {
             this.openReview();
             setTimeout(() => {
                 $(".write-review-btn").hide()
             }, 0);
+            this.shouldShowRatingSelection = true;
             this.editRatingMode = true;
         },
         openReview() {
@@ -205,7 +221,7 @@ export default {
             $(".write-review-btn").fadeIn();
             $('.rating input').prop('checked', false);
             this.editRatingMode = false;
-            this.updateRatingInStore( { review : this.newReview, pratilipiId : this.userPratilipiData.pratilipiId, pageName : this.$route.meta.store, rating : parseInt(this.initialRating)});
+            this.updateRatingInStore( { review : this.newReview, pratilipiId : this.userPratilipiData.pratilipiId, pageName : this.$route.meta.store, rating : this.userPratilipiData.rating});
         },
         closeReview(e) {
             $(".review-box").hide();
@@ -256,11 +272,11 @@ export default {
             if (visible) {
 
                 if (this.screenLocation === 'BOOKEND' && this.screenName === 'READER') {
-                    this.triggerAnanlyticsEvent(`LANDED_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
+                    this.triggerAnanlyticsEvent(`LANDED_${this.screenLocation}_${this.screenName}`, 'WRAT001', {
                         'USER_ID': this.getUserDetails.userId
                     });
                 } else {
-                    this.triggerAnanlyticsEvent(`VIEWED_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
+                    this.triggerAnanlyticsEvent(`VIEWED_${this.screenLocation}_${this.screenName}`, 'WRAT001', {
                         'USER_ID': this.getUserDetails.userId
                     });
                 }
@@ -291,6 +307,13 @@ li {
     text-align: center;
     position: relative;
     font-size: 14px;
+
+    .selected-rating {
+        margin-bottom: 10px;
+        img {
+            width: 150px;
+        }
+    }
     .comment-avatar {
         width: 60px;
         height: 60px;
@@ -307,7 +330,6 @@ li {
         }
     }
     .comment-box {
-        margin-top: -50px;
         padding: 40px 5px 10px;
         .write-review-btn {
             background: #d0021b;
@@ -389,7 +411,8 @@ li {
             span.text {
                 display: block;
                 margin: 0;
-                font-size: 14px;
+                margin-top: 10px;
+                font-size: 18px;
             }
             .rating-helper{
                 font-size: 18px;
@@ -397,8 +420,19 @@ li {
             }
             .rating {
                 border: none;
-                width: 240px;
                 margin: 0 auto;
+
+                img.rating-stickers {
+                    width: 100px;
+                    padding: 5px;
+                    border: 2px solid rgb(248, 248, 248);
+                    border-radius: 50%;
+
+                    &.selected {
+                        border: 2px solid #d0021b;
+                    }
+                }
+
                 input {
                     display: none;
                 }
