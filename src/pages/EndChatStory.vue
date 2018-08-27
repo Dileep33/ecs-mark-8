@@ -183,7 +183,7 @@ export default {
         border-top-right-radius: 0;
         border-top-left-radius: 0;
         z-index: 10;
-        max-width: 180px;
+        max-width: 175px;
         text-align: right;
         display: none;
         span.filter-item {
@@ -192,7 +192,7 @@ export default {
             padding: 5px 10px;
             border-radius: 15px;
             display: inline-block;
-            margin: 2px;
+            margin: 3px;
             font-size: 12px;
             cursor: pointer;
             &.active {
