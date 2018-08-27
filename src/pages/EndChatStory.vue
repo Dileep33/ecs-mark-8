@@ -5,7 +5,7 @@
             <h3>__("chatstory_finish_1")</h3>
             <p>__("chatstory_finish_2")</p>
             <div class="archive">
-                <h4>Read all Stories</h4>
+                <h4>__("chatstory_all_stories")</h4>
                 <div class="filter" @click="toggleFilterMenu">
                     <icon name="filter"></icon>
                 </div>
@@ -68,6 +68,8 @@ export default {
         },
         filterStories(storyType) {
             this.selectedFilter = storyType;
+            $(".filtering-menu span").removeClass("active");
+            $(event.currentTarget).addClass("active");
             $('.filtering-menu').hide();
             $('.filter').addClass("active");
             $(".link-clear").show();
