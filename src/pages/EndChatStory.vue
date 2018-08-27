@@ -23,10 +23,10 @@
                         <i class="material-icons" @click="clearFilterList">close</i>
                     </div>
                     <ul>
-                        <li :class="eachStory.storyType" v-for="(eachStory, index) in allStories" v-if="eachStory.storyType === selectedFilter || selectedFilter === null">
+                        <li :class="eachStory.storyType" v-for="(eachStory, index) in allStories" v-if="eachStory.storyTypeNative === selectedFilter || selectedFilter === null">
                             <router-link :to="'/chat-story/' + eachStory['url-slug']" @click.native="triggerArchiveAnalytics(eachStory['url-slug'])">
                                 <div class="story-type" :class="eachStory.storyType">
-                                    {{ eachStory.storyType }} <span></span>
+                                    {{ eachStory.storyTypeNative }} <span></span>
                                 </div>
                                 <div class="story-name">{{ eachStory.title }}</div>
                             </router-link>
@@ -81,6 +81,7 @@ export default {
         clearFilterList() {
             this.selectedFilter = null;
             $('.filter').removeClass("active");
+            $(".filtering-menu span").removeClass("active");
             $('.filtering-menu').hide();
             $(".link-clear").hide();
         },
@@ -94,8 +95,8 @@ export default {
     created() {
         this.allStories = chatStories;
         Object.keys(this.allStories).forEach((eachStory) => {
-            if (this.storyTypes.indexOf(this.allStories[eachStory]['storyType']) === -1) {
-                this.storyTypes.push(this.allStories[eachStory]['storyType']);
+            if (this.storyTypes.indexOf(this.allStories[eachStory]['storyTypeNative']) === -1) {
+                this.storyTypes.push(this.allStories[eachStory]['storyTypeNative']);
             }
         })
     },
@@ -171,17 +172,11 @@ export default {
                     background-image: url('/static/chat-friendship.jpg');
                     background-position: center bottom;
                 }
-                &.social {
+                &.social, &.society  {
                     background-image: url('/static/chat-social.jpg');
                 }
                 &.women {
                     background-image: url('/static/chat-women.jpg');
-                }
-                &.society {
-                    background-image: url('/static/chat-society.jpg');
-                    &::before {
-                        background: rgba(255,255,255,0.5);
-                    }
                 }
                 &.suspense {
                     background-image: url('/static/chat-suspense.jpg');
