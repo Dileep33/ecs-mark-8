@@ -378,7 +378,16 @@ var router = new Router({
         }, {
             path: '/read/:slug',
             name: 'Reader_Page_V2',
-            component: ReaderPageV2Component,
+            component: () => {
+                let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 42;
+                console.log("bucket id ", bucketId);
+
+                if (bucketId > 40 && bucketId <= 70 && process.env.LANGUAGE === 'hi') {
+                    return import ('@/pages/experiments/rating_stickers_v1/ReaderV2.vue');
+                } else {
+                    return new Promise((resolve, reject) => resolve(ReaderPageV2Component));
+                }
+            },
             meta: {
                 'store': 'readerv2page',
                 'title': '__("seo_home_page")'
