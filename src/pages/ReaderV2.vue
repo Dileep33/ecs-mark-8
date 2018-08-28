@@ -1581,7 +1581,6 @@ $theme-yellow-color: #2c3e50;
             display: block !important;
         }
         .comment-box .rate-now .rating {
-            width: 200px;
             label:before {
                 font-size: 35px;
             }
