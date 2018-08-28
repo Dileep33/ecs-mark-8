@@ -53,7 +53,7 @@ export default {
     },
     created() {
         // change the story key everyday
-        const ChatStoryToday = chatStories[Object.keys(chatStories)[15]];
+        const ChatStoryToday = chatStories[Object.keys(chatStories)[19]];
         this.ChatStorySlugToday = ChatStoryToday['url-slug'];
     },
     watch: {
