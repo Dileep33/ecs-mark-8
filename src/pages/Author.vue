@@ -35,6 +35,10 @@
                             </div>
                             <div class="profile-user-name" itemprop="name">{{ getAuthorData.name }}</div>
                             <div class="profile-read-by">__("author_readby_count")</div>
+                            <router-link :to="this.$route.path + '/dashboard'" class="author-dashboard-link" v-if="getUserDetails.userId === getAuthorData.user.userId">
+                                <i class="material-icons">bar_chart</i>
+                                <span>My Dashboard</span>
+                            </router-link>
                             <div class="profile-summary" v-if="getAuthorData.summary || getAuthorData.hasAccessToUpdate">
                                 <div class="head-title">
                                     <span>__("author_about")</span>
@@ -680,6 +684,21 @@ export default {
         .profile-user-name {
             font-weight: bold;
             margin: 5px 0 0;
+        }
+        .author-dashboard-link {
+            color: #d0021b;
+            font-size: 14px;
+            padding: 0 10px 5px;
+            margin-bottom: 5px;
+            display: block;
+            text-decoration: none;
+            i {
+                vertical-align: middle;
+                font-size: 20px;
+            }
+            span {
+                vertical-align: middle;
+            }
         }
         .profile-read-by {
             font-size: 12px;
