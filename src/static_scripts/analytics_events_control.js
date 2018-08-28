@@ -2506,5 +2506,15 @@ export default {
         "SCREEN_NAME": "BOOK",
         "LOCATION": "CHATSTRIP",
         "ACTION": "CLICKED"
+    },
+    "CLICKED_CHATSTORY_ARCHIVE": {
+        "SCREEN_NAME": "ARCHIVE",
+        "LOCATION": "CHATSTORY",
+        "ACTION": "CLICKED"
+    },
+    "FILTER_CHATSTORY_ARCHIVE": {
+        "SCREEN_NAME": "ARCHIVE",
+        "LOCATION": "CHATSTORY",
+        "ACTION": "FILTER"
     }
 };

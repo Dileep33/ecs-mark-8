@@ -32,6 +32,7 @@ import AdminEventSubmissions from '@/pages/AdminEventSubmissions'
 import AdminEventSubmission from '@/pages/AdminEventSubmission'
 import ShayariPageComponent from '@/pages/Shayari.vue'
 import ChatStoryComponent from '@/pages/ChatStory.vue'
+import EndChatStoryComponent from '@/pages/EndChatStory.vue'
 
 import {
     getCookie
@@ -166,7 +167,7 @@ var router = new Router({
             path: '/',
             name: 'Home',
             component: () => {
-                if (getCookie('bucket_id') > 40 && getCookie('bucket_id') <= 100) {
+                if (getCookie('bucket_id') >= 0 && getCookie('bucket_id') <= 100) {
                     return import ('@/pages/experiments/chatStories/Home.vue');
                 }
                 else {
@@ -235,7 +236,7 @@ var router = new Router({
             name: 'Pratilipi',
             component: () => {
                 if (process.env.REALM === 'PROD') {
-                    if ((getCookie('bucket_id') > 10 && getCookie('bucket_id') <= 40) || (getCookie('bucket_id') > 70 && getCookie('bucket_id') <= 100)) {
+                    if ((getCookie('bucket_id') >= 0 && getCookie('bucket_id') <= 40) || (getCookie('bucket_id') > 70 && getCookie('bucket_id') <= 100)) {
                         return import ('@/pages/experiments/chatStories/Pratilipi_v1.vue');
                     }
                     else if (getCookie('bucket_id') > 40 && getCookie('bucket_id') <= 70) {
@@ -365,7 +366,7 @@ var router = new Router({
                 let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 42;
                 console.log("bucket id ", bucketId);
 
-                if (bucketId > 40 && bucketId <= 70 && process.env.LANGUAGE === 'hi') {
+                if (bucketId > 10 && bucketId <= 70 && process.env.LANGUAGE === 'hi') {
                     return import ('@/pages/experiments/rating_stickers_v1/Reader.vue');
                 } else {
                     return new Promise((resolve, reject) => resolve(ReaderPageComponent));
@@ -382,7 +383,7 @@ var router = new Router({
                 let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 42;
                 console.log("bucket id ", bucketId);
 
-                if (bucketId > 40 && bucketId <= 70 && process.env.LANGUAGE === 'hi') {
+                if (bucketId > 10 && bucketId <= 70 && process.env.LANGUAGE === 'hi') {
                     return import ('@/pages/experiments/rating_stickers_v1/ReaderV2.vue');
                 } else {
                     return new Promise((resolve, reject) => resolve(ReaderPageV2Component));
@@ -589,6 +590,14 @@ var router = new Router({
             path: '/chat-story/:chatSlug',
             name: 'ChatStory',
             component: ChatStoryComponent,
+            meta: {
+                'title': '__("seo_home_page")',
+                metaTags: _getDefaultPageOGTags('pratilipipage')
+            }
+        }, {
+            path: '/end-chat-stories',
+            name: 'EndChatStory',
+            component: EndChatStoryComponent,
             meta: {
                 'title': '__("seo_home_page")',
                 metaTags: _getDefaultPageOGTags('pratilipipage')
