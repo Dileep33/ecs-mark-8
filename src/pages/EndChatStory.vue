@@ -1,6 +1,6 @@
 <template>
     <MainLayout>
-        <div class="end-of-stories">
+        <div class="end-of-stories page-wrap">
             <i class="material-icons">check_circle_outline</i>
             <h3>__("chatstory_finish_1")</h3>
             <p>__("chatstory_finish_2")</p>
@@ -112,9 +112,12 @@ export default {
 .end-of-stories {
     background: #fff;
     padding: 20px 10px;
-    margin: 65px auto 0;
+    margin: 85px auto 0;
     max-width: 768px;
     min-height: 500px;
+    @media screen and (max-width: 992px ) {
+        margin-top: 65px;
+    }
     i {
         font-size: 50px;
         color: #4CAF50;
