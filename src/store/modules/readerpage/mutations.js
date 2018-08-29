@@ -52,6 +52,9 @@ export default {
 
     setReaderPratilipiUserDataLoadingSuccess(state, pratilipiUserData) {
         state.userPratilipi.loading_state = 'LOADING_SUCCESS';
+        if (!pratilipiUserData.rating) {
+            pratilipiUserData.rating = null;
+        }
         state.userPratilipi.data = pratilipiUserData;
     },
 
@@ -166,7 +169,7 @@ export default {
     },
     setPratilipiRatingUpdateSuccess(state, value) {
         state.userPratilipi.data.rating = value;
-        state.userPratilipi.data.reviewDateMillis = value ? Date.now() : null;
+        state.userPratilipi.data.reviewDateMillis = null;
     },
     setPratilipiRatingUpdateError(state) {
 
@@ -176,7 +179,12 @@ export default {
     setPratilipiReviewUpdateLoading(state){
 
     },
+
+    setPratilipiReviewUpdateSuccess(state, value) {
+        state.userPratilipi.data.review = value;
+    },
     setPratilipiReviewRatingUpdateSuccess(state, value){
+        console.log(value);
         state.userPratilipi.data.review = value.review;
         state.userPratilipi.data.rating = value.rating;
         state.userPratilipi.data.reviewDateMillis = Date.now();

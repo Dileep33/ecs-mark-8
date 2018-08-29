@@ -116,7 +116,7 @@
                             </div>
 			    <meta itemprop="inLanguage" v-bind:content="getPratilipiData.language" />
                             <meta itemprop="image" v-bind:content="getPratilipiData.coverImageUrl" />
-			    <meta v-for="tag in selectedTags" itemprop="genre" v-bind:content="tag.nameEn"/>
+			    <!-- <meta v-for="tag in selectedTags" itemprop="genre" v-bind:content="tag.nameEn"/> -->
                             <Spinner v-if="getPratilipiContentLoadingState !== 'LOADING_SUCCESS'"></Spinner>
                             <div class="book-navigation p-lr-15" v-if="getPratilipiContentLoadingState === 'LOADING_SUCCESS'">
                                 <div class="prev" v-if="selectedChapter != 1" @click="goToPreviousChapter">__("reader_prev_chapter")</div>
@@ -313,7 +313,7 @@ import 'vue-awesome/icons/twitter'
 import 'vue-awesome/icons/google-plus'
 import 'vue-awesome/icons/whatsapp'
 import 'vue-awesome/icons/link'
-import Reviews from '@/components/Reviews.vue';
+import Reviews from '@/components/experiments/rating_stickers_v1/Reviews.vue';
 import WebPushStrip from '@/components/WebPushStrip.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
 import Recommendation from '@/components/Recommendation.vue';

@@ -32,6 +32,7 @@ import AdminEventSubmissions from '@/pages/AdminEventSubmissions'
 import AdminEventSubmission from '@/pages/AdminEventSubmission'
 import ShayariPageComponent from '@/pages/Shayari.vue'
 import ChatStoryComponent from '@/pages/ChatStory.vue'
+import EndChatStoryComponent from '@/pages/EndChatStory.vue'
 
 import {
     getCookie
@@ -166,7 +167,7 @@ var router = new Router({
             path: '/',
             name: 'Home',
             component: () => {
-                if (getCookie('bucket_id') > 40 && getCookie('bucket_id') <= 100) {
+                if (getCookie('bucket_id') >= 0 && getCookie('bucket_id') <= 100) {
                     return import ('@/pages/experiments/chatStories/Home.vue');
                 }
                 else {
@@ -235,7 +236,7 @@ var router = new Router({
             name: 'Pratilipi',
             component: () => {
                 if (process.env.REALM === 'PROD') {
-                    if ((getCookie('bucket_id') > 10 && getCookie('bucket_id') <= 40) || (getCookie('bucket_id') > 70 && getCookie('bucket_id') <= 100)) {
+                    if ((getCookie('bucket_id') >= 0 && getCookie('bucket_id') <= 40) || (getCookie('bucket_id') > 70 && getCookie('bucket_id') <= 100)) {
                         return import ('@/pages/experiments/chatStories/Pratilipi_v1.vue');
                     }
                     else if (getCookie('bucket_id') > 40 && getCookie('bucket_id') <= 70) {
@@ -362,17 +363,13 @@ var router = new Router({
             path: '/read',
             name: 'Reader_Page',
             component: () => {
-                if (process.env.REALM === 'PROD') {
-                    let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 42;
-                    console.log("bucket id ", bucketId);
-                    if (bucketId >= 40 && bucketId < 80) {
-                        return import ('@/pages/experiments/recommendation_v1/Reader.vue');
-                    } else {
-                        return new Promise((resolve, reject) => resolve(ReaderPageComponent));
-                    }
+                let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 42;
+                console.log("bucket id ", bucketId);
 
-                } else if (process.env.REALM === 'PROD_BRIDGE') {
-                    return new Promise((resolve, reject) => resolve(ReaderPageComponent));
+                if (bucketId > 10 && bucketId <= 70 && process.env.LANGUAGE === 'hi') {
+                    return import ('@/pages/experiments/rating_stickers_v1/Reader.vue');
+                } else if (bucketId > 70 && bucketId <= 100 && process.env.LANGUAGE === 'hi') {
+                    return import ('@/pages/experiments/reader_footer/Reader_v1.vue');
                 } else {
                     return new Promise((resolve, reject) => resolve(ReaderPageComponent));
                 }
@@ -384,7 +381,18 @@ var router = new Router({
         }, {
             path: '/read/:slug',
             name: 'Reader_Page_V2',
-            component: ReaderPageV2Component,
+            component: () => {
+                let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 42;
+                console.log("bucket id ", bucketId);
+
+                if (bucketId > 10 && bucketId <= 70 && process.env.LANGUAGE === 'hi') {
+                    return import ('@/pages/experiments/rating_stickers_v1/ReaderV2.vue');
+                } else if (bucketId > 70 && bucketId <= 100 && process.env.LANGUAGE === 'hi') {
+                    return import ('@/pages/experiments/reader_footer/Reader_v2.vue');
+                } else {
+                    return new Promise((resolve, reject) => resolve(ReaderPageV2Component));
+                }
+            },
             meta: {
                 'store': 'readerv2page',
                 'title': '__("seo_home_page")'
@@ -586,6 +594,14 @@ var router = new Router({
             path: '/chat-story/:chatSlug',
             name: 'ChatStory',
             component: ChatStoryComponent,
+            meta: {
+                'title': '__("seo_home_page")',
+                metaTags: _getDefaultPageOGTags('pratilipipage')
+            }
+        }, {
+            path: '/end-chat-stories',
+            name: 'EndChatStory',
+            component: EndChatStoryComponent,
             meta: {
                 'title': '__("seo_home_page")',
                 metaTags: _getDefaultPageOGTags('pratilipipage')

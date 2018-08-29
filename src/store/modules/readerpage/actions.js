@@ -115,7 +115,7 @@ export default {
     setPratilipiRating({ commit, state }, { rating, pratilipiId }) {
         commit('setPratilipiRatingUpdateLoading');
         DataAccessor.createOrUpdateReview(pratilipiId, rating, null, function(successData) {
-            commit('setPratilipiReviewRatingUpdateSuccess', rating);
+            commit('setPratilipiReviewRatingUpdateSuccess', successData);
         }, (errorData) => {
             commit('setPratilipiRatingUpdateError');
         });

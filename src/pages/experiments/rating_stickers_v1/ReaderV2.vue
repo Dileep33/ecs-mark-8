@@ -8,8 +8,8 @@
         <ServerError class="read-page-server-error" :action="'readerv2page/fetchReaderData'" :data="currentChapterSlugId" v-if="getPratilipiLoadingState === 'LOADING_ERROR'"></ServerError>
 
         <!-- Reader Data Loaded success -->
-        <div 
-            class="read-page" 
+        <div
+            class="read-page"
             :class="getReaderReadingModeStyle"
             v-if="getPratilipiLoadingState === 'LOADING_SUCCESS'">
 
@@ -175,7 +175,7 @@
                             -->
                             <div class="content-section p-lr-15"
                                 :class="getContentSectionStyle"
-                                v-if="renderedChapterIdSlug = currentChapterSlugId" 
+                                v-if="renderedChapterIdSlug = currentChapterSlugId"
                                 v-html="getPratilipiContent[currentChapterSlugId].content">
                             </div>
                             <div class="book-navigation p-lr-15" v-if="getPratilipiContentLoadingState === 'LOADING_SUCCESS'">
@@ -329,7 +329,7 @@ import 'vue-awesome/icons/twitter'
 import 'vue-awesome/icons/google-plus'
 import 'vue-awesome/icons/whatsapp'
 import 'vue-awesome/icons/link'
-import Reviews from '@/components/Reviews.vue';
+import Reviews from '@/components/experiments/rating_stickers_v1/Reviews.vue';
 import WebPushStrip from '@/components/WebPushStrip.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
 import Recommendation from '@/components/Recommendation.vue';
@@ -416,7 +416,7 @@ export default {
             readerPercentScrolled: 0,
 
             scrollCounter: 0,
-            scrollDirection: null,            
+            scrollDirection: null,
 
             /* open in app strip */
             shouldShowOpenInAppStrip: false,
@@ -625,7 +625,7 @@ export default {
             this.reportContentText = ''
         },
         submitReport() {
-            const 
+            const
                 name = this.reportName.trim(),
                 email = this.reportEmail.trim(),
                 message = this.reportContentText.trim(),
@@ -755,7 +755,7 @@ export default {
             if (this.getIndexData.filter(indexData => indexData.slugId === this.currentChapterSlugId).length) {
                 this.fetchContentData(this.currentChapterSlugId)
             } else {
-                this.fetchReaderData(this.currentChapterSlugId)                
+                this.fetchReaderData(this.currentChapterSlugId)
             }
         },
         'renderedChapterIdSlug' () {
@@ -1543,7 +1543,7 @@ $theme-yellow-color: #2c3e50;
 
 .read-page.theme-white {
     .book-content {
-        .book-recomendations .container-fluid, 
+        .book-recomendations .container-fluid,
         .comment-box,
         .book-bottom-webpush-subscribe .webpush-container .webpush-inner-container {
             background: $theme-white-background-color !important;
@@ -1553,7 +1553,7 @@ $theme-yellow-color: #2c3e50;
 }
 .read-page.theme-black {
     .book-content {
-        .book-recomendations .container-fluid, 
+        .book-recomendations .container-fluid,
         .comment-box,
         .book-bottom-webpush-subscribe .webpush-container .webpush-inner-container {
             background: $theme-black-background-color !important;
@@ -1563,7 +1563,7 @@ $theme-yellow-color: #2c3e50;
 }
 .read-page.theme-yellow {
     .book-content {
-        .book-recomendations .container-fluid, 
+        .book-recomendations .container-fluid,
         .comment-box,
         .book-bottom-webpush-subscribe .webpush-container .webpush-inner-container {
             background: $theme-yellow-background-color !important;
