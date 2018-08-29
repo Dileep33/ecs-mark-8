@@ -4,6 +4,8 @@ const utils = require('./utils');
 const config = require('../config');
 const vueLoaderConfig = require('./vue-loader.conf');
 
+let StringReplacePlugin = require('string-replace-webpack-plugin');
+
 const navigation = require('./categories');
 
 function resolve (dir) {
@@ -42,6 +44,25 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        enforce: 'pre',
+        test: /\.(vue|js)$/,
+        use: [{
+          loader: StringReplacePlugin.replace({
+            replacements: [{
+              pattern: /__\(["|'](_*[a-zA-Z0-9]+(?:_[a-zA-Z0-9]+)*)["|']\)/g,
+              replacement: function (match) {
+                return '__ptlp_patttern' + match
+              }
+            }, {
+              pattern: /__NAVIGATION_SECTION_LIST__/g,
+              replacement: function (match) {
+                return '__ptlp_patttern' + match
+              }
+            }]
+          })
+        }]
+      },
       // ...(config.dev.useEslint ? [createLintingRule()] : []),
       {
         test: /\.vue$/,

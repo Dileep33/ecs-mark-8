@@ -5,7 +5,8 @@ process.env.NODE_ENV = 'production'
 
 const translation = require('./i18n');
 const languageJSON = translation[process.env.LANGUAGE || 'hi'];
-// const navigationJSON = navigation[process.env.LANGUAGE || 'hi'];
+const navigation = require('./categories');
+const navigationJSON = navigation[process.env.LANGUAGE || 'hi'];
 
 const ora = require('ora')
 // const rm = require('rimraf')
@@ -17,6 +18,7 @@ const ora = require('ora')
 const copyDir = require('copy-dir')
 const fs = require('fs');
 const path = require('path')
+const stringReplacer = require('replace-in-file');
 
 
 const spinner = ora('Copying intermediate files for Language : ' + process.env.LANGUAGE)
@@ -46,3 +48,18 @@ fs.writeFile(manifestFilePath, JSON.stringify(manifestData), function (err) {
   console.log('Edited Manifest file for language : ' + process.env.LANGUAGE);
 });
 console.log('Copying static files to language folder done for langauge : ' + process.env.LANGUAGE);
+
+
+const replaceOptions = {
+  files: [targetStaticFolder + '/**/*.js', targetLanguageFolder + '/**/*.html'],
+  from: [/__ptlp_patttern__\(["|'](_*[a-zA-Z0-9]+(?:_[a-zA-Z0-9]+)*)["|']\)/g, /\"__ptlp_patttern__NAVIGATION_SECTION_LIST__\"/g, /__TARGET_LANGUAGE__/g],
+  to: [(match) => languageJSON[match.substring(19, match.length - 2)], (match) => JSON.stringify(navigationJSON).replace(/"/g, "'"), (match) => process.env.LANGUAGE],
+};
+
+try {
+  const changes = stringReplacer.sync(replaceOptions);
+  console.log('Modified files:', changes);
+}
+catch (error) {
+  console.error('Error occurred:', error);
+}

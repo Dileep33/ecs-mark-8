@@ -22,7 +22,7 @@
                     <span v-if="(getLoginError && getLoginError.email)">{{ getLoginError.email }}</span>
                     <span v-else>__("email_entered_incorrectly")</span>
                 </p>
-                <input type="email" @keyup.enter="checkEmailAndGoToSecondStep" :class="{error: emailIsInvalid || (getLoginError && getLoginError.email) }" v-model="email" class="form-control" :placeholder="'__("email")'">
+                <input type="email" @keyup.enter="checkEmailAndGoToSecondStep" :class="{error: emailIsInvalid || (getLoginError && getLoginError.email) }" v-model="email" class="form-control" placeholder="__('email')">
                 <button type="button" @click="checkEmailAndGoToSecondStep">
                     <span>__("user_sign_in")</span>
                     <i class="material-icons">keyboard_arrow_right</i>
