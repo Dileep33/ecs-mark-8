@@ -1,6 +1,6 @@
 <template>
     <MainLayout>
-        <div class="author-dashboard-page page-wrap">
+        <div class="author-dashboard-page page-wrap" v-if="getAuthorDashboardLoadingState == 'LOADING_SUCCESS'">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
@@ -8,90 +8,83 @@
                         <div class="all-stats">
                             <div class="stat-item reads">
                                 <span class="stat-name">Total Reads</span>
-                                <span class="stat-count">10,587</span>
+                                <span class="stat-count">{{ getAuthorDashboardData.total.readCount }}</span>
                                 <icon name="book" scale="1.8"></icon>
                             </div>
                             <div class="stat-item ratings">
-                                <span class="stat-name">Average Rating</span>
-                                <span class="stat-count">4.7</span>
+                                <span class="stat-name">Highest Rating</span>
+                                <span class="stat-count">{{ getAuthorDashboardData.total.highestRating }}</span>
                                 <i class="material-icons">stars</i>
                             </div>
                             <div class="stat-item reviews">
                                 <span class="stat-name">Total Reviews</span>
-                                <span class="stat-count">69</span>
+                                <span class="stat-count">{{ getAuthorDashboardData.total.reviewCount }}</span>
                                 <i class="material-icons">rate_review</i>
                             </div>
                             <div class="stat-item followers">
                                 <span class="stat-name">Total Followers</span>
-                                <span class="stat-count">247</span>
+                                <span class="stat-count">{{ getAuthorDashboardData.total.follower }}</span>
                                 <i class="material-icons">person_add</i>
                             </div>
                         </div>
-                        <h2>Most Read Contents</h2>
-                        <div class="most-read">
-                            <div class="book-item">
-                                <div class="book-image"><img src="https://1.ptlp.co/pratilipi/cover?pratilipiId=4859263777243136&version=1478633651792" alt="book name"></div>
-                                <div class="book-name">Book Name</div>
-                                <div class="read-count">
-                                    <i class="material-icons">remove_red_eye</i>
-                                    <span>2234</span>
-                                </div>
-                            </div>
-                            <div class="book-item">
-                                <div class="book-image"><img src="https://1.ptlp.co/pratilipi/cover?pratilipiId=4859263777243136&version=1478633651792" alt="book name"></div>
-                                <div class="book-name">Book Name</div>
-                                <div class="read-count">
-                                    <i class="material-icons">remove_red_eye</i>
-                                    <span>2234</span>
-                                </div>
-                            </div>
-                            <div class="book-item">
-                                <div class="book-image"><img src="https://1.ptlp.co/pratilipi/cover?pratilipiId=4859263777243136&version=1478633651792" alt="book name"></div>
-                                <div class="book-name">Book Name</div>
-                                <div class="read-count">
-                                    <i class="material-icons">remove_red_eye</i>
-                                    <span>2234</span>
-                                </div>
+                        <div v-if="getAuthorDashboardData.highestReadCountPratilipi.length !== 0">
+                            <h2>Most Read Contents</h2>
+                            <div class="most-read">
+                                <router-link :to="eachBook.pageUrl" v-for="(eachBook, index) in getAuthorDashboardData.highestReadCountPratilipi" v-bind:key="index">
+                                    <div class="book-item">
+                                        <div class="book-image"><img :src="eachBook.coverImageUrl" :alt="eachBook.displayTitle"></div>
+                                        <div class="book-name">{{ eachBook.displayTitle }}</div>
+                                        <div class="read-count">
+                                            <i class="material-icons">remove_red_eye</i>
+                                            <span>{{ eachBook.readCount }}</span>
+                                        </div>
+                                    </div>
+                                </router-link>
                             </div>
                         </div>
-                        <h2>Contents with Highest Engagement</h2>
-                        <div class="most-engagement">
-                            <div class="book-item">
-                                <div class="book-image"><img src="https://1.ptlp.co/pratilipi/cover?pratilipiId=4859263777243136&version=1478633651792" alt="book name"></div>
-                                <div class="book-name">Book Name</div>
-                                <div class="read-count">
-                                    <i class="material-icons">rate_review</i>
-                                    <span>2234</span>
-                                </div>
+                        <div v-if="getAuthorDashboardData.highestReviewedPratilipi.length !== 0">
+                            <h2>Contents with Highest Engagement</h2>
+                            <div class="most-engagement">
+                                <router-link :to="eachBook.pageUrl" v-for="(eachBook, index) in getAuthorDashboardData.highestReviewedPratilipi" v-bind:key="index">
+                                    <div class="book-item">
+                                        <div class="book-image"><img :src="eachBook.coverImageUrl" :alt="eachBook.displayTitle"></div>
+                                        <div class="book-name">{{ eachBook.displayTitle }}</div>
+                                        <div class="read-count">
+                                            <i class="material-icons">remove_red_eye</i>
+                                            <span>{{ eachBook.readCount }}</span>
+                                        </div>
+                                    </div>
+                                </router-link>
                             </div>
                         </div>
                         <h2>Today's Stats</h2>
                         <div class="stats-today">
                             <div class="stat-item">
                                 <span class="stat-name">Contents Published</span>
-                                <span class="stat-count">1</span>
+                                <span class="stat-count">{{ getAuthorDashboardData.todays.contentPublished }}</span>
                             </div>
                             <div class="stat-item">
                                 <span class="stat-name">Read Count</span>
-                                <span class="stat-count">587</span>
+                                <span class="stat-count">{{ getAuthorDashboardData.todays.readCount }}</span>
                             </div>
-                            <div class="stat-item">
+                            <div class="stat-item small-col">
                                 <span class="stat-name">New Followers</span>
-                                <span class="stat-count">87</span>
+                                <span class="stat-count">{{ getAuthorDashboardData.todays.follower }}</span>
                             </div>
-                            <div class="stat-item">
+                            <div class="stat-item small-col">
                                 <span class="stat-name">New Ratings</span>
-                                <span class="stat-count">17</span>
+                                <span class="stat-count">{{ getAuthorDashboardData.todays.ratingCount }}</span>
                             </div>
-                            <div class="stat-item">
+                            <div class="stat-item small-col">
                                 <span class="stat-name">New Reviews</span>
-                                <span class="stat-count">3</span>
+                                <span class="stat-count">{{ getAuthorDashboardData.todays.reviewCount }}</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <Spinner v-if="getAuthorDashboardLoadingState == 'LOADING'"></Spinner>
     </MainLayout>
 </template>
 
@@ -106,14 +99,37 @@ export default {
         MainLayout,
         Spinner
     },
+    computed: {
+        ...mapGetters('authordashboard', [
+            'getAuthorDashboardData',
+            'getAuthorDashboardLoadingState'
+        ]),
+        ...mapGetters([
+            'getUserDetails'
+        ])
+    },
     methods: {
-
+        ...mapActions('authordashboard', [
+            'fetchAuthorDashboardData'
+        ])
     },
     watch: {
-
+        'getUserDetails.isGuest'(isGuest) {
+            if (!isGuest) {
+                this.fetchAuthorDashboardData(this.getUserDetails.author.authorId);    
+            }
+        }
     },
     created() {
-        console.log(this.$route)
+        console.log(this.$route);
+        if (this.getUserDetails.isGuest) {
+            this.$route.push('/login');
+            return
+        }
+        if (this.getUserDetails.author) {
+            this.fetchAuthorDashboardData(this.getUserDetails.author.authorId);
+        }
+        
     }
 }
 </script>
@@ -144,7 +160,7 @@ export default {
             max-width: 200px;
             display: inline-block;
             border-radius: 4px;
-            background: #e9ecef;
+            background: #f1f1f1;
             margin: 4px 2px;
             padding: 10px;
             position: relative;
@@ -192,25 +208,42 @@ export default {
         }
     }
     .most-read, .most-engagement {
+        a {
+            text-decoration: none;
+            color: #555;
+        }
         .book-item {
             margin: 5px 3px;
-            width: 100px;
+            width: 31%;
+            max-width: 140px;
             display: inline-block;
+            border: 1px solid #e9e9e9;
+            border-radius: 3px;
             .book-image {
                 height: 150px;
                 img {
                     object-fit: cover;
                     width: 100%;
                     height: 100%;
+                    border-top-left-radius: 3px;
+                    border-top-right-radius: 3px;
                 }
             }
             .book-name {
                 font-size: 12px;
                 font-weight: bold;
                 margin: 4px 0 0;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                height: 37px;
+                max-width: 100%;
+                padding: 0 5px;
             }
             .read-count {
                 margin: 0;
+                padding: 0 5px;
                 i {
                     vertical-align: middle;
                     font-size: 16px;
@@ -219,6 +252,39 @@ export default {
                     vertical-align: middle;
                     font-size: 12px;
                 }
+            }
+        }
+    }
+    .stats-today {
+        overflow: hidden;
+        margin: 10px 0 15px;
+        border: 1px solid #e9e9e9;
+        .stat-item {
+            display: inline-block;
+            width: 49%;
+            float: left;
+            text-align: center;
+            border-right: 1px solid #e9e9e9;
+            padding: 10px 5px;
+            .stat-name {
+                display: block;
+                font-size: 12px;
+                font-weight: bold;
+                color: #495057;
+            }
+            .stat-count {
+                display: block;
+                font-size: 22px;
+            }
+            &.small-col {
+                width: 32.7%;
+                border-top: 1px solid #e9e9e9;
+                &:last-child {
+                    border-right: 0;
+                }
+            }
+            &:nth-child(2) {
+                border: 0;
             }
         }
     }
