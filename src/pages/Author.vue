@@ -37,7 +37,7 @@
                             <div class="profile-read-by">__("author_readby_count")</div>
                             <router-link :to="this.$route.path + '/dashboard'" class="author-dashboard-link" v-if="getUserDetails.userId === getAuthorData.user.userId">
                                 <i class="material-icons">bar_chart</i>
-                                <span>My Dashboard</span>
+                                <span>__("author_dashboard_statistics")</span>
                             </router-link>
                             <div class="profile-summary" v-if="getAuthorData.summary || getAuthorData.hasAccessToUpdate">
                                 <div class="head-title">

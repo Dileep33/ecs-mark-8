@@ -617,5 +617,20 @@
     "event_unsubmit": "ભાગ ન લો",
 
     "login_popup_story_added_to_library": "આપની લાઈબ્રેરીમાં વાર્તા સફળતાપુર્વક ઉમેરી દેવામાં આવી છે.સાઈન અપ કરો અને ગમે ત્યારે વાંચો. ",
-    "login_popup_read_and_rate_stories": "આ પ્રકારની વધારે વાર્તાઓ વાંચો અને રેટ કરો. "
+    "login_popup_read_and_rate_stories": "આ પ્રકારની વધારે વાર્તાઓ વાંચો અને રેટ કરો. ",
+    
+    "author_dashboard_statistics": "આંકડા",
+    "author_dashboard_all_time_stats": "અત્યાર સુધી",
+    "author_dashboard_total_readers": "કુલ લોકોએ વાંચ્યું",
+    "author_dashboard_avg_rating": "સરેરાશ રેટિંગ",
+    "author_dashboard_total_reviews": "કુલ ટિપ્પણી",
+    "author_dashboard_total_followers": "કુલ ફોલોઅર્સ",
+    "author_dashboard_most_read_contents": "સૌથી વધુ વંચાયું",
+    "author_dashboard_contents_with_highest_engagement": "સૌથી વધુ ચર્ચામાં",
+    "author_dashboard_todays_stat": "આજના આંકડા",
+    "author_dashboard_contents_published": "પ્રકાશિત રચનાઓ",
+    "author_dashboard_read_count": "લોકોએ વાંચ્યું",
+    "author_dashboard_new_followers": "નવા ફોલોઅર્સ",
+    "author_dashboard_new_ratings": "નવા રેટિંગ",
+    "author_dashboard_new_reviews": "નવી  ટિપ્પણી"
 }

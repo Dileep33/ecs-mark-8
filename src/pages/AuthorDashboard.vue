@@ -4,31 +4,31 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>All time stats</h2>
+                        <h2>__("author_dashboard_all_time_stats")</h2>
                         <div class="all-stats">
                             <div class="stat-item reads">
-                                <span class="stat-name">Total Reads</span>
-                                <span class="stat-count">{{ getAuthorDashboardData.total.readCount }}</span>
+                                <span class="stat-name">__("author_dashboard_total_readers")</span>
+                                <span class="stat-count">{{ getAuthorDashboardData.total.readCount | showThousandsInK(1) }}</span>
                                 <i class="material-icons">remove_red_eye</i>
                             </div>
                             <div class="stat-item ratings">
-                                <span class="stat-name">Highest Rating</span>
+                                <span class="stat-name">__("author_dashboard_avg_rating")</span>
                                 <span class="stat-count">{{ getAuthorDashboardData.total.highestRating }}</span>
                                 <i class="material-icons">stars</i>
                             </div>
                             <div class="stat-item reviews">
-                                <span class="stat-name">Total Reviews</span>
-                                <span class="stat-count">{{ getAuthorDashboardData.total.reviewCount }}</span>
+                                <span class="stat-name">__("author_dashboard_total_reviews")</span>
+                                <span class="stat-count">{{ getAuthorDashboardData.total.reviewCount | showThousandsInK(1) }}</span>
                                 <i class="material-icons">rate_review</i>
                             </div>
                             <div class="stat-item followers">
-                                <span class="stat-name">Total Followers</span>
-                                <span class="stat-count">{{ getAuthorDashboardData.total.follower }}</span>
+                                <span class="stat-name">__("author_dashboard_total_followers")</span>
+                                <span class="stat-count">{{ getAuthorDashboardData.total.follower | showThousandsInK(1) }}</span>
                                 <i class="material-icons">person_add</i>
                             </div>
                         </div>
                         <div v-if="getAuthorDashboardData.highestReadCountPratilipi.length !== 0">
-                            <h2>Most Read Contents</h2>
+                            <h2>__("author_dashboard_most_read_contents")</h2>
                             <div class="most-read">
                                 <router-link :to="eachBook.pageUrl" v-for="(eachBook, index) in getAuthorDashboardData.highestReadCountPratilipi" v-bind:key="index">
                                     <div class="book-item">
@@ -43,7 +43,7 @@
                             </div>
                         </div>
                         <div v-if="getAuthorDashboardData.highestReviewedPratilipi.length !== 0">
-                            <h2>Contents with Highest Engagement</h2>
+                            <h2>__("author_dashboard_contents_with_highest_engagement")</h2>
                             <div class="most-engagement">
                                 <router-link :to="eachBook.pageUrl" v-for="(eachBook, index) in getAuthorDashboardData.highestReviewedPratilipi" v-bind:key="index">
                                     <div class="book-item">
@@ -57,10 +57,10 @@
                                 </router-link>
                             </div>
                         </div>
-                        <h2>Today's Stats</h2>
+                        <h2>__("author_dashboard_todays_stat")</h2>
                         <div class="stats-today">
                             <div class="stat-item publish">
-                                <span class="stat-name">Contents Published</span>
+                                <span class="stat-name">__("author_dashboard_contents_published")</span>
                                 <span class="stat-count">{{ getAuthorDashboardData.todays.contentPublished }}</span>
                                 <icon name="book" scale="1.8"></icon>
                             </div>
@@ -69,17 +69,17 @@
                                 <span class="stat-count">{{ getAuthorDashboardData.todays.readCount }}</span>
                             </div> -->
                             <div class="stat-item followers">
-                                <span class="stat-name">New Followers</span>
+                                <span class="stat-name">__("author_dashboard_new_followers")</span>
                                 <span class="stat-count">{{ getAuthorDashboardData.todays.follower }}</span>
                                 <i class="material-icons">person_add</i>
                             </div>
                             <div class="stat-item ratings">
-                                <span class="stat-name">New Ratings</span>
+                                <span class="stat-name">__("author_dashboard_new_ratings")</span>
                                 <span class="stat-count">{{ getAuthorDashboardData.todays.ratingCount }}</span>
                                 <i class="material-icons">stars</i>
                             </div>
                             <div class="stat-item reviews">
-                                <span class="stat-name">New Reviews</span>
+                                <span class="stat-name">__("author_dashboard_new_reviews")</span>
                                 <span class="stat-count">{{ getAuthorDashboardData.todays.reviewCount }}</span>
                                 <i class="material-icons">rate_review</i>
                             </div>
@@ -124,7 +124,8 @@ export default {
                 return;
             }
             else {
-                this.fetchAuthorDashboardData(this.getUserDetails.author.authorId);    
+                this.fetchAuthorDashboardData(this.getUserDetails.author.authorId); 
+                // this.fetchAuthorDashboardData(4899148398592000); 
             }
         }
     },
@@ -135,6 +136,7 @@ export default {
         }
         if (this.getUserDetails.author) {
             this.fetchAuthorDashboardData(this.getUserDetails.author.authorId);
+            // this.fetchAuthorDashboardData(4899148398592000);
         }
         
     }
@@ -162,55 +164,61 @@ export default {
     }
     .all-stats {
         margin: 10px 0 15px;
-        .stat-item {
-            width: 47.5%;
-            max-width: 200px;
-            display: inline-block;
-            border-radius: 4px;
-            background: #f1f1f1;
-            margin: 4px 2px;
-            padding: 10px;
-            position: relative;
-            .stat-name {
-                display: block;
-                font-size: 12px;
-                font-weight: bold;
-                color: #495057;
+    }
+    .stat-item {
+        width: 47.5%;
+        max-width: 200px;
+        display: inline-block;
+        border-radius: 4px;
+        background: #f1f1f1;
+        margin: 4px 2px;
+        padding: 10px;
+        position: relative;
+        .stat-name {
+            display: block;
+            font-size: 12px;
+            font-weight: bold;
+            color: #495057;
+        }
+        .stat-count {
+            display: block;
+            font-size: 22px;
+        }
+        i.material-icons, .fa-icon {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 30px;
+            color: #444;
+        }
+        &.publish {
+            border-left: 3px solid #9C27B0;
+            .fa-icon, .stat-count {
+                color: #9C27B0;
             }
-            .stat-count {
-                display: block;
-                font-size: 22px;
+        }
+        &.reads {
+            border-left: 3px solid #17a2b8;
+            i, .fa-icon, .stat-count {
+                color: #17a2b8;
             }
-            i.material-icons, .fa-icon {
-                position: absolute;
-                top: 12px;
-                right: 10px;
-                font-size: 30px;
-                color: #444;
+        }
+        &.ratings {
+            border-left: 3px solid #fdbf00;
+            i, .stat-count {
+                color: #fdbf00;
             }
-            &.reads {
-                border-left: 3px solid #17a2b8;
-                i, .fa-icon, .stat-count {
-                    color: #17a2b8;
-                }
+        }
+        &.reviews {
+            border-left: 3px solid #fd7e14;
+            i, .stat-count {
+                color: #fd7e14;
             }
-            &.ratings {
-                border-left: 3px solid #fdbf00;
-                i, .stat-count {
-                    color: #fdbf00;
-                }
-            }
-            &.reviews {
-                border-left: 3px solid #fd7e14;
-                i, .stat-count {
-                    color: #fd7e14;
-                }
-            }
-            &.followers {
-                border-left: 3px solid #8BC34A;
-                i, .stat-count {
-                    color: #8BC34A;
-                }
+        }
+        &.followers {
+            border-left: 3px solid #8BC34A;
+            i, .stat-count {
+                color: #8BC34A;
             }
         }
     }
@@ -265,85 +273,6 @@ export default {
     .stats-today {
         overflow: hidden;
         margin: 10px 0 15px;
-        // .stat-item {
-        //     display: inline-block;
-        //     width: 49%;
-        //     float: left;
-        //     text-align: center;
-        //     border-right: 1px solid #e9e9e9;
-        //     padding: 10px 5px;
-        //     .stat-name {
-        //         display: block;
-        //         font-size: 12px;
-        //         font-weight: bold;
-        //         color: #495057;
-        //     }
-        //     .stat-count {
-        //         display: block;
-        //         font-size: 22px;
-        //     }
-        //     &.small-col {
-        //         width: 32.7%;
-        //         border-top: 1px solid #e9e9e9;
-        //         &:last-child {
-        //             border-right: 0;
-        //         }
-        //     }
-        //     &:nth-child(2) {
-        //         border: 0;
-        //     }
-        // }
-        .stat-item {
-            width: 47.5%;
-            max-width: 200px;
-            display: inline-block;
-            border-radius: 4px;
-            background: #f1f1f1;
-            margin: 4px 2px;
-            padding: 10px;
-            position: relative;
-            .stat-name {
-                display: block;
-                font-size: 12px;
-                font-weight: bold;
-                color: #495057;
-            }
-            .stat-count {
-                display: block;
-                font-size: 22px;
-            }
-            i.material-icons, .fa-icon {
-                position: absolute;
-                bottom: 7px;
-                right: 10px;
-                font-size: 30px;
-                color: #444;
-            }
-            &.publish {
-                border-left: 3px solid #9C27B0;
-                .fa-icon, .stat-count {
-                    color: #9C27B0;
-                }
-            }
-            &.ratings {
-                border-left: 3px solid #fdbf00;
-                i, .stat-count {
-                    color: #fdbf00;
-                }
-            }
-            &.reviews {
-                border-left: 3px solid #fd7e14;
-                i, .stat-count {
-                    color: #fd7e14;
-                }
-            }
-            &.followers {
-                border-left: 3px solid #8BC34A;
-                i, .stat-count {
-                    color: #8BC34A;
-                }
-            }
-        }
     }
 }
 </style>
