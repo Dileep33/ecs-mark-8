@@ -30,6 +30,7 @@ import eventparticipate from './modules/eventparticipate'
 import admineventsubmissions from './modules/admineventsubmissions'
 import videoseries from './modules/videoseries'
 import eventPratilipi from './modules/eventPratilipi'
+import authordashboard from './modules/authordashboard'
 
 const debug = process.env.NODE_ENV !== 'production'
 
@@ -66,7 +67,8 @@ export default new Vuex.Store({
         eventparticipate,
         admineventsubmissions,
         videoseries,
-        eventPratilipi
+        eventPratilipi,
+        authordashboard
     },
     strict: debug
 })
