@@ -1,0 +1,22 @@
+export default {
+    "SHAREBOOKWA_BOOKEND_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "BOOKEND",
+        "ACTION": "SHAREBOOKWA"
+    },
+    "SHAREBOOKFB_BOOKEND_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "BOOKEND",
+        "ACTION": "SHAREBOOKFB"
+    },
+    "LIBRARYADD_READERM_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "READERM",
+        "ACTION": "LIBRARYADD"
+    },
+    "LIBRARYREMOVE_READERM_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "READERM",
+        "ACTION": "LIBRARYREMOVE"
+    }
+}
