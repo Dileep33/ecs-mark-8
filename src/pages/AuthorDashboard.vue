@@ -124,8 +124,8 @@ export default {
                 return;
             }
             else {
-                this.fetchAuthorDashboardData(this.getUserDetails.author.authorId); 
-                // this.fetchAuthorDashboardData(4899148398592000); 
+                this.fetchAuthorDashboardData(this.getUserDetails.author.authorId);
+                // this.fetchAuthorDashboardData(5758392207409152);
             }
         }
     },
@@ -136,7 +136,7 @@ export default {
         }
         if (this.getUserDetails.author) {
             this.fetchAuthorDashboardData(this.getUserDetails.author.authorId);
-            // this.fetchAuthorDashboardData(4899148398592000);
+            // this.fetchAuthorDashboardData(5758392207409152);
         }
         
     }
@@ -157,13 +157,13 @@ export default {
         text-align: left;
         border-left: 3px solid #d0021b;
         padding-left: 10px;
-        margin: 15px 0 10px;
+        margin: 20px 0 5px;
         @media screen and (max-width: 992px ) {
             font-size: 17px;
         }
     }
     .all-stats {
-        margin: 10px 0 15px;
+        margin: 5px 0 15px;
     }
     .stat-item {
         width: 47.5%;
