@@ -49,6 +49,11 @@ module.exports = {
 
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist/' + process.env.LANGUAGE + '/'),
+
+    //Intermediate Folder for common build steps
+    indexIntermediate: path.resolve(__dirname, '../dist/intermediate/index.html'),
+    assetsIntermediate: path.resolve(__dirname, '../dist/intermediate/'),
+
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
 

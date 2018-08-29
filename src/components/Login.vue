@@ -17,7 +17,7 @@
                         <span v-if="(getLoginError && getLoginError.email)">{{ getLoginError.email }}</span>
                         <span v-else>__("email_entered_incorrectly")</span>
                     </p>
-                    <input type="email" :class="{error: emailIsInvalid || (getLoginError && getLoginError.email) }" class="form-control" v-model="email" :placeholder="'__("user_email")'">
+                    <input type="email" :class="{error: emailIsInvalid || (getLoginError && getLoginError.email) }" class="form-control" v-model="email" placeholder="__('user_email')">
                 </div>
                 <div class="form-group">
                     <p class="validation_error" v-if="passwordIsInvalid || (getLoginError && getLoginError.password)">
@@ -25,7 +25,7 @@
                         <span v-if="(getLoginError && getLoginError.password)">{{ getLoginError.password }}</span>
                         <span v-else>__("password_minimum")</span>
                     </p>
-                    <input type="password" :class="{error: passwordIsInvalid || (getLoginError && getLoginError.password) }" class="form-control" v-model="password" :placeholder="'__("user_password")'">
+                    <input type="password" :class="{error: passwordIsInvalid || (getLoginError && getLoginError.password) }" class="form-control" v-model="password" placeholder="__('user_password')">
                 </div>
                 <button type="button" @click="validateAndLoginUser({email, password})" class="btn sign-in">__("user_sign_in")</button>
                 <a v-if="!openForgotPasswordInTab" @click="triggerEventAndOpenForgotPasswordModal" href="#" class="forgot-pass">__("user_forgot_password")</a>
