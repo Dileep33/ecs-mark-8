@@ -115,16 +115,19 @@ export default {
     },
     watch: {
         'getUserDetails.isGuest'(isGuest) {
-            if (!isGuest) {
+            if (isGuest) {
+                this.$router.push('/login');
+                return;
+            }
+            else {
                 this.fetchAuthorDashboardData(this.getUserDetails.author.authorId);    
             }
         }
     },
     created() {
-        console.log(this.$route);
         if (this.getUserDetails.isGuest) {
-            this.$route.push('/login');
-            return
+            this.$router.push('/login');
+            return;
         }
         if (this.getUserDetails.author) {
             this.fetchAuthorDashboardData(this.getUserDetails.author.authorId);
