@@ -258,11 +258,11 @@
                             </a>
                         </div>
                         <div class="add-to-lib">
-                            <span v-if="getUserPratilipiData.addedToLib" @click="triggerAnanlyticsEventAndRemoveFromLibrary">
+                            <span v-if="getUserPratilipiData.addedToLib" @click="removePratilipiFromLibrary">
                                 <i class="material-icons">bookmark</i>
                                 <i class="material-icons stacked">check</i>
                             </span>
-                            <span v-else @click="addPratilipiToLibrary(getPratilipiData.pratilipiId)">
+                            <span v-else @click="addPratilipiToLibrary">
                                 <i class="material-icons">bookmark_border</i>
                                 <i class="material-icons stacked grey">add</i>
                             </span>
@@ -545,7 +545,7 @@ export default {
             }
         },
         removePratilipiFromLibrary() {
-            this._triggerReaderAnalyticsEvent('LIBRARYREMOVE_READERM_READER')
+            this._triggerReaderAnalyticsEvent('LIBRARYREMOVE_READERM_READER', null, null, 'WBB001')
             this.removeFromLibrary()
         },
 
@@ -684,20 +684,11 @@ export default {
         /* whatsapp share */
         triggerWaEndShareEvent() {
             this._triggerReaderAnalyticsEvent('SHAREBOOKWA_BOOKEND_READER', 'WHATSAPP', null, 'WBB001')
-
         },
 
         /* facebook share */
         triggerFbEndShareEvent() {
-            let pratilipiAnalyticsData = {};
-            if (this.getPratilipiData) {
-                pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
-            }
-            this.triggerAnanlyticsEvent(`SHAREBOOKFB_BOOKEND_READER`, 'WBB001', {
-                ...pratilipiAnalyticsData,
-                'USER_ID': this.getUserDetails.userId,
-                'ENTITY_VALUE': 'FACEBOOK'
-            });
+            this._triggerReaderAnalyticsEvent('SHAREBOOKFB_BOOKEND_READER', 'FACEBOOK', null, 'WBB001')
         },
 
         /* scroll */
