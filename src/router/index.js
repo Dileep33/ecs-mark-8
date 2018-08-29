@@ -108,6 +108,18 @@ function _getDefaultPageOGTags(pageStoreName) {
                 ...defaultMetaTags
             ];
             break;
+        case 'authorpage':
+            return [{
+                    property: 'og:title',
+                    content: '__("seo_login_page") | __("pratilipi")'
+                },
+                {
+                    property: 'og:description',
+                    content: '__("home_page_title")'
+                },
+                ...defaultMetaTags
+            ];
+            break;
         case 'login':
             return [{
                     property: 'og:title',
@@ -276,7 +288,9 @@ var router = new Router({
             meta: {
                 'store': 'authorpage',
                 'title': '__("seo_home_page")',
-                'id_prop': 'user_slug'
+                'id_prop': 'user_slug',
+                metaTags: _getDefaultPageOGTags('authorpage')
+                
             }
         }, {
             path: '/discover',
