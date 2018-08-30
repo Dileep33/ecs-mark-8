@@ -6,6 +6,8 @@ import recommendationV1AnalyticsEvents from '@/static_scripts/experiment_events/
 import appLoginV1AnalyticsEvents from '@/static_scripts/experiment_events/applogin_v1'
 import ratingStickersV1AnalyticsEvents from '@/static_scripts/experiment_events/rating_stickers_v1'
 import readerFooterAnalyticsEvents from '@/static_scripts/experiment_events/reader_footer'
+import ratingPanelV1AnalyticsEvents from '@/static_scripts/experiment_events/ratingpanel_v1'
+import ratingPanelV2AnalyticsEvents from '@/static_scripts/experiment_events/ratingpanel_v2'
 
 const recommendation_v1 = ['WREC001'];
 const applogin_v1 = ['WSU001', 'WSU002'];
@@ -382,6 +384,12 @@ export function triggerAnanlyticsEvent(eventName, experimentType, eventProperty)
             break;
         case (experimentType === 'WBB001'):
             eventProps = { ...readerFooterAnalyticsEvents[eventName] };
+            break;
+        case (experimentType === 'WRA001'):
+            eventProps = { ...ratingPanelV1AnalyticsEvents[eventName] };
+            break;
+        case (experimentType === 'WRA002'):
+            eventProps = { ...ratingPanelV2AnalyticsEvents[eventName] };
             break;
         default:
             eventProps = { ...controlAnalyticsEvents[eventName] };
