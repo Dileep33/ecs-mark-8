@@ -28,6 +28,7 @@ const USER_PRATILIPI_LIBRARY_LIST_API = "/userpratilipi/library/list";
 const AUTHOR_API = "/author";
 
 const AUTHOR_NEW_API = "/authors";
+const AUTHOR_DASHBOARD_API = "/stats/author_dashboard";
 const USER_API = "/user?_apiVer=2";
 const USER_LOGIN_API = "/user/login";
 const USER_IS_VALID = "/users/v2.0/identifiers/is-valid";
@@ -1107,6 +1108,15 @@ export default {
             null,
             {
                 userId
+            },
+            function( response, status ) { processGetResponse( response, status, aCallBack ) });
+    },
+    
+    getAuthorDashboardByAuthorId: (authorId, aCallBack) => {
+        httpUtil.get( API_PREFIX + AUTHOR_DASHBOARD_API,
+            null,
+            {
+                authorId
             },
             function( response, status ) { processGetResponse( response, status, aCallBack ) });
     },

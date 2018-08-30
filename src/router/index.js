@@ -33,6 +33,7 @@ import AdminEventSubmission from '@/pages/AdminEventSubmission'
 import ShayariPageComponent from '@/pages/Shayari.vue'
 import ChatStoryComponent from '@/pages/ChatStory.vue'
 import EndChatStoryComponent from '@/pages/EndChatStory.vue'
+import AuthorDashboardComponent from '@/pages/AuthorDashboard.vue'
 
 import {
     getCookie
@@ -104,6 +105,26 @@ function _getDefaultPageOGTags(pageStoreName) {
                 {
                     property: 'og:description',
                     content: '__("home_page_title")'
+                },
+                ...defaultMetaTags
+            ];
+            break;
+        case 'authorpage':
+            return [{
+                    property: 'og:title',
+                    content: '__("seo_login_page") | __("pratilipi")'
+                },
+                {
+                    property: 'og:description',
+                    content: '__("home_page_title")'
+                },
+                {
+                    property: 'og:image:width',
+                    content: '220'
+                },
+                {
+                    property: 'og:image:height',
+                    content: '220'
                 },
                 ...defaultMetaTags
             ];
@@ -279,6 +300,17 @@ var router = new Router({
             path: '/user/:user_slug',
             name: 'User',
             component: AuthorPageComponent,
+            meta: {
+                'store': 'authorpage',
+                'title': '__("seo_home_page")',
+                'id_prop': 'user_slug',
+                metaTags: _getDefaultPageOGTags('authorpage')
+                
+            }
+        }, {
+            path: '/user/:user_slug/dashboard',
+            name: 'AuthorDashboard_Page',
+            component: AuthorDashboardComponent,
             meta: {
                 'store': 'authorpage',
                 'title': '__("seo_home_page")',

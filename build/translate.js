@@ -1,134 +1,158 @@
 const translation = [
-     {
-       "FIELD1": "Sl. No.",
-       "FIELD2": "English Text",
-       "FIELD3": "Context",
-       "HINDI": "Hindi",
-       "BENGALI": "Bengali",
-       "GUJARATI": "Gujarati",
-       "MARATHI": "Marathi",
-       "KANNADA": "Kannada",
-       "MALAYALAM": "Malayalam",
-       "TAMIL": "Tamil",
-       "TELUGU": "Telugu"
-     },
-     {
-       "FIELD1": "18",
-       "FIELD2": "Level {{ levelNumber }}",
-       "FIELD3": "Whenever you read a certain number of books, you reach a certain level",
-       "HINDI": "लेवल {{ levelNumber }}",
-       "BENGALI": "লেবেল {{ levelNumber }}",
-       "GUJARATI": "લેવલ {{ levelNumber }}",
-       "MARATHI": "स्तर  {{ levelNumber }}",
-       "KANNADA": "ಹಂತ {{levelNumber}}",
-       "MALAYALAM": "ലെവല്‍ {{levelNumber}}",
-       "TAMIL": "படிநிலை {{ levelNumber }}",
-       "TELUGU": "లెవెల్ {{ levelNumber }}"
-     },
-     {
-       "FIELD1": "19",
-       "FIELD2": "Read {{ readCount }} many contents to reach level {{ levelNumber }}",
-       "FIELD3": "This will be below your level",
-       "HINDI": "लेवल {{ levelNumber }} पाने के लिए {{ readCount }} रचनायें पढ़ें",
-       "BENGALI": "লেবেল {{ levelNumber }} প্রাপ্ত করতে গেলে {{ readCount }} রচনা পড়ুন",
-       "GUJARATI": "વાંચન-લેવલ {{ levelNumber }} પર પહોંચવા માટે વધું {{ readCount }} રચનાઓ વાંચો. ",
-       "MARATHI": "{{ levelNumber }} स्तरावर पोचण्याकरता आणखीन {{ readCount }} कथा वाचा!  ",
-       "KANNADA": "{{ levelNumber }} ನೇ  ಹಂತವನ್ನು ತಲುಪಲು {{ readCount }} ಬರಹಗಳನ್ನು ಓದಿ",
-       "MALAYALAM": "{{ levelNumber }}ല്‍ പ്രവേശിക്കാന്‍ {{readCount}} രചനകള്‍ കൂടി വായിക്കൂ ",
-       "TAMIL": "படிநிலை {{ levelNumber }} -க்கு செல்ல இன்னும் {{ readCount }} புத்தகங்கள் படிக்கவேண்டும்",
-       "TELUGU": "లెవెల్ {{ levelNumber }} పొందడానికీ {{ readCount }} రచనలు చదవండి"
-     },
-     {
-       "FIELD1": "20",
-       "FIELD2": "Explore contents",
-       "FIELD3": "",
-       "HINDI": "रचनायें खोजें ",
-       "BENGALI": "রচনা খুঁজুন",
-       "GUJARATI": "રચનાઓ શોધો ",
-       "MARATHI": "अधिक साहित्य वाचा",
-       "KANNADA": "ಹೆಚ್ಚು ಬರಹಗಳನ್ನು ಓದಿರಿ ",
-       "MALAYALAM": "രചനകള്‍ കണ്ടെത്തി വായിക്കൂ ",
-       "TAMIL": "படைப்புகளைக் கண்டடையுங்கள்",
-       "TELUGU": "రచనలు అన్వేషించండి"
-     },
-     {
-       "FIELD1": "21",
-       "FIELD2": "Read Levels",
-       "FIELD3": "Heading for the section showing user's current level",
-       "HINDI": "रीडिंग लेवल ",
-       "BENGALI": "রিডিং লেবেল",
-       "GUJARATI": "વાંચન-લેવલ  ",
-       "MARATHI": "वाचन स्तर",
-       "KANNADA": "ಓದುವಿಕೆಯ ಹಂತಗಳು ",
-       "MALAYALAM": "വായനാ ലെവലുകള്‍ ",
-       "TAMIL": "வாசிப்புப் படிநிலைகள்",
-       "TELUGU": "రీడింగ్ లెవెల్ "
-     },
-     {
-       "FIELD1": "22",
-       "FIELD2": "More levels coming soon, keep reading!",
-       "FIELD3": "",
-       "HINDI": "और रीडिंग लेवल जल्दी ही आ रहे हैं,पढ़ना जारी रखें!",
-       "BENGALI": "আরও রিডিং লেবেল শীঘ্রই আসছে,পড়তে থাকুন!",
-       "GUJARATI": "અમે વધુ વાંચન-લેવલ લાવી રહ્યા છીએ. વાંચતા રહેશો. ",
-       "MARATHI": "लवकरच आम्ही आणखीन स्तर घेऊन येत आहोत. वाचत राहा!",
-       "KANNADA": "ಹೆಚ್ಚಿನ ಓದುವಿಕೆಯಿಂದ ಮುಂದಿನ ಹಂತಗಳನ್ನು ತಲುಪಿರಿ!",
-       "MALAYALAM": "കൂടുതല്‍ ലെവലുകള്‍ ഉടന്‍ വരുന്നൂ, വായന തുടരുക !",
-       "TAMIL": "இன்னும் நிறைய படிநிலைகள் வரவிருக்கின்றன. தொடர்ந்து வாசியுங்கள்!",
-       "TELUGU": "మరిన్ని లెవెల్స్ త్వరలో వస్తున్నాయి, చదవడం కొనసాగించండి!"
-     },
-     {
-       "FIELD1": "23",
-       "FIELD2": "Congratulations!",
-       "FIELD3": "",
-       "HINDI": "बधाई!",
-       "BENGALI": "অভিনন্দন!",
-       "GUJARATI": "અભિનંદન!",
-       "MARATHI": "अभिनंदन!",
-       "KANNADA": "ಅಭಿನಂದನೆಗಳು!",
-       "MALAYALAM": "അഭിനന്ദനങ്ങള്‍!",
-       "TAMIL": "வாழ்த்துக்கள்!",
-       "TELUGU": "అభినందనలు!"
-     },
-     {
-       "FIELD1": "24",
-       "FIELD2": "You reached level {{ levelNumber }}",
-       "FIELD3": "",
-       "HINDI": "आप रीडिंग लेवल {{leavelnumber}} पर पहुँचे हैं ",
-       "BENGALI": "আপনি রিডিং লেবেল {{ levelNumber }} অবধি পৌঁছেছেন",
-       "GUJARATI": "આપે {{ levelNumber }} લેવલ પ્રાપ્ત કર્યું છે. ",
-       "MARATHI": "आपण {{ levelNumber }} स्तरावर पोहोचलात ",
-       "KANNADA": "ನೀವು {{ levelNumber }} ಹಂತವನ್ನು ತಲುಪಿದ್ದೀರಾ",
-       "MALAYALAM": "താങ്കള്‍ {{ levelNumber }}ല്‍ പ്രവേശിച്ചിരിക്കുന്നു ",
-       "TAMIL": "நீங்கள் படிநிலை {{ levelNumber }}-ஐ அடைந்துவிட்டீர்கள்",
-       "TELUGU": "మీరు లెవెల్ {{level number}} ను చేరుకున్నారు"
-     },
-     {
-       "FIELD1": "25",
-       "FIELD2": "Keep Reading!",
-       "FIELD3": "",
-       "HINDI": "पढना जारी रखें!",
-       "BENGALI": "পড়ুতে থাকুন!",
-       "GUJARATI": "વાંચતા રહો!",
-       "MARATHI": "वाचत राहा!",
-       "KANNADA": "ಓದನ್ನು ಮುಂದುವರೆಸಿ!",
-       "MALAYALAM": "തുടര്‍ന്നും വായിക്കൂ ! ",
-       "TAMIL": "தொடர்ந்து வாசியுங்கள்!",
-       "TELUGU": "చదువుతూ ఉండండి "
-     },
-     {
-       "FIELD1": "26",
-       "FIELD2": "Login to save your progress",
-       "FIELD3": "Sign in button in levels, insisting users to login in order to save progress",
-       "HINDI": "अपनी प्रगति को सहेजने के लिये लॉग इन करें ",
-       "BENGALI": "আপনার অগ্রগতি সংরক্ষণ করতে হলে লগ-ইন করুন",
-       "GUJARATI": "આપની ગતિવિધિ સેવ કરવા માટે લોગઈન કરો",
-       "MARATHI": "आपला स्तरांचा उत्कर्ष जतन करण्यासाठी लॉग इन करा ",
-       "KANNADA": "ನಿಮ್ಮ ಪ್ರಗತಿಯನ್ನು ಸೇವ್ ಮಾಡಲು ಲಾಗಿನ್ ಆಗಿರಿ",
-       "MALAYALAM": "താങ്കളുടെ നേട്ടങ്ങള്‍ സേവ് ആകണമെങ്കില്‍ ലോഗിന്‍ ചെയ്യൂ ",
-       "TAMIL": "உங்களது படிநிலைகளை சேமிக்க லாக்-இன் செய்யவும்",
-       "TELUGU": "మీ పురోగతి సేవ్ చేయడానికి లాగిన్ అవ్వండి "
-     }
+  {
+    "ENGLISH": "statistics",
+    "BENGALI": "পরিসংখ্যান",
+    "GUJARATI": "આંકડા",
+    "HINDI": "आंकड़े",
+    "KANNADA": "ಅಂಕಿ ಅಂಶಗಳು",
+    "MALAYALAM": "വിവരങ്ങള്‍",
+    "MARATHI": "आकडेवारी",
+    "TAMIL": "புள்ளிவிவரங்கள்",
+    "TELUGU": "గణాంకాలు"
+  },
+  {
+    "ENGLISH": "all time stats",
+    "BENGALI": "এখন পর্যন্ত",
+    "GUJARATI": "અત્યાર સુધી",
+    "HINDI": "अब तक",
+    "KANNADA": "ಈವರೆಗಿನ ಅಂಕಿಅಂಶಗಳು",
+    "MALAYALAM": "ഇന്നുവരേയുള്ള വിവരങ്ങള്‍",
+    "MARATHI": "आजपर्यंतची आकडेवारी",
+    "TAMIL": "ஒட்டுமொத்த விவரங்கள்",
+    "TELUGU": "ఇప్పటివరకు మీ గణాంకాలు"
+  },
+  {
+    "ENGLISH": "total readers",
+    "BENGALI": "সর্বমোট পাঠকসংখ্যা",
+    "GUJARATI": "કુલ લોકોએ વાંચ્યું",
+    "HINDI": "कुल लोगों ने पढ़ा",
+    "KANNADA": "ಒಟ್ಟು ಓದುಗರು",
+    "MALAYALAM": "മൊത്തം വായനക്കാര്‍",
+    "MARATHI": "एकूण वाचक",
+    "TAMIL": "மொத்த வாசகர்கள்",
+    "TELUGU": "మొత్తం పాఠకులు"
+  },
+  {
+    "ENGLISH": "avg rating",
+    "BENGALI": "গড় রেটিং",
+    "GUJARATI": "સરેરાશ રેટિંગ",
+    "HINDI": "औसत रेटिंग",
+    "KANNADA": "ಸರಾಸರಿ ರೇಟಿಂಗ್",
+    "MALAYALAM": "ശരാശരി റേറ്റിംഗ്",
+    "MARATHI": "सरासरी रेटिंग",
+    "TAMIL": "சராசரி மதிப்பீடு",
+    "TELUGU": "సగటు రేటింగ్"
+  },
+  {
+    "ENGLISH": "total reviews",
+    "BENGALI": "সর্বমোট পর্যালোচনা",
+    "GUJARATI": "કુલ ટિપ્પણી",
+    "HINDI": "कुल समीक्षाएँ",
+    "KANNADA": "ಒಟ್ಟಾರೆ ವಿಮರ್ಶೆಗಳು",
+    "MALAYALAM": "മൊത്തം റിവ്യൂസ്",
+    "MARATHI": "एकूण टिप्पण्या",
+    "TAMIL": "மொத்த விமர்சனங்கள்",
+    "TELUGU": "మొత్తం సమీక్షలు"
+  },
+  {
+    "ENGLISH": "total followers",
+    "BENGALI": "সর্বমোট অনুসরণকারী",
+    "GUJARATI": "કુલ ફોલોઅર્સ",
+    "HINDI": "कुल फ़ॉलोअर्स",
+    "KANNADA": "ಒಟ್ಟು ಹಿಂಬಾಲಕರು",
+    "MALAYALAM": "മൊത്തം ഫോളോവേര്‍സ്",
+    "MARATHI": "एकूण अनुयायी",
+    "TAMIL": "மொத்த ஃபாலோவர்ஸ்",
+    "TELUGU": "మొత్తం అనుచరులు"
+  },
+  {
+    "ENGLISH": "most read contents",
+    "BENGALI": "সর্বাধিক পঠিত",
+    "GUJARATI": "સૌથી વધુ વંચાયું",
+    "HINDI": "सर्वाधिक पढ़ा गया",
+    "KANNADA": "ಹೆಚ್ಚು ಓದಲ್ಪಟ್ಟ ಕೃತಿಗಳು",
+    "MALAYALAM": "കൂടുതല്‍ വായിക്കപ്പെട്ട രചനകള്‍",
+    "MARATHI": "सर्वाधिक वाचले गेलेले साहित्य",
+    "TAMIL": "அதிகம் வாசிக்கப்பட்டவை",
+    "TELUGU": "చాలామంది చదివిన రచనలు"
+  },
+  {
+    "ENGLISH": "contents with highest engagement",
+    "BENGALI": "সর্বাধিক চর্চিত",
+    "GUJARATI": "સૌથી વધુ ચર્ચામાં",
+    "HINDI": "सर्वाधिक चर्चा में रहा",
+    "KANNADA": "ಹೆಚ್ಚು ಚರ್ಚಿಸಲ್ಪಟ್ಟ ಕೃತಿಗಳು",
+    "MALAYALAM": "മികച്ച പ്രതികരണം നേടിയ രചനകള്‍",
+    "MARATHI": "सर्वाधिक चर्चेत असलेले साहित्य",
+    "TAMIL": "அதிகம் பேசப்பட்டவை",
+    "TELUGU": "ఎక్కువగా చర్చించిన రచనలు"
+  },
+  {
+    "ENGLISH": "todays stat",
+    "BENGALI": "আজকের পরিসংখ্যান",
+    "GUJARATI": "આજના આંકડા",
+    "HINDI": "आज के आंकड़े",
+    "KANNADA": "ಇಂದಿನ ಅಂಕಿಅಂಶಗಳು",
+    "MALAYALAM": "ഇന്നത്തെ വിവരങ്ങള്‍",
+    "MARATHI": "आजची आकडेवारी",
+    "TAMIL": "இன்றைய புள்ளிவிவரம்",
+    "TELUGU": "నేటి గణాంకాలు"
+  },
+  {
+    "ENGLISH": "contents published",
+    "BENGALI": "প্রকাশিত রচনা",
+    "GUJARATI": "પ્રકાશિત રચનાઓ",
+    "HINDI": "प्रकाशित रचनाएँ",
+    "KANNADA": "ಪ್ರಕಟಿತ ಕೃತಿಗಳು",
+    "MALAYALAM": "പ്രസിദ്ധീകരിച്ച രചനകള്‍",
+    "MARATHI": "प्रकाशित झालेलं साहित्य",
+    "TAMIL": "பதிப்பித்த படைப்புகள்",
+    "TELUGU": "ప్రచురించబడిన రచనలు"
+  },
+  {
+    "ENGLISH": "read count",
+    "BENGALI": "পাঠকসংখ্যা",
+    "GUJARATI": "લોકોએ વાંચ્યું",
+    "HINDI": "लोगों ने पढ़ा",
+    "KANNADA": "ಓದುಗರ ಸಂಖ್ಯೆ",
+    "MALAYALAM": "വായനക്കാരുടെ എണ്ണം",
+    "MARATHI": "वाचक संख्या",
+    "TAMIL": "படித்தவர்கள்",
+    "TELUGU": "పాఠకుల సంఖ్య"
+  },
+  {
+    "ENGLISH": "new followers",
+    "BENGALI": "নতুন অনুসরণকারী",
+    "GUJARATI": "નવા ફોલોઅર્સ",
+    "HINDI": "नये फ़ॉलोअर्स",
+    "KANNADA": "ಹೊಸ ಹಿಂಬಾಲಕರು",
+    "MALAYALAM": "പുതിയ ഫോളോവേര്‍സ്",
+    "MARATHI": "नवीन अनुयायी",
+    "TAMIL": "புதிய ஃபாலோவர்ஸ்",
+    "TELUGU": "కొత్త అనుచరులు"
+  },
+  {
+    "ENGLISH": "new ratings",
+    "BENGALI": "নতুুন রেটিং",
+    "GUJARATI": "નવા રેટિંગ",
+    "HINDI": "नये रेटिंग",
+    "KANNADA": "ಹೊಸ ರೇಟಿಂಗ್",
+    "MALAYALAM": "പുതിയ റേറ്റിംഗ്സ്",
+    "MARATHI": "नवीन रेटिंग",
+    "TAMIL": "புதிய மதிப்பீடுகள்",
+    "TELUGU": "కొత్త రేటింగ్స్"
+  },
+  {
+    "ENGLISH": "new reviews",
+    "BENGALI": "নতুন পর্যালোচনা",
+    "GUJARATI": "નવી  ટિપ્પણી",
+    "HINDI": "नयी समीक्षाएँ",
+    "KANNADA": "ಹೊಸ ವಿಮರ್ಶೆಗಳು",
+    "MALAYALAM": "പുതിയ റിവ്യൂസ്",
+    "MARATHI": "नवीन टिप्पण्या",
+    "TAMIL": "புதிய விமர்சனங்கள்",
+    "TELUGU": "కొత్త సమీక్షలు"
+  }
 ]
 
 const translationObj = {
@@ -139,22 +163,21 @@ const translationObj = {
     "KANNADA": {},
     "MALAYALAM": {},
     "TAMIL": {},
-    "TELUGU": {}
+    "TELUGU": {},
+    "ENGLISH": {}
 }
 
 translation.forEach((eachTran, index) => {
-    if (index === 0) {
-        return;
-    }
 
-    translationObj['HINDI']['reader_gamify_' + eachTran.FIELD2.toLowerCase().split(' ').join('_')] = eachTran.HINDI
-    translationObj['BENGALI']['reader_gamify_' + eachTran.FIELD2.toLowerCase().split(' ').join('_')] = eachTran.BENGALI
-    translationObj['GUJARATI']['reader_gamify_' + eachTran.FIELD2.toLowerCase().split(' ').join('_')] = eachTran.GUJARATI
-    translationObj['MARATHI']['reader_gamify_' + eachTran.FIELD2.toLowerCase().split(' ').join('_')] = eachTran.MARATHI
-    translationObj['KANNADA']['reader_gamify_' + eachTran.FIELD2.toLowerCase().split(' ').join('_')] = eachTran.KANNADA
-    translationObj['MALAYALAM']['reader_gamify_' + eachTran.FIELD2.toLowerCase().split(' ').join('_')] = eachTran.MALAYALAM
-    translationObj['TAMIL']['reader_gamify_' + eachTran.FIELD2.toLowerCase().split(' ').join('_')] = eachTran.TAMIL
-    translationObj['TELUGU']['reader_gamify_' + eachTran.FIELD2.toLowerCase().split(' ').join('_')] = eachTran.TELUGU
+    translationObj['HINDI']['author_dashboard_' + eachTran.ENGLISH.toLowerCase().split(' ').join('_')] = eachTran.HINDI
+    translationObj['BENGALI']['author_dashboard_' + eachTran.ENGLISH.toLowerCase().split(' ').join('_')] = eachTran.BENGALI
+    translationObj['GUJARATI']['author_dashboard_' + eachTran.ENGLISH.toLowerCase().split(' ').join('_')] = eachTran.GUJARATI
+    translationObj['MARATHI']['author_dashboard_' + eachTran.ENGLISH.toLowerCase().split(' ').join('_')] = eachTran.MARATHI
+    translationObj['KANNADA']['author_dashboard_' + eachTran.ENGLISH.toLowerCase().split(' ').join('_')] = eachTran.KANNADA
+    translationObj['MALAYALAM']['author_dashboard_' + eachTran.ENGLISH.toLowerCase().split(' ').join('_')] = eachTran.MALAYALAM
+    translationObj['TAMIL']['author_dashboard_' + eachTran.ENGLISH.toLowerCase().split(' ').join('_')] = eachTran.TAMIL
+    translationObj['TELUGU']['author_dashboard_' + eachTran.ENGLISH.toLowerCase().split(' ').join('_')] = eachTran.TELUGU
+    translationObj['ENGLISH']['author_dashboard_' + eachTran.ENGLISH.toLowerCase().split(' ').join('_')] = eachTran.ENGLISH
 })
 
-console.log(translationObj);
+console.log(JSON.stringify(translationObj, null, 4));
