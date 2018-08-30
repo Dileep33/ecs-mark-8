@@ -415,7 +415,7 @@ export default {
         setAuthorPageOgTags(authorData) {
             document.head.querySelector('meta[property="og:title"]').content = authorData.name;
             document.head.querySelector('meta[property="og:description"]').content = authorData.summary;
-            document.head.querySelector('meta[property="og:image"]').content = authorData.imageUrl;
+            document.head.querySelector('meta[property="og:image"]').content = this.getOgResolutionImage(authorData.imageUrl);
             document.head.querySelector('meta[property="og:url"]').content = window.location.href;
         },
         triggerDashboardClickEvent() {

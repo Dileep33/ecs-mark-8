@@ -118,6 +118,14 @@ function _getDefaultPageOGTags(pageStoreName) {
                     property: 'og:description',
                     content: '__("home_page_title")'
                 },
+                {
+                    property: 'og:image:width',
+                    content: '200'
+                },
+                {
+                    property: 'og:image:height',
+                    content: '200'
+                },
                 ...defaultMetaTags
             ];
             break;
