@@ -36,7 +36,7 @@
                                         <div class="book-name">{{ eachBook.displayTitle }}</div>
                                         <div class="read-count">
                                             <i class="material-icons">remove_red_eye</i>
-                                            <span>{{ eachBook.readCount }}</span>
+                                            <span>{{ eachBook.readCount | showThousandsInK(1) }}</span>
                                         </div>
                                     </div>
                                 </router-link>
@@ -51,7 +51,7 @@
                                         <div class="book-name">{{ eachBook.displayTitle }}</div>
                                         <div class="read-count">
                                             <i class="material-icons">remove_red_eye</i>
-                                            <span>{{ eachBook.readCount }}</span>
+                                            <span>{{ eachBook.readCount | showThousandsInK(1) }}</span>
                                         </div>
                                     </div>
                                 </router-link>
