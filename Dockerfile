@@ -12,6 +12,8 @@ RUN npm install
 
 COPY . .
 
+RUN REALM=PROD npm run build-commons
+
 RUN REALM=PROD LANGUAGE=bn npm run build
 RUN REALM=PROD LANGUAGE=gu npm run build
 RUN REALM=PROD LANGUAGE=hi npm run build

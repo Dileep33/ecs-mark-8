@@ -17,7 +17,7 @@
                         </div>
                         <div class="form-group">
                             <label>{{ getInputModalSubheadings[1] }}</label>
-                            <input type="text" :value="getModalActionAndData.prefilled_value_two" class="form-control" @input="updatePrefilledValueTwo($event.target.value)" :placeholder="'__("writer_input_title_en")'">
+                            <input type="text" :value="getModalActionAndData.prefilled_value_two" class="form-control" @input="updatePrefilledValueTwo($event.target.value)" placeholder="__('writer_input_title_en')">
                         </div>
                         <button type="button" class="btn btn-submit" @click="dispatchMultipleInputActionAndCloseModal">__("submit")</button>
                         <button type="button" class="cancel" data-dismiss="modal" aria-label="Close">__("cancel")</button>

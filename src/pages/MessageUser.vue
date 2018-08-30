@@ -57,7 +57,7 @@
 
                         <div class="chat-box" v-if="!isConversationBlocked">
                             <div class="type-message">
-                                <textarea id="text-message" :placeholder="'__("chat_textbox_placeholder")'" @keydown="enterToSend"
+                                <textarea id="text-message" placeholder="__('chat_textbox_placeholder')" @keydown="enterToSend"
                                           v-bind:disabled="isConversationBlocked == true"
                                           :value="toSendMessageText"
                                           @input="updateToSendMessageText"></textarea>

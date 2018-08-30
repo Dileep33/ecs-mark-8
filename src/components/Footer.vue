@@ -14,17 +14,17 @@
                     <div class="col-md-4">
                         <div class="foot-title">__("footer_contact_us")</div>
                         <div class="foot-items">
-                            <a :href="'tel:' + '__("footer_contact_number")'.replace(' ', '')"><i class="material-icons material-icons-16 vertical-middle">phone</i>__("footer_contact_number")</a>
-                            <a :href="'mailto:' + '__("footer_contact_email")'"><i class="material-icons material-icons-16 vertical-middle">mail</i>__("footer_contact_email")</a>
+                            <a href="tel:__('footer_contact_number')"><i class="material-icons material-icons-16 vertical-middle">phone</i>__("footer_contact_number")</a>
+                            <a href="mailto:__('footer_contact_email')"><i class="material-icons material-icons-16 vertical-middle">mail</i>__("footer_contact_email")</a>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="foot-title">__("footer_follow_us_on_social_media")</div>
                         <div class="foot-items social">
-                            <a @click="triggerFbEvent" :href="'__("facebook_page")'" class="fb" target="_blank" rel="noopener"><icon name="facebook-f"></icon></a>
-                            <a @click="triggerTwEvent" :href="'__("twitter_page")'" class="twitter" target="_blank" rel="noopener"><icon name="twitter"></icon></a>
-                            <a @click="triggerGpEvent" :href="'__("googleplus_page")'" class="google" target="_blank" rel="noopener"><icon name="google-plus"></icon></a>
-                            <a @click="triggerLnEvent" :href="'__("linkedin_page")'" class="linkedin" target="_blank" rel="noopener"><icon name="linkedin"></icon></a>
+                            <a @click="triggerFbEvent" href="__('facebook_page')" class="fb" target="_blank" rel="noopener"><icon name="facebook-f"></icon></a>
+                            <a @click="triggerTwEvent" href="__('twitter_page')" class="twitter" target="_blank" rel="noopener"><icon name="twitter"></icon></a>
+                            <a @click="triggerGpEvent" href="__('googleplus_page')" class="google" target="_blank" rel="noopener"><icon name="google-plus"></icon></a>
+                            <a @click="triggerLnEvent" href="__('linkedin_page')" class="linkedin" target="_blank" rel="noopener"><icon name="linkedin"></icon></a>
                         </div>
                     </div>
                 </div>
