@@ -1,6 +1,6 @@
 <template>
     <span class="translate-input-wrapper">
-        <textarea class="form-control translating-text-area" type="text"
+        <textarea id="translatingTextArea" class="form-control" type="text"
             :value="value"
             @keyup.up="goUpInSuggestions"
             @keyup.down="goDownInSuggestions"

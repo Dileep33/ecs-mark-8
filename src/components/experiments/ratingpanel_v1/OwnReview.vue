@@ -200,7 +200,7 @@ export default {
             $(".review-box").fadeIn();
             $(".write-review-btn").hide();
             setTimeout(() => {
-                $(".translating-text-area").focus()
+                $('#translatingTextArea').focus()
             }, 0);
         },
         cancelReview(e) {

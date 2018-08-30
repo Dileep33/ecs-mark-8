@@ -224,7 +224,7 @@
                                 screenName="BOOK"
                                 screenLocation="RATEREV"
                                 :pratilipiData="getPratilipiData"
-                                v-if="getPratilipiLoadingState === 'LOADING_SUCCESS'">
+                                v-if="getPratilipiLoadingState === 'LOADING_SUCCESS' && isModalOpen == false">
                             </Reviews>
                             <button type="button" class="load_more" name="button" @click="openReviewModal">__("view_more")</button>
                             <!-- Reviews MODAL -->
@@ -322,7 +322,8 @@ export default {
             percentageRead: null,
             isNextPratilipiEnabled: false,
             currentPageUrl: null,
-            readPageUrl: null
+            readPageUrl: null,
+            isModalOpen: false
         }
     },
     mixins: [
@@ -620,12 +621,14 @@ export default {
             });
         },
         openReviewModal() {
+            this.isModalOpen = true;
             $(".review-popout").addClass("show");
             $('.overlay-1').fadeIn();
             $(".rating-popout").removeClass("show");
             $("body").addClass("modal-open");
         },
         closeReviewModal() {
+            this.isModalOpen = false;
             $(".review-popout").removeClass("show");
             $('.overlay-1').fadeOut();
             $("body").removeClass("modal-open");

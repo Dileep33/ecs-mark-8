@@ -224,9 +224,23 @@
                                 screenName="BOOK"
                                 screenLocation="RATEREV"
                                 :pratilipiData="getPratilipiData"
-                                v-if="getPratilipiLoadingState === 'LOADING_SUCCESS'">
+                                v-if="getPratilipiLoadingState === 'LOADING_SUCCESS' && isModalOpen == false">
                             </Reviews>
                             <button type="button" class="load_more" name="button" @click="openReviewModal">__("view_more")</button>
+                            <!-- Reviews MODAL -->
+                            <div class="review-popout" v-if="getPratilipiLoadingState === 'LOADING_SUCCESS'">
+                                <button type="button" class="close-review" name="button" @click="closeReviewModal"><i class="material-icons">close</i></button>
+                                <Reviews
+                                    :pratilipiId="getPratilipiData.pratilipiId"
+                                    :authorId="getPratilipiData.author.authorId"
+                                    :haveInfiniteScroll="true"
+                                    screenName="BOOK"
+                                    screenLocation="RATEREV"
+                                    :pratilipiData="getPratilipiData"
+                                    :userPratilipiData='getUserPratilipiData'>
+                                </Reviews>
+                            </div>
+                            <div class="overlay-1" @click="closeReviewModal"></div>
                         </div>
                     </div>
                     <div class="book-recomendations col-md-12 p-0">
@@ -308,7 +322,8 @@ export default {
             percentageRead: null,
             isNextPratilipiEnabled: false,
             currentPageUrl: null,
-            readPageUrl: null
+            readPageUrl: null,
+            isModalOpen: false
         }
     },
     mixins: [
@@ -606,12 +621,14 @@ export default {
             });
         },
         openReviewModal() {
+            this.isModalOpen = true;
             $(".review-popout").addClass("show");
             $('.overlay-1').fadeIn();
             $(".rating-popout").removeClass("show");
             $("body").addClass("modal-open");
         },
         closeReviewModal() {
+            this.isModalOpen = false;
             $(".review-popout").removeClass("show");
             $('.overlay-1').fadeOut();
             $("body").removeClass("modal-open");
