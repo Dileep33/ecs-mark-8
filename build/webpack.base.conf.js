@@ -3,6 +3,8 @@ const path = require('path');
 const utils = require('./utils');
 const config = require('../config');
 const vueLoaderConfig = require('./vue-loader.conf');
+const translation = require('./i18n');
+const languageJSON = translation[process.env.LANGUAGE || 'hi'];
 
 let StringReplacePlugin = require('string-replace-webpack-plugin');
 
@@ -52,6 +54,10 @@ module.exports = {
             replacements: [{
               pattern: /__\(["|'](_*[a-zA-Z0-9]+(?:_[a-zA-Z0-9]+)*)["|']\)/g,
               replacement: function (match) {
+                replaceValueSample = languageJSON[match]
+                doubleBracePropsRegex = /(.*?){{(.*?)}}(.*)/g
+                let matchResult = doubleBracePropsRegex.exec(replaceValueSample)
+
                 return '__ptlp_patttern' + match
               }
             }, {
