@@ -49,5 +49,5 @@ export default {
             languageNative: "తెలుగు"
         },
     ],
-    CATEGORY_DATA: JSON.parse(`__NAVIGATION_SECTION_LIST__`)
+    CATEGORY_DATA: `__NAVIGATION_SECTION_LIST__`
 }
