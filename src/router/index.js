@@ -236,11 +236,14 @@ var router = new Router({
             name: 'Pratilipi',
             component: () => {
                 if (process.env.REALM === 'PROD') {
-                    if ((getCookie('bucket_id') >= 0 && getCookie('bucket_id') <= 40) || (getCookie('bucket_id') > 70 && getCookie('bucket_id') <= 100)) {
+                    if (getCookie('bucket_id') >= 0 && getCookie('bucket_id') <= 40) {
                         return import ('@/pages/experiments/chatStories/Pratilipi_v1.vue');
                     }
                     else if (getCookie('bucket_id') > 40 && getCookie('bucket_id') <= 70) {
                         return import ('@/pages/experiments/chatStories/Pratilipi_v2.vue');
+                    }
+                    else if (getCookie('bucket_id') > 70 && getCookie('bucket_id') <= 90) {
+                        return import ('@/pages/experiments/ratingpanel_v2/Pratilipi.vue');
                     }
                     else if (getCookie('bucket_id') > 90 && getCookie('bucket_id') <= 100) {
                         return import ('@/pages/experiments/ratingpanel_v1/Pratilipi.vue');

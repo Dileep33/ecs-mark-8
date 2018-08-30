@@ -227,6 +227,20 @@
                                 v-if="getPratilipiLoadingState === 'LOADING_SUCCESS'">
                             </Reviews>
                             <button type="button" class="load_more" name="button" @click="openReviewModal">__("view_more")</button>
+                            <!-- Reviews MODAL -->
+                            <div class="review-popout" v-if="getPratilipiLoadingState === 'LOADING_SUCCESS'">
+                                <button type="button" class="close-review" name="button" @click="closeReviewModal"><i class="material-icons">close</i></button>
+                                <Reviews
+                                    :pratilipiId="getPratilipiData.pratilipiId"
+                                    :authorId="getPratilipiData.author.authorId"
+                                    :haveInfiniteScroll="true"
+                                    screenName="BOOK"
+                                    screenLocation="RATEREV"
+                                    :pratilipiData="getPratilipiData"
+                                    :userPratilipiData='getUserPratilipiData'>
+                                </Reviews>
+                            </div>
+                            <div class="overlay-1" @click="closeReviewModal"></div>
                         </div>
                     </div>
                     <div class="book-recomendations col-md-12 p-0">
@@ -267,7 +281,7 @@ import MainLayout from '@/layout/main-layout.vue';
 import Recommendation from '@/components/Recommendation.vue';
 import AboutAuthor from '@/components/AboutAuthor.vue';
 import Spinner from '@/components/Spinner.vue';
-import Reviews from '@/components/experiments/ratingpanel_v1/Reviews.vue';
+import Reviews from '@/components/experiments/ratingpanel_v2/Reviews.vue';
 import BookShareStrip from '@/components/BookShareStrip.vue';
 import ServerError from '@/components/ServerError.vue';
 import WebPushStrip from '@/components/WebPushStrip.vue';

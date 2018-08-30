@@ -136,7 +136,7 @@ export default {
         changeRating(e) {
             // let action = this.userPratilipiData.rating ? 'EDITRATE' : 'RATE';
             let action = 'RATE';
-            this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, 'WRA001', {
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': e.target.value
             });
@@ -167,7 +167,7 @@ export default {
             if (action === 'EDITREVIEW') {
                 pratilipiAnalyticsData['ENTITY_STATE'] = 'UPDATE';
             }
-            this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, 'WRA001', {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': this.userPratilipiData.rating

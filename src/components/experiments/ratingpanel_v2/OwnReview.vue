@@ -26,7 +26,6 @@
                     <div class="comment-content">
                         {{ userPratilipiData.review }}
                     </div>
-                    <button class="btn btn-primary write-review-btn" v-if="(userPratilipiData.review === '' || !userPratilipiData.review) && !editRatingMode" @click="openReview" >__("review_write_a_review")</button>
                     <div class="review-box">
                         <form>
                             <div class="form-group">
@@ -49,8 +48,6 @@
                     </fieldset>
                     <p class="rating-helper"></p>
                     <button type="button" v-if="isSaveActive" class="btn btn-primary" @click="checkAndUpdateReview({ review: newReview, pratilipiId: userPratilipiData.pratilipiId, rating: userPratilipiData.rating })">__("save")</button>
-                    <button class="btn btn-primary write-review-btn" v-if="!userPratilipiData.review || userPratilipiData.review === ''" @click="openReview">__("review_write_a_review")</button>
-                    <button class="btn btn-primary write-review-btn" @click="openReview" v-else>__("review_edit_review")</button>
                     <div class="review-box">
                         <form>
                             <div class="form-group">
@@ -137,7 +134,7 @@ export default {
         changeRating(e) {
             // let action = this.userPratilipiData.rating ? 'EDITRATE' : 'RATE';
             let action = 'RATE';
-            this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, 'WRA002', {
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': e.target.value
             });
@@ -168,7 +165,7 @@ export default {
             if (action === 'EDITREVIEW') {
                 pratilipiAnalyticsData['ENTITY_STATE'] = 'UPDATE';
             }
-            this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, 'WRA002', {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': this.userPratilipiData.rating
@@ -188,10 +185,10 @@ export default {
             }
         },
         checkAndDeleteReview(e) {
+            this.isSaveActive = false;
             this.deleteReview({ pratilipiId: this.userPratilipiData.pratilipiId, pageName: this.$route.meta.store });
         },
         openReviewAndEditRating() {
-            this.openReview();
             setTimeout(() => {
                 $(".write-review-btn").hide()
             }, 0);
@@ -394,6 +391,14 @@ li {
                 display: block;
                 margin: 0;
                 font-size: 14px;
+            }
+            button {
+              &.btn-primary {
+                  background: #d0021b;
+                  border: 0;
+                  font-size: 14px;
+                  margin: 5px 0;
+              }
             }
             .rating-helper{
                 font-size: 18px;
