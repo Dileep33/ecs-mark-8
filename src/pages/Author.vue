@@ -407,6 +407,12 @@ export default {
                 // your element doesn't have overflow
                 this.showShowMoreOfSummary = false;
             }
+        },
+        setAuthorPageOgTags(authorData) {
+            document.head.querySelector('meta[property="og:title"]').content = authorData.name;
+            document.head.querySelector('meta[property="og:description"]').content = authorData.summary;
+            document.head.querySelector('meta[property="og:image"]').content = authorData.imageUrl;
+            document.head.querySelector('meta[property="og:url"]').content = window.location.href;
         }
     },
     watch: {
@@ -498,12 +504,17 @@ export default {
                 setTimeout(() => {
                     that.detectOverflow();
                 }, 0);
+                
+                this.setAuthorPageOgTags(this.getAuthorData);
             }
         }
     },
     created() {
         const { user_slug } = this.$route.params;
         this.fetchAuthorDetails(user_slug);
+        if (this.getAuthorDataLoadingState == 'LOADING_SUCCESS') {
+            this.setAuthorPageOgTags(this.getAuthorData);
+        }
     },
     components: {
         MainLayout,
