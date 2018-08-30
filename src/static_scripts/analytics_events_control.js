@@ -2521,5 +2521,10 @@ export default {
         "SCREEN_NAME": "MYPROFILE",
         "LOCATION": "MYPROFILEM",
         "ACTION": "CLICKDASHBOARD"
+    },
+    "LANDED_AUTHORDASHM_AUTHORDASH": {
+        "SCREEN_NAME": "AUTHORDASH",
+        "LOCATION": "AUTHORDASHM",
+        "ACTION": "LANDED"
     }
 };

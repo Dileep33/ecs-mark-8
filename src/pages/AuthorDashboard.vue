@@ -96,6 +96,7 @@
 import MainLayout from '@/layout/main-layout.vue';
 import Spinner from '@/components/Spinner.vue';
 import 'vue-awesome/icons/book'
+import mixins from '@/mixins';
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
@@ -103,6 +104,9 @@ export default {
         MainLayout,
         Spinner
     },
+    mixins: [
+        mixins
+    ],
     computed: {
         ...mapGetters('authordashboard', [
             'getAuthorDashboardData',
@@ -139,6 +143,11 @@ export default {
             // this.fetchAuthorDashboardData(5758392207409152);
         }
         
+    },
+    mounted() {
+        this.triggerAnanlyticsEvent('LANDED_AUTHORDASHM_AUTHORDASH', 'CONTROL', {
+            'USER_ID': this.getUserDetails.userId
+        });
     }
 }
 </script>
