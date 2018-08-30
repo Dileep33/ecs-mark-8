@@ -33,6 +33,7 @@ import AdminEventSubmission from '@/pages/AdminEventSubmission'
 import ShayariPageComponent from '@/pages/Shayari.vue'
 import ChatStoryComponent from '@/pages/ChatStory.vue'
 import EndChatStoryComponent from '@/pages/EndChatStory.vue'
+import AuthorDashboardComponent from '@/pages/AuthorDashboard.vue'
 
 import {
     getCookie
@@ -291,6 +292,15 @@ var router = new Router({
                 'id_prop': 'user_slug',
                 metaTags: _getDefaultPageOGTags('authorpage')
                 
+            }
+        }, {
+            path: '/user/:user_slug/dashboard',
+            name: 'AuthorDashboard_Page',
+            component: AuthorDashboardComponent,
+            meta: {
+                'store': 'authorpage',
+                'title': '__("seo_home_page")',
+                'id_prop': 'user_slug'
             }
         }, {
             path: '/discover',

@@ -613,5 +613,20 @@
     "event_submit": "സമര്‍പ്പിക്കൂ",
 
     "login_popup_story_added_to_library": "ഈ രചന താങ്കളുടെ ലൈബ്രറിയില്‍ ചേര്‍ത്തിരിക്കുന്നു. ഇത് എപ്പോള്‍ വേണമെങ്കിലും വായിക്കാനായി സൈനപ്പ് ചെയ്യൂ ",
-    "login_popup_read_and_rate_stories": "ഇതു പോലുള്ള ഒരുപാട് കഥകള്‍ വായിക്കുകയും റേറ്റ് ചെയ്യുകയും ചെയ്യൂ "
+    "login_popup_read_and_rate_stories": "ഇതു പോലുള്ള ഒരുപാട് കഥകള്‍ വായിക്കുകയും റേറ്റ് ചെയ്യുകയും ചെയ്യൂ ",
+    
+    "author_dashboard_statistics": "വിവരങ്ങള്‍",
+    "author_dashboard_all_time_stats": "ഇന്നുവരേയുള്ള വിവരങ്ങള്‍",
+    "author_dashboard_total_readers": "മൊത്തം വായനക്കാര്‍",
+    "author_dashboard_avg_rating": "ശരാശരി റേറ്റിംഗ്",
+    "author_dashboard_total_reviews": "മൊത്തം റിവ്യൂസ്",
+    "author_dashboard_total_followers": "മൊത്തം ഫോളോവേര്‍സ്",
+    "author_dashboard_most_read_contents": "കൂടുതല്‍ വായിക്കപ്പെട്ട രചനകള്‍",
+    "author_dashboard_contents_with_highest_engagement": "മികച്ച പ്രതികരണം നേടിയ രചനകള്‍",
+    "author_dashboard_todays_stat": "ഇന്നത്തെ വിവരങ്ങള്‍",
+    "author_dashboard_contents_published": "പ്രസിദ്ധീകരിച്ച രചനകള്‍",
+    "author_dashboard_read_count": "വായനക്കാരുടെ എണ്ണം",
+    "author_dashboard_new_followers": "പുതിയ ഫോളോവേര്‍സ്",
+    "author_dashboard_new_ratings": "പുതിയ റേറ്റിംഗ്സ്",
+    "author_dashboard_new_reviews": "പുതിയ റിവ്യൂസ്"
 }

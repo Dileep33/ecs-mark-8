@@ -626,5 +626,20 @@
     "chatstory_next": "अगली कहानी",
     "chatstory_finish_1": "आपने आज के दिन की सारी कहानियाँ पढ़ ली है!",
     "chatstory_finish_2": "कल मिलते है कुछ नई कहानियों के साथ!",
-    "chatstory_all_stories": "आपको यह कहानियाँ पसंद आएगी"
+    "chatstory_all_stories": "आपको यह कहानियाँ पसंद आएगी",
+    
+    "author_dashboard_statistics": "आंकड़े",
+    "author_dashboard_all_time_stats": "अब तक",
+    "author_dashboard_total_readers": "कुल लोगों ने पढ़ा",
+    "author_dashboard_avg_rating": "औसत रेटिंग",
+    "author_dashboard_total_reviews": "कुल समीक्षाएँ",
+    "author_dashboard_total_followers": "कुल फ़ॉलोअर्स",
+    "author_dashboard_most_read_contents": "सर्वाधिक पढ़ा गया",
+    "author_dashboard_contents_with_highest_engagement": "सर्वाधिक चर्चा में रहा",
+    "author_dashboard_todays_stat": "आज के आंकड़े",
+    "author_dashboard_contents_published": "प्रकाशित रचनाएँ",
+    "author_dashboard_read_count": "लोगों ने पढ़ा",
+    "author_dashboard_new_followers": "नये फ़ॉलोअर्स",
+    "author_dashboard_new_ratings": "नये रेटिंग",
+    "author_dashboard_new_reviews": "नयी समीक्षाएँ"
 }
