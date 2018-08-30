@@ -606,5 +606,20 @@
     "event_submit": "சமர்ப்பிக்க",
 
     "login_popup_story_added_to_library": "படைப்பு உங்கள் நூலகத்தில் சேர்க்கப்பட்டுவிட்டது. வாசிப்பதற்கு சைஃன்-அப் செய்யவும்.",
-    "login_popup_read_and_rate_stories": "இதேபோன்ற பல கதைகளை வாசித்து மதிப்பீடு செய்யவும்"
+    "login_popup_read_and_rate_stories": "இதேபோன்ற பல கதைகளை வாசித்து மதிப்பீடு செய்யவும்",
+    
+    "author_dashboard_statistics": "புள்ளிவிவரங்கள்",
+    "author_dashboard_all_time_stats": "ஒட்டுமொத்த விவரங்கள்",
+    "author_dashboard_total_readers": "மொத்த வாசகர்கள்",
+    "author_dashboard_avg_rating": "சராசரி மதிப்பீடு",
+    "author_dashboard_total_reviews": "மொத்த விமர்சனங்கள்",
+    "author_dashboard_total_followers": "மொத்த ஃபாலோவர்ஸ்",
+    "author_dashboard_most_read_contents": "அதிகம் வாசிக்கப்பட்டவை",
+    "author_dashboard_contents_with_highest_engagement": "அதிகம் பேசப்பட்டவை",
+    "author_dashboard_todays_stat": "இன்றைய புள்ளிவிவரம்",
+    "author_dashboard_contents_published": "பதிப்பித்த படைப்புகள்",
+    "author_dashboard_read_count": "படித்தவர்கள்",
+    "author_dashboard_new_followers": "புதிய ஃபாலோவர்ஸ்",
+    "author_dashboard_new_ratings": "புதிய மதிப்பீடுகள்",
+    "author_dashboard_new_reviews": "புதிய விமர்சனங்கள்"
 }

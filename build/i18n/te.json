@@ -606,5 +606,20 @@
     "event_submit": "submit book for event",
 
     "login_popup_story_added_to_library": "కథ విజయవంతంగా మీ గ్రంధాలయానికి జోడించబడింది.చదవడానికి సైన్ అప్ అవ్వండి. ",
-    "login_popup_read_and_rate_stories": "మరిన్ని ఇలాంటి కథలను చదవండి మరియు రేటింగ్ ఇవ్వండి. "
+    "login_popup_read_and_rate_stories": "మరిన్ని ఇలాంటి కథలను చదవండి మరియు రేటింగ్ ఇవ్వండి. ",
+    
+    "author_dashboard_statistics": "గణాంకాలు",
+    "author_dashboard_all_time_stats": "ఇప్పటివరకు మీ గణాంకాలు",
+    "author_dashboard_total_readers": "మొత్తం పాఠకులు",
+    "author_dashboard_avg_rating": "సగటు రేటింగ్",
+    "author_dashboard_total_reviews": "మొత్తం సమీక్షలు",
+    "author_dashboard_total_followers": "మొత్తం అనుచరులు",
+    "author_dashboard_most_read_contents": "చాలామంది చదివిన రచనలు",
+    "author_dashboard_contents_with_highest_engagement": "ఎక్కువగా చర్చించిన రచనలు",
+    "author_dashboard_todays_stat": "నేటి గణాంకాలు",
+    "author_dashboard_contents_published": "ప్రచురించబడిన రచనలు",
+    "author_dashboard_read_count": "పాఠకుల సంఖ్య",
+    "author_dashboard_new_followers": "కొత్త అనుచరులు",
+    "author_dashboard_new_ratings": "కొత్త రేటింగ్స్",
+    "author_dashboard_new_reviews": "కొత్త సమీక్షలు"
 }

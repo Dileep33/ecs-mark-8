@@ -606,5 +606,20 @@
     "event_submit": "ಸಬ್ಮಿಟ್ ಮಾಡಿ",
 
     "login_popup_story_added_to_library": "ಕಥೆಯನ್ನು ನಿಮ್ಮ ಗ್ರಂಥಾಲಯಕ್ಕೆ ಯಶಸ್ವಿಯಾಗಿ ಸೇರಿಸಲಾಗಿದೆ. ಸೈನ್ ಅಪ್ ಆಗುವ ಮೂಲಕ ಯಾವುದೇ ಸಮಯದಲ್ಲಿ ಓದಿರಿ.",
-    "login_popup_read_and_rate_stories": "ಇದೇ ರೀತಿಯ ಕಥೆಗಳನ್ನು ಇನ್ನೂ ಹೆಚ್ಚು ಓದಿ ಮತ್ತು ರೇಟಿಂಗ್ ನೀಡಿ"
+    "login_popup_read_and_rate_stories": "ಇದೇ ರೀತಿಯ ಕಥೆಗಳನ್ನು ಇನ್ನೂ ಹೆಚ್ಚು ಓದಿ ಮತ್ತು ರೇಟಿಂಗ್ ನೀಡಿ",
+    
+    "author_dashboard_statistics": "ಅಂಕಿ ಅಂಶಗಳು",
+    "author_dashboard_all_time_stats": "ಈವರೆಗಿನ ಅಂಕಿಅಂಶಗಳು",
+    "author_dashboard_total_readers": "ಒಟ್ಟು ಓದುಗರು",
+    "author_dashboard_avg_rating": "ಸರಾಸರಿ ರೇಟಿಂಗ್",
+    "author_dashboard_total_reviews": "ಒಟ್ಟಾರೆ ವಿಮರ್ಶೆಗಳು",
+    "author_dashboard_total_followers": "ಒಟ್ಟು ಹಿಂಬಾಲಕರು",
+    "author_dashboard_most_read_contents": "ಹೆಚ್ಚು ಓದಲ್ಪಟ್ಟ ಕೃತಿಗಳು",
+    "author_dashboard_contents_with_highest_engagement": "ಹೆಚ್ಚು ಚರ್ಚಿಸಲ್ಪಟ್ಟ ಕೃತಿಗಳು",
+    "author_dashboard_todays_stat": "ಇಂದಿನ ಅಂಕಿಅಂಶಗಳು",
+    "author_dashboard_contents_published": "ಪ್ರಕಟಿತ ಕೃತಿಗಳು",
+    "author_dashboard_read_count": "ಓದುಗರ ಸಂಖ್ಯೆ",
+    "author_dashboard_new_followers": "ಹೊಸ ಹಿಂಬಾಲಕರು",
+    "author_dashboard_new_ratings": "ಹೊಸ ರೇಟಿಂಗ್",
+    "author_dashboard_new_reviews": "ಹೊಸ ವಿಮರ್ಶೆಗಳು"
 }

@@ -610,5 +610,20 @@
     "chatstory_next": "Next Story",
     "chatstory_finish_1": "You have read all the stories!!!",
     "chatstory_finish_2": "Come back tomorrow for more new stories.",
-    "chatstory_all_stories": "See all stories"
+    "chatstory_all_stories": "See all stories",
+    
+    "author_dashboard_statistics": "statistics",
+    "author_dashboard_all_time_stats": "all time stats",
+    "author_dashboard_total_readers": "total readers",
+    "author_dashboard_avg_rating": "avg rating",
+    "author_dashboard_total_reviews": "total reviews",
+    "author_dashboard_total_followers": "total followers",
+    "author_dashboard_most_read_contents": "most read contents",
+    "author_dashboard_contents_with_highest_engagement": "contents with highest engagement",
+    "author_dashboard_todays_stat": "todays stat",
+    "author_dashboard_contents_published": "contents published",
+    "author_dashboard_read_count": "read count",
+    "author_dashboard_new_followers": "new followers",
+    "author_dashboard_new_ratings": "new ratings",
+    "author_dashboard_new_reviews": "new reviews"
 }

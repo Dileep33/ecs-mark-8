@@ -225,6 +225,23 @@ export function getMediumResolutionImage(imageUrl) {
     }
 }
 
+// For Facebook Og Profile Image
+export function getOgResolutionImage(imageUrl) {
+    let type;
+
+    if (isChrome()){
+        type = 'webp';
+    } else {
+        type = 'jpg';
+    }
+
+    if (imageUrl.indexOf('?') === -1) {
+        return imageUrl + `?quality=high&type=${type}&width=220`;
+    } else {
+        return imageUrl + `&quality=high&type=${type}&width=220`;
+    }
+}
+
 export function getHighResolutionImage(imageUrl) {
     let type;
     if (isChrome()){
