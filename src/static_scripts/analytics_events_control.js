@@ -2516,5 +2516,10 @@ export default {
         "SCREEN_NAME": "ARCHIVE",
         "LOCATION": "CHATSTORY",
         "ACTION": "FILTER"
+    },
+    "CLICKDASHBOARD_MYPROFILEM_MYPROFILE": {
+        "SCREEN_NAME": "MYPROFILE",
+        "LOCATION": "MYPROFILEM",
+        "ACTION": "CLICKDASHBOARD"
     }
 };

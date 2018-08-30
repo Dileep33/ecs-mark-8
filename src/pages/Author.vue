@@ -35,7 +35,7 @@
                             </div>
                             <div class="profile-user-name" itemprop="name">{{ getAuthorData.name }}</div>
                             <div class="profile-read-by">__("author_readby_count")</div>
-                            <router-link :to="this.$route.path + '/dashboard'" class="author-dashboard-link" v-if="getUserDetails.userId === getAuthorData.user.userId">
+                            <router-link :to="this.$route.path + '/dashboard'" class="author-dashboard-link" v-if="getUserDetails.userId === getAuthorData.user.userId" @click.native="triggerDashboardClickEvent()">
                                 <i class="material-icons">bar_chart</i>
                                 <span>__("author_dashboard_statistics")</span>
                             </router-link>
@@ -411,6 +411,11 @@ export default {
                 // your element doesn't have overflow
                 this.showShowMoreOfSummary = false;
             }
+        },
+        triggerDashboardClickEvent() {
+            this.triggerAnanlyticsEvent(`CLICKDASHBOARD_MYPROFILEM_MYPROFILE`, 'CONTROL', {
+                'USER_ID': this.getUserDetails.userId
+            });
         }
     },
     watch: {
