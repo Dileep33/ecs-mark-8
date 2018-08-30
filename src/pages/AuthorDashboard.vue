@@ -30,7 +30,11 @@
                         <div v-if="getAuthorDashboardData.highestReadCountPratilipi.length !== 0">
                             <h2>__("author_dashboard_most_read_contents")</h2>
                             <div class="most-read">
-                                <router-link :to="eachBook.pageUrl" v-for="(eachBook, index) in getAuthorDashboardData.highestReadCountPratilipi" v-bind:key="index">
+                                <router-link
+                                :to="eachBook.pageUrl"
+                                v-for="(eachBook, index) in getAuthorDashboardData.highestReadCountPratilipi"
+                                v-bind:key="index"
+                                @click.native="triggerClickBookEvent('MOST READ')">
                                     <div class="book-item">
                                         <div class="book-image"><img :src="eachBook.coverImageUrl" :alt="eachBook.displayTitle"></div>
                                         <div class="book-name">{{ eachBook.displayTitle }}</div>
@@ -45,7 +49,11 @@
                         <div v-if="getAuthorDashboardData.highestReviewedPratilipi.length !== 0">
                             <h2>__("author_dashboard_contents_with_highest_engagement")</h2>
                             <div class="most-engagement">
-                                <router-link :to="eachBook.pageUrl" v-for="(eachBook, index) in getAuthorDashboardData.highestReviewedPratilipi" v-bind:key="index">
+                                <router-link
+                                :to="eachBook.pageUrl"
+                                v-for="(eachBook, index) in getAuthorDashboardData.highestReviewedPratilipi"
+                                v-bind:key="index"
+                                @click.native="triggerClickBookEvent('HIGH ENGAGEMENT')">
                                     <div class="book-item">
                                         <div class="book-image"><img :src="eachBook.coverImageUrl" :alt="eachBook.displayTitle"></div>
                                         <div class="book-name">{{ eachBook.displayTitle }}</div>
@@ -119,7 +127,13 @@ export default {
     methods: {
         ...mapActions('authordashboard', [
             'fetchAuthorDashboardData'
-        ])
+        ]),
+        triggerClickBookEvent(position) {
+            this.triggerAnanlyticsEvent('CLICKBOOK_AUTHORDASHM_AUTHORDASH', 'CONTROL', {
+                'USER_ID': this.getUserDetails.userId,
+                'POSITION': position
+            });
+        }
     },
     watch: {
         'getUserDetails.isGuest'(isGuest) {

@@ -2526,5 +2526,10 @@ export default {
         "SCREEN_NAME": "AUTHORDASH",
         "LOCATION": "AUTHORDASHM",
         "ACTION": "LANDED"
+    },
+    "CLICKBOOK_AUTHORDASHM_AUTHORDASH": {
+        "SCREEN_NAME": "AUTHORDASH",
+        "LOCATION": "AUTHORDASHM",
+        "ACTION": "CLICKBOOK"
     }
 };
