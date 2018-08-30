@@ -34,7 +34,7 @@
                                 </div>
                             </div>
                             <div class="profile-user-name" itemprop="name">{{ getAuthorData.name }}</div>
-                            <div class="profile-read-by">__("author_readby_count")</div>
+                            <div class="profile-read-by">__("author_readby_count_1"){{  getAuthorData.totalReadCount  }}__("author_readby_count_2")</div>
                             <div class="profile-summary" v-if="getAuthorData.summary || getAuthorData.hasAccessToUpdate">
                                 <div class="head-title">
                                     <span>__("author_about")</span>

@@ -79,8 +79,8 @@
             <MainMenu :userDetails="userDetails"></MainMenu>
         </div>
         <div class="unread-message capsule" v-if="showUnreadCapsule" @click="triggerCapsuleClick">
-            <span v-if="initialUnreadConversations === 1">__("message_capsule_conversation")</span>
-            <span v-else>__("message_capsule_conversations")</span>
+            <span v-if="initialUnreadConversations === 1">__("message_capsule_conversation_1"){{  initialUnreadConversations  }}__("message_capsule_conversation_2")</span>
+            <span v-else>__("message_capsule_conversations_1"){{  initialUnreadConversations  }}__("message_capsule_conversations_2")</span>
         </div>
     </div>
 </template>
@@ -248,13 +248,13 @@ export default {
         },
         triggerCapsuleClick() {
             this.showUnreadCapsule = false;
-            
+
             const SCREEN_NAME = this.getAnalyticsPageSource(this.$route.meta.store);
             this.triggerAnanlyticsEvent('GOMESSAGESPAGE_HEADER_GLOBAL', 'CONTROL', {
                 'USER_ID': this.getUserDetails.userId,
                 SCREEN_NAME
             });
-            
+
             this.$router.push('/messages');
         }
     },
