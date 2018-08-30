@@ -120,11 +120,11 @@ function _getDefaultPageOGTags(pageStoreName) {
                 },
                 {
                     property: 'og:image:width',
-                    content: '200'
+                    content: '220'
                 },
                 {
                     property: 'og:image:height',
-                    content: '200'
+                    content: '220'
                 },
                 ...defaultMetaTags
             ];
