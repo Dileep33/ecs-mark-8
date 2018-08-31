@@ -80,7 +80,7 @@ export default {
         padding: 10px 0;
         text-decoration: none;
         font-size: 16px;
-        color: #fff;
+        color: #ffffff;
         width: 100%;
         display: block;
         font-weight: bold;
