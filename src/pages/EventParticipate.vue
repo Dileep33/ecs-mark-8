@@ -106,7 +106,7 @@
                             <div class="col-md-8">
                                 <div class="head-title">__("pratilipi_summary")</div>
                                 <br>
-                                <TranslatingInput :value="description" :oninput="(value) => { description = value}" :placeholder="'__("edit_pratilipi_summary")'"></TranslatingInput>
+                                <TranslatingInput :value="description" :oninput="(value) => { description = value}" placeholder="__('edit_pratilipi_summary')"></TranslatingInput>
                             </div>
                         </div>
                         <div class="row writer-navigation">
