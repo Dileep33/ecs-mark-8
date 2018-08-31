@@ -23,7 +23,7 @@
                         </div>
                         <div class="form-group">
                             <label for="pratilipi_write_title_input">__("writer_input_title") *</label>
-                            <TranslatingInput :value="title" :oninput="updatePrefilledValue" :placeholder="'__("writer_input_title")'"></TranslatingInput>
+                            <TranslatingInput :value="title" :oninput="updatePrefilledValue" placeholder="__('writer_input_title')"></TranslatingInput>
                         </div>
                         <div class="form-group">
                             <label for="pratilipi_write_title_en_input">__("writer_input_title_en")</label>
