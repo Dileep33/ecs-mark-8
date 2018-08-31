@@ -367,6 +367,15 @@ export default {
         &.women:after {
             border-right: 10px solid #6f42c1;
         }
+        &.social, &.society {
+            background: #FF9800;
+        }
+        &.social:before, &.society:before {
+            border-top: 21px solid #FF9800;
+        }
+        &.social:after, &.society:after {
+            border-right: 10px solid #FF9800;
+        }
         &.horror, &.suspense {
             background: #dc3545;
         }
