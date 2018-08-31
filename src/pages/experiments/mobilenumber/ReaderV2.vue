@@ -8,8 +8,8 @@
         <ServerError class="read-page-server-error" :action="'readerv2page/fetchReaderData'" :data="currentChapterSlugId" v-if="getPratilipiLoadingState === 'LOADING_ERROR'"></ServerError>
 
         <!-- Reader Data Loaded success -->
-        <div
-            class="read-page"
+        <div 
+            class="read-page" 
             :class="getReaderReadingModeStyle"
             v-if="getPratilipiLoadingState === 'LOADING_SUCCESS'">
 
@@ -175,7 +175,7 @@
                             -->
                             <div class="content-section p-lr-15"
                                 :class="getContentSectionStyle"
-                                v-if="renderedChapterIdSlug = currentChapterSlugId"
+                                v-if="renderedChapterIdSlug = currentChapterSlugId" 
                                 v-html="getPratilipiContent[currentChapterSlugId].content">
                             </div>
                             <div class="book-navigation p-lr-15" v-if="getPratilipiContentLoadingState === 'LOADING_SUCCESS'">
@@ -190,7 +190,7 @@
                             </div>
                             
                             <PhoneModal></PhoneModal>
-
+                            
                             <ShareStrip
                                 v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId"
                                 :data="getPratilipiData"
@@ -250,15 +250,13 @@
             <div class="footer-section" :class="getReaderReadingModeStyle">
                 <div class="container">
                     <div class="row">
-                        <div class="social-share-btn">
-                            <a :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="whatsapp">
-                                <span class="social-icon"><icon name="whatsapp"></icon></span>
-                            </a>
+                        <div class="review-count" @click="openReviewModal">
+                            <i class="material-icons">comment</i>
+                            <span>{{ getPratilipiData.reviewCount }}</span>
                         </div>
-                        <div class="social-share-btn">
-                            <a :href="getFacebookShareUrl" @click="triggerFbEndShareEvent" class="fb" target="_blank" rel="noopener" aria-label="facebook">
-                                <span class="social-icon"><icon name="facebook-square"></icon></span>
-                            </a>
+                        <div class="rating-count" @click="openRatingModal">
+                            <i class="material-icons">star_rate</i>
+                            <span>{{ getPratilipiData.ratingCount }}</span>
                         </div>
                         <div class="add-to-lib">
                             <span v-if="getUserPratilipiData.addedToLib" @click="removePratilipiFromLibrary">
@@ -269,6 +267,14 @@
                                 <i class="material-icons">bookmark_border</i>
                                 <i class="material-icons stacked grey">add</i>
                             </span>
+                        </div>
+                        <div class="whatsapp-share-btn" v-if="isMobile()">
+                            <a :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="google">
+                                <span class="social-icon"><icon name="whatsapp"></icon></span>
+                            </a>
+                        </div>
+                        <div class="share-btn" @click="openShareModal">
+                            <i class="material-icons">share</i>
                         </div>
                     </div>
                 </div>
@@ -321,12 +327,12 @@ import ReadLayout from '@/layout/Reader-layout.vue';
 import mixins from '@/mixins';
 import 'vue-awesome/icons/file-text'
 import 'vue-awesome/icons/file-text-o'
-import 'vue-awesome/icons/facebook-square'
+import 'vue-awesome/icons/facebook-f'
 import 'vue-awesome/icons/twitter'
 import 'vue-awesome/icons/google-plus'
 import 'vue-awesome/icons/whatsapp'
 import 'vue-awesome/icons/link'
-import Reviews from '@/components/experiments/ratingpanel_v2/Reviews.vue';
+import Reviews from '@/components/Reviews.vue';
 import WebPushStrip from '@/components/WebPushStrip.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
 import Recommendation from '@/components/Recommendation.vue';
@@ -415,7 +421,7 @@ export default {
             readerPercentScrolled: 0,
 
             scrollCounter: 0,
-            scrollDirection: null,
+            scrollDirection: null,            
 
             /* open in app strip */
             shouldShowOpenInAppStrip: false,
@@ -447,7 +453,7 @@ export default {
         ]),
 
         /* analytics */
-        _triggerReaderAnalyticsEvent(eventName, entityValue, parentId, experimentId) {
+        _triggerReaderAnalyticsEvent(eventName, entityValue, parentId) {
             let pratilipiData = this.getPratilipiData
             pratilipiData['author'] = this.getAuthorData
             let options = {
@@ -460,13 +466,7 @@ export default {
             if (parentId) {
                 options['PARENT_ID'] = parentId
             }
-            if (experimentId) {
-                options['EXPERIMENT_ID'] = experimentId
-            }
-            else {
-                options['EXPERIMENT_ID'] = 'CONTROL'
-            }
-            this.triggerAnanlyticsEvent(eventName, options['EXPERIMENT_ID'], options)
+            this.triggerAnanlyticsEvent(eventName, 'CONTROL', options)
         },
 
         /* reader */
@@ -541,7 +541,7 @@ export default {
 
         /* library */
         addPratilipiToLibrary() {
-            this._triggerReaderAnalyticsEvent('LIBRARYADD_READERM_READER', null, null, 'WBB001')
+            this._triggerReaderAnalyticsEvent('LIBRARYADD_READERM_READER')
             if (this.getUserDetails.isGuest) {
                 this.setAfterLoginAction({action: `${this.$route.meta.store}/addToLibrary`})
                 this.openLoginModal(this.$route.meta.store, 'LIBRARYADD', 'READERM')
@@ -550,7 +550,7 @@ export default {
             }
         },
         removePratilipiFromLibrary() {
-            this._triggerReaderAnalyticsEvent('LIBRARYREMOVE_READERM_READER', null, null, 'WBB001')
+            this._triggerReaderAnalyticsEvent('LIBRARYREMOVE_READERM_READER')
             this.removeFromLibrary()
         },
 
@@ -630,7 +630,7 @@ export default {
             this.reportContentText = ''
         },
         submitReport() {
-            const
+            const 
                 name = this.reportName.trim(),
                 email = this.reportEmail.trim(),
                 message = this.reportContentText.trim(),
@@ -688,12 +688,7 @@ export default {
 
         /* whatsapp share */
         triggerWaEndShareEvent() {
-            this._triggerReaderAnalyticsEvent('SHAREBOOKWA_BOOKEND_READER', 'WHATSAPP', null, 'WBB001')
-        },
-
-        /* facebook share */
-        triggerFbEndShareEvent() {
-            this._triggerReaderAnalyticsEvent('SHAREBOOKFB_BOOKEND_READER', 'FACEBOOK', null, 'WBB001')
+            this._triggerReaderAnalyticsEvent('SHAREBOOKWA_BOOKEND_READER', 'WHATSAPP')
         },
 
         /* scroll */
@@ -725,8 +720,7 @@ export default {
         ]),
         ...mapGetters([
             'getUserDetails',
-            'getWhatsAppUri',
-            'getFacebookShareUrl'
+            'getWhatsAppUri'
         ]),
         getContentSectionStyle() {
             const classMap = {
@@ -766,7 +760,7 @@ export default {
             if (this.getIndexData.filter(indexData => indexData.slugId === this.currentChapterSlugId).length) {
                 this.fetchContentData(this.currentChapterSlugId)
             } else {
-                this.fetchReaderData(this.currentChapterSlugId)
+                this.fetchReaderData(this.currentChapterSlugId)                
             }
         },
         'renderedChapterIdSlug' () {
@@ -1116,7 +1110,7 @@ $theme-yellow-color: #2c3e50;
     }
     .footer-section {
         box-shadow: 0 -1px 1px rgba(0,0,0,0.2);
-        padding: 10px 20px;
+        padding: 10px;
         position: fixed;
         bottom: 0;
         z-index: 12;
@@ -1168,8 +1162,8 @@ $theme-yellow-color: #2c3e50;
                 -webkit-user-select: none;
                 -ms-user-select: none;
                 user-select: none;
-                .social-share-btn {
-                    a {
+                .whatsapp-share-btn {
+                    a.whatsapp {
                         font-size: 14px;
                         .social-icon {
                             text-align: center;
@@ -1554,7 +1548,7 @@ $theme-yellow-color: #2c3e50;
 
 .read-page.theme-white {
     .book-content {
-        .book-recomendations .container-fluid,
+        .book-recomendations .container-fluid, 
         .comment-box,
         .book-bottom-webpush-subscribe .webpush-container .webpush-inner-container {
             background: $theme-white-background-color !important;
@@ -1564,7 +1558,7 @@ $theme-yellow-color: #2c3e50;
 }
 .read-page.theme-black {
     .book-content {
-        .book-recomendations .container-fluid,
+        .book-recomendations .container-fluid, 
         .comment-box,
         .book-bottom-webpush-subscribe .webpush-container .webpush-inner-container {
             background: $theme-black-background-color !important;
@@ -1574,7 +1568,7 @@ $theme-yellow-color: #2c3e50;
 }
 .read-page.theme-yellow {
     .book-content {
-        .book-recomendations .container-fluid,
+        .book-recomendations .container-fluid, 
         .comment-box,
         .book-bottom-webpush-subscribe .webpush-container .webpush-inner-container {
             background: $theme-yellow-background-color !important;
@@ -1592,7 +1586,6 @@ $theme-yellow-color: #2c3e50;
             display: block !important;
         }
         .comment-box .rate-now .rating {
-            width: 200px;
             label:before {
                 font-size: 35px;
             }

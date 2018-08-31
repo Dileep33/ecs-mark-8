@@ -194,15 +194,18 @@
             <div class="footer-section">
                 <div class="container">
                     <div class="row">
-                        <div class="social-share-btn">
-                            <a :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="whatsapp">
-                                <span class="social-icon"><icon name="whatsapp"></icon></span>
-                            </a>
+                        <div class="review-count" @click="openReviewModal">
+                            <i class="material-icons">comment</i>
+                            <span>{{ getPratilipiData.reviewCount }}</span>
                         </div>
-                        <div class="social-share-btn">
-                            <a :href="getFacebookShareUrl" @click="triggerFbEndShareEvent" class="fb" target="_blank" rel="noopener" aria-label="facebook">
-                                <span class="social-icon"><icon name="facebook-square"></icon></span>
-                            </a>
+                        <div class="rating-count" @click="openRatingModal">
+                            <i class="material-icons">star_rate</i>
+			    <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+                            	<span itemprop="ratingCount">{{ getPratilipiData.ratingCount }}</span>
+        			<meta itemprop="ratingValue" v-bind:content="getPratilipiData.averageRating | round(1)" />
+                    <meta itemprop="bestRating" v-bind:content="5"/>
+                    <meta itemprop="worstRating" v-bind:content="1"/>
+			    </span>
                         </div>
                         <div class="add-to-lib">
                             <span v-if="getUserPratilipiData.addedToLib" @click="triggerAnanlyticsEventAndRemoveFromLibrary">
@@ -213,6 +216,14 @@
                                 <i class="material-icons">bookmark_border</i>
                                 <i class="material-icons stacked grey">add</i>
                             </span>
+                        </div>
+                        <div class="whatsapp-share-btn">
+                            <a :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="google">
+                                <span class="social-icon"><icon name="whatsapp"></icon></span>
+                            </a>
+                        </div>
+                        <div class="share-btn" @click="openShareModal">
+                            <i class="material-icons">share</i>
                         </div>
                     </div>
                 </div>
@@ -299,12 +310,12 @@ import Spinner from '@/components/Spinner.vue';
 import mixins from '@/mixins';
 import 'vue-awesome/icons/file-text'
 import 'vue-awesome/icons/file-text-o'
-import 'vue-awesome/icons/facebook-square'
+import 'vue-awesome/icons/facebook-f'
 import 'vue-awesome/icons/twitter'
 import 'vue-awesome/icons/google-plus'
 import 'vue-awesome/icons/whatsapp'
 import 'vue-awesome/icons/link'
-import Reviews from '@/components/experiments/ratingpanel_v1/Reviews.vue';
+import Reviews from '@/components/Reviews.vue';
 import WebPushStrip from '@/components/WebPushStrip.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
 import Recommendation from '@/components/Recommendation.vue';
@@ -476,7 +487,7 @@ export default {
         },
         addPratilipiToLibrary(pratilipiId) {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
-            this.triggerAnanlyticsEvent(`LIBRARYADD_READERM_READER`, 'WBB001', {
+            this.triggerAnanlyticsEvent(`LIBRARYADD_READERM_READER`, 'CONTROL', {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId
             });
@@ -490,7 +501,7 @@ export default {
         },
         triggerAnanlyticsEventAndRemoveFromLibrary() {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
-            this.triggerAnanlyticsEvent(`LIBRARYREMOVE_READERM_READER`, 'WBB001', {
+            this.triggerAnanlyticsEvent(`LIBRARYREMOVE_READERM_READER`, 'CONTROL', {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId
             });
@@ -605,8 +616,8 @@ export default {
             $(".book-bottom-webpush-subscribe").removeClass("bg-black");
             $(".book-bottom-webpush-subscribe").addClass("bg-grey");
 
-            $(".social-share-btn .social-icon").removeClass("white");
-            $(".social-share-btn .social-icon").addClass("black");
+            $(".whatsapp-share-btn .social-icon").removeClass("white");
+            $(".whatsapp-share-btn .social-icon").addClass("black");
         },
         themeBlack() {
             this.readingMode = 'black';
@@ -623,8 +634,8 @@ export default {
             $(".book-bottom-webpush-subscribe").removeClass("bg-grey");
             $(".book-bottom-webpush-subscribe").addClass("bg-black");
 
-            $(".social-share-btn .social-icon").removeClass("black");
-            $(".social-share-btn .social-icon").addClass("white");
+            $(".whatsapp-share-btn .social-icon").removeClass("black");
+            $(".whatsapp-share-btn .social-icon").addClass("white");
         },
         themeYellow() {
             this.readingMode = 'yellow';
@@ -639,8 +650,8 @@ export default {
             $(".book-bottom-webpush-subscribe").removeClass("bg-black");
 -           $(".book-bottom-webpush-subscribe").addClass("bg-grey");
 
-            $(".social-share-btn .social-icon").removeClass("white");
-            $(".social-share-btn .social-icon").addClass("black");
+            $(".whatsapp-share-btn .social-icon").removeClass("white");
+            $(".whatsapp-share-btn .social-icon").addClass("black");
         },
         openReviewModal() {
             $(".review-popout").addClass("show");
@@ -720,21 +731,10 @@ export default {
             if (this.getPratilipiData) {
                 pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
             }
-            this.triggerAnanlyticsEvent(`SHAREBOOKWA_BOOKEND_READER`, 'WBB001', {
+            this.triggerAnanlyticsEvent(`SHAREBOOKWA_BOOKEND_READER`, 'CONTROL', {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': 'WHATSAPP'
-            });
-        },
-        triggerFbEndShareEvent() {
-            let pratilipiAnalyticsData = {};
-            if (this.getPratilipiData) {
-                pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
-            }
-            this.triggerAnanlyticsEvent(`SHAREBOOKFB_BOOKEND_READER`, 'WBB001', {
-                ...pratilipiAnalyticsData,
-                'USER_ID': this.getUserDetails.userId,
-                'ENTITY_VALUE': 'FACEBOOK'
             });
         }
     },
@@ -758,8 +758,7 @@ export default {
         ]),
         ...mapGetters([
             'getUserDetails',
-            'getWhatsAppUri',
-            'getFacebookShareUrl'
+            'getWhatsAppUri'
         ])
     },
     created() {
@@ -1090,7 +1089,7 @@ export default {
     }
     .footer-section {
         box-shadow: 0 -1px 1px rgba(0,0,0,0.2);
-        padding: 10px 20px;
+        padding: 10px 0;
         position: fixed;
         bottom: 0;
         z-index: 12;
@@ -1144,28 +1143,35 @@ export default {
                 user-select: none;
 
 
-                .social-share-btn {
+                .whatsapp-share-btn {
 
-                  a {
-                      font-size: 14px;
-                      .social-icon {
-                          text-align: center;
-                      }
-                      .fa-icon {
-                          width: 24px;
-                          height: 24px;
-                      }
-                      &:hover {
-                          text-decoration: none;
-                      }
-                  }
+                    a {
+                        vertical-align: middle;
+                        color: #2c3e50;
+                        display: inline-block;
+                        text-align: left;
+                        margin: 0 0 5px;
+                        font-size: 14px;
+                        .social-icon {
+                            display: inline-block;
+                            color: #2c3e50;
+                            text-align: center;
+                        }
+                        .fa-icon {
+                            width: 24px;
+                            height: 24px;
+                        }
+                        &:hover {
+                            text-decoration: none;
+                        }
+                    }
                 }
 
-                .social-share-btn .white {
+                .whatsapp-share-btn .white {
                     color: #ffffff !important;
                 }
 
-                .social-share-btn .black {
+                .whatsapp-share-btn .black {
                     color: #2c3e50 !important;
                 }
             }
@@ -1510,7 +1516,6 @@ export default {
             display: block !important;
         }
         .comment-box .rate-now .rating {
-            width: 200px;
             label:before {
                 font-size: 35px;
             }

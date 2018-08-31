@@ -410,6 +410,8 @@ var router = new Router({
                     return import ('@/pages/experiments/ratingpanel_v2/Reader_v1.vue');
                 } else if (bucketId > 90 && bucketId <= 100 && process.env.LANGUAGE === 'hi') {
                     return import ('@/pages/experiments/ratingpanel_v1/Reader_v1.vue');
+                } else if (bucketId > 70 && bucketId <= 100 && process.env.LANGUAGE !== 'hi') {
+                    return import ('@/pages/experiments/mobilenumber/Reader.vue');
                 } else {
                     return new Promise((resolve, reject) => resolve(ReaderPageComponent));
                 }
@@ -431,6 +433,8 @@ var router = new Router({
                     return import ('@/pages/experiments/ratingpanel_v2/Reader_v2.vue');
                 } else if (bucketId > 90 && bucketId <= 100 && process.env.LANGUAGE === 'hi') {
                     return import ('@/pages/experiments/ratingpanel_v1/Reader_v2.vue');
+                } else if (bucketId > 70 && bucketId <= 100 && process.env.LANGUAGE !== 'hi') {
+                    return import ('@/pages/experiments/mobilenumber/Readerv2.vue');
                 } else {
                     return new Promise((resolve, reject) => resolve(ReaderPageV2Component));
                 }
