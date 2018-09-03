@@ -783,8 +783,8 @@ export default {
                 let bucketId = parseInt(this.getCookie('bucketId')) || 0
                 this.readPageUrl = 
                     this.getPratilipiData.newReadPageUrl && 
-                    this.isTestEnvironment()
-                    // (this.isTestEnvironment() || (bucketId >= 11 && bucketId < 20))
+                    // this.isTestEnvironment()
+                    (this.isTestEnvironment() || (bucketId >= 11 && bucketId < 20))
                     ? this.getPratilipiData.newReadPageUrl : this.getPratilipiData.readPageUrl
             }
 
