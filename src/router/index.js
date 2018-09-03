@@ -36,7 +36,8 @@ import EndChatStoryComponent from '@/pages/EndChatStory.vue'
 import AuthorDashboardComponent from '@/pages/AuthorDashboard.vue'
 
 import {
-    getCookie
+    getCookie,
+    getLanguageCode
 } from '@/mixins/methods'
 import DataAccessor from '@/utils/DataAccessor'
 Vue.use(Router)
@@ -305,7 +306,7 @@ var router = new Router({
                 'title': '__("seo_home_page")',
                 'id_prop': 'user_slug',
                 metaTags: _getDefaultPageOGTags('authorpage')
-                
+
             }
         }, {
             path: '/user/:user_slug/dashboard',
@@ -404,11 +405,11 @@ var router = new Router({
                 let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 42;
                 console.log("bucket id ", bucketId);
 
-                if (bucketId > 10 && bucketId <= 70 && process.env.LANGUAGE === 'hi') {
+                if (bucketId > 10 && bucketId <= 70 && getLanguageCode(process.env.LANGUAGE) === 'hi') {
                     return import ('@/pages/experiments/rating_stickers_v1/Reader.vue');
-                } else if (bucketId > 70 && bucketId <= 90 && process.env.LANGUAGE === 'hi') {
+                } else if (bucketId > 70 && bucketId <= 90 && getLanguageCode(process.env.LANGUAGE) === 'hi') {
                     return import ('@/pages/experiments/ratingpanel_v2/Reader_v1.vue');
-                } else if (bucketId > 90 && bucketId <= 100 && process.env.LANGUAGE === 'hi') {
+                } else if (bucketId > 90 && bucketId <= 100 && getLanguageCode(process.env.LANGUAGE) === 'hi') {
                     return import ('@/pages/experiments/ratingpanel_v1/Reader_v1.vue');
                 } else {
                     return new Promise((resolve, reject) => resolve(ReaderPageComponent));
@@ -425,11 +426,11 @@ var router = new Router({
                 let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 42;
                 console.log("bucket id ", bucketId);
 
-                if (bucketId > 10 && bucketId <= 70 && process.env.LANGUAGE === 'hi') {
+                if (bucketId > 10 && bucketId <= 70 && getLanguageCode(process.env.LANGUAGE) === 'hi') {
                     return import ('@/pages/experiments/rating_stickers_v1/ReaderV2.vue');
-                } else if (bucketId > 70 && bucketId <= 90 && process.env.LANGUAGE === 'hi') {
+                } else if (bucketId > 70 && bucketId <= 90 && getLanguageCode(process.env.LANGUAGE) === 'hi') {
                     return import ('@/pages/experiments/ratingpanel_v2/Reader_v2.vue');
-                } else if (bucketId > 90 && bucketId <= 100 && process.env.LANGUAGE === 'hi') {
+                } else if (bucketId > 90 && bucketId <= 100 && getLanguageCode(process.env.LANGUAGE) === 'hi') {
                     return import ('@/pages/experiments/ratingpanel_v1/Reader_v2.vue');
                 } else {
                     return new Promise((resolve, reject) => resolve(ReaderPageV2Component));
