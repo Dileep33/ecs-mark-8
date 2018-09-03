@@ -17,7 +17,7 @@
                                     <span>+91</span>
                                     <input type="tel" v-model="mobileNumber" value="" placeholder="Mobile Number" autofocus required>
                                 </div>
-                                <button type="button" class="btn btn-submit" @click="submitPhoneNumber()">Ok</button> 
+                                <button type="button" class="btn btn-submit" @click="submitPhoneNumber()">__("okay")</button>
                             </div>
                             <p class="thank-you">Thank You</p>
                         </div>
@@ -32,13 +32,16 @@
 import mixins from '@/mixins';
 import inViewport from 'vue-in-viewport-mixin';
 import { mapGetters, mapActions } from 'vuex'
+import constants from '@/constants';
+import * as firebase from "firebase";
 
 export default {
     data() {
         return {
             mobileNumber: '',
             errors: [],
-            showMobileModal: this.getCookie( "mobileNumber_asked" ) == null || this.getCookie( "mobileNumber_asked" ) == "true"
+            showMobileModal: this.getCookie( "mobileNumber_asked" ) == null || this.getCookie( "mobileNumber_asked" ) == "true",
+            language: constants.LANGUAGES.filter((eachLanguage) => eachLanguage.shortName === process.env.LANGUAGE)[0].fullName.toUpperCase()
         }
     },
     props: {
@@ -58,7 +61,24 @@ export default {
             const strippedNumber = this.mobileNumber.replace(/\D/g, '');
             
             if (this.mobileNumber && strippedNumber.length === 10) {
+                console.log("LANGUAGE: " + this.language);
                 console.log("Mobile: " + strippedNumber);
+                
+                import('firebase').then((firebase) => {
+                    if (firebase.apps.length === 0) {
+                        const config = {
+                            apiKey: process.env.FIREBASE_API_KEY,
+                            authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+                            databaseURL: process.env.FIREBASE_DATABASE_URL,
+                            storageBucket: process.env.FIREBASE_STORAGE_BUCKET
+                        };
+                        firebase.initializeApp(config);
+                    }
+                    var node = firebase.database().ref("EXPERIMENT").child("PHONE_NUMBER").child(this.language);
+                    node.push({
+                        "number": strippedNumber
+                    });
+                });
                 
                 this.setCookie("mobileNumber_asked", 1, 30, "/");
                 
