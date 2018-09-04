@@ -31,7 +31,8 @@ import {
     setCookie,
     isCurrentEvent,
     validateFirstAndSecondPassword,
-    isTestEnvironment
+    isTestEnvironment,
+    getLanguageCode
 } from '@/mixins/methods'
 import { defaultAuthorImage } from '@/mixins/data'
 export default {
@@ -73,6 +74,7 @@ export default {
         isCurrentEvent,
         openPrimaryConfirmationModal,
         validateFirstAndSecondPassword,
-        isTestEnvironment
+        isTestEnvironment,
+        getLanguageCode
     }
 }

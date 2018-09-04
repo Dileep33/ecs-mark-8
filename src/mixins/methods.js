@@ -542,6 +542,10 @@ export function getCookie( cname ) {
     return null;
 }
 
+export function getLanguageCode( languageEnv) {
+    return languageEnv;
+}
+
 export function setCookie( name, value, days, path ) {
     var expires = "";
     if( days ) {
