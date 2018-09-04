@@ -35,7 +35,7 @@
                             </div>
                             <div class="profile-user-name" itemprop="name">{{ getAuthorData.name }}</div>
                             <div class="profile-read-by">__("author_readby_count_1"){{  getAuthorData.totalReadCount  }}__("author_readby_count_2")</div>
-                            <router-link :to="this.$route.path + '/dashboard'" class="author-dashboard-link" v-if="getUserDetails.userId === getAuthorData.user.userId" @click.native="triggerDashboardClickEvent()">
+                            <router-link :to="this.$route.path + '/dashboard'" class="author-dashboard-link" v-if="(getUserDetails.userId === getAuthorData.user.userId) && (getAuthorData.contentPublished > 0)" @click.native="triggerDashboardClickEvent()">
                                 <i class="material-icons">bar_chart</i>
                                 <span>__("author_dashboard_statistics")</span>
                             </router-link>
