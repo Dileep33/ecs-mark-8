@@ -180,7 +180,6 @@ export default {
     .translations {
         padding: 0;
         margin: 0;
-        position: absolute;
         background: #fff;
         z-index: 9999;
         width: 100%;
