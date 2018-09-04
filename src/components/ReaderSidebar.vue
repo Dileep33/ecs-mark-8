@@ -6,16 +6,19 @@
         <div class="book-info">
             <div class="book-cover"><img :src="getPratilipiData.coverImageUrl" v-bind:alt="getPratilipiData.displayTitle"></div>
             <div class="book-name">{{ getPratilipiData.title }}</div>
-            <router-link :to="getAuthorData.pageUrl" class="author-link">
-                <span class="auth-name">{{ getAuthorData.displayName }}</span>
-            </router-link>
-            <div class="follow-btn-w-count" v-if="!getAuthorData.following">
-                <button @click="followPratilipiAuthor" >
-                    <i class="material-icons">person_add</i>__("author_follow")
-                </button><span><b>{{ getAuthorData.followCount }}</b></span>
-            </div>
-            <div class="follow-btn-w-count" v-else>
-                <button @click="unfollowPratilipiAuthor"><i class="material-icons">check</i> __("author_following")</button><span><b>{{ getAuthorData.followCount }}</b></span>
+            <div class="author-section">
+                <router-link :to="getAuthorData.pageUrl" class="author-link">
+                    <span class="auth-image"><img :src="getMediumResolutionImage(getAuthorData.profileImageUrl)" alt=""></span>
+                    <span class="auth-name">{{ getAuthorData.displayName }}</span>
+                </router-link>
+                <div class="follow-btn" v-if="!getAuthorData.following">
+                    <button @click="followPratilipiAuthor" >
+                        <i class="material-icons">person_add</i>__("author_follow")
+                    </button>
+                </div>
+                <div class="follow-btn" v-else>
+                    <button @click="unfollowPratilipiAuthor"><i class="material-icons">check</i> __("author_following")</button>
+                </div>
             </div>
         </div>
         <div class="book-index">
@@ -159,32 +162,75 @@ export default {
         border-bottom: 1px solid #e9e9e9;
         padding-bottom: 10px;
         margin-bottom: 10px;
+        text-align: left;
         .book-cover {
-            width: 150px;
-            height: 150px;
-            margin: 10px auto;
+            width: 130px;
+            height: 170px;
+            margin: 15px 10px 10px;
             img {
-                max-width: 100%;
-                max-height: 100%;
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
             }
         }
         .book-name {
-            font-size: 18px;
-            font-weight: bold;
-            margin: 0;
+            font-size: 17px;
+            margin: 0 0 0 10px;
         }
-        .author-link {
-            color: #d0021b;
-            margin-bottom: 10px;
-            .auth-name {
-                text-align: left;
-                display: inline-block;
-                margin: 0 10px;
-                font-size: 14px;
-                vertical-align: middle;
+        .author-section {
+            margin: 10px 0;
+            .author-link {
+                color: #000;
+                margin-bottom: 10px;
+                .auth-image {
+                    width: 40px;
+                    height: 40px;
+                    display: inline-block;
+                    margin: 0 5px 0 10px;
+                    img {
+                        object-fit: cover;
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 50%;
+                    }
+                }
+                .auth-name {
+                    text-align: left;
+                    display: inline-block;
+                    font-size: 15px;
+                    vertical-align: middle;
+                }
+                &:hover {
+                    text-decoration: none;
+                }
             }
-            &:hover {
-                text-decoration: none;
+            .follow-btn {
+                margin: 10px 5px;
+                font-size: 12px;
+                position: relative;
+                text-align: center;
+                display: inline-block;
+                vertical-align: middle;
+                clear: both;
+                overflow: hidden;
+                cursor: pointer;
+                button {
+                    background: #fff;
+                    border: 1px solid #979797;
+                    border-radius: 3px;
+                    outline: none;
+                    color: #000;
+                    margin: 0;
+                    padding: 5px 10px;
+                    display: inline-block;
+                    clear: both;
+                    cursor: pointer;
+                }
+                i {
+                    vertical-align: middle;
+                    padding-right: 5px;
+                    font-size: 16px;
+                }
             }
         }
     }
@@ -201,48 +247,6 @@ export default {
                 &.isActive a {
                     font-weight: bold;
                 }
-            }
-        }
-    }
-    .follow-btn-w-count {
-        color: #fff;
-        margin: 10px;
-        font-size: 14px;
-        position: relative;
-        text-align: center;
-        display: block;
-        clear: both;
-        overflow: hidden;
-        cursor: pointer;
-        button {
-            background: #d0021b;
-            border: 1px solid #d0021b;
-            border: 1px solid #d0021b;
-            border-top-left-radius: 3px;
-            border-bottom-left-radius: 3px;
-            outline: none;
-            color: #fff;
-            margin: 0;
-            padding: 5px 10px;
-            display: inline-block;
-            clear: both;
-            cursor: pointer;
-        }
-        i {
-            vertical-align: middle;
-            padding-right: 5px;
-            font-size: 18px;
-        }
-        span {
-            background: #fff;
-            color: #d0021b;
-            display: inline-block;
-            border: 1px solid #d0021b;
-            padding: 5px 10px;
-            border-top-right-radius: 3px;
-            border-bottom-right-radius: 3px;
-            b {
-                font-size: 12px;
             }
         }
     }
