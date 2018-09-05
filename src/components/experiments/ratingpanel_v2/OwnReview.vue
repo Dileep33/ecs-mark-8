@@ -318,7 +318,6 @@ export default {
             if(editRatingMode) {
                 setTimeout(()=> {
                     this.ratingHelperText();
-                    this.openReview();
                 }, 200);
             }
         }
