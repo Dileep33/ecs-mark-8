@@ -464,8 +464,8 @@
     "pratilipi_review_hide_comments": "ટિપ્પણી છુપાવો",
     "pratilipi_no_reviews": "રચના પર કોઈ પ્રતિભાવ નથી",
     "rating_be_first_one": "આપ પ્રથમ સમીક્ષક બની ને લેખકનો ઉત્સાહ વધારી શકો છો.",
-    "author_readby_count_prefix": "",
-    "author_readby_count_suffix": " લોકોએ વાંચ્યું.",
+    "author_readby_count_1": "",
+    "author_readby_count_2": " લોકોએ વાંચ્યું.",
     "settings_profile_settings": "પ્રોફાઈલ સેટિંગ",
     "settings_notification_settings": "નોટિફિકેશન સેટિંગ",
     "settings_update_password": "પાસવર્ડ અપડેટ",
@@ -612,7 +612,7 @@
 
     "login_popup_story_added_to_library": "આપની લાઈબ્રેરીમાં વાર્તા સફળતાપુર્વક ઉમેરી દેવામાં આવી છે.સાઈન અપ કરો અને ગમે ત્યારે વાંચો. ",
     "login_popup_read_and_rate_stories": "આ પ્રકારની વધારે વાર્તાઓ વાંચો અને રેટ કરો. ",
-    
+
     "author_dashboard_statistics": "આંકડા",
     "author_dashboard_all_time_stats": "અત્યાર સુધી",
     "author_dashboard_total_readers": "કુલ લોકોએ વાંચ્યું",
