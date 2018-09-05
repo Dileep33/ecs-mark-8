@@ -5,7 +5,11 @@ export default {
         state.cursor = null;
         state.numberFound = 0;
     },
-    setReviewLoadingSuccess(state, data) {
+    setReviewLoadingSuccess(state, { data, userReview }) {
+        if (userReview != null){
+            data.reviewList.push(userReview);
+        }
+
         state.loading_state = 'LOADING_SUCCESS';
 
         state.cursor = data.cursor;
@@ -79,6 +83,40 @@ export default {
         }
     },
 
+    setPratilipiReviewUpdateLoading(state){
+
+    },
+    setPratilipiReviewRatingUpdateSuccess(state, successData){
+        let userReviewUpdated = false;
+        state.data.forEach((eachReview) => {
+            if (eachReview.userId == successData.userId) {
+                userReviewUpdated = true;
+                eachReview.review = successData.review;
+                eachReview.rating = successData.rating;
+                eachReview.reviewDateMillis = successData.reviewDateMillis;
+            }
+        });
+        if (!userReviewUpdated) {
+            successData.comments = {
+                loading_state: 'LOADING_SUCCESS',
+                data: [],
+                cursor: null,
+                numberFound: 0
+            }
+            state.data.push(successData);
+        }
+    },
+    setPratilipiReviewUpdateError(state){
+
+    },
+    setPratilipiReviewDeleteSuccess(state, successData){
+        for (let i=0; i < state.data.length; i++){
+            if (state.data[i].userId == successData.userId) {
+                state.data.splice(i, 1);
+                break;
+            }
+        }
+    },
 
     addNewCommentSuccess(state, { userPratilipiId, data }) {
         const concernedReview = state.data.find((eachReview) => eachReview.userPratilipiId ===  userPratilipiId);

@@ -2,11 +2,22 @@ import DataAccessor from '@/utils/DataAccessor'
 
 export default {
 
-    fetchPratilipiReviews({ commit, state }, { resultCount, pratilipiId }) {
+    fetchPratilipiReviews({ commit, state }, { resultCount, pratilipiId, userPratilipiData }) {
         commit('setReviewLoadingTrue');
-        DataAccessor.getReviewList(pratilipiId, state.cursor, null, resultCount, function(data) {
-            if (data.status === 200) {
-                commit('setReviewLoadingSuccess', data.response);
+        DataAccessor.getReviewList(pratilipiId, state.cursor, null, resultCount, function(reviewsData) {
+            if (reviewsData.status === 200) {
+                let userReviewFetched = false;
+                reviewsData.response.reviewList.forEach((eachReview) => {
+                    if (eachReview.userId == userPratilipiData.userId) {
+                        userReviewFetched = true;
+                    }
+                });
+                if ( !userReviewFetched && userPratilipiData.reviewDateMillis != null ) {
+                    commit('setReviewLoadingSuccess', { data: reviewsData.response, userReview: userPratilipiData });
+                }
+                else {
+                    commit('setReviewLoadingSuccess', { data: reviewsData.response, userReview: null });
+                }
             } else {
                 commit('setReviewLoadingError');
             }
@@ -82,7 +93,21 @@ export default {
 
     saveOrUpdateReview({ commit, state, dispatch }, { review, pratilipiId, pageName, rating }) {
         if (pageName === 'pratilipipage') {
-            dispatch('pratilipipage/saveOrUpdateReview', { review, pratilipiId, rating }, { root: true });
+            if (rating === null || rating === undefined) {
+                commit('alert/triggerAlertView', 'need_rating', { root: true });
+                setTimeout(() => {
+                    commit('alert/triggerAlertHide', null, { root: true });
+                }, 3000);
+                console.log('okay, i wont give review');
+                return;
+            }
+            commit('setPratilipiReviewUpdateLoading');
+            DataAccessor.createOrUpdateReview(pratilipiId, rating, review, function(successData) {
+                commit('setPratilipiReviewRatingUpdateSuccess', successData);
+                commit('pratilipipage/setPratilipiReviewRatingUpdateSuccess', {review : review, rating: rating}, { root: true });
+            }, (errorData) => {
+                commit('setPratilipiReviewUpdateError');
+            });
         }
 
         if (pageName === 'readerpage') {
@@ -104,7 +129,14 @@ export default {
 
     deleteReview({ commit, state, dispatch }, { pratilipiId, pageName }) {
         if (pageName === 'pratilipipage') {
-            dispatch('pratilipipage/deleteReview', pratilipiId, { root: true });
+            commit('setPratilipiReviewUpdateLoading');
+            DataAccessor.deleteReview(pratilipiId, function(successData) {
+                commit('setPratilipiReviewDeleteSuccess', successData);
+                commit('pratilipipage/setPratilipiReviewUpdateSuccess', '', { root: true });
+                commit('pratilipipage/setPratilipiRatingUpdateSuccess', null, { root: true });
+            }, (errorData) => {
+                commit('setPratilipiReviewUpdateError');
+            });
         }
 
         if (pageName === 'readerpage') {
