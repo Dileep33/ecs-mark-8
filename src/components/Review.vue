@@ -14,8 +14,14 @@
                             <i class="material-icons">more_vert</i>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="ReviewMoreOptions">
-                            <button type="button" class="btn options-btn" data-toggle="modal" data-target="#reportModalPratilipi">
+                            <button type="button" v-if="userPratilipiData.userId!=eachReview.userId" class="btn options-btn" data-toggle="modal" data-target="#reportModalPratilipi">
                                 __("report_button")
+                            </button>
+                            <button type="button" v-if="userPratilipiData.userId==eachReview.userId" class="btn options-btn" @click="openReviewAndEditRating">
+                                __("review_edit_review")
+                            </button>
+                            <button type="button" v-if="userPratilipiData.userId==eachReview.userId" class="btn options-btn" @click="checkAndDeleteReview">
+                                __("review_delete_review")
                             </button>
                         </div>
                     </div>
@@ -95,7 +101,7 @@
                         <span class="review-date"> {{ eachComment.creationDateMillis | convertDate }} </span>
                     </div>
                     <div class="comment-content non-editable">
-                        {{ eachComment.content }} 
+                        {{ eachComment.content }}
                     </div>
                     <div style="display: none" :class="['comment-content editable', String(eachComment.commentId)]">
                         <form>
@@ -203,6 +209,14 @@ export default {
         pratilipiData: {
             type: Object,
             required: true
+        },
+        openReviewAndEditRating: {
+            type: Function,
+            required: false
+        },
+        checkAndDeleteReview: {
+            type: Function,
+            required: false
         }
     },
     methods: {
