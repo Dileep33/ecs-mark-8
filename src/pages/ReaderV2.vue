@@ -48,12 +48,40 @@
             </div>
 
             <!-- Reader Header Nav bar -->
-            <ReaderSidebar
-            :getPratilipiData="getPratilipiData"
-            :getAuthorData="getAuthorData"
-            :getIndexData="getIndexData"
-            :currentChapterSlugId="currentChapterSlugId">
-            </ReaderSidebar>
+            <nav id="sidebar">
+                <div id="dismiss" @click="closeSidebar">
+                    <i class="material-icons">close</i>
+                </div>
+                <div class="book-info">
+                    <div class="book-cover"><img :src="getPratilipiData.coverImageUrl" v-bind:alt="getPratilipiData.displayTitle"></div>
+                    <div class="book-name">{{ getPratilipiData.title }}</div>
+                    <router-link :to="getAuthorData.pageUrl" class="author-link">
+                        <span class="auth-name">{{ getAuthorData.displayName }}</span>
+                    </router-link>
+                    <div class="follow-btn-w-count" v-if="!getAuthorData.following">
+                        <button @click="followPratilipiAuthor" >
+                            <i class="material-icons">person_add</i>__("author_follow")
+                        </button><span><b>{{ getAuthorData.followCount }}</b></span>
+                    </div>
+                    <div class="follow-btn-w-count" v-else>
+                        <button @click="unfollowPratilipiAuthor"><i class="material-icons">check</i> __("author_following")</button><span><b>{{ getAuthorData.followCount }}</b></span>
+                    </div>
+                </div>
+                <div class="book-index">
+                    <ul>
+                        <li
+                            v-for="eachIndex in getIndexData"
+                            :key="eachIndex.chapterId"
+                            :class="{ isActive: eachIndex.slugId === currentChapterSlugId }">
+                                <router-link
+                                    :to="{path: eachIndex.pageUrl}"
+                                    @click.native="triggerEventAndCloseSidebar(eachIndex.chapterNo)">
+                                    {{ eachIndex.title || '__("writer_chapter") '  + eachIndex.chapterNo }}
+                                </router-link>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
 
             <!-- Reader Options Modal -->
             <div class="modal fade" id="readerOptions" tabindex="-1" role="dialog" aria-labelledby="readerOptionsLabel" aria-hidden="true">
@@ -315,25 +343,19 @@ import WebPushUtil from '@/utils/WebPushUtil';
 import { mapGetters, mapActions } from 'vuex';
 import constants from '@/constants';
 import LoadingState from '@/enum/LoadingState'
-import ReaderSidebar from '@/components/ReaderSidebar.vue';
-
-
 const READER_FONT_SIZE_COOKIE_NAME = 'reader_font_size'
 const READER_LINE_HEIGHT_COOKIE_NAME = 'reader_line_height'
 const READER_READING_MODE_COOKIE_NAME = 'reader_reading_mode'
-
 const ReaderLineHeight = {
     SMALL: 'SMALL',
     MEDIUM: 'MEDIUM',
     LARGE: 'LARGE'
 }
-
 const ReaderReadingMode = {
     WHITE: 'WHITE',
     NIGHT: 'NIGHT',
     SEPIA: 'SEPIA'
 }
-
 export default {
     components: {
         ReadLayout,
@@ -346,8 +368,7 @@ export default {
         OpenInApp,
         NextPratilipiStrip,
         ServerError,
-        TranslatingInputTextArea,
-        ReaderSidebar
+        TranslatingInputTextArea
     },
     mixins: [
         mixins
@@ -362,43 +383,33 @@ export default {
             readingMode: this.getCookie(READER_READING_MODE_COOKIE_NAME) || ReaderReadingMode.WHITE,
             language: constants.LANGUAGES.filter((eachLanguage) => eachLanguage.shortName === process.env.LANGUAGE)[0].fullName.toUpperCase(),
             documentTitle: null,
-
             /* content */
             currentChapterSlugId: null,
             renderedChapterIdSlug: null,
-
             /* report content text */
             reportName: '',
             reportEmail: '',
             reportContentText: '',
-
             /* modal flags */
             openRateRev: false,
             openRateReaderm: false,
-
             /* web push */
             webPushModalTriggered: false,
             isWebPushStripEnabled: false,
             isWebPushModalEnabled: false,
-
             /* user pratilipi calc */
             maxReadPercentage: 0,
             maxReadPercentageLastUpdated: Date.now(),
             maxReadPercentageCompleted: false,
-
             /* scroll */
             scrollPosition: 0,
             readerPercentScrolled: 0,
-
             scrollCounter: 0,
             scrollDirection: null,            
-
             /* open in app strip */
             shouldShowOpenInAppStrip: false,
-
             /* content serialisation */
             isNextPratilipiEnabled: false,
-
             /* metaDescription */
             metaDescription: ''
         }
@@ -421,7 +432,6 @@ export default {
             'setShareDetails',
             'setAfterLoginAction'
         ]),
-
         /* analytics */
         _triggerReaderAnalyticsEvent(eventName, entityValue, parentId) {
             let pratilipiData = this.getPratilipiData
@@ -438,7 +448,6 @@ export default {
             }
             this.triggerAnanlyticsEvent(eventName, 'CONTROL', options)
         },
-
         /* reader */
         increaseFont() {
             if (this.fontSize + 2 <= this.maxFontSize) {
@@ -484,7 +493,6 @@ export default {
             this.setCookie(READER_READING_MODE_COOKIE_NAME, this.readingMode, 7)
             this._triggerReaderAnalyticsEvent('READERBACKGROUND_SETTINGS_READER', 'SEPIA')
         },
-
         /* content */
         goToPreviousChapter() {
             const currentChapterIndex = this.getIndexData.map(indexData => indexData.slugId).indexOf(this.currentChapterSlugId)
@@ -508,7 +516,6 @@ export default {
             this._triggerReaderAnalyticsEvent('GOTOHOME_RECOMMENDBOOK_READER')
             this.$router.push('/')
         },
-
         /* library */
         addPratilipiToLibrary() {
             this._triggerReaderAnalyticsEvent('LIBRARYADD_READERM_READER')
@@ -523,11 +530,20 @@ export default {
             this._triggerReaderAnalyticsEvent('LIBRARYREMOVE_READERM_READER')
             this.removeFromLibrary()
         },
-        closeSidebar() {
-            $('#sidebar').removeClass('active')
-            $('.overlay').fadeOut()
+        /* follow */
+        followPratilipiAuthor() {
+            this._triggerReaderAnalyticsEvent('FOLLOW_INDEX_READER', this.getAuthorData.followCount)
+            if (this.getUserDetails.isGuest) {
+                this.setAfterLoginAction({action: `${this.$route.meta.store}/followAuthor`})
+                this.openLoginModal(this.$route.meta.store, 'FOLLOW', 'READERM')
+            } else {
+                this.followAuthor()
+            }
         },
-
+        unfollowPratilipiAuthor() {
+            this._triggerReaderAnalyticsEvent('UNFOLLOW_INDEX_READER', this.getAuthorData.followCount)
+            this.unFollowAuthor()
+        },
         /* rating */
         openRatingModal() {
             if (this.getUserDetails.authorId !== this.getAuthorData.authorId) {
@@ -545,7 +561,6 @@ export default {
             $('.overlay-2').fadeOut()
             $("body").removeClass("modal-open")
         },
-
         /* review */
         openReviewModal() {
             if (this.getUserDetails.authorId !== this.getAuthorData.authorId) {
@@ -563,13 +578,20 @@ export default {
             $('.overlay-1').fadeOut()
             $("body").removeClass("modal-open")
         },
-
         /* sidebar */
         openSidebar() {
             $('#sidebar').addClass('active')
             $('.overlay').fadeIn()
         },
-
+        closeSidebar() {
+            $('#sidebar').removeClass('active')
+            $('.overlay').fadeOut()
+        },
+        triggerEventAndCloseSidebar(chapterNo) {
+            this._triggerReaderAnalyticsEvent('CHANGECHAPTER_INDEX_READER', null, chapterNo)
+            $('#sidebar').removeClass('active')
+            $('.overlay').fadeOut()
+        },
         /* report */
         updateReportContentText(value) {
             this.reportContentText = value
@@ -587,60 +609,49 @@ export default {
                 pratilipiId = this.getPratilipiData.pratilipiId,
                 language = this.language,
                 dataType = 'PRATILIPI'
-
             if (name === '') {
                 this.triggerAlert({message: '__("user_name_empty")', timer: 1000})
                 return
             }
-
             if (email === '') {
                 this.triggerAlert({message: '__("user_email_empty")', timer: 1000})
                 return
             }
-
             if (!this.validateEmail(email)) {
                 this.triggerAlert({message: '__("user_email_invalid")', timer: 1000})
                 return
             }
-
             if (message === '') {
                 this.triggerAlert({message: '__("report_title")', timer: 1000})
                 return
             }
-
             // ux actions
             this.submitPrailipiReport({name, email, message, pratilipiId, language, dataType})
             this.triggerAlert({message: '__("success_generic_message")', timer: 3000})
             $('#readerReportModal').modal('hide')
-
             // resetting values
             this.setReportDefaultValues()
         },
-
         /* settings */
         triggerSettingsEvent() {
             this._triggerReaderAnalyticsEvent('LANDED_SETTINGS_READER')
         },
-
         /* share */
         openShareModal() {
             this._triggerReaderAnalyticsEvent('CLICKSHRBOOK_READERM_READER')
             this.setShareDetails({ data: this.getPratilipiData, type: 'PRATILIPI', screen_name: 'READER', screen_location: 'READERM' })
             $('#share_modal').modal('show')
         },
-
         /* content serialisation */
         hideStripAndRedirect() {
             this.isNextPratilipiEnabled = false
             this._triggerReaderAnalyticsEvent('CLICK_NEXTPRATILIPI_READER')
             this.$router.push({path: this.getPratilipiData.nextPratilipi.newReadPageUrl || this.getPratilipiData.nextPratilipi.readPageUrl})
         },
-
         /* whatsapp share */
         triggerWaEndShareEvent() {
             this._triggerReaderAnalyticsEvent('SHAREBOOKWA_BOOKEND_READER', 'WHATSAPP')
         },
-
         /* scroll */
         updateScroll() {
             this.scrollPosition = window.scrollY
@@ -695,10 +706,8 @@ export default {
     mounted() {
         /* disabling right click */
         $('.read-page').bind("contextmenu", e => e.preventDefault())
-
         /* listen to window scroll */
         window.addEventListener('scroll', this.updateScroll)
-
         /* setting default values */
         this.setReportDefaultValues()
     },
@@ -725,7 +734,6 @@ export default {
                 self.maxReadPercentage = maxReadPercentage
                 self.maxReadPercentageCompleted = maxReadPercentage === 100
             })
-
             // setting the document title of the page
             let titleArray = []
             let chapterMeta = this.getIndexData.filter(indexData => indexData.slugId === this.renderedChapterIdSlug)[0]
@@ -749,13 +757,11 @@ export default {
             if (this.getPratilipiData.titleEn && this.getPratilipiData.titleEn !== 'null' && this.getPratilipiData.titleEn !== 'undefined') {
                 titleArray.push(this.getPratilipiData.titleEn)
             }
-
             // removing meta description from head section
             if ($('meta[name="description"]')) {
                 this.metaDescription = $('meta[name="description"]').attr('content')
                 $('meta[name="description"]').remove()
             }
-
             // setting og tags
             $('meta[property="og:title"]').remove()
             $('meta[property="og:description"]').remove()
@@ -765,10 +771,8 @@ export default {
             $('head').append(`<meta property='og:description' content='${this.getPratilipiData.summary ? (this.getPratilipiData.summary + ' « ' + this.getAuthorData.fullName) : this.getPratilipiData.summary}'>`)
             $('head').append(`<meta property='og:image' content='${this.getPratilipiData.coverImageUrl}'>`)
             $('head').append(`<meta property='og:url' content='${this.getPratilipiData.pageUrl}'>`)
-
             // default value for webPushModalTriggered is false
             this.webPushModalTriggered = false
-
             // setting up values for isWebPushStripEnabled and isWebPushModalEnabled
             this.isWebPushStripEnabled = this.getPratilipiData.state === "PUBLISHED" && WebPushUtil.canShowCustomPrompt() && (parseInt(this.getCookie('bucketId')) || 0) >= 20 && (parseInt(this.getCookie('bucketId')) || 0) < 30
             this.isWebPushModalEnabled =  this.getPratilipiData.state === "PUBLISHED" && WebPushUtil.canShowCustomPrompt() && (parseInt(this.getCookie('bucketId')) || 0) >= 30 && (parseInt(this.getCookie('bucketId')) || 0) < 60
@@ -805,15 +809,12 @@ export default {
                 $('.reader-progress').removeClass('progress-up')
                 this.scrollCounter = 0
             }
-
             if (this.scrollDirection === 'UP' && !this.shouldShowOpenInAppStrip){
                 this.shouldShowOpenInAppStrip = true
             }
-
             if (this.scrollDirection === 'DOWN') {
                 this.shouldShowOpenInAppStrip = false
             }
-
         },
         'readerPercentScrolled'() {
             // webpush modal trigger
@@ -870,26 +871,20 @@ export default {
         $('meta[property="og:description"]').remove()
         $('meta[property="og:image"]').remove()
         $('meta[property="og:url"]').remove()
-
         // adding meta description of the page
         $('head').append(`<meta name="description" content="${this.metaDescription}">`)
-
         window.removeEventListener('scroll', this.updateScroll)
     }
 }
 </script>
 
 <style lang="scss" scoped>
-
 $theme-white-background-color: #ffffff;
 $theme-white-color: #2c3e50;
-
 $theme-black-background-color: #000000;
 $theme-black-color: #ffffff;
-
 $theme-yellow-background-color: #F4ECD8;
 $theme-yellow-color: #2c3e50;
-
 .read-page {
     margin: 0;
     padding: 0;
@@ -1130,6 +1125,135 @@ $theme-yellow-color: #2c3e50;
             }
         }
     }
+    #sidebar {
+        width: 300px;
+        position: fixed;
+        top: 0;
+        left: -310px;
+        height: 100vh;
+        z-index: 999;
+        background: #fff;
+        color: #fff;
+        transition: all 0.3s;
+        overflow-y: scroll;
+        box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+        &.active {
+            left: 0;
+        }
+        #dismiss {
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: #2c3e50;
+            z-index: 2;
+            -webkit-transition: all 0.3s;
+            -o-transition: all 0.3s;
+            transition: all 0.3s;
+            &:hover {
+                opacity: 0.9;
+            }
+        }
+        .book-info {
+            position: relative;
+            text-align: center;
+            color: #2c3e50;
+            font-size: 14px;
+            border-bottom: 1px solid #e9e9e9;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            .book-cover {
+                width: 150px;
+                height: 150px;
+                margin: 10px auto;
+                img {
+                    max-width: 100%;
+                    max-height: 100%;
+                }
+            }
+            .book-name {
+                font-size: 18px;
+                font-weight: bold;
+                margin: 0;
+            }
+            .author-link {
+                color: #d0021b;
+                margin-bottom: 10px;
+                .auth-name {
+                    text-align: left;
+                    display: inline-block;
+                    margin: 0 10px;
+                    font-size: 14px;
+                    vertical-align: middle;
+                }
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+        .book-index {
+            text-align: left;
+            font-size: 14px;
+            ul {
+                padding: 0 0 0 20px;
+                li {
+                    padding: 5px;
+                    a {
+                        color: #212121;
+                    }
+                    &.isActive a {
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+        .follow-btn-w-count {
+            color: #fff;
+            margin: 10px;
+            font-size: 14px;
+            position: relative;
+            text-align: center;
+            display: block;
+            clear: both;
+            overflow: hidden;
+            cursor: pointer;
+            button {
+                background: #d0021b;
+                border: 1px solid #d0021b;
+                border: 1px solid #d0021b;
+                border-top-left-radius: 3px;
+                border-bottom-left-radius: 3px;
+                outline: none;
+                color: #fff;
+                margin: 0;
+                padding: 5px 10px;
+                display: inline-block;
+                clear: both;
+                cursor: pointer;
+            }
+            i {
+                vertical-align: middle;
+                padding-right: 5px;
+                font-size: 18px;
+            }
+            span {
+                background: #fff;
+                color: #d0021b;
+                display: inline-block;
+                border: 1px solid #d0021b;
+                padding: 5px 10px;
+                border-top-right-radius: 3px;
+                border-bottom-right-radius: 3px;
+                b {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
     .overlay, .overlay-1, .overlay-2 {
         position: fixed;
         width: 100vw;
@@ -1357,16 +1481,12 @@ $theme-yellow-color: #2c3e50;
 </style>
 
 <style lang="scss">
-
 $theme-white-background-color: #ffffff;
 $theme-white-color: #2c3e50;
-
 $theme-black-background-color: #000000;
 $theme-black-color: #ffffff;
-
 $theme-yellow-background-color: #F4ECD8;
 $theme-yellow-color: #2c3e50;
-
 .read-page.theme-white {
     .book-content {
         .book-recomendations .container-fluid, 
