@@ -18,9 +18,9 @@
                         <i class="material-icons" v-for="index in Number(parseInt(userPratilipiData.rating))" :key="index + Math.random()">star</i>
                         <i class="material-icons" v-for="index in 5 - Number(parseInt(userPratilipiData.rating))" :key="index + Math.random()">star_border</i>
                     </div>
-                    <span class="review-date">{{ userPratilipiData.reviewDateMillis | convertDate }}</span>
+                    <!-- <span class="review-date">{{ userPratilipiData.reviewDateMillis | convertDate }}</span> -->
                     
-                    <div class="comment-content">
+                    <div class="comment-content" v-if="userPratilipiData.review">
                         “{{ userPratilipiData.review }}“
                     </div>
                     <div class="review-box">
@@ -138,21 +138,7 @@ export default {
             this.updateRatingInStore( { review : this.newReview, pratilipiId : this.userPratilipiData.pratilipiId, pageName : this.$route.meta.store, rating : parseInt(e.target.value)});
             this.isSaveActive = true;
 
-            // if (this.getUserDetails.isGuest) {
-            //     $('#star1').prop('checked', false);
-            //     $('#star2').prop('checked', false);
-            //     $('#star3').prop('checked', false);
-            //     $('#star4').prop('checked', false);
-            //     $('#star5').prop('checked', false);
-            //     // this.setAfterLoginAction({ action: `reviews/setPratilipiRating`, data: {
-            //     //     rating: newRating,
-            //     //     pratilipiId: this.userPratilipiData.pratilipiId,
-            //     //     pageName: this.$route.meta.store
-            //     // } });
-            //     this.openLoginModal(this.$route.meta.store, 'RATE', this.screenLocation);
-            // } else {
-            //     this.isSaveActive = true;
-            // }
+            $(".rate-wrap").addClass("fullwidth");
         },
         checkAndUpdateReview(data) {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.pratilipiData);
@@ -188,6 +174,7 @@ export default {
                 $(".write-review-btn").hide()
             }, 0);
             this.editRatingMode = true;
+            $(".rate-wrap").addClass("fullwidth");
         },
         openReview() {
             $(".review-box").fadeIn();
@@ -196,11 +183,13 @@ export default {
             $(".review-box").hide();
             $('.rating input').prop('checked', false);
             this.editRatingMode = false;
+            $(".rate-wrap").removeClass("fullwidth");
             this.updateRatingInStore( { review : this.newReview, pratilipiId : this.userPratilipiData.pratilipiId, pageName : this.$route.meta.store, rating : parseInt(this.initialRating)});
         },
         closeReview(e) {
             $(".review-box").hide();
             $('.rating input').prop('checked', false);
+            $(".rate-wrap").removeClass("fullwidth");
             this.editRatingMode = false;
         },
         ratingHelperText() {
@@ -275,6 +264,11 @@ export default {
 <style lang="scss" scoped>
 li {
     list-style: none;
+}
+.rate-wrap {
+    .already-rated .more-options {
+        display: none;
+    }
 }
 .comment-main-level {
     margin: 0;
@@ -355,6 +349,8 @@ li {
                         position: absolute;
                         top: -20px;
                         right: 0;
+                        background: #fff;
+                        border: 0;
                     }
                     &.btn-primary {
                         background: #4E9862;
@@ -428,6 +424,8 @@ li {
                         position: absolute;
                         top: -20px;
                         right: 0;
+                        background: #fff;
+                        border: 0;
                     }
                     &.btn-primary {
                         background: #4E9862;

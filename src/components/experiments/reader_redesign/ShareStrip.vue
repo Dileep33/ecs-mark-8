@@ -174,4 +174,21 @@ export default {
         }
     }
 }
+.social-share.reader-main {
+    text-align: right;
+    padding: 5px 0;
+    .text, .google {
+        display: none;
+    }
+    a {
+        .social-icon {
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+        }
+        &.twitter .social-icon {
+            margin-right: 0;
+        }
+    }
+}
 </style>

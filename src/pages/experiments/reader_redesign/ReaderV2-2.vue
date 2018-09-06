@@ -165,22 +165,29 @@
                                     v-if="isNextPratilipiEnabled"
                                 ></NextPratilipiStrip>
                             </div>
-                            <ShareStrip
-                                v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId"
-                                :data="getPratilipiData"
-                                :type="'PRATILIPI'">
-                            </ShareStrip>
-                            <div class="book-bottom-ratings p-lr-15">
-                                <ReviewsNew
-                                    :pratilipiId="getPratilipiData.pratilipiId"
-                                    :authorId="getAuthorData.authorId"
-                                    :userPratilipiData='getUserPratilipiData'
-                                    :haveInfiniteScroll="false"
-                                    screenName="READER"
-                                    screenLocation="BOOKEND"
-                                    :pratilipiData="Object.assign({}, getPratilipiData, {author: getAuthorData})"
-                                    v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId && !openRateReaderm && !openRateRev && getUserPratilipiLoadingState === 'LOADING_SUCCESS'">
-                                </ReviewsNew>
+                            <div class="rate-share">
+                                <div class="rate-wrap">
+                                    <div class="widget-name">__("rating_rating")</div>
+                                    <ReviewsNew
+                                        :pratilipiId="getPratilipiData.pratilipiId"
+                                        :authorId="getAuthorData.authorId"
+                                        :userPratilipiData='getUserPratilipiData'
+                                        :haveInfiniteScroll="false"
+                                        screenName="READER"
+                                        screenLocation="BOOKEND"
+                                        :pratilipiData="Object.assign({}, getPratilipiData, {author: getAuthorData})"
+                                        v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId && !openRateReaderm && !openRateRev && getUserPratilipiLoadingState === 'LOADING_SUCCESS'">
+                                    </ReviewsNew>
+                                </div>
+                                <div class="share-wrap">
+                                    <div class="widget-name">__("share")</div>
+                                    <ShareStrip
+                                        v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId"
+                                        :data="getPratilipiData"
+                                        :type="'PRATILIPI'"
+                                        :className="'reader-main'">
+                                    </ShareStrip>
+                                </div>
                             </div>
                             <div class="book-bottom-webpush-subscribe">
                                    <div class="webpush-container">
@@ -312,7 +319,7 @@ import WebPushStrip from '@/components/WebPushStrip.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
 import Recommendation from '@/components/Recommendation.vue';
 import OpenInApp from '@/components/OpenInApp.vue';
-import ShareStrip from '@/components/ShareStrip.vue';
+import ShareStrip from '@/components/experiments/reader_redesign/ShareStrip.vue';
 import NextPratilipiStrip from '@/components/experiments/reader_redesign/NextPratilipiStrip.vue'
 import ServerError from '@/components/ServerError.vue';
 import Spinner from '@/components/Spinner.vue';
@@ -1066,6 +1073,32 @@ $theme-yellow-color: #2c3e50;
                 cursor: pointer;
             }
         }
+        .rate-share {
+            margin: 0px 15px 20px;
+            position: relative;
+            overflow: hidden;
+            .widget-name {
+                font-size: 15px;
+                color: #000;
+            }
+            .rate-wrap {
+                float: left;
+                z-index: 2;
+                position: relative;
+                background: #fff;
+                min-width: 60%;
+                &.fullwidth {
+                    width: 100%;
+                }
+            }
+            .share-wrap {
+                position: absolute;
+                top: 0;
+                right: 0;
+                text-align: right;
+                z-index: 1;
+            }
+        }
     }
     .footer-section {
         box-shadow: 0 -1px 1px rgba(0,0,0,0.2);
@@ -1427,18 +1460,6 @@ $theme-yellow-color: #2c3e50;
         width: 100%;
         max-width: 100%;
         height: auto !important;
-    }
-    .book-bottom-ratings {
-        margin: 10px 0;
-        .write-review-btn, .all-reviews, .comments-list li, .show-more {
-            display: none !important;
-        }
-        .comments-list {
-            padding-left: 0;
-        }
-        .comments-list li.ownReview, .translate-input-wrapper .translations li  {
-            display: block !important;
-        }
     }
     .book-bottom-webpush-subscribe {
         position: relative;
