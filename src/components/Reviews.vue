@@ -14,7 +14,7 @@
                 :likeOrDislikeComment="verifyAndLikeComment"
                 :updateComment="updateComment"
                 :screenLocation="screenLocation"></OwnReview>
-            <li class="all-reviews" v-if="getReviewsData.length > 0">__("pratilipi_count_reviews")</li>
+            <li class="all-reviews" v-if="getReviewsData.length > 0 && ( userReview.review==null || userReview.review=='' )">__("pratilipi_count_reviews")</li>
             <li class="no-results" v-if="getReviewsData.length === 0">__("pratilipi_no_reviews")</li>
             <Review
                 v-if="haveInfiniteScroll && getReviewsData.length > 0 && !(userPratilipiData.userId==eachReview.userId)"
