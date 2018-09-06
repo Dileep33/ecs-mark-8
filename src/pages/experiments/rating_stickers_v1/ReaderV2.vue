@@ -48,40 +48,17 @@
             </div>
 
             <!-- Reader Header Nav bar -->
-            <nav id="sidebar">
-                <div id="dismiss" @click="closeSidebar">
-                    <i class="material-icons">close</i>
-                </div>
-                <div class="book-info">
-                    <div class="book-cover"><img :src="getPratilipiData.coverImageUrl" v-bind:alt="getPratilipiData.displayTitle"></div>
-                    <div class="book-name">{{ getPratilipiData.title }}</div>
-                    <router-link :to="getAuthorData.pageUrl" class="author-link">
-                        <span class="auth-name">{{ getAuthorData.displayName }}</span>
-                    </router-link>
-                    <div class="follow-btn-w-count" v-if="!getAuthorData.following">
-                        <button @click="followPratilipiAuthor" >
-                            <i class="material-icons">person_add</i>__("author_follow")
-                        </button><span><b>{{ getAuthorData.followCount }}</b></span>
-                    </div>
-                    <div class="follow-btn-w-count" v-else>
-                        <button @click="unfollowPratilipiAuthor"><i class="material-icons">check</i> __("author_following")</button><span><b>{{ getAuthorData.followCount }}</b></span>
-                    </div>
-                </div>
-                <div class="book-index">
-                    <ul>
-                        <li
-                            v-for="eachIndex in getIndexData"
-                            :key="eachIndex.chapterId"
-                            :class="{ isActive: eachIndex.slugId === currentChapterSlugId }">
-                                <router-link
-                                    :to="{path: eachIndex.pageUrl}"
-                                    @click.native="triggerEventAndCloseSidebar(eachIndex.chapterNo)">
-                                    {{ eachIndex.title || '__("writer_chapter") '  + eachIndex.chapterNo }}
-                                </router-link>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+            <ReaderSidebar
+            :getPratilipiData="getPratilipiData"
+            :getAuthorData="getAuthorData"
+            :getIndexData="getIndexData"
+            :currentChapterSlugId="currentChapterSlugId"
+            :userPratilipiData='getUserPratilipiData'
+            :closeSidebar="closeSidebar"
+            :openReaderSidebar="openReaderSidebar"
+            :isNextPratilipiEnabled="isNextPratilipiEnabled"
+            :hideStripAndRedirect="hideStripAndRedirect">
+            </ReaderSidebar>
 
             <!-- Reader Options Modal -->
             <div class="modal fade" id="readerOptions" tabindex="-1" role="dialog" aria-labelledby="readerOptionsLabel" aria-hidden="true">
@@ -343,6 +320,7 @@ import WebPushUtil from '@/utils/WebPushUtil';
 import { mapGetters, mapActions } from 'vuex';
 import constants from '@/constants';
 import LoadingState from '@/enum/LoadingState'
+import ReaderSidebar from '@/components/experiments/reader_redesign/ReaderSidebar.vue';
 
 const READER_FONT_SIZE_COOKIE_NAME = 'reader_font_size'
 const READER_LINE_HEIGHT_COOKIE_NAME = 'reader_line_height'
@@ -372,7 +350,8 @@ export default {
         OpenInApp,
         NextPratilipiStrip,
         ServerError,
-        TranslatingInputTextArea
+        TranslatingInputTextArea,
+        ReaderSidebar
     },
     mixins: [
         mixins
