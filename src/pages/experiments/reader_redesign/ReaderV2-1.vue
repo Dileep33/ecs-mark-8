@@ -139,15 +139,15 @@
                     <div class="row">
                         <Spinner v-if="!getPratilipiContent[currentChapterSlugId]"></Spinner>
                         <div class="col-12 p-0" v-else>
-                            <h1
-                                class="chapter-title p-lr-15"
+                            <!-- <h1
+                                class="chapter-title p-lr-15 test"
                                 v-if="getPratilipiContent[currentChapterSlugId].title">
-                                    {{ getPratilipiContent[currentChapterSlugId].title }}
+                                    {{ getPratilipiContent[currentChapterSlugId].title }} -->
                             </h1>
                             <h1
                                 class="chapter-title p-lr-15"
-                                v-else-if="getIndexData.length > 1">
-                                    {{ '__("writer_chapter") ' + getIndexData.filter(index => index.slugId === currentChapterSlugId)[0].chapterNo }}
+                                v-if="getIndexData.length > 1">
+                                    {{ '__("writer_chapter") ' + getIndexData.filter(index => index.slugId === currentChapterSlugId)[0].chapterNo }} - {{ getPratilipiContent[currentChapterSlugId].title }}
                             </h1>
                             <h1
                                 class="chapter-title p-lr-15"
