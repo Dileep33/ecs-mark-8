@@ -114,6 +114,14 @@ export default {
             type: Function,
             required: true
         },
+        followPratilipiAuthor: {
+            type: Function,
+            required: true
+        },
+        unfollowPratilipiAuthor: {
+            type: Function,
+            required: true
+        },
         isNextPratilipiEnabled: {
             type: Boolean,
             required: true
@@ -155,21 +163,7 @@ export default {
             this._triggerReaderAnalyticsEvent('CHANGECHAPTER_INDEX_READER', null, chapterNo)
             $('#sidebar').removeClass('active')
             $('.overlay').fadeOut()
-        },
-        /* follow */
-        followPratilipiAuthor() {
-            this._triggerReaderAnalyticsEvent('FOLLOW_INDEX_READER', this.getAuthorData.followCount)
-            if (this.getUserDetails.isGuest) {
-                this.setAfterLoginAction({action: `${this.$route.meta.store}/followAuthor`})
-                this.openLoginModal(this.$route.meta.store, 'FOLLOW', 'READERM')
-            } else {
-                this.followAuthor()
-            }
-        },
-        unfollowPratilipiAuthor() {
-            this._triggerReaderAnalyticsEvent('UNFOLLOW_INDEX_READER', this.getAuthorData.followCount)
-            this.unFollowAuthor()
-        },
+        }
     }
 }
 </script>
