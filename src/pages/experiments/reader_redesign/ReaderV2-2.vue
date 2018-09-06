@@ -161,6 +161,7 @@
                             <div @click="hideStripAndRedirect" class="next-strip-container">
                                 <NextPratilipiStrip
                                     :pratilipi='getPratilipiData.nextPratilipi'
+                                    :showImage='true'
                                     v-if="isNextPratilipiEnabled"
                                 ></NextPratilipiStrip>
                             </div>
@@ -311,7 +312,7 @@ import WebPushModal from '@/components/WebPushModal.vue';
 import Recommendation from '@/components/Recommendation.vue';
 import OpenInApp from '@/components/OpenInApp.vue';
 import ShareStrip from '@/components/ShareStrip.vue';
-import NextPratilipiStrip from '@/components/NextPratilipiStrip.vue'
+import NextPratilipiStrip from '@/components/experiments/reader_redesign/NextPratilipiStrip.vue'
 import ServerError from '@/components/ServerError.vue';
 import Spinner from '@/components/Spinner.vue';
 import TranslatingInputTextArea from '@/components/TranslatingInputTextArea.vue';
@@ -1319,7 +1320,7 @@ $theme-yellow-color: #2c3e50;
         text-align: center;
         margin-bottom: 10px;
         button {
-            width: 50%;
+            min-width: 50%;
             height: 30px;
         }
     }
