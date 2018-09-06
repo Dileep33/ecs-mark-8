@@ -125,6 +125,10 @@ export default {
         isNextPratilipiEnabled: {
             type: Boolean,
             required: true
+        },
+        triggerEventAndCloseSidebar: {
+            type: Function,
+            required: true
         }
     },
     mixins: [
@@ -158,11 +162,6 @@ export default {
                 options['PARENT_ID'] = parentId
             }
             this.triggerAnanlyticsEvent(eventName, 'CONTROL', options)
-        },
-        triggerEventAndCloseSidebar(chapterNo) {
-            this._triggerReaderAnalyticsEvent('CHANGECHAPTER_INDEX_READER', null, chapterNo)
-            $('#sidebar').removeClass('active')
-            $('.overlay').fadeOut()
         }
     }
 }
