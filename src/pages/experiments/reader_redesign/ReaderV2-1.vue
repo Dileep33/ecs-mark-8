@@ -68,7 +68,8 @@
             :isNextPratilipiEnabled="isNextPratilipiEnabled"
             :hideStripAndRedirect="hideStripAndRedirect"
             :followPratilipiAuthor="followPratilipiAuthor"
-            :unfollowPratilipiAuthor="unfollowPratilipiAuthor">
+            :unfollowPratilipiAuthor="unfollowPratilipiAuthor"
+            :triggerEventAndCloseSidebar="triggerEventAndCloseSidebar">
             </ReaderSidebar>
 
             <!-- Reader Options Modal -->
@@ -602,6 +603,13 @@ export default {
             $('#sidebar').removeClass('active');
             $('.overlay').fadeOut();
             this.openReaderSidebar= false
+        },
+        
+        triggerEventAndCloseSidebar(chapterNo) {
+            this._triggerReaderAnalyticsEvent('CHANGECHAPTER_INDEX_READER', null, chapterNo)
+            $('#sidebar').removeClass('active');
+            this.openReaderSidebar= false;
+            $('.overlay').fadeOut();
         },
 
         /* report */

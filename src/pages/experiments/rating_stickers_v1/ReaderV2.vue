@@ -59,7 +59,8 @@
             :isNextPratilipiEnabled="isNextPratilipiEnabled"
             :hideStripAndRedirect="hideStripAndRedirect"
             :followPratilipiAuthor="followPratilipiAuthor"
-            :unfollowPratilipiAuthor="unfollowPratilipiAuthor">
+            :unfollowPratilipiAuthor="unfollowPratilipiAuthor"
+            :triggerEventAndCloseSidebar="triggerEventAndCloseSidebar">
             </ReaderSidebar>
 
             <!-- Reader Options Modal -->
