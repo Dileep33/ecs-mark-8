@@ -407,9 +407,7 @@ var router = new Router({
 
                 if (bucketId > 10 && bucketId <= 70 && getLanguageCode(process.env.LANGUAGE) === 'hi') {
                     return import ('@/pages/experiments/rating_stickers_v1/Reader.vue');
-                } else if (bucketId > 70 && bucketId <= 90 && getLanguageCode(process.env.LANGUAGE) === 'hi') {
-                    return import ('@/pages/experiments/ratingpanel_v2/Reader_v1.vue');
-                } else if (bucketId > 90 && bucketId <= 100 && getLanguageCode(process.env.LANGUAGE) === 'hi') {
+                } else if (bucketId > 70 && bucketId <= 100 && getLanguageCode(process.env.LANGUAGE) === 'hi') {
                     return import ('@/pages/experiments/ratingpanel_v1/Reader_v1.vue');
                 } else {
                     return new Promise((resolve, reject) => resolve(ReaderPageComponent));
@@ -428,9 +426,7 @@ var router = new Router({
 
                 if (bucketId > 10 && bucketId <= 70 && getLanguageCode(process.env.LANGUAGE) === 'hi') {
                     return import ('@/pages/experiments/rating_stickers_v1/ReaderV2.vue');
-                } else if (bucketId > 70 && bucketId <= 90 && getLanguageCode(process.env.LANGUAGE) === 'hi') {
-                    return import ('@/pages/experiments/ratingpanel_v2/Reader_v2.vue');
-                } else if (bucketId > 90 && bucketId <= 100 && getLanguageCode(process.env.LANGUAGE) === 'hi') {
+                } else if (bucketId > 70 && bucketId <= 100 && getLanguageCode(process.env.LANGUAGE) === 'hi') {
                     return import ('@/pages/experiments/ratingpanel_v1/Reader_v2.vue');
                 } else {
                     return new Promise((resolve, reject) => resolve(ReaderPageV2Component));
