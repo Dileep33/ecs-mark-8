@@ -61,7 +61,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="rate-now" v-if="!userPratilipiData.reviewDateMillis || editRatingMode">
+                <div class="rate-now" v-if="( !userPratilipiData.reviewDateMillis || editRatingMode ) && shouldShowRatingSelection">
                     <fieldset class="rating" @click="openReview" v-if="shouldShowRatingSelection">
                         <img @click="changeRating(1)" class="rating-stickers" :class="{ 'selected': userPratilipiData.rating === 1 }" src="../../../../static/rating_stickers/1.png" />
                         <img @click="changeRating(2)" class="rating-stickers" :class="{ 'selected': userPratilipiData.rating === 2 }" src="../../../../static/rating_stickers/2.png" />
