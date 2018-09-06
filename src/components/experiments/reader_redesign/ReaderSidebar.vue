@@ -60,7 +60,7 @@
         <div @click="hideStripAndRedirect" class="next-strip-container">
             <NextPratilipiStrip
                 :pratilipi='getPratilipiData.nextPratilipi'
-                :showImage='false'
+                :showImage='true'
                 v-if="isNextPratilipiEnabled"
             ></NextPratilipiStrip>
         </div>
