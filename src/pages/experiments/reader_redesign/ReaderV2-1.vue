@@ -66,7 +66,9 @@
             :closeSidebar="closeSidebar"
             :openReaderSidebar="openReaderSidebar"
             :isNextPratilipiEnabled="isNextPratilipiEnabled"
-            :hideStripAndRedirect="hideStripAndRedirect">
+            :hideStripAndRedirect="hideStripAndRedirect"
+            :followPratilipiAuthor="followPratilipiAuthor"
+            :unfollowPratilipiAuthor="unfollowPratilipiAuthor">
             </ReaderSidebar>
 
             <!-- Reader Options Modal -->
@@ -522,6 +524,21 @@ export default {
         navigateToHome() {
             this._triggerReaderAnalyticsEvent('GOTOHOME_RECOMMENDBOOK_READER')
             this.$router.push('/')
+        },
+        
+        /* follow */
+        followPratilipiAuthor() {
+            this._triggerReaderAnalyticsEvent('FOLLOW_INDEX_READER', this.getAuthorData.followCount)
+            if (this.getUserDetails.isGuest) {
+                this.setAfterLoginAction({action: `${this.$route.meta.store}/followAuthor`})
+                this.openLoginModal(this.$route.meta.store, 'FOLLOW', 'READERM')
+            } else {
+                this.followAuthor()
+            }
+        },
+        unfollowPratilipiAuthor() {
+            this._triggerReaderAnalyticsEvent('UNFOLLOW_INDEX_READER', this.getAuthorData.followCount)
+            this.unFollowAuthor()
         },
 
         /* library */

@@ -167,7 +167,7 @@
                                     v-if="isNextPratilipiEnabled"
                                 ></NextPratilipiStrip>
                             </div>
-                            <div class="rate-share">
+                            <div class="rate-share" v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId">
                                 <div class="rate-wrap">
                                     <div class="widget-name">__("rating_rating")</div>
                                     <ReviewsNew
@@ -178,20 +178,19 @@
                                         screenName="READER"
                                         screenLocation="BOOKEND"
                                         :pratilipiData="Object.assign({}, getPratilipiData, {author: getAuthorData})"
-                                        v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId && !openRateReaderm && !openRateRev && getUserPratilipiLoadingState === 'LOADING_SUCCESS'">
+                                        v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId && !openRateReaderm && !openRateRev && !openReaderSidebar && getUserPratilipiLoadingState === 'LOADING_SUCCESS'">
                                     </ReviewsNew>
                                 </div>
                                 <div class="share-wrap">
                                     <div class="widget-name">__("share")</div>
                                     <ShareStrip
-                                        v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId"
                                         :data="getPratilipiData"
                                         :type="'PRATILIPI'"
                                         :className="'reader-main'">
                                     </ShareStrip>
                                 </div>
                             </div>
-                            <div class="readermain-follow">
+                            <div class="readermain-follow" v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId">
                                 <div class="author-section">
                                     <router-link :to="getAuthorData.pageUrl" class="author-link">
                                         <span class="auth-image"><img :src="getMediumResolutionImage(getAuthorData.profileImageUrl)" alt=""></span>
@@ -1136,11 +1135,17 @@ $theme-yellow-color: #2c3e50;
             border-top: 1px solid #e9e9e9;
             border-bottom: 1px solid #e9e9e9;
             margin: 0 15px;
+            @media screen and (max-width: 420px ) {
+                text-align: right;
+            }
             .author-section {
                 margin: 15px 0;
                 .author-link {
                     color: #000;
                     margin-bottom: 10px;
+                    @media screen and (max-width: 420px ) {
+                        float: left;
+                    }
                     .auth-image {
                         width: 50px;
                         height: 50px;
