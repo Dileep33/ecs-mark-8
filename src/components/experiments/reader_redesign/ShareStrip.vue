@@ -2,13 +2,13 @@
     <div class="social-share" :class="className">
         <span class="text">__("seo_share_page"): </span>
         <a :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="google">
-            <span class="social-icon"><icon name="whatsapp"></icon></span>
+            <span class="social-icon"><icon name="whatsapp" scale="1.3"></icon></span>
         </a>
         <a :href="getFacebookShareUrl" @click="triggerFbEndShareEvent" class="fb" target="_blank" rel="noopener" aria-label="whatsapp">
-            <span class="social-icon"><icon name="facebook-f"></icon></span>
+            <span class="social-icon"><icon name="facebook-f" scale="1.3"></icon></span>
         </a>
         <a :href="getTwitterUrl" @click="triggerTwEndShareEvent" class="twitter" target="_blank" rel="noopener" aria-label="facebook">
-           <span class="social-icon"><icon name="twitter"></icon></span>
+           <span class="social-icon"><icon name="twitter" scale="1.3"></icon></span>
         </a>
         <a :href="getGooglePlusUrl" @click="triggerGpEndShareEvent" class="google" target="_blank" rel="noopener" aria-label="twitter">
             <span class="social-icon"><icon name="google-plus"></icon></span>
@@ -188,6 +188,9 @@ export default {
         }
         &.twitter .social-icon {
             margin-right: 0;
+        }
+        &.whatsapp .social-icon .fa-icon {
+            margin-top: -4px;
         }
     }
 }
