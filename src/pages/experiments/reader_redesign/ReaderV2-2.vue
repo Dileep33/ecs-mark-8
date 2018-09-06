@@ -57,7 +57,9 @@
             :closeSidebar="closeSidebar"
             :openReaderSidebar="openReaderSidebar"
             :isNextPratilipiEnabled="isNextPratilipiEnabled"
-            :hideStripAndRedirect="hideStripAndRedirect">
+            :hideStripAndRedirect="hideStripAndRedirect"
+            :followPratilipiAuthor="followPratilipiAuthor"
+            :unfollowPratilipiAuthor="unfollowPratilipiAuthor">
             </ReaderSidebar>
 
             <!-- Reader Options Modal -->
@@ -187,6 +189,22 @@
                                         :type="'PRATILIPI'"
                                         :className="'reader-main'">
                                     </ShareStrip>
+                                </div>
+                            </div>
+                            <div class="readermain-follow">
+                                <div class="author-section">
+                                    <router-link :to="getAuthorData.pageUrl" class="author-link">
+                                        <span class="auth-image"><img :src="getMediumResolutionImage(getAuthorData.profileImageUrl)" alt=""></span>
+                                        <span class="auth-name">{{ getAuthorData.displayName }}</span>
+                                    </router-link>
+                                    <div class="follow-btn" v-if="!getAuthorData.following">
+                                        <button @click="followPratilipiAuthor" >
+                                            <i class="material-icons">person_add</i>__("author_follow")
+                                        </button>
+                                    </div>
+                                    <div class="follow-btn" v-else>
+                                        <button @click="unfollowPratilipiAuthor"><i class="material-icons">check</i> __("author_following")</button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="book-bottom-webpush-subscribe">
@@ -522,6 +540,21 @@ export default {
         navigateToHome() {
             this._triggerReaderAnalyticsEvent('GOTOHOME_RECOMMENDBOOK_READER')
             this.$router.push('/')
+        },
+        
+        /* follow */
+        followPratilipiAuthor() {
+            this._triggerReaderAnalyticsEvent('FOLLOW_INDEX_READER', this.getAuthorData.followCount)
+            if (this.getUserDetails.isGuest) {
+                this.setAfterLoginAction({action: `${this.$route.meta.store}/followAuthor`})
+                this.openLoginModal(this.$route.meta.store, 'FOLLOW', 'READERM')
+            } else {
+                this.followAuthor()
+            }
+        },
+        unfollowPratilipiAuthor() {
+            this._triggerReaderAnalyticsEvent('UNFOLLOW_INDEX_READER', this.getAuthorData.followCount)
+            this.unFollowAuthor()
         },
 
         /* library */
@@ -1097,6 +1130,70 @@ $theme-yellow-color: #2c3e50;
                 right: 0;
                 text-align: right;
                 z-index: 1;
+            }
+        }
+        .readermain-follow {
+            border-top: 1px solid #e9e9e9;
+            border-bottom: 1px solid #e9e9e9;
+            margin: 0 15px;
+            .author-section {
+                margin: 15px 0;
+                .author-link {
+                    color: #000;
+                    margin-bottom: 10px;
+                    .auth-image {
+                        width: 50px;
+                        height: 50px;
+                        display: inline-block;
+                        margin: 0 5px 0 0;
+                        img {
+                            object-fit: cover;
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 50%;
+                        }
+                    }
+                    .auth-name {
+                        text-align: left;
+                        display: inline-block;
+                        font-size: 15px;
+                        vertical-align: middle;
+                        width: 130px;
+                        overflow: hidden;
+                        max-height: 44px;
+                    }
+                    &:hover {
+                        text-decoration: none;
+                    }
+                }
+                .follow-btn {
+                    margin: 10px 0 10px 5px;
+                    font-size: 12px;
+                    position: relative;
+                    text-align: center;
+                    display: inline-block;
+                    vertical-align: middle;
+                    clear: both;
+                    overflow: hidden;
+                    cursor: pointer;
+                    button {
+                        background: #fff;
+                        border: 1px solid #979797;
+                        border-radius: 3px;
+                        outline: none;
+                        color: #000;
+                        margin: 0;
+                        padding: 5px 10px;
+                        display: inline-block;
+                        clear: both;
+                        cursor: pointer;
+                    }
+                    i {
+                        vertical-align: middle;
+                        padding-right: 5px;
+                        font-size: 16px;
+                    }
+                }
             }
         }
     }
