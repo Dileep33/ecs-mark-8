@@ -429,13 +429,13 @@ var router = new Router({
 
                 if (bucketId > 10 && bucketId <= 70 && process.env.LANGUAGE === 'hi') {
                     return import ('@/pages/experiments/rating_stickers_v1/ReaderV2.vue');
-                } else if (bucketId > 70 && bucketId <= 90 && process.env.LANGUAGE === 'hi') {
-                    return import ('@/pages/experiments/ratingpanel_v2/Reader_v2.vue');
-                } else if (bucketId > 90 && bucketId <= 100 && process.env.LANGUAGE === 'hi') {
-                    return import ('@/pages/experiments/ratingpanel_v1/Reader_v2.vue');
-                } else if (bucketId > 70 && bucketId <= 100 && process.env.LANGUAGE !== 'hi') {
-                    return import ('@/pages/experiments/mobilenumber/Readerv2.vue');
-                } else {
+                } else if (bucketId > 10 && bucketId <= 70 && process.env.LANGUAGE !== 'hi') {
+                    return import ('@/pages/experiments/reader_redesign/ReaderV2.vue');
+                } else if (bucketId > 70 && bucketId <= 85) {
+                    return import ('@/pages/experiments/reader_redesign/ReaderV2-1.vue');
+                } else if (bucketId > 85 && bucketId <= 100) {
+                    return import ('@/pages/experiments/reader_redesign/ReaderV2-2.vue');
+                }else {
                     return new Promise((resolve, reject) => resolve(ReaderPageV2Component));
                 }
             },
