@@ -291,8 +291,6 @@ export default {
         border-bottom: 1px solid #e9e9e9;
         ul {
             padding: 0 10px;
-            max-height: 200px;
-            overflow-y: auto;
             li {
                 a {
                     color: #212121;
