@@ -249,6 +249,7 @@ export default {
         checkAndDeleteReview(e) {
             this.deleteReview({ pratilipiId: this.userPratilipiData.pratilipiId, pageName: this.$route.meta.store });
             this.shouldShowRatingSelection = true;
+            this.newReview = '';
         },
         openReviewAndEditRating() {
             this.openReview();
