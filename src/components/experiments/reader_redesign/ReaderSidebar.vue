@@ -36,7 +36,8 @@
             </ul>
         </div>
         <div class="rate-widget">
-            <div class="widget-name">__("rating_rating")</div>
+            <div class="widget-name" v-if="(userPratilipiData.reviewDateMillis) && (userPratilipiData.reviewState === 'PUBLISHED')">__("rating_your_rating")</div>
+            <div class="widget-name" v-else>__("rating_rating")</div>
             <Reviews
                 :pratilipiId="getPratilipiData.pratilipiId"
                 :authorId="getAuthorData.authorId"
@@ -70,7 +71,7 @@
 import ShareStrip from '@/components/experiments/reader_redesign/ShareStrip.vue';
 import NextPratilipiStrip from '@/components/experiments/reader_redesign/NextPratilipiStrip.vue'
 
-import Reviews from '@/components/Reviews.vue';
+import Reviews from '@/components/experiments/reader_redesign/Reviews.vue';
 import { mapGetters, mapActions } from 'vuex';
 import mixins from '@/mixins';
 
@@ -319,57 +320,6 @@ export default {
             font-size: 15px;
             text-align: left;
         }
-    }
-}
-</style>
-<style lang="scss" media="screen">
-.rate-widget {
-    .all-reviews, .show-more, .write-review-btn, .comment-avatar, .text, .rating-helper, .comment-meta {
-        display: none !important;
-    }
-    .comment-content {
-        color: #000;
-        text-align: left;
-    }
-    .comments-container, .comments-list {
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    .already-rated {
-        .more-options {
-            top: 0 !important;
-            padding-top: 0 !important;
-        }
-        .rating {
-            margin: 10px 0 0 !important;
-        }
-    }
-    .rating {
-        margin: 0 !important;
-        text-align: left;
-        max-width: 150px;
-        label:before {
-            font-size: 30px !important;
-            color: #F5A623 !important;
-            margin-right: 0 !important;
-        }
-    }
-    .comment-main-level {
-        margin: 0 !important;
-        .comment-box {
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-    }
-    .comments-list li {
-        display: none !important;
-        &:first-child {
-            display: block !important;
-        }
-    }
-    .comment-main-level .comment-box .already-rated .rating i {
-        color: #F5A623 !important;
-        font-size: 30px !important;
     }
 }
 </style>

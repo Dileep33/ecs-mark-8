@@ -171,16 +171,16 @@
                                 :type="'PRATILIPI'">
                             </ShareStrip>
                             <div class="book-bottom-ratings p-lr-15">
-                                <Reviews
+                                <ReviewsNew
                                     :pratilipiId="getPratilipiData.pratilipiId"
                                     :authorId="getAuthorData.authorId"
                                     :userPratilipiData='getUserPratilipiData'
-                                    :haveInfiniteScroll="true"
+                                    :haveInfiniteScroll="false"
                                     screenName="READER"
                                     screenLocation="BOOKEND"
                                     :pratilipiData="Object.assign({}, getPratilipiData, {author: getAuthorData})"
                                     v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId && !openRateReaderm && !openRateRev && getUserPratilipiLoadingState === 'LOADING_SUCCESS'">
-                                </Reviews>
+                                </ReviewsNew>
                             </div>
                             <div class="book-bottom-webpush-subscribe">
                                    <div class="webpush-container">
@@ -307,6 +307,7 @@ import 'vue-awesome/icons/google-plus'
 import 'vue-awesome/icons/whatsapp'
 import 'vue-awesome/icons/link'
 import Reviews from '@/components/Reviews.vue';
+import ReviewsNew from '@/components/experiments/reader_redesign/Reviews.vue';
 import WebPushStrip from '@/components/WebPushStrip.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
 import Recommendation from '@/components/Recommendation.vue';
@@ -352,7 +353,8 @@ export default {
         NextPratilipiStrip,
         ServerError,
         TranslatingInputTextArea,
-        ReaderSidebar
+        ReaderSidebar,
+        ReviewsNew
     },
     mixins: [
         mixins
