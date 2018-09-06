@@ -249,6 +249,7 @@ export default {
         checkAndDeleteReview(e) {
             this.deleteReview({ pratilipiId: this.userPratilipiData.pratilipiId, pageName: this.$route.meta.store });
             this.shouldShowRatingSelection = true;
+            this.newReview = '';
         },
         openReviewAndEditRating() {
             this.openReview();
@@ -261,6 +262,16 @@ export default {
         openReview() {
             $(".review-box").fadeIn();
             $(".write-review-btn").hide();
+            if(this.screenName === 'READER') {
+                setTimeout(() => {
+                    $('.translatingTextArea').focus();
+                }, 0);
+            }
+            else {
+                setTimeout(() => {
+                    $('#translatingTextArea').focus();
+                }, 0);
+            }
         },
         cancelReview(e) {
             $(".review-box").hide();
