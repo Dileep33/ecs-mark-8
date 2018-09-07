@@ -201,12 +201,12 @@
                                         <span class="auth-name">{{ getAuthorData.displayName }}</span>
                                     </router-link>
                                     <div class="follow-btn" v-if="!getAuthorData.following">
-                                        <button @click="followPratilipiAuthor" >
+                                        <button @click="followPratilipiAuthor('BOOKEND', 'WRE001')" >
                                             <i class="material-icons">person_add</i>__("author_follow")
                                         </button>
                                     </div>
                                     <div class="follow-btn" v-else>
-                                        <button @click="unfollowPratilipiAuthor"><i class="material-icons">check</i> __("author_following")</button>
+                                        <button @click="unfollowPratilipiAuthor('BOOKEND', 'WRE001')"><i class="material-icons">check</i> __("author_following")</button>
                                     </div>
                                 </div>
                             </div>
@@ -552,8 +552,8 @@ export default {
         },
         
         /* follow */
-        followPratilipiAuthor() {
-            this._triggerReaderAnalyticsEvent('FOLLOW_INDEX_READER', this.getAuthorData.followCount)
+        followPratilipiAuthor(screenLocation, experimentId) {
+            this._triggerReaderAnalyticsEvent(`FOLLOW_${screenLocation}_READER`, this.getAuthorData.followCount, null,`${experimentId}`)
             if (this.getUserDetails.isGuest) {
                 this.setAfterLoginAction({action: `${this.$route.meta.store}/followAuthor`})
                 this.openLoginModal(this.$route.meta.store, 'FOLLOW', 'READERM')
@@ -561,8 +561,8 @@ export default {
                 this.followAuthor()
             }
         },
-        unfollowPratilipiAuthor() {
-            this._triggerReaderAnalyticsEvent('UNFOLLOW_INDEX_READER', this.getAuthorData.followCount)
+        unfollowPratilipiAuthor(screenLocation, experimentId) {
+            this._triggerReaderAnalyticsEvent(`UNFOLLOW_${screenLocation}_READER`, this.getAuthorData.followCount, null,`${experimentId}`)
             this.unFollowAuthor()
         },
 

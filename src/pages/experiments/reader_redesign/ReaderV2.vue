@@ -525,8 +525,8 @@ export default {
         },
         
         /* follow */
-        followPratilipiAuthor() {
-            this._triggerReaderAnalyticsEvent('FOLLOW_INDEX_READER', this.getAuthorData.followCount)
+        followPratilipiAuthor(screenLocation, experimentId) {
+            this._triggerReaderAnalyticsEvent(`FOLLOW_${screenLocation}_READER`, this.getAuthorData.followCount, null,`${experimentId}`)
             if (this.getUserDetails.isGuest) {
                 this.setAfterLoginAction({action: `${this.$route.meta.store}/followAuthor`})
                 this.openLoginModal(this.$route.meta.store, 'FOLLOW', 'READERM')
@@ -534,8 +534,8 @@ export default {
                 this.followAuthor()
             }
         },
-        unfollowPratilipiAuthor() {
-            this._triggerReaderAnalyticsEvent('UNFOLLOW_INDEX_READER', this.getAuthorData.followCount)
+        unfollowPratilipiAuthor(screenLocation, experimentId) {
+            this._triggerReaderAnalyticsEvent(`UNFOLLOW_${screenLocation}_READER`, this.getAuthorData.followCount, null,`${experimentId}`)
             this.unFollowAuthor()
         },
 

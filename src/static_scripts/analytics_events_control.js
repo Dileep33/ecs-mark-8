@@ -2077,6 +2077,16 @@ export default {
         "LOCATION": "INDEX",
         "ACTION": "UNFOLLOW"
     },
+    "FOLLOW_BOOKEND_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "BOOKEND",
+        "ACTION": "FOLLOW"
+    },
+    "UNFOLLOW_BOOKEND_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "BOOKEND",
+        "ACTION": "UNFOLLOW"
+    },
     "COMMENT_REVIEWS_READER": {
         "SCREEN_NAME": "READER",
         "LOCATION": "REVIEWS",

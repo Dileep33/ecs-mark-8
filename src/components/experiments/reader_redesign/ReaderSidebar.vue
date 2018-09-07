@@ -12,12 +12,12 @@
                     <span class="auth-name">{{ getAuthorData.displayName }}</span>
                 </router-link>
                 <div class="follow-btn" v-if="!getAuthorData.following">
-                    <button @click="followPratilipiAuthor" >
+                    <button @click="followPratilipiAuthor('INDEX', 'WRI001')" >
                         <i class="material-icons">person_add</i>__("author_follow")
                     </button>
                 </div>
                 <div class="follow-btn" v-else>
-                    <button @click="unfollowPratilipiAuthor"><i class="material-icons">check</i> __("author_following")</button>
+                    <button @click="unfollowPratilipiAuthor('INDEX', 'WRI001')"><i class="material-icons">check</i> __("author_following")</button>
                 </div>
             </div>
         </div>
