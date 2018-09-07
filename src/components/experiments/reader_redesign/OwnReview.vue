@@ -139,6 +139,7 @@ export default {
             this.isSaveActive = true;
 
             $(".rate-wrap").addClass("fullwidth");
+            $(".share-wrap").hide();
         },
         checkAndUpdateReview(data) {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.pratilipiData);
@@ -175,6 +176,7 @@ export default {
             }, 0);
             this.editRatingMode = true;
             $(".rate-wrap").addClass("fullwidth");
+            $(".share-wrap").hide();
         },
         openReview() {
             $(".review-box").fadeIn();
@@ -184,12 +186,14 @@ export default {
             $('.rating input').prop('checked', false);
             this.editRatingMode = false;
             $(".rate-wrap").removeClass("fullwidth");
+            $(".share-wrap").show();
             this.updateRatingInStore( { review : this.newReview, pratilipiId : this.userPratilipiData.pratilipiId, pageName : this.$route.meta.store, rating : parseInt(this.initialRating)});
         },
         closeReview(e) {
             $(".review-box").hide();
             $('.rating input').prop('checked', false);
             $(".rate-wrap").removeClass("fullwidth");
+            $(".share-wrap").show();
             this.editRatingMode = false;
         },
         ratingHelperText() {
@@ -349,7 +353,7 @@ li {
                         position: absolute;
                         top: -20px;
                         right: 0;
-                        background: #fff;
+                        background: none;
                         border: 0;
                     }
                     &.btn-primary {
@@ -424,7 +428,7 @@ li {
                         position: absolute;
                         top: -20px;
                         right: 0;
-                        background: #fff;
+                        background: none;
                         border: 0;
                     }
                     &.btn-primary {

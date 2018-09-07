@@ -1129,7 +1129,6 @@ $theme-yellow-color: #2c3e50;
                 float: left;
                 z-index: 2;
                 position: relative;
-                background: #fff;
                 min-width: 60%;
                 &.fullwidth {
                     width: 100%;
@@ -1500,6 +1499,9 @@ $theme-yellow-color: #2c3e50;
     }
     .reader-progress {
         background: $theme-black-background-color;
+    }
+    .rate-share .widget-name, .author-link {
+        color: $theme-black-color !important;
     }
 }
 .theme-yellow {
