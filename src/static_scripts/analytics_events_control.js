@@ -1162,6 +1162,21 @@ export default {
         "LOCATION": "BOOKEND",
         "ACTION": "SHAREBOOKWA"
     },
+    "SHAREBOOKWA_INDEX_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "INDEX",
+        "ACTION": "SHAREBOOKWA"
+    },
+    "SHAREBOOKFB_INDEX_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "INDEX",
+        "ACTION": "SHAREBOOKFB"
+    },
+    "SHAREBOOKTW_INDEX_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "INDEX",
+        "ACTION": "SHAREBOOKTW"
+    },
     "CHANGECHAPTER_INDEX_READER": {
         "SCREEN_NAME": "READER",
         "LOCATION": "INDEX",
@@ -2026,6 +2041,16 @@ export default {
         "SCREEN_NAME": "READER",
         "LOCATION": "READERM",
         "ACTION": "RATE"
+    },
+    "RATE_INDEX_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "INDEX",
+        "ACTION": "RATE"
+    },
+    "REVIEW_INDEX_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "INDEX",
+        "ACTION": "REVIEW"
     },
     "READBOOK_LIBRARY_MYPROFILE": {
         "SCREEN_NAME": "MYPROFILE",

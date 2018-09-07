@@ -6,7 +6,9 @@
                 :authorId="authorId"
                 :screenName="screenName"
                 :pratilipiData="pratilipiData"
-                :screenLocation="screenLocation"></OwnReview>
+                :screenLocation="screenLocation"
+                :experimentId="experimentId"
+                ></OwnReview>
         </ul>
         <Spinner v-if="getReviewsLoadingState === 'LOADING'"></Spinner>
     </div>
@@ -39,6 +41,10 @@ export default {
             required: true
         },
         screenLocation: {
+            type: String,
+            required: true
+        },
+        experimentId: {
             type: String,
             required: true
         },

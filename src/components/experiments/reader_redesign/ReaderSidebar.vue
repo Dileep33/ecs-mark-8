@@ -42,8 +42,9 @@
                 :pratilipiId="getPratilipiData.pratilipiId"
                 :authorId="getAuthorData.authorId"
                 :haveInfiniteScroll="false"
-                screenName="INDEX"
-                screenLocation="READERM"
+                screenName="READER"
+                screenLocation="INDEX"
+                experimentId="WRI001"
                 :pratilipiData="Object.assign({}, getPratilipiData, {author: getAuthorData})"
                 v-if="openReaderSidebar"
                 :userPratilipiData='userPratilipiData'>
@@ -54,7 +55,9 @@
             <ShareStrip
                 :data="getPratilipiData"
                 :type="'PRATILIPI'"
-                :className="'reader-sidebar'">
+                :className="'reader-sidebar'"
+                experimentId="WRI001"
+                screenLocation="INDEX">
             </ShareStrip>
         </div>
         <div @click="hideStripAndRedirect" class="next-strip-container">

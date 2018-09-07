@@ -51,6 +51,14 @@ export default {
         },
         className: {
             type: String
+        },
+        screenLocation: {
+            type: String,
+            required: true
+        },
+        experimentId: {
+            type: String,
+            required: true
         }
     },
     methods: {
@@ -62,7 +70,7 @@ export default {
             if (this.getPratilipiData) {
                 pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
             }
-            this.triggerAnanlyticsEvent(`SHAREBOOKFB_BOOKEND_READER`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`SHAREBOOKFB_${this.screenLocation}_READER`, `${this.experimentId}`, {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': 'FACEBOOK'
@@ -73,7 +81,7 @@ export default {
             if (this.getPratilipiData) {
                 pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
             }
-            this.triggerAnanlyticsEvent(`SHAREBOOKGP_BOOKEND_READER`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`SHAREBOOKGP_${this.screenLocation}_READER`, `${this.experimentId}`, {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': 'GOOGLEPLUS'
@@ -84,7 +92,7 @@ export default {
             if (this.getPratilipiData) {
                 pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
             }
-            this.triggerAnanlyticsEvent(`SHAREBOOKTW_BOOKEND_READER`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`SHAREBOOKTW_${this.screenLocation}_READER`, `${this.experimentId}`, {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': 'TWITTER'
@@ -95,7 +103,7 @@ export default {
             if (this.getPratilipiData) {
                 pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
             }
-            this.triggerAnanlyticsEvent(`SHAREBOOKWA_BOOKEND_READER`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`SHAREBOOKWA_${this.screenLocation}_READER`, `${this.experimentId}`, {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': 'WHATSAPP'

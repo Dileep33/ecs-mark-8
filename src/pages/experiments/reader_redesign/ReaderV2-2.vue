@@ -178,6 +178,7 @@
                                         :haveInfiniteScroll="false"
                                         screenName="READER"
                                         screenLocation="BOOKEND"
+                                        experimentId="WRE001"
                                         :pratilipiData="Object.assign({}, getPratilipiData, {author: getAuthorData})"
                                         v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId && !openRateReaderm && !openRateRev && !openReaderSidebar && getUserPratilipiLoadingState === 'LOADING_SUCCESS'">
                                     </ReviewsNew>
@@ -187,7 +188,9 @@
                                     <ShareStrip
                                         :data="getPratilipiData"
                                         :type="'PRATILIPI'"
-                                        :className="'reader-main'">
+                                        :className="'reader-main'"
+                                        experimentId="WRE001"
+                                        screenLocation="BOOKEND">
                                     </ShareStrip>
                                 </div>
                             </div>

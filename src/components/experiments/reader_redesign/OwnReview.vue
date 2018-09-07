@@ -94,6 +94,10 @@ export default {
             type: String,
             required: true
         },
+        experimentId: {
+            type: String,
+            required: true
+        },
         pratilipiData: {
             type: Object,
             required: true
@@ -129,7 +133,7 @@ export default {
         changeRating(e) {
             // let action = this.userPratilipiData.rating ? 'EDITRATE' : 'RATE';
             let action = 'RATE';
-            this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, `${this.experimentId}`, {
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': e.target.value
             });
@@ -147,7 +151,7 @@ export default {
             if (action === 'EDITREVIEW') {
                 pratilipiAnalyticsData['ENTITY_STATE'] = 'UPDATE';
             }
-            this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, `${this.experimentId}`, {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': this.userPratilipiData.rating
@@ -239,11 +243,11 @@ export default {
             if (visible) {
 
                 if (this.screenLocation === 'BOOKEND' && this.screenName === 'READER') {
-                    this.triggerAnanlyticsEvent(`LANDED_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
+                    this.triggerAnanlyticsEvent(`LANDED_${this.screenLocation}_${this.screenName}`, `${this.experimentId}`, {
                         'USER_ID': this.getUserDetails.userId
                     });
                 } else {
-                    this.triggerAnanlyticsEvent(`VIEWED_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
+                    this.triggerAnanlyticsEvent(`VIEWED_${this.screenLocation}_${this.screenName}`, `${this.experimentId}`, {
                         'USER_ID': this.getUserDetails.userId
                     });
                 }
