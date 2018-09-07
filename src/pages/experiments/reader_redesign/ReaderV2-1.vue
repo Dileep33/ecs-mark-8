@@ -550,7 +550,7 @@ export default {
 
         /* library */
         addPratilipiToLibrary() {
-            this._triggerReaderAnalyticsEvent('LIBRARYADD_READERM_READER')
+            this._triggerReaderAnalyticsEvent('LIBRARYADD_READERM_READER', null, null, 'WRH001')
             if (this.getUserDetails.isGuest) {
                 this.setAfterLoginAction({action: `${this.$route.meta.store}/addToLibrary`})
                 this.openLoginModal(this.$route.meta.store, 'LIBRARYADD', 'READERM')
@@ -559,7 +559,7 @@ export default {
             }
         },
         removePratilipiFromLibrary() {
-            this._triggerReaderAnalyticsEvent('LIBRARYREMOVE_READERM_READER')
+            this._triggerReaderAnalyticsEvent('LIBRARYREMOVE_READERM_READER', null, null, 'WRH001')
             this.removeFromLibrary()
         },
         
