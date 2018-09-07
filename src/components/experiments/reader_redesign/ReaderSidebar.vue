@@ -60,7 +60,7 @@
                 screenLocation="INDEX">
             </ShareStrip>
         </div>
-        <div @click="hideStripAndRedirect" class="next-strip-container">
+        <div @click="hideStripAndRedirect('INDEX')" class="next-strip-container">
             <NextPratilipiStrip
                 :pratilipi='getPratilipiData.nextPratilipi'
                 :showImage='true'

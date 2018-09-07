@@ -161,7 +161,7 @@
                             <div class="book-navigation p-lr-15" v-if="getPratilipiContentLoadingState === 'LOADING_SUCCESS'">
                                 <div class="next" v-if="getIndexData[getIndexData.length -1].slugId !== currentChapterSlugId" @click="goToNextChapter">__("reader_next_chapter")</div>
                             </div>
-                            <div @click="hideStripAndRedirect" class="next-strip-container">
+                            <div @click="hideStripAndRedirect('BOOKEND', 'WRE001')" class="next-strip-container">
                                 <NextPratilipiStrip
                                     :pratilipi='getPratilipiData.nextPratilipi'
                                     :showImage='true'
@@ -697,9 +697,9 @@ export default {
         },
 
         /* content serialisation */
-        hideStripAndRedirect() {
+        hideStripAndRedirect(screenLocation, experimentId) {
             this.isNextPratilipiEnabled = false
-            this._triggerReaderAnalyticsEvent('CLICK_NEXTPRATILIPI_READER')
+            this._triggerReaderAnalyticsEvent(`GONEXTPRATILIPI_${screenLocation}_READER`, null, null, `${experimentId}`)
             this.$router.push({path: this.getPratilipiData.nextPratilipi.newReadPageUrl || this.getPratilipiData.nextPratilipi.readPageUrl})
         },
 
