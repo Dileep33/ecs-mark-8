@@ -604,7 +604,7 @@ export default {
         },
         
         triggerEventAndCloseSidebar(chapterNo) {
-            this._triggerReaderAnalyticsEvent('CHANGECHAPTER_INDEX_READER', null, chapterNo)
+            this._triggerReaderAnalyticsEvent('CHANGECHAPTER_INDEX_READER', null, chapterNo, "WRI001")
             $('#sidebar').removeClass('active');
             this.openReaderSidebar= false;
             $('.overlay').fadeOut();

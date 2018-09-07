@@ -149,23 +149,7 @@ export default {
         ]),
         ...mapActions([
             'setAfterLoginAction'
-        ]),
-        /* analytics */
-        _triggerReaderAnalyticsEvent(eventName, entityValue, parentId) {
-            let pratilipiData = this.getPratilipiData
-            pratilipiData['author'] = this.getAuthorData
-            let options = {
-                ...this.getPratilipiAnalyticsData(pratilipiData),
-                'USER_ID': this.getUserDetails.userId
-            }
-            if (entityValue) {
-                options['ENTITY_VALUE'] = entityValue
-            }
-            if (parentId) {
-                options['PARENT_ID'] = parentId
-            }
-            this.triggerAnanlyticsEvent(eventName, 'CONTROL', options)
-        }
+        ])
     }
 }
 </script>
