@@ -441,7 +441,7 @@ export default {
         ]),
 
         /* analytics */
-        _triggerReaderAnalyticsEvent(eventName, entityValue, parentId) {
+        _triggerReaderAnalyticsEvent(eventName, entityValue, parentId, experimentId) {
             let pratilipiData = this.getPratilipiData
             pratilipiData['author'] = this.getAuthorData
             let options = {
@@ -454,7 +454,13 @@ export default {
             if (parentId) {
                 options['PARENT_ID'] = parentId
             }
-            this.triggerAnanlyticsEvent(eventName, 'CONTROL', options)
+            if (experimentId) {
+                options['EXPERIMENT_ID'] = experimentId
+            }
+            else {
+                options['EXPERIMENT_ID'] = 'CONTROL'
+            }
+            this.triggerAnanlyticsEvent(eventName, options['EXPERIMENT_ID'], options)
         },
 
         /* reader */
@@ -598,6 +604,7 @@ export default {
             $('#sidebar').addClass('active');
             $('.overlay').fadeIn();
             this.openReaderSidebar= true
+            this._triggerReaderAnalyticsEvent('CLICKMENU_TOPBAR_READER', null, null, "WRH001")
         },
         closeSidebar() {
             $('#sidebar').removeClass('active');

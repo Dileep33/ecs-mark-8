@@ -582,6 +582,7 @@ export default {
         openSidebar() {
             $('#sidebar').addClass('active')
             $('.overlay').fadeIn()
+            this._triggerReaderAnalyticsEvent('CLICKMENU_TOPBAR_READER', null)
         },
         closeSidebar() {
             $('#sidebar').removeClass('active')

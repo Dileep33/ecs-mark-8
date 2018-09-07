@@ -1112,6 +1112,11 @@ export default {
         "LOCATION": "PHOMEM",
         "ACTION": "SUGGESTLANGAUGE"
     },
+    "CLICKMENU_TOPBAR_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "TOPBAR",
+        "ACTION": "CLICKMENU"
+    },
     "GOLOGIN_BOOKEND_READER": {
         "SCREEN_NAME": "READER",
         "LOCATION": "BOOKEND",
