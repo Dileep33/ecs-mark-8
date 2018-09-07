@@ -1114,9 +1114,13 @@ $theme-yellow-color: #2c3e50;
             }
         }
         .rate-share {
-            margin: 0px 15px 20px;
+            margin: 0px auto 20px;
             position: relative;
             overflow: hidden;
+            max-width: 750px;
+            @media screen and (max-width: 420px ) {
+                margin: 0 15px 20px;
+            }
             .widget-name {
                 font-size: 15px;
                 color: #000;
@@ -1142,9 +1146,11 @@ $theme-yellow-color: #2c3e50;
         .readermain-follow {
             border-top: 1px solid #e9e9e9;
             border-bottom: 1px solid #e9e9e9;
-            margin: 0 15px;
+            margin: 0 auto;
+            max-width: 750px;
             @media screen and (max-width: 420px ) {
                 text-align: right;
+                margin: 0 15px;
             }
             .author-section {
                 margin: 15px 0;
