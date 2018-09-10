@@ -4,10 +4,10 @@
             <div class="pratilipi-logo">
                 <img src="../../../assets/pratilipi_logo.png" />
                 <br>
-                <span>__("welcome_pratilipi")</span>
-                <p class="subtitle" v-if="getPostLoginAction.action && getPostLoginAction.action.indexOf('addToLibrary') > -1">__('login_popup_story_added_to_library')</p>
-                <p class="subtitle" v-else-if="getPostLoginAction.action && getPostLoginAction.action.indexOf('saveOrUpdateReview') > -1">__("login_popup_read_and_rate_stories")</p>
-                <p class="subtitle" v-else>__("about_pratilipi")</p>
+                <span v-if="getPostLoginAction.action && getPostLoginAction.action.indexOf('addToLibrary') > -1">__('login_popup_story_added_to_library')</span>
+                <span v-else-if="getPostLoginAction.action && getPostLoginAction.action.indexOf('saveOrUpdateReview') > -1">__("login_popup_read_and_rate_stories")</span>
+                <span v-else-if="getPostLoginAction.action && getPostLoginAction.action.indexOf('followOrUnfollow') > -1">Follow</span>
+                <span v-else>__("welcome_pratilipi")</span>
             </div>
             <div class="social-login">
                 <FacebookLogin></FacebookLogin>
