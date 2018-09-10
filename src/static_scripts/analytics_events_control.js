@@ -1112,6 +1112,11 @@ export default {
         "LOCATION": "PHOMEM",
         "ACTION": "SUGGESTLANGAUGE"
     },
+    "CLICKMENU_TOPBAR_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "TOPBAR",
+        "ACTION": "CLICKMENU"
+    },
     "GOLOGIN_BOOKEND_READER": {
         "SCREEN_NAME": "READER",
         "LOCATION": "BOOKEND",
@@ -1156,6 +1161,21 @@ export default {
         "SCREEN_NAME": "READER",
         "LOCATION": "BOOKEND",
         "ACTION": "SHAREBOOKWA"
+    },
+    "SHAREBOOKWA_INDEX_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "INDEX",
+        "ACTION": "SHAREBOOKWA"
+    },
+    "SHAREBOOKFB_INDEX_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "INDEX",
+        "ACTION": "SHAREBOOKFB"
+    },
+    "SHAREBOOKTW_INDEX_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "INDEX",
+        "ACTION": "SHAREBOOKTW"
     },
     "CHANGECHAPTER_INDEX_READER": {
         "SCREEN_NAME": "READER",
@@ -2022,6 +2042,16 @@ export default {
         "LOCATION": "READERM",
         "ACTION": "RATE"
     },
+    "RATE_INDEX_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "INDEX",
+        "ACTION": "RATE"
+    },
+    "REVIEW_INDEX_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "INDEX",
+        "ACTION": "REVIEW"
+    },
     "READBOOK_LIBRARY_MYPROFILE": {
         "SCREEN_NAME": "MYPROFILE",
         "LOCATION": "LIBRARY",
@@ -2045,6 +2075,16 @@ export default {
     "UNFOLLOW_INDEX_READER": {
         "SCREEN_NAME": "READER",
         "LOCATION": "INDEX",
+        "ACTION": "UNFOLLOW"
+    },
+    "FOLLOW_BOOKEND_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "BOOKEND",
+        "ACTION": "FOLLOW"
+    },
+    "UNFOLLOW_BOOKEND_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "BOOKEND",
         "ACTION": "UNFOLLOW"
     },
     "COMMENT_REVIEWS_READER": {
@@ -2422,9 +2462,14 @@ export default {
         "LOCATION": "HEADER",
         "ACTION": "GOMESSAGESPAGE"
     },
-    "CLICK_NEXTPRATILIPI_READER": {
+    "GONEXTPRATILIPI_BOOKEND_READER": {
         "SCREEN_NAME": "READER",
         "LOCATION": "BOOKEND",
+        "ACTION": "GONEXTPRATILIPI"
+    },
+    "GONEXTPRATILIPI_INDEX_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "INDEX",
         "ACTION": "GONEXTPRATILIPI"
     },
     "VIEWNEXTPRATILIPI_READERM_READER": {
@@ -2531,5 +2576,25 @@ export default {
         "SCREEN_NAME": "AUTHORDASH",
         "LOCATION": "AUTHORDASHM",
         "ACTION": "CLICKBOOK"
+    },
+    "VIEWED_BANNER1_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "BANNER1",
+        "ACTION": "VIEWED"
+    },
+    "CLICKED_BANNER1_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "BANNER1",
+        "ACTION": "CLICKED"
+    },
+    "VIEWED_BANNER2_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "BANNER2",
+        "ACTION": "VIEWED"
+    },
+    "CLICKED_BANNER2_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "BANNER2",
+        "ACTION": "CLICKED"
     }
 };

@@ -89,6 +89,9 @@ export default {
     .modal-body {
         padding-top: 0;
     }
+    .modal-header {
+        padding-bottom: 10px;
+    }
     .form-group {
         font-size: 14px;
     }

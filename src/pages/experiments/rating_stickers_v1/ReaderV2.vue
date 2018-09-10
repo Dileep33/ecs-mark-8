@@ -48,40 +48,20 @@
             </div>
 
             <!-- Reader Header Nav bar -->
-            <nav id="sidebar">
-                <div id="dismiss" @click="closeSidebar">
-                    <i class="material-icons">close</i>
-                </div>
-                <div class="book-info">
-                    <div class="book-cover"><img :src="getPratilipiData.coverImageUrl" v-bind:alt="getPratilipiData.displayTitle"></div>
-                    <div class="book-name">{{ getPratilipiData.title }}</div>
-                    <router-link :to="getAuthorData.pageUrl" class="author-link">
-                        <span class="auth-name">{{ getAuthorData.displayName }}</span>
-                    </router-link>
-                    <div class="follow-btn-w-count" v-if="!getAuthorData.following">
-                        <button @click="followPratilipiAuthor" >
-                            <i class="material-icons">person_add</i>__("author_follow")
-                        </button><span><b>{{ getAuthorData.followCount }}</b></span>
-                    </div>
-                    <div class="follow-btn-w-count" v-else>
-                        <button @click="unfollowPratilipiAuthor"><i class="material-icons">check</i> __("author_following")</button><span><b>{{ getAuthorData.followCount }}</b></span>
-                    </div>
-                </div>
-                <div class="book-index">
-                    <ul>
-                        <li
-                            v-for="eachIndex in getIndexData"
-                            :key="eachIndex.chapterId"
-                            :class="{ isActive: eachIndex.slugId === currentChapterSlugId }">
-                                <router-link
-                                    :to="{path: eachIndex.pageUrl}"
-                                    @click.native="triggerEventAndCloseSidebar(eachIndex.chapterNo)">
-                                    {{ eachIndex.title || '__("writer_chapter") '  + eachIndex.chapterNo }}
-                                </router-link>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+            <ReaderSidebar
+            :getPratilipiData="getPratilipiData"
+            :getAuthorData="getAuthorData"
+            :getIndexData="getIndexData"
+            :currentChapterSlugId="currentChapterSlugId"
+            :userPratilipiData='getUserPratilipiData'
+            :closeSidebar="closeSidebar"
+            :openReaderSidebar="openReaderSidebar"
+            :isNextPratilipiEnabled="isNextPratilipiEnabled"
+            :hideStripAndRedirect="hideStripAndRedirect"
+            :followPratilipiAuthor="followPratilipiAuthor"
+            :unfollowPratilipiAuthor="unfollowPratilipiAuthor"
+            :triggerEventAndCloseSidebar="triggerEventAndCloseSidebar">
+            </ReaderSidebar>
 
             <!-- Reader Options Modal -->
             <div class="modal fade" id="readerOptions" tabindex="-1" role="dialog" aria-labelledby="readerOptionsLabel" aria-hidden="true">
@@ -182,7 +162,7 @@
                                 <div class="prev" v-if="getIndexData[0].slugId !== currentChapterSlugId" @click="goToPreviousChapter">__("reader_prev_chapter")</div>
                                 <div class="next" v-if="getIndexData[getIndexData.length -1].slugId !== currentChapterSlugId" @click="goToNextChapter">__("reader_next_chapter")</div>
                             </div>
-                            <div @click="hideStripAndRedirect" class="next-strip-container">
+                            <div @click="hideStripAndRedirect('BOOKEND')" class="next-strip-container">
                                 <NextPratilipiStrip
                                     :pratilipi='getPratilipiData.nextPratilipi'
                                     v-if="isNextPratilipiEnabled"
@@ -343,6 +323,7 @@ import WebPushUtil from '@/utils/WebPushUtil';
 import { mapGetters, mapActions } from 'vuex';
 import constants from '@/constants';
 import LoadingState from '@/enum/LoadingState'
+import ReaderSidebar from '@/components/experiments/reader_redesign/ReaderSidebar.vue';
 
 const READER_FONT_SIZE_COOKIE_NAME = 'reader_font_size'
 const READER_LINE_HEIGHT_COOKIE_NAME = 'reader_line_height'
@@ -372,7 +353,8 @@ export default {
         OpenInApp,
         NextPratilipiStrip,
         ServerError,
-        TranslatingInputTextArea
+        TranslatingInputTextArea,
+        ReaderSidebar
     },
     mixins: [
         mixins
@@ -400,6 +382,7 @@ export default {
             /* modal flags */
             openRateRev: false,
             openRateReaderm: false,
+            openReaderSidebar: false,
 
             /* web push */
             webPushModalTriggered: false,
@@ -550,8 +533,8 @@ export default {
         },
 
         /* follow */
-        followPratilipiAuthor() {
-            this._triggerReaderAnalyticsEvent('FOLLOW_INDEX_READER', this.getAuthorData.followCount)
+        followPratilipiAuthor(screenLocation, experimentId) {
+            this._triggerReaderAnalyticsEvent(`FOLLOW_${screenLocation}_READER`, this.getAuthorData.followCount, null,`${experimentId}`)
             if (this.getUserDetails.isGuest) {
                 this.setAfterLoginAction({action: `${this.$route.meta.store}/followAuthor`})
                 this.openLoginModal(this.$route.meta.store, 'FOLLOW', 'READERM')
@@ -559,8 +542,8 @@ export default {
                 this.followAuthor()
             }
         },
-        unfollowPratilipiAuthor() {
-            this._triggerReaderAnalyticsEvent('UNFOLLOW_INDEX_READER', this.getAuthorData.followCount)
+        unfollowPratilipiAuthor(screenLocation, experimentId) {
+            this._triggerReaderAnalyticsEvent(`UNFOLLOW_${screenLocation}_READER`, this.getAuthorData.followCount, null,`${experimentId}`)
             this.unFollowAuthor()
         },
 
@@ -604,14 +587,17 @@ export default {
         openSidebar() {
             $('#sidebar').addClass('active')
             $('.overlay').fadeIn()
+            this.openReaderSidebar= true
         },
         closeSidebar() {
             $('#sidebar').removeClass('active')
             $('.overlay').fadeOut()
+            this.openReaderSidebar= false
         },
         triggerEventAndCloseSidebar(chapterNo) {
             this._triggerReaderAnalyticsEvent('CHANGECHAPTER_INDEX_READER', null, chapterNo)
             $('#sidebar').removeClass('active')
+            this.openReaderSidebar= false;
             $('.overlay').fadeOut()
         },
 
@@ -675,9 +661,9 @@ export default {
         },
 
         /* content serialisation */
-        hideStripAndRedirect() {
+        hideStripAndRedirect(screenLocation) {
             this.isNextPratilipiEnabled = false
-            this._triggerReaderAnalyticsEvent('CLICK_NEXTPRATILIPI_READER')
+            this._triggerReaderAnalyticsEvent(`GONEXTPRATILIPI_${screenLocation}_READER`)
             this.$router.push({path: this.getPratilipiData.nextPratilipi.newReadPageUrl || this.getPratilipiData.nextPratilipi.readPageUrl})
         },
 
@@ -736,6 +722,7 @@ export default {
     },
     created() {
         this.currentChapterSlugId = window.location.pathname.split('/').pop().split('-').pop()
+        this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.hasOwnProperty('nextPratilipi') && this.getPratilipiData.nextPratilipi.hasOwnProperty('pratilipiId');
     },
     mounted() {
         /* disabling right click */
@@ -800,6 +787,8 @@ export default {
                 this.metaDescription = $('meta[name="description"]').attr('content')
                 $('meta[name="description"]').remove()
             }
+            
+            this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.hasOwnProperty('nextPratilipi') && this.getPratilipiData.nextPratilipi.hasOwnProperty('pratilipiId');
 
             // setting og tags
             $('meta[property="og:title"]').remove()
@@ -868,7 +857,7 @@ export default {
             }
             // next pratilipi trigger
             if (this.getIndexData[this.getIndexData.length -1].slugId == this.currentChapterSlugId && !this.isNextPratilipiEnabled) {
-                this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.nextPratilipi && this.getPratilipiData.nextPratilipi.pratilipiId
+                this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.hasOwnProperty('nextPratilipi') && this.getPratilipiData.nextPratilipi.hasOwnProperty('pratilipiId');
                 if (this.isNextPratilipiEnabled) {
                     this._triggerReaderAnalyticsEvent('VIEWNEXTPRATILIPI_READERM_READER')
                 }

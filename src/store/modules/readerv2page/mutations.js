@@ -126,8 +126,8 @@ export default {
     },
 
     setPratilipiRatingUpdateSuccess (state, rating) {
-        state.userPratilipi.data.rating = rating
-        state.userPratilipi.data.reviewDateMillis = Date.now()
+        state.userPratilipi.data.rating = rating;
+        state.userPratilipi.data.reviewDateMillis = rating ? Date.now() : null;
     },
 
     setPratilipiReviewUpdateSuccess (state, review) {

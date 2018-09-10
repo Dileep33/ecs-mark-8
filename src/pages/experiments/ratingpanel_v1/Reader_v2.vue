@@ -188,6 +188,9 @@
                                     v-if="isNextPratilipiEnabled"
                                 ></NextPratilipiStrip>
                             </div>
+                            
+                            <PhoneModal></PhoneModal>
+
                             <ShareStrip
                                 v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId"
                                 :data="getPratilipiData"
@@ -337,6 +340,7 @@ import WebPushUtil from '@/utils/WebPushUtil';
 import { mapGetters, mapActions } from 'vuex';
 import constants from '@/constants';
 import LoadingState from '@/enum/LoadingState'
+import PhoneModal from '@/components/PhoneModal';
 
 const READER_FONT_SIZE_COOKIE_NAME = 'reader_font_size'
 const READER_LINE_HEIGHT_COOKIE_NAME = 'reader_line_height'
@@ -366,7 +370,8 @@ export default {
         OpenInApp,
         NextPratilipiStrip,
         ServerError,
-        TranslatingInputTextArea
+        TranslatingInputTextArea,
+        PhoneModal
     },
     mixins: [
         mixins

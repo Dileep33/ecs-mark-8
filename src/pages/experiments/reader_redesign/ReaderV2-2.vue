@@ -8,8 +8,8 @@
         <ServerError class="read-page-server-error" :action="'readerv2page/fetchReaderData'" :data="currentChapterSlugId" v-if="getPratilipiLoadingState === 'LOADING_ERROR'"></ServerError>
 
         <!-- Reader Data Loaded success -->
-        <div
-            class="read-page"
+        <div 
+            class="read-page" 
             :class="getReaderReadingModeStyle"
             v-if="getPratilipiLoadingState === 'LOADING_SUCCESS'">
 
@@ -48,40 +48,20 @@
             </div>
 
             <!-- Reader Header Nav bar -->
-            <nav id="sidebar">
-                <div id="dismiss" @click="closeSidebar">
-                    <i class="material-icons">close</i>
-                </div>
-                <div class="book-info">
-                    <div class="book-cover"><img :src="getPratilipiData.coverImageUrl" v-bind:alt="getPratilipiData.displayTitle"></div>
-                    <div class="book-name">{{ getPratilipiData.title }}</div>
-                    <router-link :to="getAuthorData.pageUrl" class="author-link">
-                        <span class="auth-name">{{ getAuthorData.displayName }}</span>
-                    </router-link>
-                    <div class="follow-btn-w-count" v-if="!getAuthorData.following">
-                        <button @click="followPratilipiAuthor" >
-                            <i class="material-icons">person_add</i>__("author_follow")
-                        </button><span><b>{{ getAuthorData.followCount }}</b></span>
-                    </div>
-                    <div class="follow-btn-w-count" v-else>
-                        <button @click="unfollowPratilipiAuthor"><i class="material-icons">check</i> __("author_following")</button><span><b>{{ getAuthorData.followCount }}</b></span>
-                    </div>
-                </div>
-                <div class="book-index">
-                    <ul>
-                        <li
-                            v-for="eachIndex in getIndexData"
-                            :key="eachIndex.chapterId"
-                            :class="{ isActive: eachIndex.slugId === currentChapterSlugId }">
-                                <router-link
-                                    :to="{path: eachIndex.pageUrl}"
-                                    @click.native="triggerEventAndCloseSidebar(eachIndex.chapterNo)">
-                                    {{ eachIndex.title || '__("writer_chapter") '  + eachIndex.chapterNo }}
-                                </router-link>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+            <ReaderSidebar
+            :getPratilipiData="getPratilipiData"
+            :getAuthorData="getAuthorData"
+            :getIndexData="getIndexData"
+            :currentChapterSlugId="currentChapterSlugId"
+            :userPratilipiData='getUserPratilipiData'
+            :closeSidebar="closeSidebar"
+            :openReaderSidebar="openReaderSidebar"
+            :isNextPratilipiEnabled="isNextPratilipiEnabled"
+            :hideStripAndRedirect="hideStripAndRedirect"
+            :followPratilipiAuthor="followPratilipiAuthor"
+            :unfollowPratilipiAuthor="unfollowPratilipiAuthor"
+            :triggerEventAndCloseSidebar="triggerEventAndCloseSidebar">
+            </ReaderSidebar>
 
             <!-- Reader Options Modal -->
             <div class="modal fade" id="readerOptions" tabindex="-1" role="dialog" aria-labelledby="readerOptionsLabel" aria-hidden="true">
@@ -154,7 +134,7 @@
                         <Spinner v-if="!getPratilipiContent[currentChapterSlugId]"></Spinner>
                         <div class="col-12 p-0" v-else>
                             <h1
-                                class="chapter-title p-lr-15"
+                                class="chapter-title p-lr-15 test"
                                 v-if="getPratilipiContent[currentChapterSlugId].title">
                                     {{ getPratilipiContent[currentChapterSlugId].title }}
                             </h1>
@@ -175,38 +155,60 @@
                             -->
                             <div class="content-section p-lr-15"
                                 :class="getContentSectionStyle"
-                                v-if="renderedChapterIdSlug = currentChapterSlugId"
+                                v-if="renderedChapterIdSlug = currentChapterSlugId" 
                                 v-html="getPratilipiContent[currentChapterSlugId].content">
                             </div>
                             <div class="book-navigation p-lr-15" v-if="getPratilipiContentLoadingState === 'LOADING_SUCCESS'">
-                                <div class="prev" v-if="getIndexData[0].slugId !== currentChapterSlugId" @click="goToPreviousChapter">__("reader_prev_chapter")</div>
                                 <div class="next" v-if="getIndexData[getIndexData.length -1].slugId !== currentChapterSlugId" @click="goToNextChapter">__("reader_next_chapter")</div>
                             </div>
-                            <div @click="hideStripAndRedirect" class="next-strip-container">
+                            <div @click="hideStripAndRedirect('BOOKEND', 'WRE001')" class="next-strip-container">
                                 <NextPratilipiStrip
                                     :pratilipi='getPratilipiData.nextPratilipi'
+                                    :showImage='true'
                                     v-if="isNextPratilipiEnabled"
                                 ></NextPratilipiStrip>
                             </div>
-                            
-                            <PhoneModal></PhoneModal>
-
-                            <ShareStrip
-                                v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId"
-                                :data="getPratilipiData"
-                                :type="'PRATILIPI'">
-                            </ShareStrip>
-                            <div class="book-bottom-ratings p-lr-15">
-                                <Reviews
-                                    :pratilipiId="getPratilipiData.pratilipiId"
-                                    :authorId="getAuthorData.authorId"
-                                    :userPratilipiData='getUserPratilipiData'
-                                    :haveInfiniteScroll="true"
-                                    screenName="READER"
-                                    screenLocation="BOOKEND"
-                                    :pratilipiData="Object.assign({}, getPratilipiData, {author: getAuthorData})"
-                                    v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId && !openRateReaderm && !openRateRev && getUserPratilipiLoadingState === 'LOADING_SUCCESS'">
-                                </Reviews>
+                            <div class="rate-share" v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId">
+                                <div class="rate-wrap">
+                                    <div class="widget-name">__("rating_rating")</div>
+                                    <ReviewsNew
+                                        :pratilipiId="getPratilipiData.pratilipiId"
+                                        :authorId="getAuthorData.authorId"
+                                        :userPratilipiData='getUserPratilipiData'
+                                        :haveInfiniteScroll="false"
+                                        screenName="READER"
+                                        screenLocation="BOOKEND"
+                                        experimentId="WRE001"
+                                        :pratilipiData="Object.assign({}, getPratilipiData, {author: getAuthorData})"
+                                        v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId && !openRateReaderm && !openRateRev && !openReaderSidebar && getUserPratilipiLoadingState === 'LOADING_SUCCESS'">
+                                    </ReviewsNew>
+                                </div>
+                                <div class="share-wrap">
+                                    <div class="widget-name">__("share")</div>
+                                    <ShareStrip
+                                        :data="getPratilipiData"
+                                        :type="'PRATILIPI'"
+                                        :className="'reader-main'"
+                                        experimentId="WRE001"
+                                        screenLocation="BOOKEND">
+                                    </ShareStrip>
+                                </div>
+                            </div>
+                            <div class="readermain-follow" v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId">
+                                <div class="author-section">
+                                    <router-link :to="getAuthorData.pageUrl" class="author-link">
+                                        <span class="auth-image"><img :src="getMediumResolutionImage(getAuthorData.profileImageUrl)" alt=""></span>
+                                        <span class="auth-name">{{ getAuthorData.displayName }}</span>
+                                    </router-link>
+                                    <div class="follow-btn" v-if="!getAuthorData.following">
+                                        <button @click="followPratilipiAuthor('BOOKEND', 'WRE001')" >
+                                            <i class="material-icons">person_add</i>__("author_follow")
+                                        </button>
+                                    </div>
+                                    <div class="follow-btn" v-else>
+                                        <button @click="unfollowPratilipiAuthor('BOOKEND', 'WRE001')"><i class="material-icons">check</i> __("author_following")</button>
+                                    </div>
+                                </div>
                             </div>
                             <div class="book-bottom-webpush-subscribe">
                                    <div class="webpush-container">
@@ -250,15 +252,13 @@
             <div class="footer-section" :class="getReaderReadingModeStyle">
                 <div class="container">
                     <div class="row">
-                        <div class="social-share-btn">
-                            <a :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="whatsapp">
-                                <span class="social-icon"><icon name="whatsapp"></icon></span>
-                            </a>
+                        <div class="review-count" @click="openReviewModal">
+                            <i class="material-icons">comment</i>
+                            <span>{{ getPratilipiData.reviewCount }}</span>
                         </div>
-                        <div class="social-share-btn">
-                            <a :href="getFacebookShareUrl" @click="triggerFbEndShareEvent" class="fb" target="_blank" rel="noopener" aria-label="facebook">
-                                <span class="social-icon"><icon name="facebook-square"></icon></span>
-                            </a>
+                        <div class="rating-count" @click="openRatingModal">
+                            <i class="material-icons">star_rate</i>
+                            <span>{{ getPratilipiData.ratingCount }}</span>
                         </div>
                         <div class="add-to-lib">
                             <span v-if="getUserPratilipiData.addedToLib" @click="removePratilipiFromLibrary">
@@ -269,6 +269,14 @@
                                 <i class="material-icons">bookmark_border</i>
                                 <i class="material-icons stacked grey">add</i>
                             </span>
+                        </div>
+                        <div class="whatsapp-share-btn" v-if="isMobile()">
+                            <a :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="google">
+                                <span class="social-icon"><icon name="whatsapp"></icon></span>
+                            </a>
+                        </div>
+                        <div class="share-btn" @click="openShareModal">
+                            <i class="material-icons">share</i>
                         </div>
                     </div>
                 </div>
@@ -321,18 +329,19 @@ import ReadLayout from '@/layout/Reader-layout.vue';
 import mixins from '@/mixins';
 import 'vue-awesome/icons/file-text'
 import 'vue-awesome/icons/file-text-o'
-import 'vue-awesome/icons/facebook-square'
+import 'vue-awesome/icons/facebook-f'
 import 'vue-awesome/icons/twitter'
 import 'vue-awesome/icons/google-plus'
 import 'vue-awesome/icons/whatsapp'
 import 'vue-awesome/icons/link'
-import Reviews from '@/components/experiments/ratingpanel_v2/Reviews.vue';
+import Reviews from '@/components/Reviews.vue';
+import ReviewsNew from '@/components/experiments/reader_redesign/Reviews.vue';
 import WebPushStrip from '@/components/WebPushStrip.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
 import Recommendation from '@/components/Recommendation.vue';
 import OpenInApp from '@/components/OpenInApp.vue';
-import ShareStrip from '@/components/ShareStrip.vue';
-import NextPratilipiStrip from '@/components/NextPratilipiStrip.vue'
+import ShareStrip from '@/components/experiments/reader_redesign/ShareStrip.vue';
+import NextPratilipiStrip from '@/components/experiments/reader_redesign/NextPratilipiStrip.vue'
 import ServerError from '@/components/ServerError.vue';
 import Spinner from '@/components/Spinner.vue';
 import TranslatingInputTextArea from '@/components/TranslatingInputTextArea.vue';
@@ -340,7 +349,8 @@ import WebPushUtil from '@/utils/WebPushUtil';
 import { mapGetters, mapActions } from 'vuex';
 import constants from '@/constants';
 import LoadingState from '@/enum/LoadingState'
-import PhoneModal from '@/components/PhoneModal';
+import ReaderSidebar from '@/components/experiments/reader_redesign/ReaderSidebar.vue';
+
 
 const READER_FONT_SIZE_COOKIE_NAME = 'reader_font_size'
 const READER_LINE_HEIGHT_COOKIE_NAME = 'reader_line_height'
@@ -371,7 +381,8 @@ export default {
         NextPratilipiStrip,
         ServerError,
         TranslatingInputTextArea,
-        PhoneModal
+        ReaderSidebar,
+        ReviewsNew
     },
     mixins: [
         mixins
@@ -399,6 +410,7 @@ export default {
             /* modal flags */
             openRateRev: false,
             openRateReaderm: false,
+            openReaderSidebar: false,
 
             /* web push */
             webPushModalTriggered: false,
@@ -415,7 +427,7 @@ export default {
             readerPercentScrolled: 0,
 
             scrollCounter: 0,
-            scrollDirection: null,
+            scrollDirection: null,            
 
             /* open in app strip */
             shouldShowOpenInAppStrip: false,
@@ -538,10 +550,25 @@ export default {
             this._triggerReaderAnalyticsEvent('GOTOHOME_RECOMMENDBOOK_READER')
             this.$router.push('/')
         },
+        
+        /* follow */
+        followPratilipiAuthor(screenLocation, experimentId) {
+            this._triggerReaderAnalyticsEvent(`FOLLOW_${screenLocation}_READER`, this.getAuthorData.followCount, null,`${experimentId}`)
+            if (this.getUserDetails.isGuest) {
+                this.setAfterLoginAction({action: `${this.$route.meta.store}/followAuthor`})
+                this.openLoginModal(this.$route.meta.store, 'FOLLOW', 'READERM')
+            } else {
+                this.followAuthor()
+            }
+        },
+        unfollowPratilipiAuthor(screenLocation, experimentId) {
+            this._triggerReaderAnalyticsEvent(`UNFOLLOW_${screenLocation}_READER`, this.getAuthorData.followCount, null,`${experimentId}`)
+            this.unFollowAuthor()
+        },
 
         /* library */
         addPratilipiToLibrary() {
-            this._triggerReaderAnalyticsEvent('LIBRARYADD_READERM_READER', null, null, 'WBB001')
+            this._triggerReaderAnalyticsEvent('LIBRARYADD_READERM_READER')
             if (this.getUserDetails.isGuest) {
                 this.setAfterLoginAction({action: `${this.$route.meta.store}/addToLibrary`})
                 this.openLoginModal(this.$route.meta.store, 'LIBRARYADD', 'READERM')
@@ -550,25 +577,10 @@ export default {
             }
         },
         removePratilipiFromLibrary() {
-            this._triggerReaderAnalyticsEvent('LIBRARYREMOVE_READERM_READER', null, null, 'WBB001')
+            this._triggerReaderAnalyticsEvent('LIBRARYREMOVE_READERM_READER')
             this.removeFromLibrary()
         },
-
-        /* follow */
-        followPratilipiAuthor() {
-            this._triggerReaderAnalyticsEvent('FOLLOW_INDEX_READER', this.getAuthorData.followCount)
-            if (this.getUserDetails.isGuest) {
-                this.setAfterLoginAction({action: `${this.$route.meta.store}/followAuthor`})
-                this.openLoginModal(this.$route.meta.store, 'FOLLOW', 'READERM')
-            } else {
-                this.followAuthor()
-            }
-        },
-        unfollowPratilipiAuthor() {
-            this._triggerReaderAnalyticsEvent('UNFOLLOW_INDEX_READER', this.getAuthorData.followCount)
-            this.unFollowAuthor()
-        },
-
+        
         /* rating */
         openRatingModal() {
             if (this.getUserDetails.authorId !== this.getAuthorData.authorId) {
@@ -607,17 +619,22 @@ export default {
 
         /* sidebar */
         openSidebar() {
-            $('#sidebar').addClass('active')
-            $('.overlay').fadeIn()
+            $('#sidebar').addClass('active');
+            $('.overlay').fadeIn();
+            this.openReaderSidebar= true
+            this._triggerReaderAnalyticsEvent('CLICKMENU_TOPBAR_READER', null)
         },
         closeSidebar() {
-            $('#sidebar').removeClass('active')
-            $('.overlay').fadeOut()
+            $('#sidebar').removeClass('active');
+            $('.overlay').fadeOut();
+            this.openReaderSidebar= false
         },
+        
         triggerEventAndCloseSidebar(chapterNo) {
-            this._triggerReaderAnalyticsEvent('CHANGECHAPTER_INDEX_READER', null, chapterNo)
-            $('#sidebar').removeClass('active')
-            $('.overlay').fadeOut()
+            this._triggerReaderAnalyticsEvent('CHANGECHAPTER_INDEX_READER', null, chapterNo, "WRI001")
+            $('#sidebar').removeClass('active');
+            this.openReaderSidebar= false;
+            $('.overlay').fadeOut();
         },
 
         /* report */
@@ -630,7 +647,7 @@ export default {
             this.reportContentText = ''
         },
         submitReport() {
-            const
+            const 
                 name = this.reportName.trim(),
                 email = this.reportEmail.trim(),
                 message = this.reportContentText.trim(),
@@ -680,20 +697,15 @@ export default {
         },
 
         /* content serialisation */
-        hideStripAndRedirect() {
+        hideStripAndRedirect(screenLocation, experimentId) {
             this.isNextPratilipiEnabled = false
-            this._triggerReaderAnalyticsEvent('CLICK_NEXTPRATILIPI_READER')
+            this._triggerReaderAnalyticsEvent(`GONEXTPRATILIPI_${screenLocation}_READER`, null, null, `${experimentId}`)
             this.$router.push({path: this.getPratilipiData.nextPratilipi.newReadPageUrl || this.getPratilipiData.nextPratilipi.readPageUrl})
         },
 
         /* whatsapp share */
         triggerWaEndShareEvent() {
-            this._triggerReaderAnalyticsEvent('SHAREBOOKWA_BOOKEND_READER', 'WHATSAPP', null, 'WBB001')
-        },
-
-        /* facebook share */
-        triggerFbEndShareEvent() {
-            this._triggerReaderAnalyticsEvent('SHAREBOOKFB_BOOKEND_READER', 'FACEBOOK', null, 'WBB001')
+            this._triggerReaderAnalyticsEvent('SHAREBOOKWA_BOOKEND_READER', 'WHATSAPP')
         },
 
         /* scroll */
@@ -725,8 +737,7 @@ export default {
         ]),
         ...mapGetters([
             'getUserDetails',
-            'getWhatsAppUri',
-            'getFacebookShareUrl'
+            'getWhatsAppUri'
         ]),
         getContentSectionStyle() {
             const classMap = {
@@ -746,7 +757,8 @@ export default {
         }
     },
     created() {
-        this.currentChapterSlugId = window.location.pathname.split('/').pop().split('-').pop()
+        this.currentChapterSlugId = window.location.pathname.split('/').pop().split('-').pop();
+        this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.hasOwnProperty('nextPratilipi') && this.getPratilipiData.nextPratilipi.hasOwnProperty('pratilipiId');
     },
     mounted() {
         /* disabling right click */
@@ -766,7 +778,7 @@ export default {
             if (this.getIndexData.filter(indexData => indexData.slugId === this.currentChapterSlugId).length) {
                 this.fetchContentData(this.currentChapterSlugId)
             } else {
-                this.fetchReaderData(this.currentChapterSlugId)
+                this.fetchReaderData(this.currentChapterSlugId)                
             }
         },
         'renderedChapterIdSlug' () {
@@ -811,6 +823,8 @@ export default {
                 this.metaDescription = $('meta[name="description"]').attr('content')
                 $('meta[name="description"]').remove()
             }
+            
+            this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.hasOwnProperty('nextPratilipi') && this.getPratilipiData.nextPratilipi.hasOwnProperty('pratilipiId');
 
             // setting og tags
             $('meta[property="og:title"]').remove()
@@ -879,7 +893,7 @@ export default {
             }
             // next pratilipi trigger
             if (this.getIndexData[this.getIndexData.length -1].slugId == this.currentChapterSlugId && !this.isNextPratilipiEnabled) {
-                this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.nextPratilipi && this.getPratilipiData.nextPratilipi.pratilipiId
+                this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.hasOwnProperty('nextPratilipi') && this.getPratilipiData.nextPratilipi.hasOwnProperty('pratilipiId');
                 if (this.isNextPratilipiEnabled) {
                     this._triggerReaderAnalyticsEvent('VIEWNEXTPRATILIPI_READERM_READER')
                 }
@@ -990,7 +1004,7 @@ $theme-yellow-color: #2c3e50;
         }
         .right-icons {
             float: right;
-            width: 86px;
+            width: 85px;
         }
         .exit-reader {
             margin-right: 5px;
@@ -1087,10 +1101,11 @@ $theme-yellow-color: #2c3e50;
         h1.chapter-title {
             font-size: 24px;
             text-align: center;
-            padding-top: 10px;
+            margin: 30px 0;
             width: 100%;
+            font-weight: bold;
             @media screen and (max-width: 768px ) {
-                font-size: 18px;
+                font-size: 20px;
             }
         }
         .book-navigation {
@@ -1099,24 +1114,120 @@ $theme-yellow-color: #2c3e50;
             width: 100%;
             overflow: hidden;
             margin: 10px 0 30px;
-            div {
+            .next {
                 display: block;
-                float: left;
-                color: #212121;
+                color: #000;
                 background: #e9e9e9;
-                font-size: 14px;
-                padding: 5px 10px;
-                border-radius: 15px;
+                font-size: 15px;
+                padding: 12px;
                 cursor: pointer;
-                &.next {
-                    float: right;
+            }
+        }
+        .rate-share {
+            margin: 0px auto 20px;
+            position: relative;
+            overflow: hidden;
+            max-width: 750px;
+            @media screen and (max-width: 420px ) {
+                margin: 0 15px 20px;
+            }
+            .widget-name {
+                font-size: 15px;
+                color: #000;
+            }
+            .rate-wrap {
+                float: left;
+                z-index: 2;
+                position: relative;
+                min-width: 60%;
+                &.fullwidth {
+                    width: 100%;
+                }
+            }
+            .share-wrap {
+                position: absolute;
+                top: 0;
+                right: 0;
+                text-align: right;
+                z-index: 1;
+            }
+        }
+        .readermain-follow {
+            border-top: 1px solid #e9e9e9;
+            border-bottom: 1px solid #e9e9e9;
+            margin: 0 auto;
+            max-width: 750px;
+            @media screen and (max-width: 420px ) {
+                text-align: right;
+                margin: 0 15px;
+            }
+            .author-section {
+                margin: 15px 0;
+                .author-link {
+                    color: #000;
+                    margin-bottom: 10px;
+                    @media screen and (max-width: 420px ) {
+                        float: left;
+                    }
+                    .auth-image {
+                        width: 50px;
+                        height: 50px;
+                        display: inline-block;
+                        margin: 0 5px 0 0;
+                        img {
+                            object-fit: cover;
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 50%;
+                        }
+                    }
+                    .auth-name {
+                        text-align: left;
+                        display: inline-block;
+                        font-size: 15px;
+                        vertical-align: middle;
+                        width: 130px;
+                        overflow: hidden;
+                        max-height: 44px;
+                    }
+                    &:hover {
+                        text-decoration: none;
+                    }
+                }
+                .follow-btn {
+                    margin: 10px 0 10px 5px;
+                    font-size: 12px;
+                    position: relative;
+                    text-align: center;
+                    display: inline-block;
+                    vertical-align: middle;
+                    clear: both;
+                    overflow: hidden;
+                    cursor: pointer;
+                    button {
+                        background: #fff;
+                        border: 1px solid #979797;
+                        border-radius: 3px;
+                        outline: none;
+                        color: #000;
+                        margin: 0;
+                        padding: 5px 10px;
+                        display: inline-block;
+                        clear: both;
+                        cursor: pointer;
+                    }
+                    i {
+                        vertical-align: middle;
+                        padding-right: 5px;
+                        font-size: 16px;
+                    }
                 }
             }
         }
     }
     .footer-section {
         box-shadow: 0 -1px 1px rgba(0,0,0,0.2);
-        padding: 10px 20px;
+        padding: 10px;
         position: fixed;
         bottom: 0;
         z-index: 12;
@@ -1168,8 +1279,8 @@ $theme-yellow-color: #2c3e50;
                 -webkit-user-select: none;
                 -ms-user-select: none;
                 user-select: none;
-                .social-share-btn {
-                    a {
+                .whatsapp-share-btn {
+                    a.whatsapp {
                         font-size: 14px;
                         .social-icon {
                             text-align: center;
@@ -1182,135 +1293,6 @@ $theme-yellow-color: #2c3e50;
                             text-decoration: none;
                         }
                     }
-                }
-            }
-        }
-    }
-    #sidebar {
-        width: 300px;
-        position: fixed;
-        top: 0;
-        left: -310px;
-        height: 100vh;
-        z-index: 999;
-        background: #fff;
-        color: #fff;
-        transition: all 0.3s;
-        overflow-y: scroll;
-        box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
-        &.active {
-            left: 0;
-        }
-        #dismiss {
-            width: 35px;
-            height: 35px;
-            line-height: 35px;
-            text-align: center;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            color: #2c3e50;
-            z-index: 2;
-            -webkit-transition: all 0.3s;
-            -o-transition: all 0.3s;
-            transition: all 0.3s;
-            &:hover {
-                opacity: 0.9;
-            }
-        }
-        .book-info {
-            position: relative;
-            text-align: center;
-            color: #2c3e50;
-            font-size: 14px;
-            border-bottom: 1px solid #e9e9e9;
-            padding-bottom: 10px;
-            margin-bottom: 10px;
-            .book-cover {
-                width: 150px;
-                height: 150px;
-                margin: 10px auto;
-                img {
-                    max-width: 100%;
-                    max-height: 100%;
-                }
-            }
-            .book-name {
-                font-size: 18px;
-                font-weight: bold;
-                margin: 0;
-            }
-            .author-link {
-                color: #d0021b;
-                margin-bottom: 10px;
-                .auth-name {
-                    text-align: left;
-                    display: inline-block;
-                    margin: 0 10px;
-                    font-size: 14px;
-                    vertical-align: middle;
-                }
-                &:hover {
-                    text-decoration: none;
-                }
-            }
-        }
-        .book-index {
-            text-align: left;
-            font-size: 14px;
-            ul {
-                padding: 0 0 0 20px;
-                li {
-                    padding: 5px;
-                    a {
-                        color: #212121;
-                    }
-                    &.isActive a {
-                        font-weight: bold;
-                    }
-                }
-            }
-        }
-        .follow-btn-w-count {
-            color: #fff;
-            margin: 10px;
-            font-size: 14px;
-            position: relative;
-            text-align: center;
-            display: block;
-            clear: both;
-            overflow: hidden;
-            cursor: pointer;
-            button {
-                background: #d0021b;
-                border: 1px solid #d0021b;
-                border: 1px solid #d0021b;
-                border-top-left-radius: 3px;
-                border-bottom-left-radius: 3px;
-                outline: none;
-                color: #fff;
-                margin: 0;
-                padding: 5px 10px;
-                display: inline-block;
-                clear: both;
-                cursor: pointer;
-            }
-            i {
-                vertical-align: middle;
-                padding-right: 5px;
-                font-size: 18px;
-            }
-            span {
-                background: #fff;
-                color: #d0021b;
-                display: inline-block;
-                border: 1px solid #d0021b;
-                padding: 5px 10px;
-                border-top-right-radius: 3px;
-                border-bottom-right-radius: 3px;
-                b {
-                    font-size: 12px;
                 }
             }
         }
@@ -1498,7 +1480,7 @@ $theme-yellow-color: #2c3e50;
         text-align: center;
         margin-bottom: 10px;
         button {
-            width: 50%;
+            min-width: 50%;
             height: 30px;
         }
     }
@@ -1528,6 +1510,9 @@ $theme-yellow-color: #2c3e50;
     .reader-progress {
         background: $theme-black-background-color;
     }
+    .rate-share .widget-name, .author-link {
+        color: $theme-black-color !important;
+    }
 }
 .theme-yellow {
     background: $theme-yellow-background-color !important;
@@ -1554,7 +1539,7 @@ $theme-yellow-color: #2c3e50;
 
 .read-page.theme-white {
     .book-content {
-        .book-recomendations .container-fluid,
+        .book-recomendations .container-fluid, 
         .comment-box,
         .book-bottom-webpush-subscribe .webpush-container .webpush-inner-container {
             background: $theme-white-background-color !important;
@@ -1564,7 +1549,7 @@ $theme-yellow-color: #2c3e50;
 }
 .read-page.theme-black {
     .book-content {
-        .book-recomendations .container-fluid,
+        .book-recomendations .container-fluid, 
         .comment-box,
         .book-bottom-webpush-subscribe .webpush-container .webpush-inner-container {
             background: $theme-black-background-color !important;
@@ -1574,7 +1559,7 @@ $theme-yellow-color: #2c3e50;
 }
 .read-page.theme-yellow {
     .book-content {
-        .book-recomendations .container-fluid,
+        .book-recomendations .container-fluid, 
         .comment-box,
         .book-bottom-webpush-subscribe .webpush-container .webpush-inner-container {
             background: $theme-yellow-background-color !important;
@@ -1592,7 +1577,6 @@ $theme-yellow-color: #2c3e50;
             display: block !important;
         }
         .comment-box .rate-now .rating {
-            width: 200px;
             label:before {
                 font-size: 35px;
             }
@@ -1604,18 +1588,6 @@ $theme-yellow-color: #2c3e50;
         width: 100%;
         max-width: 100%;
         height: auto !important;
-    }
-    .book-bottom-ratings {
-        margin: 10px 0;
-        .write-review-btn, .all-reviews, .comments-list li, .show-more {
-            display: none !important;
-        }
-        .comments-list {
-            padding-left: 0;
-        }
-        .comments-list li.ownReview, .translate-input-wrapper .translations li  {
-            display: block !important;
-        }
     }
     .book-bottom-webpush-subscribe {
         position: relative;

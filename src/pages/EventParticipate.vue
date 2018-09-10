@@ -303,8 +303,8 @@ export default {
 
             this.setConfirmModalAction({
                 action: `eventparticipate/updateDescriptionAndTags`,
-                heading: 'pratilipi_confirm_delete_content',
-                message: 'pratilipi_confirm_delete_content',
+                heading: 'event_participate_confirm_submission',
+                message: '',
                 data: { eventPratilipiId: this.pratilipiId, description: this.description || '', state: 'EVENT' }
             });
             this.openPrimaryConfirmationModal();
