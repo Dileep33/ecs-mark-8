@@ -382,6 +382,7 @@ export default {
             /* modal flags */
             openRateRev: false,
             openRateReaderm: false,
+            openReaderSidebar: false,
 
             /* web push */
             webPushModalTriggered: false,
@@ -586,14 +587,17 @@ export default {
         openSidebar() {
             $('#sidebar').addClass('active')
             $('.overlay').fadeIn()
+            this.openReaderSidebar= true
         },
         closeSidebar() {
             $('#sidebar').removeClass('active')
             $('.overlay').fadeOut()
+            this.openReaderSidebar= false
         },
         triggerEventAndCloseSidebar(chapterNo) {
             this._triggerReaderAnalyticsEvent('CHANGECHAPTER_INDEX_READER', null, chapterNo)
             $('#sidebar').removeClass('active')
+            this.openReaderSidebar= false;
             $('.overlay').fadeOut()
         },
 
@@ -718,6 +722,7 @@ export default {
     },
     created() {
         this.currentChapterSlugId = window.location.pathname.split('/').pop().split('-').pop()
+        this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.hasOwnProperty('nextPratilipi') && this.getPratilipiData.nextPratilipi.hasOwnProperty('pratilipiId');
     },
     mounted() {
         /* disabling right click */
@@ -782,6 +787,8 @@ export default {
                 this.metaDescription = $('meta[name="description"]').attr('content')
                 $('meta[name="description"]').remove()
             }
+            
+            this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.hasOwnProperty('nextPratilipi') && this.getPratilipiData.nextPratilipi.hasOwnProperty('pratilipiId');
 
             // setting og tags
             $('meta[property="og:title"]').remove()
@@ -850,7 +857,7 @@ export default {
             }
             // next pratilipi trigger
             if (this.getIndexData[this.getIndexData.length -1].slugId == this.currentChapterSlugId && !this.isNextPratilipiEnabled) {
-                this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.nextPratilipi && this.getPratilipiData.nextPratilipi.pratilipiId
+                this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.hasOwnProperty('nextPratilipi') && this.getPratilipiData.nextPratilipi.hasOwnProperty('pratilipiId');
                 if (this.isNextPratilipiEnabled) {
                     this._triggerReaderAnalyticsEvent('VIEWNEXTPRATILIPI_READERM_READER')
                 }
