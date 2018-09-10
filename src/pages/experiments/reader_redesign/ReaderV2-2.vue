@@ -200,12 +200,12 @@
                                         <span class="auth-image"><img :src="getMediumResolutionImage(getAuthorData.profileImageUrl)" alt=""></span>
                                         <span class="auth-name">{{ getAuthorData.displayName }}</span>
                                     </router-link>
-                                    <div class="follow-btn" v-if="!getAuthorData.following">
+                                    <div class="follow-btn" v-if="!getAuthorData.following && getUserDetails.authorId !== getAuthorData.authorId">
                                         <button @click="followPratilipiAuthor('BOOKEND', 'WRE001')" >
                                             <i class="material-icons">person_add</i>__("author_follow")
                                         </button>
                                     </div>
-                                    <div class="follow-btn" v-else>
+                                    <div class="follow-btn" v-else-if="getAuthorData.following && getUserDetails.authorId !== getAuthorData.authorId">
                                         <button @click="unfollowPratilipiAuthor('BOOKEND', 'WRE001')"><i class="material-icons">check</i> __("author_following")</button>
                                     </div>
                                 </div>
@@ -1128,6 +1128,7 @@ $theme-yellow-color: #2c3e50;
             position: relative;
             overflow: hidden;
             max-width: 750px;
+            min-height: 70px;
             @media screen and (max-width: 420px ) {
                 margin: 0 15px 20px;
             }
@@ -1157,6 +1158,7 @@ $theme-yellow-color: #2c3e50;
             border-bottom: 1px solid #e9e9e9;
             margin: 0 auto;
             max-width: 750px;
+            overflow: hidden;
             @media screen and (max-width: 420px ) {
                 text-align: right;
                 margin: 0 15px;
