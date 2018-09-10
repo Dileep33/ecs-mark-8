@@ -10,6 +10,7 @@
         <!-- Reader Data Loaded success -->
         <div 
             class="read-page" 
+            itemscope itemtype="http://schema.org/Book"
             :class="getReaderReadingModeStyle"
             v-if="getPratilipiLoadingState === 'LOADING_SUCCESS'">
 
@@ -56,7 +57,9 @@
                     <div class="book-cover"><img :src="getPratilipiData.coverImageUrl" v-bind:alt="getPratilipiData.displayTitle"></div>
                     <div class="book-name">{{ getPratilipiData.title }}</div>
                     <router-link :to="getAuthorData.pageUrl" class="author-link">
-                        <span class="auth-name">{{ getAuthorData.displayName }}</span>
+                        <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+                            <span class="auth-name" itemprop="name">{{ getAuthorData.displayName }}</span>
+                        </span>
                     </router-link>
                     <div class="follow-btn-w-count" v-if="!getAuthorData.following">
                         <button @click="followPratilipiAuthor" >
@@ -253,7 +256,12 @@
                         </div>
                         <div class="rating-count" @click="openRatingModal">
                             <i class="material-icons">star_rate</i>
-                            <span>{{ getPratilipiData.ratingCount }}</span>
+                            <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+                                <span itemprop="ratingCount">{{ getPratilipiData.ratingCount }}</span>
+                                <meta itemprop="ratingValue" v-bind:content="getPratilipiData.averageRating | round(1)" />
+                                <meta itemprop="bestRating" v-bind:content="5"/>
+                                <meta itemprop="worstRating" v-bind:content="1"/>
+                            </span>
                         </div>
                         <div class="add-to-lib">
                             <span v-if="getUserPratilipiData.addedToLib" @click="removePratilipiFromLibrary">
