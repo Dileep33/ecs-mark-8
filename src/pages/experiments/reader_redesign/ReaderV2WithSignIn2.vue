@@ -199,7 +199,7 @@
                             </div>
                             
                             <!-- Sign In Banner 2 -->
-                            <SignInBanner2></SignInBanner2>
+                            <SignInBanner2 v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId"></SignInBanner2>
                             
                             <div class="book-recomendations p-r-10" v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId">
                                 <Recommendation

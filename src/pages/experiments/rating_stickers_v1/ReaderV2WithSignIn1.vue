@@ -224,7 +224,7 @@
             </div>
             
             <!-- Sign In Banner 1 -->
-            <SignInBanner1></SignInBanner1>
+            <SignInBanner1 v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId"></SignInBanner1>
 
             <!-- Footer -->
             <div class="footer-section" :class="getReaderReadingModeStyle">
