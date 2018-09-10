@@ -42,6 +42,7 @@
         padding: 10px;
         margin: 10px;
         text-align: left;
+        width: 100%;
         .next-pratilipi-image {
             width: 65px;
             height: 80px;
