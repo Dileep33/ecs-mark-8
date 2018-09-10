@@ -613,8 +613,10 @@
     "sorting_clear": "हटाए",
     "sorting_showing_results": "खोज के परिणाम",
 
-    "login_popup_story_added_to_library": "आपकी लाइब्रेरी में कहानी सफलतापूर्वक जुड़ गई है| कभी भी पढने के लिए अभी साइन अप करें",
-    "login_popup_read_and_rate_stories": "इस तरह की और कहानियाँ पढ़ें तथा रेट करें ",
+    "login_popup_story_added_to_library": "अपनी लाइब्रेरी में इसे और अन्य रचनाओं को रखने के लिए साइन इन करें",
+    "login_popup_read_and_rate_stories": "लेखक को रचना के बारे में अपने विचार बताने के लिए साइन इन करें",
+    "login_popup_follow_unfollow": "अपने फेवरेट लेखक को फॉलो करने के लिए साइन इन करें",
+    "login_popup_default": "साइन इन कर अपने फेवरेट लेखक को फॉलो करें ,रचना की समीक्षा करें और अपनी लाइब्रेरी बनायें",
 
     "chatstory_strip": "मैसेज में कहानियाँ",
     "chatstory_next": "अगली कहानी",
