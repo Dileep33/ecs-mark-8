@@ -178,7 +178,7 @@
                             -->
                             <div class="content-section p-lr-15"
                                 :class="getContentSectionStyle"
-                                v-if="renderedChapterIdSlug = currentChapterSlugId" 
+                                v-if="renderedChapterIdSlug = currentChapterSlugId"
                                 v-html="getPratilipiContent[currentChapterSlugId].content">
                             </div>
                             <div class="book-navigation p-lr-15" v-if="getPratilipiContentLoadingState === 'LOADING_SUCCESS'">
@@ -250,18 +250,15 @@
             <div class="footer-section" :class="getReaderReadingModeStyle">
                 <div class="container">
                     <div class="row">
-                        <div class="review-count" @click="openReviewModal">
-                            <i class="material-icons">comment</i>
-                            <span>{{ getPratilipiData.reviewCount }}</span>
+                        <div class="social-share-btn">
+                            <a :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="whatsapp">
+                                <span class="social-icon"><icon name="whatsapp"></icon></span>
+                            </a>
                         </div>
-                        <div class="rating-count" @click="openRatingModal">
-                            <i class="material-icons">star_rate</i>
-                            <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-                                <span itemprop="ratingCount">{{ getPratilipiData.ratingCount }}</span>
-                                <meta itemprop="ratingValue" v-bind:content="getPratilipiData.averageRating | round(1)" />
-                                <meta itemprop="bestRating" v-bind:content="5"/>
-                                <meta itemprop="worstRating" v-bind:content="1"/>
-                            </span>
+                        <div class="social-share-btn">
+                            <a :href="getFacebookShareUrl" @click="triggerFbEndShareEvent" class="fb" target="_blank" rel="noopener" aria-label="facebook">
+                                <span class="social-icon"><icon name="facebook-square"></icon></span>
+                            </a>
                         </div>
                         <div class="add-to-lib">
                             <span v-if="getUserPratilipiData.addedToLib" @click="removePratilipiFromLibrary">
@@ -272,14 +269,6 @@
                                 <i class="material-icons">bookmark_border</i>
                                 <i class="material-icons stacked grey">add</i>
                             </span>
-                        </div>
-                        <div class="whatsapp-share-btn" v-if="isMobile()">
-                            <a :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="google">
-                                <span class="social-icon"><icon name="whatsapp"></icon></span>
-                            </a>
-                        </div>
-                        <div class="share-btn" @click="openShareModal">
-                            <i class="material-icons">share</i>
                         </div>
                     </div>
                 </div>
@@ -332,7 +321,7 @@ import ReadLayout from '@/layout/Reader-layout.vue';
 import mixins from '@/mixins';
 import 'vue-awesome/icons/file-text'
 import 'vue-awesome/icons/file-text-o'
-import 'vue-awesome/icons/facebook-f'
+import 'vue-awesome/icons/facebook-square'
 import 'vue-awesome/icons/twitter'
 import 'vue-awesome/icons/google-plus'
 import 'vue-awesome/icons/whatsapp'
@@ -413,7 +402,7 @@ export default {
             scrollPosition: 0,
             readerPercentScrolled: 0,
             scrollCounter: 0,
-            scrollDirection: null,            
+            scrollDirection: null,
             /* open in app strip */
             shouldShowOpenInAppStrip: false,
             /* content serialisation */
@@ -441,7 +430,7 @@ export default {
             'setAfterLoginAction'
         ]),
         /* analytics */
-        _triggerReaderAnalyticsEvent(eventName, entityValue, parentId) {
+        _triggerReaderAnalyticsEvent(eventName, entityValue, parentId, experimentId) {
             let pratilipiData = this.getPratilipiData
             pratilipiData['author'] = this.getAuthorData
             let options = {
@@ -454,7 +443,13 @@ export default {
             if (parentId) {
                 options['PARENT_ID'] = parentId
             }
-            this.triggerAnanlyticsEvent(eventName, 'CONTROL', options)
+            if (experimentId) {
+                options['EXPERIMENT_ID'] = experimentId
+            }
+            else {
+                options['EXPERIMENT_ID'] = 'CONTROL'
+            }
+            this.triggerAnanlyticsEvent(eventName, options['EXPERIMENT_ID'], options)
         },
         /* reader */
         increaseFont() {
@@ -611,7 +606,7 @@ export default {
             this.reportContentText = ''
         },
         submitReport() {
-            const 
+            const
                 name = this.reportName.trim(),
                 email = this.reportEmail.trim(),
                 message = this.reportContentText.trim(),
@@ -661,6 +656,12 @@ export default {
         triggerWaEndShareEvent() {
             this._triggerReaderAnalyticsEvent('SHAREBOOKWA_BOOKEND_READER', 'WHATSAPP')
         },
+
+        /* facebook share */
+        triggerFbEndShareEvent() {
+            this._triggerReaderAnalyticsEvent('SHAREBOOKFB_BOOKEND_READER', 'FACEBOOK')
+        },
+
         /* scroll */
         updateScroll() {
             this.scrollPosition = window.scrollY
@@ -690,7 +691,8 @@ export default {
         ]),
         ...mapGetters([
             'getUserDetails',
-            'getWhatsAppUri'
+            'getWhatsAppUri',
+            'getFacebookShareUrl'
         ]),
         getContentSectionStyle() {
             const classMap = {
@@ -728,7 +730,7 @@ export default {
             if (this.getIndexData.filter(indexData => indexData.slugId === this.currentChapterSlugId).length) {
                 this.fetchContentData(this.currentChapterSlugId)
             } else {
-                this.fetchReaderData(this.currentChapterSlugId)                
+                this.fetchReaderData(this.currentChapterSlugId)
             }
         },
         'renderedChapterIdSlug' () {
@@ -1064,7 +1066,7 @@ $theme-yellow-color: #2c3e50;
     }
     .footer-section {
         box-shadow: 0 -1px 1px rgba(0,0,0,0.2);
-        padding: 10px;
+        padding: 10px 20px;
         position: fixed;
         bottom: 0;
         z-index: 12;
@@ -1116,8 +1118,8 @@ $theme-yellow-color: #2c3e50;
                 -webkit-user-select: none;
                 -ms-user-select: none;
                 user-select: none;
-                .whatsapp-share-btn {
-                    a.whatsapp {
+                .social-share-btn {
+                    a {
                         font-size: 14px;
                         .social-icon {
                             text-align: center;
@@ -1498,7 +1500,7 @@ $theme-yellow-background-color: #F4ECD8;
 $theme-yellow-color: #2c3e50;
 .read-page.theme-white {
     .book-content {
-        .book-recomendations .container-fluid, 
+        .book-recomendations .container-fluid,
         .comment-box,
         .book-bottom-webpush-subscribe .webpush-container .webpush-inner-container {
             background: $theme-white-background-color !important;
@@ -1508,7 +1510,7 @@ $theme-yellow-color: #2c3e50;
 }
 .read-page.theme-black {
     .book-content {
-        .book-recomendations .container-fluid, 
+        .book-recomendations .container-fluid,
         .comment-box,
         .book-bottom-webpush-subscribe .webpush-container .webpush-inner-container {
             background: $theme-black-background-color !important;
@@ -1518,7 +1520,7 @@ $theme-yellow-color: #2c3e50;
 }
 .read-page.theme-yellow {
     .book-content {
-        .book-recomendations .container-fluid, 
+        .book-recomendations .container-fluid,
         .comment-box,
         .book-bottom-webpush-subscribe .webpush-container .webpush-inner-container {
             background: $theme-yellow-background-color !important;
