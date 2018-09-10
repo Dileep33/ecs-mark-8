@@ -1428,6 +1428,9 @@ $theme-yellow-color: #2c3e50;
             background: $theme-black-background-color !important;
             color: $theme-black-color !important;
         }
+        .translations {
+            color: $theme-black-background-color !important;
+        }
     }
 }
 .read-page.theme-yellow {

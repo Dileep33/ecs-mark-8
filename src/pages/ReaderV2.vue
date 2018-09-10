@@ -1517,6 +1517,9 @@ $theme-yellow-color: #2c3e50;
             background: $theme-yellow-background-color !important;
             color: $theme-yellow-color !important;
         }
+        .translations {
+            color: $theme-black-background-color !important;
+        }
     }
 }
 .rating-popout {
