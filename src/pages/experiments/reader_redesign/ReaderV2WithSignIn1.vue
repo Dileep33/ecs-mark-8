@@ -227,7 +227,7 @@
             <div class="join-pratilipi-banner" v-if="getUserDetails.isGuest">
                 <div class="container">
                     <div class="title">__("join_pratilipi")</div>
-                    <div class="desc">Signup on Pratilipi to discover millions of contents written in ${language}. Create your own library to read at your convenience. Join the largest network of people sharing your ideas.</div>
+                    <div class="desc">__("signinbanner_desc_1")</div>
                     <button type="button" class="btn" data-toggle="modal" data-target="#login_modal">__("user_sign_in")</button>
                 </div>
             </div>

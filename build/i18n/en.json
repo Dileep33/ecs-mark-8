@@ -625,5 +625,9 @@
     "author_dashboard_read_count": "read count",
     "author_dashboard_new_followers": "new followers",
     "author_dashboard_new_ratings": "new ratings",
-    "author_dashboard_new_reviews": "new reviews"
+    "author_dashboard_new_reviews": "new reviews",
+    
+    "signinbanner_desc_1": "Signup on Pratilipi to discover millions of contents written in English. Join the largest network of people sharing your ideas. Follow your favourite authors, review contents and create your own library to read at your convenience.",
+    "signinbanner_enjoy_reading": "Enjoy reading?",
+    "signinbanner_desc_2": "Signup to keep reading the best from our writers and customize your reading habits."
 }

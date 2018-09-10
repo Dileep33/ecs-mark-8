@@ -200,8 +200,8 @@
                             
                             <!-- Sign In Banner 2 -->
                             <div class="join-pratilipi-banner-2" v-if="getUserDetails.isGuest">
-                                <div class="title">Enjoy reading?</div>
-                                <div class="desc">Signup to keep reading the best from our writers and customize your reading habits.</div>
+                                <div class="title">__("signinbanner_enjoy_reading")</div>
+                                <div class="desc">__("signinbanner_desc_2")</div>
                                 <button type="button" class="btn" data-toggle="modal" data-target="#login_modal">__("user_sign_in")</button>
                             </div>
                             
