@@ -8,8 +8,9 @@
         <ServerError class="read-page-server-error" :action="'readerv2page/fetchReaderData'" :data="currentChapterSlugId" v-if="getPratilipiLoadingState === 'LOADING_ERROR'"></ServerError>
 
         <!-- Reader Data Loaded success -->
-        <div
-            class="read-page"
+        <div 
+            class="read-page" 
+            itemscope itemtype="http://schema.org/Book"
             :class="getReaderReadingModeStyle"
             v-if="getPratilipiLoadingState === 'LOADING_SUCCESS'">
 
@@ -56,7 +57,9 @@
                     <div class="book-cover"><img :src="getPratilipiData.coverImageUrl" v-bind:alt="getPratilipiData.displayTitle"></div>
                     <div class="book-name">{{ getPratilipiData.title }}</div>
                     <router-link :to="getAuthorData.pageUrl" class="author-link">
-                        <span class="auth-name">{{ getAuthorData.displayName }}</span>
+                        <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+                            <span class="auth-name" itemprop="name">{{ getAuthorData.displayName }}</span>
+                        </span>
                     </router-link>
                     <div class="follow-btn-w-count" v-if="!getAuthorData.following">
                         <button @click="followPratilipiAuthor" >

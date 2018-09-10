@@ -9,7 +9,9 @@
             <div class="author-section">
                 <router-link :to="getAuthorData.pageUrl" class="author-link">
                     <span class="auth-image"><img :src="getMediumResolutionImage(getAuthorData.profileImageUrl)" alt=""></span>
-                    <span class="auth-name">{{ getAuthorData.displayName }}</span>
+                    <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+                        <span class="auth-name" itemprop="name">{{ getAuthorData.displayName }}</span>
+                    </span>
                 </router-link>
                 <div class="follow-btn" v-if="!getAuthorData.following">
                     <button @click="followPratilipiAuthor('INDEX', 'WRI001')" >
