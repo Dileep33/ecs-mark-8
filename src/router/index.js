@@ -415,17 +415,17 @@ var router = new Router({
             component: () => {
                 let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 42;
                 console.log("bucket id ", bucketId);
-                if (bucketId > 10 && bucketId <= 25 && process.env.LANGUAGE === 'hi') {
+                if (bucketId > 10 && bucketId <= 25 && getLanguageCode(process.env.LANGUAGE) === 'hi') {
                     return import ('@/pages/experiments/rating_stickers_v1/ReaderV2WithSignIn1.vue');
-                } else if (bucketId > 25 && bucketId <= 40 && process.env.LANGUAGE === 'hi') {
+                } else if (bucketId > 25 && bucketId <= 40 && getLanguageCode(process.env.LANGUAGE) === 'hi') {
                     return import ('@/pages/experiments/rating_stickers_v1/ReaderV2WithSignIn2.vue');
-                } else if (bucketId > 40 && bucketId <= 70 && process.env.LANGUAGE === 'hi') {
+                } else if (bucketId > 40 && bucketId <= 70 && getLanguageCode(process.env.LANGUAGE) === 'hi') {
                     return import ('@/pages/experiments/rating_stickers_v1/ReaderV2.vue');
-                } else if (bucketId > 10 && bucketId <= 25 && process.env.LANGUAGE !== 'hi') {
+                } else if (bucketId > 10 && bucketId <= 25 && getLanguageCode(process.env.LANGUAGE) !== 'hi') {
                     return import ('@/pages/experiments/reader_redesign/ReaderV2WithSignIn1.vue');
-                } else if (bucketId > 25 && bucketId <= 40 && process.env.LANGUAGE !== 'hi') {
+                } else if (bucketId > 25 && bucketId <= 40 && getLanguageCode(process.env.LANGUAGE) !== 'hi') {
                     return import ('@/pages/experiments/reader_redesign/ReaderV2WithSignIn2.vue');
-                } else if (bucketId > 40 && bucketId <= 70 && process.env.LANGUAGE !== 'hi') {
+                } else if (bucketId > 40 && bucketId <= 70 && getLanguageCode(process.env.LANGUAGE) !== 'hi') {
                     return import ('@/pages/experiments/reader_redesign/ReaderV2.vue');
                 } else if (bucketId > 70 && bucketId <= 85) {
                     return import ('@/pages/experiments/reader_redesign/ReaderV2-1.vue');
