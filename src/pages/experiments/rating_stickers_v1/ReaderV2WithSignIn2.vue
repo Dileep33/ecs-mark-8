@@ -48,40 +48,20 @@
             </div>
 
             <!-- Reader Header Nav bar -->
-            <nav id="sidebar">
-                <div id="dismiss" @click="closeSidebar">
-                    <i class="material-icons">close</i>
-                </div>
-                <div class="book-info">
-                    <div class="book-cover"><img :src="getPratilipiData.coverImageUrl" v-bind:alt="getPratilipiData.displayTitle"></div>
-                    <div class="book-name">{{ getPratilipiData.title }}</div>
-                    <router-link :to="getAuthorData.pageUrl" class="author-link">
-                        <span class="auth-name">{{ getAuthorData.displayName }}</span>
-                    </router-link>
-                    <div class="follow-btn-w-count" v-if="!getAuthorData.following">
-                        <button @click="followPratilipiAuthor" >
-                            <i class="material-icons">person_add</i>__("author_follow")
-                        </button><span><b>{{ getAuthorData.followCount }}</b></span>
-                    </div>
-                    <div class="follow-btn-w-count" v-else>
-                        <button @click="unfollowPratilipiAuthor"><i class="material-icons">check</i> __("author_following")</button><span><b>{{ getAuthorData.followCount }}</b></span>
-                    </div>
-                </div>
-                <div class="book-index">
-                    <ul>
-                        <li
-                            v-for="eachIndex in getIndexData"
-                            :key="eachIndex.chapterId"
-                            :class="{ isActive: eachIndex.slugId === currentChapterSlugId }">
-                                <router-link
-                                    :to="{path: eachIndex.pageUrl}"
-                                    @click.native="triggerEventAndCloseSidebar(eachIndex.chapterNo)">
-                                    {{ eachIndex.title || '__("writer_chapter") '  + eachIndex.chapterNo }}
-                                </router-link>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+            <ReaderSidebar
+            :getPratilipiData="getPratilipiData"
+            :getAuthorData="getAuthorData"
+            :getIndexData="getIndexData"
+            :currentChapterSlugId="currentChapterSlugId"
+            :userPratilipiData='getUserPratilipiData'
+            :closeSidebar="closeSidebar"
+            :openReaderSidebar="openReaderSidebar"
+            :isNextPratilipiEnabled="isNextPratilipiEnabled"
+            :hideStripAndRedirect="hideStripAndRedirect"
+            :followPratilipiAuthor="followPratilipiAuthor"
+            :unfollowPratilipiAuthor="unfollowPratilipiAuthor"
+            :triggerEventAndCloseSidebar="triggerEventAndCloseSidebar">
+            </ReaderSidebar>
 
             <!-- Reader Options Modal -->
             <div class="modal fade" id="readerOptions" tabindex="-1" role="dialog" aria-labelledby="readerOptionsLabel" aria-hidden="true">
@@ -182,15 +162,12 @@
                                 <div class="prev" v-if="getIndexData[0].slugId !== currentChapterSlugId" @click="goToPreviousChapter">__("reader_prev_chapter")</div>
                                 <div class="next" v-if="getIndexData[getIndexData.length -1].slugId !== currentChapterSlugId" @click="goToNextChapter">__("reader_next_chapter")</div>
                             </div>
-                            <div @click="hideStripAndRedirect" class="next-strip-container">
+                            <div @click="hideStripAndRedirect('BOOKEND')" class="next-strip-container">
                                 <NextPratilipiStrip
                                     :pratilipi='getPratilipiData.nextPratilipi'
                                     v-if="isNextPratilipiEnabled"
                                 ></NextPratilipiStrip>
                             </div>
-                            
-                            <PhoneModal></PhoneModal>
-
                             <ShareStrip
                                 v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId"
                                 :data="getPratilipiData"
@@ -220,6 +197,10 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            <!-- Sign In Banner 2 -->
+                            <SignInBanner2 v-if="(getIndexData[getIndexData.length -1].slugId === currentChapterSlugId) && getUserDetails.isGuest"></SignInBanner2>
+                            
                             <div class="book-recomendations p-r-10" v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId">
                                 <Recommendation
                                     :contextId="getPratilipiData.pratilipiId"
@@ -250,15 +231,13 @@
             <div class="footer-section" :class="getReaderReadingModeStyle">
                 <div class="container">
                     <div class="row">
-                        <div class="social-share-btn">
-                            <a :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="whatsapp">
-                                <span class="social-icon"><icon name="whatsapp"></icon></span>
-                            </a>
+                        <div class="review-count" @click="openReviewModal">
+                            <i class="material-icons">comment</i>
+                            <span>{{ getPratilipiData.reviewCount }}</span>
                         </div>
-                        <div class="social-share-btn">
-                            <a :href="getFacebookShareUrl" @click="triggerFbEndShareEvent" class="fb" target="_blank" rel="noopener" aria-label="facebook">
-                                <span class="social-icon"><icon name="facebook-square"></icon></span>
-                            </a>
+                        <div class="rating-count" @click="openRatingModal">
+                            <i class="material-icons">star_rate</i>
+                            <span>{{ getPratilipiData.ratingCount }}</span>
                         </div>
                         <div class="add-to-lib">
                             <span v-if="getUserPratilipiData.addedToLib" @click="removePratilipiFromLibrary">
@@ -269,6 +248,14 @@
                                 <i class="material-icons">bookmark_border</i>
                                 <i class="material-icons stacked grey">add</i>
                             </span>
+                        </div>
+                        <div class="whatsapp-share-btn" v-if="isMobile()">
+                            <a :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="google">
+                                <span class="social-icon"><icon name="whatsapp"></icon></span>
+                            </a>
+                        </div>
+                        <div class="share-btn" @click="openShareModal">
+                            <i class="material-icons">share</i>
                         </div>
                     </div>
                 </div>
@@ -321,12 +308,12 @@ import ReadLayout from '@/layout/Reader-layout.vue';
 import mixins from '@/mixins';
 import 'vue-awesome/icons/file-text'
 import 'vue-awesome/icons/file-text-o'
-import 'vue-awesome/icons/facebook-square'
+import 'vue-awesome/icons/facebook-f'
 import 'vue-awesome/icons/twitter'
 import 'vue-awesome/icons/google-plus'
 import 'vue-awesome/icons/whatsapp'
 import 'vue-awesome/icons/link'
-import Reviews from '@/components/experiments/ratingpanel_v2/Reviews.vue';
+import Reviews from '@/components/experiments/rating_stickers_v1/Reviews.vue';
 import WebPushStrip from '@/components/WebPushStrip.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
 import Recommendation from '@/components/Recommendation.vue';
@@ -340,7 +327,8 @@ import WebPushUtil from '@/utils/WebPushUtil';
 import { mapGetters, mapActions } from 'vuex';
 import constants from '@/constants';
 import LoadingState from '@/enum/LoadingState'
-import PhoneModal from '@/components/PhoneModal';
+import ReaderSidebar from '@/components/experiments/reader_redesign/ReaderSidebar.vue';
+import SignInBanner2 from '@/components/experiments/reader_redesign/SignInBanner2.vue'
 
 const READER_FONT_SIZE_COOKIE_NAME = 'reader_font_size'
 const READER_LINE_HEIGHT_COOKIE_NAME = 'reader_line_height'
@@ -371,7 +359,8 @@ export default {
         NextPratilipiStrip,
         ServerError,
         TranslatingInputTextArea,
-        PhoneModal
+        ReaderSidebar,
+        SignInBanner2
     },
     mixins: [
         mixins
@@ -399,6 +388,7 @@ export default {
             /* modal flags */
             openRateRev: false,
             openRateReaderm: false,
+            openReaderSidebar: false,
 
             /* web push */
             webPushModalTriggered: false,
@@ -447,7 +437,7 @@ export default {
         ]),
 
         /* analytics */
-        _triggerReaderAnalyticsEvent(eventName, entityValue, parentId, experimentId) {
+        _triggerReaderAnalyticsEvent(eventName, entityValue, parentId) {
             let pratilipiData = this.getPratilipiData
             pratilipiData['author'] = this.getAuthorData
             let options = {
@@ -460,13 +450,7 @@ export default {
             if (parentId) {
                 options['PARENT_ID'] = parentId
             }
-            if (experimentId) {
-                options['EXPERIMENT_ID'] = experimentId
-            }
-            else {
-                options['EXPERIMENT_ID'] = 'CONTROL'
-            }
-            this.triggerAnanlyticsEvent(eventName, options['EXPERIMENT_ID'], options)
+            this.triggerAnanlyticsEvent(eventName, 'CONTROL', options)
         },
 
         /* reader */
@@ -541,7 +525,7 @@ export default {
 
         /* library */
         addPratilipiToLibrary() {
-            this._triggerReaderAnalyticsEvent('LIBRARYADD_READERM_READER', null, null, 'WBB001')
+            this._triggerReaderAnalyticsEvent('LIBRARYADD_READERM_READER')
             if (this.getUserDetails.isGuest) {
                 this.setAfterLoginAction({action: `${this.$route.meta.store}/addToLibrary`})
                 this.openLoginModal(this.$route.meta.store, 'LIBRARYADD', 'READERM')
@@ -550,13 +534,13 @@ export default {
             }
         },
         removePratilipiFromLibrary() {
-            this._triggerReaderAnalyticsEvent('LIBRARYREMOVE_READERM_READER', null, null, 'WBB001')
+            this._triggerReaderAnalyticsEvent('LIBRARYREMOVE_READERM_READER')
             this.removeFromLibrary()
         },
 
         /* follow */
-        followPratilipiAuthor() {
-            this._triggerReaderAnalyticsEvent('FOLLOW_INDEX_READER', this.getAuthorData.followCount)
+        followPratilipiAuthor(screenLocation, experimentId) {
+            this._triggerReaderAnalyticsEvent(`FOLLOW_${screenLocation}_READER`, this.getAuthorData.followCount, null,`${experimentId}`)
             if (this.getUserDetails.isGuest) {
                 this.setAfterLoginAction({action: `${this.$route.meta.store}/followAuthor`})
                 this.openLoginModal(this.$route.meta.store, 'FOLLOW', 'READERM')
@@ -564,8 +548,8 @@ export default {
                 this.followAuthor()
             }
         },
-        unfollowPratilipiAuthor() {
-            this._triggerReaderAnalyticsEvent('UNFOLLOW_INDEX_READER', this.getAuthorData.followCount)
+        unfollowPratilipiAuthor(screenLocation, experimentId) {
+            this._triggerReaderAnalyticsEvent(`UNFOLLOW_${screenLocation}_READER`, this.getAuthorData.followCount, null,`${experimentId}`)
             this.unFollowAuthor()
         },
 
@@ -609,14 +593,17 @@ export default {
         openSidebar() {
             $('#sidebar').addClass('active')
             $('.overlay').fadeIn()
+            this.openReaderSidebar= true
         },
         closeSidebar() {
             $('#sidebar').removeClass('active')
             $('.overlay').fadeOut()
+            this.openReaderSidebar= false
         },
         triggerEventAndCloseSidebar(chapterNo) {
             this._triggerReaderAnalyticsEvent('CHANGECHAPTER_INDEX_READER', null, chapterNo)
             $('#sidebar').removeClass('active')
+            this.openReaderSidebar= false;
             $('.overlay').fadeOut()
         },
 
@@ -680,20 +667,15 @@ export default {
         },
 
         /* content serialisation */
-        hideStripAndRedirect() {
+        hideStripAndRedirect(screenLocation) {
             this.isNextPratilipiEnabled = false
-            this._triggerReaderAnalyticsEvent('CLICK_NEXTPRATILIPI_READER')
+            this._triggerReaderAnalyticsEvent(`GONEXTPRATILIPI_${screenLocation}_READER`)
             this.$router.push({path: this.getPratilipiData.nextPratilipi.newReadPageUrl || this.getPratilipiData.nextPratilipi.readPageUrl})
         },
 
         /* whatsapp share */
         triggerWaEndShareEvent() {
-            this._triggerReaderAnalyticsEvent('SHAREBOOKWA_BOOKEND_READER', 'WHATSAPP', null, 'WBB001')
-        },
-
-        /* facebook share */
-        triggerFbEndShareEvent() {
-            this._triggerReaderAnalyticsEvent('SHAREBOOKFB_BOOKEND_READER', 'FACEBOOK', null, 'WBB001')
+            this._triggerReaderAnalyticsEvent('SHAREBOOKWA_BOOKEND_READER', 'WHATSAPP')
         },
 
         /* scroll */
@@ -725,8 +707,7 @@ export default {
         ]),
         ...mapGetters([
             'getUserDetails',
-            'getWhatsAppUri',
-            'getFacebookShareUrl'
+            'getWhatsAppUri'
         ]),
         getContentSectionStyle() {
             const classMap = {
@@ -747,6 +728,7 @@ export default {
     },
     created() {
         this.currentChapterSlugId = window.location.pathname.split('/').pop().split('-').pop()
+        this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.hasOwnProperty('nextPratilipi') && this.getPratilipiData.nextPratilipi.hasOwnProperty('pratilipiId');
     },
     mounted() {
         /* disabling right click */
@@ -811,6 +793,8 @@ export default {
                 this.metaDescription = $('meta[name="description"]').attr('content')
                 $('meta[name="description"]').remove()
             }
+            
+            this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.hasOwnProperty('nextPratilipi') && this.getPratilipiData.nextPratilipi.hasOwnProperty('pratilipiId');
 
             // setting og tags
             $('meta[property="og:title"]').remove()
@@ -879,7 +863,7 @@ export default {
             }
             // next pratilipi trigger
             if (this.getIndexData[this.getIndexData.length -1].slugId == this.currentChapterSlugId && !this.isNextPratilipiEnabled) {
-                this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.nextPratilipi && this.getPratilipiData.nextPratilipi.pratilipiId
+                this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.hasOwnProperty('nextPratilipi') && this.getPratilipiData.nextPratilipi.hasOwnProperty('pratilipiId');
                 if (this.isNextPratilipiEnabled) {
                     this._triggerReaderAnalyticsEvent('VIEWNEXTPRATILIPI_READERM_READER')
                 }
@@ -1116,7 +1100,7 @@ $theme-yellow-color: #2c3e50;
     }
     .footer-section {
         box-shadow: 0 -1px 1px rgba(0,0,0,0.2);
-        padding: 10px 20px;
+        padding: 10px;
         position: fixed;
         bottom: 0;
         z-index: 12;
@@ -1168,8 +1152,8 @@ $theme-yellow-color: #2c3e50;
                 -webkit-user-select: none;
                 -ms-user-select: none;
                 user-select: none;
-                .social-share-btn {
-                    a {
+                .whatsapp-share-btn {
+                    a.whatsapp {
                         font-size: 14px;
                         .social-icon {
                             text-align: center;
@@ -1592,7 +1576,6 @@ $theme-yellow-color: #2c3e50;
             display: block !important;
         }
         .comment-box .rate-now .rating {
-            width: 200px;
             label:before {
                 font-size: 35px;
             }

@@ -635,5 +635,9 @@
     "author_dashboard_read_count": "लोगों ने पढ़ा",
     "author_dashboard_new_followers": "नये फ़ॉलोअर्स",
     "author_dashboard_new_ratings": "नये रेटिंग",
-    "author_dashboard_new_reviews": "नयी समीक्षाएँ"
+    "author_dashboard_new_reviews": "नयी समीक्षाएँ",
+    
+    "signinbanner_desc_1": "विचार साझा करने वाले लोगों के सबसे बड़े नेटवर्क में शामिल हों। अपने पसंदीदा लेखकों को फॉलो करें, रचनाओं की समीक्षा करें और अपनी सुविधा पर पढ़ने के लिए अपनी खुद की लाइब्रेरी बनाएं।",
+    "signinbanner_enjoy_reading": "पढ़ना पसंद है?",
+    "signinbanner_desc_2": "हमारे लेखकों के द्वारा लिखी गई श्रेष्ठ कहानियाँ पढ़ने के लिए प्रतिलिपि के साथ साइन अप करें"
 }
