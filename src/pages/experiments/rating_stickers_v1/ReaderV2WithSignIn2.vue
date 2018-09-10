@@ -690,11 +690,6 @@ export default {
                 this.readerPercentScrolled = Math.max(readerPercentScrolled, 0)
                 $('.reader-progress .progress-bar').css('width', `${this.readerPercentScrolled}%`)
             }
-        },
-        
-        /* Sign In Banner */
-        triggerSignInEvent() {
-            this._triggerReaderAnalyticsEvent('SIGNIN_BANNER2_READER');
         }
     },
     computed: {
@@ -1482,33 +1477,6 @@ $theme-yellow-color: #2c3e50;
         width: 100%;
         cursor: pointer;
         overflow: hidden;
-    }
-    .join-pratilipi-banner-2 {
-        text-align: left;
-        margin: 15px auto;
-        max-width: 750px;
-        padding-top: 15px;
-        padding-bottom: 15px;
-        border-top: 1px solid #e9e9e9;
-        border-bottom: 1px solid #e9e9e9;
-        color: #000;
-        @media screen and (max-width: 420px ) {
-            margin: 15px;
-        }
-        .title {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-        .desc {
-            font-size: 15px;
-            margin-bottom: 10px;
-        }
-        .btn {
-            border: 1px solid #9B9B9B;
-            font-size: 14px;
-            background: none;
-            border-radius: 1px;
-        }
     }
     .go-to-home-screen {
         text-align: center;
