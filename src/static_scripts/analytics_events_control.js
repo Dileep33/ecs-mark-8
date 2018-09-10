@@ -2576,5 +2576,25 @@ export default {
         "SCREEN_NAME": "AUTHORDASH",
         "LOCATION": "AUTHORDASHM",
         "ACTION": "CLICKBOOK"
+    },
+    "VIEWED_BANNER1_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "BANNER1",
+        "ACTION": "VIEWED"
+    },
+    "CLICKED_BANNER1_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "BANNER1",
+        "ACTION": "CLICKED"
+    },
+    "VIEWED_BANNER2_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "BANNER2",
+        "ACTION": "VIEWED"
+    },
+    "CLICKED_BANNER2_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "BANNER2",
+        "ACTION": "CLICKED"
     }
 };

@@ -224,13 +224,7 @@
             </div>
             
             <!-- Sign In Banner 1 -->
-            <div class="join-pratilipi-banner" v-if="getUserDetails.isGuest">
-                <div class="container">
-                    <div class="title">__("join_pratilipi")</div>
-                    <div class="desc">__("signinbanner_desc_1")</div>
-                    <button type="button" class="btn" data-toggle="modal" data-target="#login_modal">__("user_sign_in")</button>
-                </div>
-            </div>
+            <SignInBanner1></SignInBanner1>
 
             <!-- Footer -->
             <div class="footer-section" :class="getReaderReadingModeStyle">
@@ -333,6 +327,7 @@ import { mapGetters, mapActions } from 'vuex';
 import constants from '@/constants';
 import LoadingState from '@/enum/LoadingState'
 import ReaderSidebar from '@/components/experiments/reader_redesign/ReaderSidebar.vue';
+import SignInBanner1 from '@/components/experiments/reader_redesign/SignInBanner1.vue'
 
 
 const READER_FONT_SIZE_COOKIE_NAME = 'reader_font_size'
@@ -364,7 +359,8 @@ export default {
         NextPratilipiStrip,
         ServerError,
         TranslatingInputTextArea,
-        ReaderSidebar
+        ReaderSidebar,
+        SignInBanner1
     },
     mixins: [
         mixins
@@ -1108,29 +1104,6 @@ $theme-yellow-color: #2c3e50;
                     float: right;
                 }
             }
-        }
-    }
-    .join-pratilipi-banner {
-        background: #191C2C;
-        color: #9B9B9B;
-        text-align: left;
-        padding: 15px;
-        margin-bottom: 50px;
-        .title {
-            font-size: 20px;
-            color: #FFFFFF;
-            margin-bottom: 10px;
-        }
-        .desc {
-            font-size: 15px;
-            margin-bottom: 15px;
-        }
-        .btn {
-            border: 2px solid #fff;
-            background: none;
-            color: #fff;
-            border-radius: 1px;
-            font-size: 14px;
         }
     }
     .footer-section {

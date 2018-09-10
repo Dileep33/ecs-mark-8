@@ -224,13 +224,7 @@
             </div>
             
             <!-- Sign In Banner 1 -->
-            <div class="join-pratilipi-banner" v-if="getUserDetails.isGuest">
-                <div class="container">
-                    <div class="title">__("join_pratilipi")</div>
-                    <div class="desc">__("signinbanner_desc_1")</div>
-                    <button type="button" class="btn" data-toggle="modal" data-target="#login_modal">__("user_sign_in")</button>
-                </div>
-            </div>
+            <SignInBanner1></SignInBanner1>
 
             <!-- Footer -->
             <div class="footer-section" :class="getReaderReadingModeStyle">
@@ -333,6 +327,7 @@ import { mapGetters, mapActions } from 'vuex';
 import constants from '@/constants';
 import LoadingState from '@/enum/LoadingState'
 import ReaderSidebar from '@/components/experiments/reader_redesign/ReaderSidebar.vue';
+import SignInBanner1 from '@/components/experiments/reader_redesign/SignInBanner1.vue'
 
 const READER_FONT_SIZE_COOKIE_NAME = 'reader_font_size'
 const READER_LINE_HEIGHT_COOKIE_NAME = 'reader_line_height'
@@ -363,7 +358,8 @@ export default {
         NextPratilipiStrip,
         ServerError,
         TranslatingInputTextArea,
-        ReaderSidebar
+        ReaderSidebar,
+        SignInBanner1
     },
     mixins: [
         mixins
@@ -391,6 +387,7 @@ export default {
             /* modal flags */
             openRateRev: false,
             openRateReaderm: false,
+            openReaderSidebar: false,
 
             /* web push */
             webPushModalTriggered: false,
@@ -595,14 +592,17 @@ export default {
         openSidebar() {
             $('#sidebar').addClass('active')
             $('.overlay').fadeIn()
+            this.openReaderSidebar= true
         },
         closeSidebar() {
             $('#sidebar').removeClass('active')
             $('.overlay').fadeOut()
+            this.openReaderSidebar= false
         },
         triggerEventAndCloseSidebar(chapterNo) {
             this._triggerReaderAnalyticsEvent('CHANGECHAPTER_INDEX_READER', null, chapterNo)
             $('#sidebar').removeClass('active')
+            this.openReaderSidebar= false;
             $('.overlay').fadeOut()
         },
 
@@ -689,6 +689,11 @@ export default {
                 this.readerPercentScrolled = Math.max(readerPercentScrolled, 0)
                 $('.reader-progress .progress-bar').css('width', `${this.readerPercentScrolled}%`)
             }
+        },
+        
+        /* Sign In Banner */
+        triggerSignInEvent() {
+            this._triggerReaderAnalyticsEvent('SIGNIN_BANNER1_READER');
         }
     },
     computed: {
@@ -727,6 +732,7 @@ export default {
     },
     created() {
         this.currentChapterSlugId = window.location.pathname.split('/').pop().split('-').pop()
+        this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.hasOwnProperty('nextPratilipi') && this.getPratilipiData.nextPratilipi.hasOwnProperty('pratilipiId');
     },
     mounted() {
         /* disabling right click */
@@ -791,6 +797,8 @@ export default {
                 this.metaDescription = $('meta[name="description"]').attr('content')
                 $('meta[name="description"]').remove()
             }
+            
+            this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.hasOwnProperty('nextPratilipi') && this.getPratilipiData.nextPratilipi.hasOwnProperty('pratilipiId');
 
             // setting og tags
             $('meta[property="og:title"]').remove()
@@ -859,7 +867,7 @@ export default {
             }
             // next pratilipi trigger
             if (this.getIndexData[this.getIndexData.length -1].slugId == this.currentChapterSlugId && !this.isNextPratilipiEnabled) {
-                this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.nextPratilipi && this.getPratilipiData.nextPratilipi.pratilipiId
+                this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.hasOwnProperty('nextPratilipi') && this.getPratilipiData.nextPratilipi.hasOwnProperty('pratilipiId');
                 if (this.isNextPratilipiEnabled) {
                     this._triggerReaderAnalyticsEvent('VIEWNEXTPRATILIPI_READERM_READER')
                 }

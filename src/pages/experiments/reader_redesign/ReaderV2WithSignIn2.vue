@@ -199,11 +199,7 @@
                             </div>
                             
                             <!-- Sign In Banner 2 -->
-                            <div class="join-pratilipi-banner-2" v-if="getUserDetails.isGuest">
-                                <div class="title">__("signinbanner_enjoy_reading")</div>
-                                <div class="desc">__("signinbanner_desc_2")</div>
-                                <button type="button" class="btn" data-toggle="modal" data-target="#login_modal">__("user_sign_in")</button>
-                            </div>
+                            <SignInBanner2></SignInBanner2>
                             
                             <div class="book-recomendations p-r-10" v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId">
                                 <Recommendation
@@ -332,6 +328,7 @@ import { mapGetters, mapActions } from 'vuex';
 import constants from '@/constants';
 import LoadingState from '@/enum/LoadingState'
 import ReaderSidebar from '@/components/experiments/reader_redesign/ReaderSidebar.vue';
+import SignInBanner2 from '@/components/experiments/reader_redesign/SignInBanner2.vue'
 
 
 const READER_FONT_SIZE_COOKIE_NAME = 'reader_font_size'
@@ -363,7 +360,8 @@ export default {
         NextPratilipiStrip,
         ServerError,
         TranslatingInputTextArea,
-        ReaderSidebar
+        ReaderSidebar,
+        SignInBanner2
     },
     mixins: [
         mixins
@@ -1359,33 +1357,6 @@ $theme-yellow-color: #2c3e50;
         width: 100%;
         cursor: pointer;
         overflow: hidden;
-    }
-    .join-pratilipi-banner-2 {
-        text-align: left;
-        margin: 15px auto;
-        max-width: 750px;
-        padding-top: 15px;
-        padding-bottom: 15px;
-        border-top: 1px solid #e9e9e9;
-        border-bottom: 1px solid #e9e9e9;
-        color: #000;
-        @media screen and (max-width: 420px ) {
-            margin: 15px;
-        }
-        .title {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-        .desc {
-            font-size: 15px;
-            margin-bottom: 10px;
-        }
-        .btn {
-            border: 1px solid #9B9B9B;
-            font-size: 14px;
-            background: none;
-            border-radius: 1px;
-        }
     }
     .go-to-home-screen {
         text-align: center;
