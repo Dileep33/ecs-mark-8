@@ -121,7 +121,7 @@ export default {
 
 <style  lang="scss" scoped>
 .social-share {
-    width: 280px;
+    width: 130px;
     margin: 0 auto;
     text-align: center;
     span.text {

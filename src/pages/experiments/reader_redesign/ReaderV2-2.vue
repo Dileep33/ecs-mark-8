@@ -1138,7 +1138,7 @@ $theme-yellow-color: #2c3e50;
             }
             .rate-wrap {
                 float: left;
-                z-index: 2;
+                z-index: 1;
                 position: relative;
                 min-width: 60%;
                 &.fullwidth {
@@ -1150,7 +1150,8 @@ $theme-yellow-color: #2c3e50;
                 top: 0;
                 right: 0;
                 text-align: right;
-                z-index: 1;
+                z-index: 2;
+                max-width: 135px;
             }
         }
         .readermain-follow {
