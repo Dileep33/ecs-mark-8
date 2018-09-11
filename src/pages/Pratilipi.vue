@@ -254,12 +254,6 @@
                             </Recommendation>
                         </div>
                     </div>
-
-                    <div class="go-to-home-screen">
-                        <button class="btn btn-sm btn-danger" v-if="isMobile()" @click="navigateToHome">
-                            __("reader_goto_home_page")
-                        </button>
-                    </div>
                 </div>
                 <Spinner v-if="getPratilipiLoadingState === 'LOADING'"></Spinner>
                 <ServerError :action="'pratilipipage/fetchPratilipiDetailsAndUserPratilipiData'" :data="$route.params.slug_id" v-if="getPratilipiLoadingState === 'LOADING_ERROR'"></ServerError>

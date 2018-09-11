@@ -70,6 +70,12 @@ export default {
             'getUserDetails'
         ])
     },
+    mounted() {
+        if(this.$route.meta.store !== "homepage") {
+            $("footer").css("padding","0px");
+            $("footer").html("");
+        }
+    },
     methods: {
         toggleTopFooter() {
             $(".show-more").toggleClass("shown");
