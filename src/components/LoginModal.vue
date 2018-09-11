@@ -23,7 +23,7 @@
                         :openForgotPasswordInTab="true"
                         :shouldRemoveError="shouldRemoveError"
                         :resetShouldRemoveError="resetShouldRemoveError"
-                        v-if="getCookie('bucket_id') >= 71 && getCookie('bucket_id') < 100"
+                        v-if="getCookie('bucket_id') >=11 && getCookie('bucket_id') < 100"
                     ></RegisterWithCustomMessage>
                     <Register
                         :currentStep="currentStep"

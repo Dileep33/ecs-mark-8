@@ -626,8 +626,10 @@
     "event_unsubmit": "भाग घेऊ नका",
     "event_submit": "भाग घ्या",
 
-    "login_popup_story_added_to_library": "कथा आपल्या लायब्ररीमध्ये समाविष्ट करण्यात आली आहे. आपल्याला हवे तेव्हा वाचण्याकरता साइन अप करा. ",
-    "login_popup_read_and_rate_stories": "अशाप्रकारच्या अनेक कथा वाचा तसेच रेट करा. ",
+    "login_popup_story_added_to_library": "हे आणि इतर साहित्य आपल्या लायब्ररी मध्ये जतन करण्यासाठी साइन इन करा",
+    "login_popup_read_and_rate_stories": "साहित्याबाबत आपला अभिप्राय लेखकास कळवण्याकरता साइन इन करा",
+    "login_popup_follow_unfollow": "आपल्या आवडत्या लेखकास फॉलो करण्याकरता साइन इन करा",
+    "login_popup_default": "आपल्या आवडत्या लेखकास फॉलो करण्याकरता, आपला अभिप्राय देण्याकरता तसेच आपली स्वतःची लायब्ररी तयार करण्याकरता साइन इन करा",
     
     "author_dashboard_statistics": "आकडेवारी",
     "author_dashboard_all_time_stats": "आजपर्यंतची आकडेवारी",

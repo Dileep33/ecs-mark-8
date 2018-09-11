@@ -56,6 +56,7 @@ export default {
     methods: {
         ...mapActions([
             'fetchUserDetails',
+            'setAfterLoginAction',
             'fetchInitialNotifications',
             'attachMessageNotificationListener'
         ])
@@ -86,7 +87,8 @@ export default {
         this.currentLocale = 'language-' + process.env.LANGUAGE;
     },
     mounted() {
-	$("body").removeClass("modal-open");
+        const that = this;
+        $("body").removeClass("modal-open");
         $(document).on('show.bs.modal', '.modal', function (event) {
             var zIndex = 1040 + (10 * $('.modal:visible').length);
             $(this).css('z-index', zIndex);
@@ -109,6 +111,7 @@ export default {
 
         $('div.modal').on('hide.bs.modal', function() {
             const hash = this.id;
+            that.setAfterLoginAction({ action: null, data: null });
             history.pushState('', document.title, window.location.href.substr(0, window.location.href.indexOf('#')));
         });
     }

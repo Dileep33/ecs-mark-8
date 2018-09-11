@@ -605,8 +605,10 @@
     "event_unsubmit": "remove submission",
     "event_submit": "submit book for event",
 
-    "login_popup_story_added_to_library": "కథ విజయవంతంగా మీ గ్రంధాలయానికి జోడించబడింది.చదవడానికి సైన్ అప్ అవ్వండి. ",
-    "login_popup_read_and_rate_stories": "మరిన్ని ఇలాంటి కథలను చదవండి మరియు రేటింగ్ ఇవ్వండి. ",
+    "login_popup_story_added_to_library": "మీ గ్రంధాలయంలో ఈ రచన మరియు ఇతర రచనలను సేవ్ చేయడానికి సైన్ ఇన్ అవ్వండి",
+    "login_popup_read_and_rate_stories": "రచయిత యొక్క రచన గురించి మీ అభిప్రాయాలను తెలియజేయడానికి సైన్ ఇన్ అవ్వండి",
+    "login_popup_follow_unfollow": "మీకు ఇష్టమైన రచయితలను అనుసరించడానికి సైన్ ఇన్ అవ్వండి.",
+    "login_popup_default": "మీకు ఇష్టమైన రచయితలను అనుసరించడానికి, రచనలను రివ్యూ చేయడానికి సైన్ ఇన్ అవ్వండి.  మరియు  మీ సొంత  గ్రంధాలయాన్ని ఏర్పాటుచేసుకోండి.",
     
     "author_dashboard_statistics": "గణాంకాలు",
     "author_dashboard_all_time_stats": "ఇప్పటివరకు మీ గణాంకాలు",
