@@ -71,7 +71,7 @@ export default {
         ])
     },
     mounted() {
-        if(this.$route.meta.store !== "homepage") {
+        if(this.$route.meta.store !== "homepage" && this.isMobile()) {
             $("footer").css("padding","0px");
             $("footer").html("");
         }
