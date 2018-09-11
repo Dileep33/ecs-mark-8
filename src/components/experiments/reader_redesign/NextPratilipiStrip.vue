@@ -42,6 +42,11 @@
         padding: 10px;
         margin: 10px;
         text-align: left;
+        width: 100%;
+        cursor: pointer;
+        &:hover {
+            background: #d6d6d6;
+        }
         .next-pratilipi-image {
             width: 65px;
             height: 80px;

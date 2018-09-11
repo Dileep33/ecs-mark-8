@@ -201,12 +201,12 @@
                                         <span class="auth-image"><img :src="getMediumResolutionImage(getAuthorData.profileImageUrl)" alt=""></span>
                                         <span class="auth-name">{{ getAuthorData.displayName }}</span>
                                     </router-link>
-                                    <div class="follow-btn" v-if="!getAuthorData.following">
+                                    <div class="follow-btn" v-if="!getAuthorData.following && getUserDetails.authorId !== getAuthorData.authorId">
                                         <button @click="followPratilipiAuthor('BOOKEND', 'WRE001')" >
                                             <i class="material-icons">person_add</i>__("author_follow")
                                         </button>
                                     </div>
-                                    <div class="follow-btn" v-else>
+                                    <div class="follow-btn" v-else-if="getAuthorData.following && getUserDetails.authorId !== getAuthorData.authorId">
                                         <button @click="unfollowPratilipiAuthor('BOOKEND', 'WRE001')"><i class="material-icons">check</i> __("author_following")</button>
                                     </div>
                                 </div>
@@ -979,7 +979,7 @@ $theme-yellow-color: #2c3e50;
         padding: 10px 0;
         position: fixed;
         top: 0;
-        z-index: 2;
+        z-index: 4;
         width: 100%;
         background: #fff;
         .row {
@@ -1134,6 +1134,7 @@ $theme-yellow-color: #2c3e50;
             position: relative;
             overflow: hidden;
             max-width: 750px;
+            min-height: 70px;
             @media screen and (max-width: 420px ) {
                 margin: 0 15px 20px;
             }
@@ -1143,7 +1144,7 @@ $theme-yellow-color: #2c3e50;
             }
             .rate-wrap {
                 float: left;
-                z-index: 2;
+                z-index: 1;
                 position: relative;
                 min-width: 60%;
                 &.fullwidth {
@@ -1155,7 +1156,8 @@ $theme-yellow-color: #2c3e50;
                 top: 0;
                 right: 0;
                 text-align: right;
-                z-index: 1;
+                z-index: 2;
+                max-width: 135px;
             }
         }
         .readermain-follow {
@@ -1163,6 +1165,7 @@ $theme-yellow-color: #2c3e50;
             border-bottom: 1px solid #e9e9e9;
             margin: 0 auto;
             max-width: 750px;
+            overflow: hidden;
             @media screen and (max-width: 420px ) {
                 text-align: right;
                 margin: 0 15px;
@@ -1479,6 +1482,7 @@ $theme-yellow-color: #2c3e50;
         display: flex;
         justify-content: center;
         width: 100%;
+        max-width: 520px;
         cursor: pointer;
         overflow: hidden;
     }
@@ -1560,6 +1564,9 @@ $theme-yellow-color: #2c3e50;
         .book-bottom-webpush-subscribe .webpush-container .webpush-inner-container {
             background: $theme-black-background-color !important;
             color: $theme-black-color !important;
+        }
+        .translations {
+            color: $theme-black-background-color !important;
         }
     }
 }

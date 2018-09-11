@@ -1441,6 +1441,7 @@ $theme-yellow-color: #2c3e50;
         display: flex;
         justify-content: center;
         width: 100%;
+        max-width: 520px;
         cursor: pointer;
         overflow: hidden;
     }
@@ -1525,6 +1526,9 @@ $theme-yellow-color: #2c3e50;
         .book-bottom-webpush-subscribe .webpush-container .webpush-inner-container {
             background: $theme-yellow-background-color !important;
             color: $theme-yellow-color !important;
+        }
+        .translations {
+            color: $theme-black-background-color !important;
         }
     }
 }
