@@ -171,6 +171,7 @@ export default {
 .social-share.reader-sidebar {
     text-align: left;
     padding: 10px 0;
+    margin: 0;
     .text, .google {
         display: none;
     }
