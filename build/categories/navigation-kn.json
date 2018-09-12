@@ -70,17 +70,6 @@
                     }
                 },
                 {
-                    "categoryUrl": "/dhaaraavaahi",
-                    "title": "ಧಾರಾವಾಹಿ",
-                    "analyticsCategoryName": "serials",
-                    "imageFileName": "novels.jpg",
-                    "pratilipiListData": {
-                        "language": "KANNADA",
-                        "state": "PUBLISHED",
-                        "listName": "dhaaraavaahi"
-                    }
-                },
-                {
                     "categoryUrl": "/experience",
                     "title": "ಅನುಭವಗಳು",
                     "analyticsCategoryName": "experiences",
@@ -241,7 +230,7 @@
                 },
                 {
                     "categoryUrl": "/blog",
-                    "title": "ಬ್ಲಾಗ್ ಗಳು",
+                    "title": "ಬ್ಲಾಗ್'ಗಳು",
                     "analyticsCategoryName": "blogs",
                     "imageFileName": "blog.jpg",
                     "pratilipiListData": {
