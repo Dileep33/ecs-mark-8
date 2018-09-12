@@ -19,11 +19,12 @@ export default {
         let shareUrl;
         switch(state.share_type) {
             case 'PRATILIPI':
-                shareUrl = encodeURIComponent(`https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}?utm_campaign=Shared&utm_source=twitter`);
-                return `http://twitter.com/share?text=${state.share_data.title}&url=https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}`;
+                shareUrl = encodeURIComponent(`https://${state.share_data.language.toLowerCase()}.pratilipi.com/story/${state.share_data.pageUrl.split('-').pop()}?utm_campaign=Shared&utm_source=twitter`);
+                console.log(shareUrl);
+                return `http://twitter.com/share?text=${state.share_data.title}&url=${shareUrl}`;
             case 'AUTHOR':
-                shareUrl = encodeURIComponent(`https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}?utm_campaign=SharedProfile&utm_source=twitter`)
-                return `http://twitter.com/share?text=${state.share_data.title}&url=https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}`;
+                shareUrl = encodeURIComponent(`https://${state.share_data.language.toLowerCase()}.pratilipi.com/user/${state.share_data.pageUrl.split('-').pop()}?utm_campaign=SharedProfile&utm_source=twitter`)
+                return `http://twitter.com/share?text=${state.share_data.title}&url=${shareUrl}`;
         }
     },
 
