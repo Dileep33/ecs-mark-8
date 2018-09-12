@@ -69,6 +69,14 @@ const defaultMetaTags = [{
     {
         property: 'og:url',
         content: window.location.href
+    },
+    {
+        name: 'twitter:card',
+        content: 'summary'
+    },
+    {
+        name: 'twitter:site',
+        content: '@TeamPratilipi'
     }
 ]
 
