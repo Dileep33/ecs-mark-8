@@ -84,6 +84,10 @@ function _getDefaultPageOGTags(pageStoreName) {
     switch (pageStoreName) {
         case 'homepage':
             return [{
+                    name: 'title',
+                    content: '__("seo_home_page_meta_title")'
+                },
+                {
                     property: 'og:title',
                     content: '__("seo_home_page") | __("pratilipi")'
                 },
