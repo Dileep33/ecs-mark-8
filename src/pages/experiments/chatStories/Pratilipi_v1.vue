@@ -270,7 +270,6 @@
                     :includeDisableButton=true
                     v-if="isWebPushModalEnabled"></WebPushModal>
             </div>
-            <ChatBanner></ChatBanner>
             <PratilipiPublishShareModal screenName="PRATILIPI" :pratilipi="getPratilipiData"></PratilipiPublishShareModal>
         </div>
     </MainLayout>
@@ -287,7 +286,6 @@ import ServerError from '@/components/ServerError.vue';
 import WebPushStrip from '@/components/WebPushStrip.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
 import BookTags from '@/components/BookTags.vue';
-import ChatBanner from '@/components/ChatBanner.vue';
 import MessageButton from '@/components/MessageButton.vue';
 import NextPratilipiStrip from '@/components/NextPratilipiStrip.vue';
 import mixins from '@/mixins';
@@ -698,7 +696,6 @@ export default {
 	    WebPushStrip,
 	    WebPushModal,
         BookShareStrip,
-        ChatBanner,
         MessageButton,
         VapasiQuote,
         VapasiHoroscope,
