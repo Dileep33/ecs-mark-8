@@ -592,11 +592,12 @@ export default {
             function(response, status) { processGetResponse(response, status, aCallBack) });
     },
 
-    getForYouPratilipiList: (userId, cursor, aCallBack) => {
+    getForYouPratilipiList: (userId, cursor, language,aCallBack) => {
 
         var params = {
             'userId' : userId,
-            'cursor' : cursor
+            'cursor' : cursor,
+            'language' : language
         };
 
         httpUtil.get(API_PREFIX + PRATILIPI_LIST_FOR_YOU_API,

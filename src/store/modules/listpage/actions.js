@@ -27,10 +27,10 @@ export default {
         });
     },
 
-    fetchForYouListPagePratilipis({commit, state}, {userId, cursor}) {
+    fetchForYouListPagePratilipis({commit, state}, {userId, cursor, language}) {
         commit('setListPageDynamicLoadingTrue');
         console.log("uid - ",userId)
-        DataAccessor.getForYouPratilipiList(userId, cursor,function(data) {
+        DataAccessor.getForYouPratilipiList(userId, cursor, language, function(data) {
             if (data.status === 200) {
                 console.log("Response: " , data.response);
                 commit('setForYouDataLoadingSuccess', data.response);

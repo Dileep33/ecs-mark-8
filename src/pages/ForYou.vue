@@ -84,7 +84,7 @@
                 const nintyPercentOfList = ( 80 / 100 ) * $('.list-page').innerHeight();
 
                 if (newScrollPosition + sbHeight > nintyPercentOfList && this.getPratilipiListLoadingState !== 'LOADING' && this.getPratilipiListCursor !== null) {
-                    this.fetchForYouListPagePratilipis({ "userId" : this.getUserDetails.userId, "cursor" : this.getPratilipiListCursor});
+                    this.fetchForYouListPagePratilipis({ "userId" : this.getUserDetails.userId, "cursor" : this.getPratilipiListCursor, "language": this.getCurrentLanguage().fullName.toUpperCase()});
                 }
             },
             'getUserDetails.userId'() {
@@ -95,7 +95,7 @@
                         this.openLoginModal(this.$route.meta.store, 'LOGIN', 'FOR_YOU');
                     } else {
                         console.log(this.getUserDetails);
-                        this.fetchForYouListPagePratilipis({'userId' : this.getUserDetails.userId, "cursor" : "0-0"});
+                        this.fetchForYouListPagePratilipis({'userId' : this.getUserDetails.userId, "cursor" : "0-0", "language": this.getCurrentLanguage().fullName.toUpperCase()});
                     }
 
                 } else {
