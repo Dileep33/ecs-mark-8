@@ -2596,5 +2596,10 @@ export default {
         "SCREEN_NAME": "READER",
         "LOCATION": "BANNER2",
         "ACTION": "CLICKED"
+    },
+    "LANDED_FORYOU_CATEGORY": {
+        "SCREEN_NAME": "CATEGORY",
+        "LOCATION": "FORYOU",
+        "ACTION": "LANDED"
     }
 };

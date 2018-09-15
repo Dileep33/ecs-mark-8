@@ -11,6 +11,7 @@ import WritePageComponent from '@/pages/Write.vue'
 import EventsPageComponent from '@/pages/Events'
 import EventPageComponent from '@/pages/Event'
 import BlogsPageComponent from '@/pages/Blogs.vue'
+import ForYouPageComponent from '@/pages/ForYou.vue'
 import BlogPageComponent from '@/pages/Blog.vue'
 import NotificationComponent from '@/pages/Notification.vue'
 import SettingsPageComponent from '@/pages/Settings.vue'
@@ -380,6 +381,15 @@ var router = new Router({
                 'store': 'videoseries',
                 'title': '__("seo_home_page")',
                 'id_prop': 'videos_slug'
+            }
+        },
+        {
+            path: '/for-you',
+            name: 'For_You',
+            component: ForYouPageComponent,
+            meta: {
+                'store': 'blogpage',
+                'title': '__("seo_home_page")',
             }
         },
         {
