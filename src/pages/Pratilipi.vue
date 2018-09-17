@@ -779,11 +779,12 @@ export default {
             }
 
             if (status === 'LOADING_SUCCESS') {
-                
-                this.readPageUrl = this.getPratilipiData.newReadPageUrl && (this.isTestEnvironment())
-               ? this.getPratilipiData.newReadPageUrl : this.getPratilipiData.readPageUrl
+                let bucketId = parseInt(this.getCookie('bucket_id')) || 0
+                this.readPageUrl =
+                    this.getPratilipiData.newReadPageUrl && (this.isTestEnvironment() || bucketId > 10 && bucketId <= 40)
+                    ? this.getPratilipiData.newReadPageUrl : this.getPratilipiData.readPageUrl
             }
-
+                
             this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.nextPratilipi && this.getPratilipiData.nextPratilipi.pratilipiId > 0;
             if (status === 'LOADING_SUCCESS' && this.isNextPratilipiEnabled && !this.hasNextPratilipiBeenTriggered) {
                 console.log("showing next pratilipi");
