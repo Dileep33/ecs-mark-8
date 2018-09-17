@@ -779,8 +779,8 @@ export default {
             }
 
             if (status === 'LOADING_SUCCESS') {
-                this.readPageUrl = 
-                    this.getPratilipiData.newReadPageUrl ? this.getPratilipiData.newReadPageUrl : this.getPratilipiData.readPageUrl
+                this.getPratilipiData.newReadPageUrl && (this.isTestEnvironment())
+                    ? this.getPratilipiData.newReadPageUrl : this.getPratilipiData.readPageUrl
             }
 
             this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.nextPratilipi && this.getPratilipiData.nextPratilipi.pratilipiId > 0;
