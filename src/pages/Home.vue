@@ -4,9 +4,9 @@
             <Banners v-if="getHomePageBannersLoadingState === 'LOADING_SUCCESS'"
                 :banners="getHomePageBanners"
             ></Banners>
-            <VapasiShayari 
+            <!-- <VapasiShayari 
                 screenName="HOME"
-                v-if="this.isMobile() && getCurrentLanguage().fullName == 'hindi' && (parseInt(this.getCookie('bucket_id')) || 0) >= 11 && (parseInt(this.getCookie('bucket_id')) || 0) <= 40"></VapasiShayari>
+                v-if="this.isMobile() && getCurrentLanguage().fullName == 'hindi' && (parseInt(this.getCookie('bucket_id')) || 0) >= 11 && (parseInt(this.getCookie('bucket_id')) || 0) <= 40"></VapasiShayari> -->
             <!--
             <VapasiJoke
                 screenName="HOME"
