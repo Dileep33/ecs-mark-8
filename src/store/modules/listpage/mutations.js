@@ -30,11 +30,17 @@ export default {
         state.data = data.pratilipiList;
         state.cursor = data.cursor ? data.cursor : data.limit + data.offset;
         state.numberFound = data.numberFound ? data.numberFound : data.found;
-        
+
         if (data.title) {
             state.title = data.title;
             state.titleEn = data.titleEn;
         }
+    },
+
+    setForYouDataLoadingSuccess(state, data) {
+        state.loading_state = 'LOADING_SUCCESS';
+        state.data = state.data.concat(data.for_you);
+        state.cursor = data.cursor;
     },
 
     setListPageInitialDataLoadingError(state) {

@@ -264,7 +264,6 @@
                     :includeDisableButton=true
                     v-if="isWebPushModalEnabled"></WebPushModal>
             </div>
-            <ChatBanner></ChatBanner>
             <PratilipiPublishShareModal screenName="PRATILIPI" :pratilipi="getPratilipiData"></PratilipiPublishShareModal>
         </div>
     </MainLayout>
@@ -281,7 +280,6 @@ import ServerError from '@/components/ServerError.vue';
 import WebPushStrip from '@/components/WebPushStrip.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
 import BookTags from '@/components/BookTags.vue';
-import ChatBanner from '@/components/ChatBanner.vue';
 import MessageButton from '@/components/MessageButton.vue';
 import NextPratilipiStrip from '@/components/NextPratilipiStrip.vue';
 import mixins from '@/mixins';
@@ -691,7 +689,6 @@ export default {
 	    WebPushStrip,
 	    WebPushModal,
         BookShareStrip,
-        ChatBanner,
         MessageButton,
         VapasiQuote,
         VapasiHoroscope,
@@ -781,15 +778,13 @@ export default {
                 }, 0);
             }
 
-            if (status === 'LOADING_SUCCESS') {        
-                let bucketId = parseInt(this.getCookie('bucketId')) || 0
-                this.readPageUrl = 
-                    this.getPratilipiData.newReadPageUrl && 
-                    // this.isTestEnvironment()
-                    (this.isTestEnvironment() || (bucketId >= 11 && bucketId < 20))
+            if (status === 'LOADING_SUCCESS') {
+                let bucketId = parseInt(this.getCookie('bucket_id')) || 0
+                this.readPageUrl =
+                    this.getPratilipiData.newReadPageUrl && (this.isTestEnvironment() || bucketId > 10 && bucketId <= 40)
                     ? this.getPratilipiData.newReadPageUrl : this.getPratilipiData.readPageUrl
             }
-
+                
             this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.nextPratilipi && this.getPratilipiData.nextPratilipi.pratilipiId > 0;
             if (status === 'LOADING_SUCCESS' && this.isNextPratilipiEnabled && !this.hasNextPratilipiBeenTriggered) {
                 console.log("showing next pratilipi");

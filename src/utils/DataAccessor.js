@@ -18,6 +18,7 @@ const PAGE_CONTENT_API = "/page/content";
 const PRATILIPI_API = "/pratilipi?_apiVer=2";
 const PRATILIPI_LIST_API = "/pratilipi/list?_apiVer=3";
 const PRATILIPI_LIST_RECENT_API = "/stats/recent_published";
+const PRATILIPI_LIST_FOR_YOU_API = "/stats/for_you";
 const PRATILIPI_LIST_HIGH_RATED_API = "/stats/high_rated";
 const PRATILIPI_CONTENT_API = "/pratilipi/content";
 const PRATILIPI_CONTENT_INDEX_API = "/pratilipi/content/index";
@@ -577,7 +578,7 @@ export default {
             params,
             function(response, status) { processGetResponse(response, status, aCallBack) });
     },
-    
+
     getRecentPratilipiListByListName: (listName, offset, cursor, resultCount, language, timeFilter, aCallBack) => {
         if (listName == null) return;
         var params = { "category": "romance", "language": language };
@@ -590,7 +591,21 @@ export default {
             params,
             function(response, status) { processGetResponse(response, status, aCallBack) });
     },
-    
+
+    getForYouPratilipiList: (userId, cursor, language,aCallBack) => {
+
+        var params = {
+            'userId' : userId,
+            'cursor' : cursor,
+            'language' : language
+        };
+
+        httpUtil.get(API_PREFIX + PRATILIPI_LIST_FOR_YOU_API,
+            null,
+            params,
+            function(response, status) { processGetResponse(response, status, aCallBack) });
+    },
+
     getHighRatedPratilipiListByListName: (listName, offset, cursor, resultCount, language, timeFilter, aCallBack) => {
         if (listName == null) return;
         var params = { "category": "romance", "language": language };
@@ -1111,7 +1126,7 @@ export default {
             },
             function( response, status ) { processGetResponse( response, status, aCallBack ) });
     },
-    
+
     getAuthorDashboardByAuthorId: (authorId, aCallBack) => {
         httpUtil.get( API_PREFIX + AUTHOR_DASHBOARD_API,
             null,

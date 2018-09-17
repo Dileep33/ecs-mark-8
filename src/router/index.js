@@ -11,6 +11,7 @@ import WritePageComponent from '@/pages/Write.vue'
 import EventsPageComponent from '@/pages/Events'
 import EventPageComponent from '@/pages/Event'
 import BlogsPageComponent from '@/pages/Blogs.vue'
+import ForYouPageComponent from '@/pages/ForYou.vue'
 import BlogPageComponent from '@/pages/Blog.vue'
 import NotificationComponent from '@/pages/Notification.vue'
 import SettingsPageComponent from '@/pages/Settings.vue'
@@ -205,14 +206,9 @@ var router = new Router({
             path: '/',
             name: 'Home',
             component: () => {
-                if (getCookie('bucket_id') >= 0 && getCookie('bucket_id') <= 100) {
-                    return import ('@/pages/experiments/chatStories/Home.vue');
-                }
-                else {
-                    return new Promise((resolve) => {
-                        resolve(Home)
-                    });
-                }
+                return new Promise((resolve) => {
+                    resolve(Home)
+                });
             },
             meta: {
                 'store': 'homepage',
@@ -274,16 +270,9 @@ var router = new Router({
             name: 'Pratilipi',
             component: () => {
                 if (process.env.REALM === 'PROD') {
-                    if (getCookie('bucket_id') >= 0 && getCookie('bucket_id') <= 40) {
-                        return import ('@/pages/experiments/chatStories/Pratilipi_v1.vue');
-                    }
-                    else if (getCookie('bucket_id') > 40 && getCookie('bucket_id') <= 70) {
-                        return import ('@/pages/experiments/chatStories/Pratilipi_v2.vue');
-                    } else {
-                        return new Promise((resolve) => {
-                            resolve(PratilipiPageComponent)
-                        });
-                    }
+                    return new Promise((resolve) => {
+                        resolve(PratilipiPageComponent)
+                    });
                 } else if (process.env.REALM === 'PROD_BRIDGE') {
 
                 } else {
@@ -380,6 +369,15 @@ var router = new Router({
                 'store': 'videoseries',
                 'title': '__("seo_home_page")',
                 'id_prop': 'videos_slug'
+            }
+        },
+        {
+            path: '/for-you',
+            name: 'For_You',
+            component: ForYouPageComponent,
+            meta: {
+                'store': 'blogpage',
+                'title': '__("seo_home_page")',
             }
         },
         {
