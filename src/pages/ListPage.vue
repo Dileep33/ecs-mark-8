@@ -171,7 +171,7 @@ export default {
     },
     created() {
         console.log(this.$route)
-	document.head.querySelector('meta[name="description"]').content = "";
+	// document.head.querySelector('meta[name="description"]').content = "";
         const { list_page_url } = this.$route.params;
 
         const currentLocale = process.env.LANGUAGE;
