@@ -146,6 +146,7 @@ import { mapGetters, mapActions } from 'vuex'
             if (this.$route.query.utm_image) {
                 document.head.querySelector('meta[property="og:image"]').content = this.$route.query.utm_image;
             }
+            document.head.querySelector('meta[name="description"]').content = "__('seo_home_page_meta_description')";
         },
         mounted() {
             this.triggerAnanlyticsEvent('LANDED_HOMEM_HOME', 'CONTROL', {

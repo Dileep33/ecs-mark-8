@@ -89,10 +89,6 @@ function _getDefaultPageOGTags(pageStoreName) {
                     content: '__("seo_home_page_meta_title")'
                 },
                 {
-                    name: 'description',
-                    content: '__("seo_home_page_meta_description")'
-                },
-                {
                     property: 'og:title',
                     content: '__("seo_home_page")'
                 },
