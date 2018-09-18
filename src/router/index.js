@@ -89,12 +89,16 @@ function _getDefaultPageOGTags(pageStoreName) {
                     content: '__("seo_home_page_meta_title")'
                 },
                 {
+                    name: 'description',
+                    content: '__("seo_home_page_meta_description")'
+                },
+                {
                     property: 'og:title',
-                    content: '__("seo_home_page") | __("pratilipi")'
+                    content: '__("seo_home_page")'
                 },
                 {
                     property: 'og:description',
-                    content: '__("home_page_title")'
+                    content: '__("seo_home_page_meta_description")'
                 },
                 ...defaultMetaTags
             ];
@@ -216,7 +220,7 @@ var router = new Router({
             },
             meta: {
                 'store': 'homepage',
-                'title': '__("seo_home_page") | __("pratilipi")',
+                'title': '__("seo_home_page")',
                 metaTags: _getDefaultPageOGTags('homepage')
             },
             beforeEnter: (to, from, next) => {
