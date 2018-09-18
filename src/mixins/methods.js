@@ -43,9 +43,6 @@ export function openLoginModal(pageSource, action, location) {
             case 'LIBRARYADD':
                 experimentId = 'WSU001';
                 break;
-            case 'REVIEW':
-                experimentId = 'WSU002';
-                break;
             default:
                 experimentId = 'CONTROL';
                 break;
@@ -376,7 +373,7 @@ export function triggerAnanlyticsEvent(eventName, experimentType, eventProperty)
         case (experimentType === 'WREC001'):
             eventProps = { ...recommendationV1AnalyticsEvents[eventName] };
             break;
-        case (experimentType === 'WSU001' || experimentType === 'WSU002'):
+        case (experimentType === 'WSU001'):
             eventProps = { ...appLoginV1AnalyticsEvents[eventName] };
             break;
         case (experimentType === 'WRAT001'):
