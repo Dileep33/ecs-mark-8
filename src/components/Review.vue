@@ -14,7 +14,7 @@
                             <i class="material-icons">more_vert</i>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="ReviewMoreOptions">
-                            <button type="button" v-if="userPratilipiData.userId!=eachReview.userId" class="btn options-btn" data-toggle="modal" data-target="#reportModalPratilipi">
+                            <button type="button" v-if="userPratilipiData.userId!=eachReview.userId" class="btn options-btn" @click="openReviewReport()">
                                 __("report_button")
                             </button>
                             <button type="button" v-if="userPratilipiData.userId==eachReview.userId" class="btn options-btn" @click="openReviewAndEditRating">
@@ -55,8 +55,8 @@
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
-                                <label for="reportModalTextarea">__("report_issue")</label>
-                                <textarea class="form-control" id="reportModalTextarea" rows="3"
+                                <label>__("report_issue")</label>
+                                <textarea class="form-control" rows="3"
                                           placeholder="__('report_issue')"></textarea>
                             </div>
                             <button type="button" class="btn btn-primary btn-submit" @click="submitReport">
@@ -237,6 +237,10 @@ export default {
             }
             this.newComment = `@${data.reviewUserName} `;
         },
+        openReviewReport() {
+            $("#reportModalPratilipi").modal("show");
+            $("#reportModalPratilipi").appendTo("body");
+        },
         submitReport() {
             if (this.getUserDetails.isGuest) {
                 this.openLoginModal(this.$route.meta.store, 'REVIEW', 'LOGIN');
@@ -250,17 +254,17 @@ export default {
             });
 
             let user = this.getUserDetails;
-            let message = $('#reportModalTextarea').val().toString();
+            let message = $('body>#reportModalPratilipi textarea').val().toString();
             let name = user.displayName;
             let email = user.email;
             let pratilipiId = this.eachReview.userPratilipiId;
             let language = this.language;
             let dataType = "REVIEW";
-            console.log(user + " " + message);
+            console.log(name + " " + message);
             this.submitPrailipiReport({name, email, message, pratilipiId, language, dataType});
-            $('#reportModalPratilipi').modal('hide');
+            $('body>#reportModalPratilipi').modal('hide');
             this.triggerAlert({message: '__("success_generic_message")', timer: 3000});
-            $("#reportModalTextarea").val("");
+            $("body>#reportModalPratilipi textarea").val("");
         },
         triggerEventAndCreateComment(review) {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.pratilipiData);
