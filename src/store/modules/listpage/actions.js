@@ -27,6 +27,19 @@ export default {
         });
     },
 
+    fetchForYouListPagePratilipis({commit, state}, {userId, cursor, language}) {
+        commit('setListPageDynamicLoadingTrue');
+        console.log("uid - ",userId)
+        DataAccessor.getForYouPratilipiList(userId, cursor, language, function(data) {
+            if (data.status === 200) {
+                console.log("Response: " , data.response);
+                commit('setForYouDataLoadingSuccess', data.response);
+            } else {
+                commit('setListPageInitialDataLoadingError');
+            }
+        });
+    },
+
     fetchMorePratilipisForListPage({ commit, state }, { listName, language, resultCount, listType, timeFilter }) {
         commit('setListPageDynamicLoadingTrue');
         let pratilipiListFunction;

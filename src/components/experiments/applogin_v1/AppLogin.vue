@@ -5,7 +5,6 @@
                 <img src="../../../assets/pratilipi_logo.png" />
                 <br>
                 <span v-if="getPostLoginAction.action && getPostLoginAction.action.indexOf('addToLibrary') > -1">__('login_popup_story_added_to_library')</span>
-                <span v-else-if="getPostLoginAction.action && getPostLoginAction.action.indexOf('saveOrUpdateReview') > -1">__("login_popup_read_and_rate_stories")</span>
                 <span v-else-if="getPostLoginAction.action && getPostLoginAction.action.indexOf('follow') > -1">__("login_popup_follow_unfollow")</span>
                 <span v-else>__("login_popup_default")</span>
             </div>
