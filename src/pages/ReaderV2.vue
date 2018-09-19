@@ -8,8 +8,8 @@
         <ServerError class="read-page-server-error" :action="'readerv2page/fetchReaderData'" :data="currentChapterSlugId" v-if="getPratilipiLoadingState === 'LOADING_ERROR'"></ServerError>
 
         <!-- Reader Data Loaded success -->
-        <div 
-            class="read-page" 
+        <div
+            class="read-page"
             itemscope itemtype="http://schema.org/Book"
             :class="getReaderReadingModeStyle"
             v-if="getPratilipiLoadingState === 'LOADING_SUCCESS'">
@@ -250,15 +250,18 @@
             <div class="footer-section" :class="getReaderReadingModeStyle">
                 <div class="container">
                     <div class="row">
-                        <div class="social-share-btn">
-                            <a :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="whatsapp">
-                                <span class="social-icon"><icon name="whatsapp"></icon></span>
-                            </a>
+                        <div class="review-count" @click="openReviewModal">
+                            <i class="material-icons">comment</i>
+                            <span>{{ getPratilipiData.reviewCount }}</span>
                         </div>
-                        <div class="social-share-btn">
-                            <a :href="getFacebookShareUrl" @click="triggerFbEndShareEvent" class="fb" target="_blank" rel="noopener" aria-label="facebook">
-                                <span class="social-icon"><icon name="facebook-square"></icon></span>
-                            </a>
+                        <div class="rating-count" @click="openRatingModal">
+                            <i class="material-icons">star_rate</i>
+                            <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+                                <span itemprop="ratingCount">{{ getPratilipiData.ratingCount }}</span>
+                                <meta itemprop="ratingValue" v-bind:content="getPratilipiData.averageRating | round(1)" />
+                                <meta itemprop="bestRating" v-bind:content="5"/>
+                                <meta itemprop="worstRating" v-bind:content="1"/>
+                            </span>
                         </div>
                         <div class="add-to-lib">
                             <span v-if="getUserPratilipiData.addedToLib" @click="removePratilipiFromLibrary">
@@ -269,6 +272,14 @@
                                 <i class="material-icons">bookmark_border</i>
                                 <i class="material-icons stacked grey">add</i>
                             </span>
+                        </div>
+                        <div class="whatsapp-share-btn" v-if="isMobile()">
+                            <a :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="google">
+                                <span class="social-icon"><icon name="whatsapp"></icon></span>
+                            </a>
+                        </div>
+                        <div class="share-btn" @click="openShareModal">
+                            <i class="material-icons">share</i>
                         </div>
                     </div>
                 </div>
@@ -1066,7 +1077,7 @@ $theme-yellow-color: #2c3e50;
     }
     .footer-section {
         box-shadow: 0 -1px 1px rgba(0,0,0,0.2);
-        padding: 10px 20px;
+        padding: 10px;
         position: fixed;
         bottom: 0;
         z-index: 12;
@@ -1118,7 +1129,7 @@ $theme-yellow-color: #2c3e50;
                 -webkit-user-select: none;
                 -ms-user-select: none;
                 user-select: none;
-                .social-share-btn {
+                .whatsapp-share-btn {
                     a {
                         font-size: 14px;
                         .social-icon {

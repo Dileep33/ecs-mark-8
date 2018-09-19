@@ -192,15 +192,18 @@
             <div class="footer-section">
                 <div class="container">
                     <div class="row">
-                        <div class="social-share-btn">
-                            <a :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="whatsapp">
-                                <span class="social-icon"><icon name="whatsapp"></icon></span>
-                            </a>
+                        <div class="review-count" @click="openReviewModal">
+                            <i class="material-icons">comment</i>
+                            <span>{{ getPratilipiData.reviewCount }}</span>
                         </div>
-                        <div class="social-share-btn">
-                            <a :href="getFacebookShareUrl" @click="triggerFbEndShareEvent" class="fb" target="_blank" rel="noopener" aria-label="facebook">
-                                <span class="social-icon"><icon name="facebook-square"></icon></span>
-                            </a>
+                        <div class="rating-count" @click="openRatingModal">
+                            <i class="material-icons">star_rate</i>
+                  			    <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+                                              	<span itemprop="ratingCount">{{ getPratilipiData.ratingCount }}</span>
+                          			<meta itemprop="ratingValue" v-bind:content="getPratilipiData.averageRating | round(1)" />
+                                      <meta itemprop="bestRating" v-bind:content="5"/>
+                                      <meta itemprop="worstRating" v-bind:content="1"/>
+                  			    </span>
                         </div>
                         <div class="add-to-lib">
                             <span v-if="getUserPratilipiData.addedToLib" @click="triggerAnanlyticsEventAndRemoveFromLibrary">
@@ -211,6 +214,14 @@
                                 <i class="material-icons">bookmark_border</i>
                                 <i class="material-icons stacked grey">add</i>
                             </span>
+                        </div>
+                        <div class="whatsapp-share-btn">
+                            <a :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="google">
+                                <span class="social-icon"><icon name="whatsapp"></icon></span>
+                            </a>
+                        </div>
+                        <div class="share-btn" @click="openShareModal">
+                            <i class="material-icons">share</i>
                         </div>
                     </div>
                 </div>
@@ -601,8 +612,8 @@ export default {
             $(".book-bottom-webpush-subscribe").removeClass("bg-black");
             $(".book-bottom-webpush-subscribe").addClass("bg-grey");
 
-            $(".social-share-btn .social-icon").removeClass("white");
-            $(".social-share-btn .social-icon").addClass("black");
+            $(".whatsapp-share-btn .social-icon").removeClass("white");
+            $(".whatsapp-share-btn .social-icon").addClass("black");
         },
         themeBlack() {
             this.readingMode = 'black';
@@ -619,8 +630,8 @@ export default {
             $(".book-bottom-webpush-subscribe").removeClass("bg-grey");
             $(".book-bottom-webpush-subscribe").addClass("bg-black");
 
-            $(".social-share-btn .social-icon").removeClass("black");
-            $(".social-share-btn .social-icon").addClass("white");
+            $(".whatsapp-share-btn .social-icon").removeClass("black");
+            $(".whatsapp-share-btn .social-icon").addClass("white");
         },
         themeYellow() {
             this.readingMode = 'yellow';
@@ -635,8 +646,8 @@ export default {
             $(".book-bottom-webpush-subscribe").removeClass("bg-black");
 -           $(".book-bottom-webpush-subscribe").addClass("bg-grey");
 
-            $(".social-share-btn .social-icon").removeClass("white");
-            $(".social-share-btn .social-icon").addClass("black");
+            $(".whatsapp-share-btn .social-icon").removeClass("white");
+            $(".whatsapp-share-btn .social-icon").addClass("black");
         },
         openReviewModal() {
             $(".review-popout").addClass("show");
@@ -1086,7 +1097,7 @@ export default {
     }
     .footer-section {
         box-shadow: 0 -1px 1px rgba(0,0,0,0.2);
-        padding: 10px 20px;
+        padding: 10px;
         position: fixed;
         bottom: 0;
         z-index: 12;
@@ -1140,7 +1151,7 @@ export default {
                 user-select: none;
 
 
-                .social-share-btn {
+                .whatsapp-share-btn {
 
                     a {
                         vertical-align: middle;
@@ -1164,11 +1175,11 @@ export default {
                     }
                 }
 
-                .social-share-btn .white {
+                .whatsapp-share-btn .white {
                     color: #ffffff !important;
                 }
 
-                .social-share-btn .black {
+                .whatsapp-share-btn .black {
                     color: #2c3e50 !important;
                 }
             }
