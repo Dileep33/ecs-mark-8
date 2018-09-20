@@ -12,8 +12,8 @@
                                 v-if="getPratilipiListLoadingState === 'LOADING_SUCCESS' || getPratilipiListData.length !== 0"
                                 :addToLibrary="addToLibrary"
                                 :removeFromLibrary="removeFromLibrary"
-                                :screenName="'FOR_YOU'"
-                                :screenLocation="'FOR_YOU'"
+                                :screenName="'CATEGORY'"
+                                :screenLocation="'FORYOU'"
                             ></PratilipiComponent>
                         </div>
                         <DummyLoader v-if="getPratilipiListLoadingState === 'LOADING'" :sectionCount="1"

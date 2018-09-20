@@ -10,8 +10,8 @@
                     title="__('for_you')"
                     :listPageUrl="'/for-you'"
                     :screenName="'HOME'"
-                    :position="index"
-                    :screenLocation="'COLLECTIONS'"
+                    :position="0"
+                    :screenLocation="'FORYOU'"
                     v-bind="{ addToLibrary, removeFromLibrary }"
                 ></PratilipiListComponent>
             </div>
