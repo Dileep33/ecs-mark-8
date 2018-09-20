@@ -13,7 +13,6 @@ const SEARCH_CORE_API = "/search";
 const RECOMMENDATION_PREFIX = "/recommendations/v2.1";
 const RECOMMENDATION_PRATILIPI_API = "/pratilipis";
 
-const PAGE_API = "/page";
 const PAGE_CONTENT_API = "/page/content";
 const PRATILIPI_API = "/pratilipi?_apiVer=2";
 const PRATILIPI_LIST_API = "/pratilipi/list?_apiVer=3";
@@ -170,32 +169,6 @@ const processPostResponse = function(response, status, successCallBack, errorCal
 /* DataAccessor */
 export default {
 
-    getPageType: (pageUri, aCallBack) => {
-        httpUtil.get(API_PREFIX + PAGE_API,
-            null,
-            { uri: pageUri },
-            function(response, status) { processGetResponse(response, status, aCallBack) });
-    },
-
-    getPratilipiByUri: (pageUri, includeUserPratilipi, aCallBack) => {
-
-        var requests = [];
-        requests.push(new request("req1", PAGE_API, { "uri": pageUri }));
-        requests.push(new request("req2", PRATILIPI_API, { "pratilipiId": "$req1.primaryContentId" }));
-
-        if (includeUserPratilipi)
-            requests.push(new request("req3", USER_PRATILIPI_API, { "pratilipiId": "$req1.primaryContentId" }));
-
-        httpUtil.get(API_PREFIX, null, { "requests": processRequests(requests) },
-            function(response, status) {
-                if (aCallBack != null) {
-                    var pratilipi = response.req2 && response.req2.status == 200 ? response.req2.response : null;
-                    var userpratilipi = includeUserPratilipi && response.req3 && response.req3.status == 200 ? response.req3.response : null;
-                    aCallBack(pratilipi, userpratilipi);
-                }
-            });
-    },
-
     getPratilipiBySlug: (slug, includeUserPratilipi, aCallBack) => {
         var requests = [];
         requests.push(new request("req1", PRATILIPI_NEW_API, { "slug": slug, "nextPratilipi" : true}));
@@ -247,25 +220,6 @@ export default {
                     var index = response.req2 && response.req2.status == 200 ? response.req2.response : null;
                     var userpratilipi = response.req3 && response.req3.status == 200 ? response.req3.response : null;
                     aCallBack(pratilipi, index, userpratilipi);
-                }
-            });
-    },
-
-    getAuthorByUri: (pageUri, includeUserAuthor, aCallBack) => {
-
-        var requests = [];
-        requests.push(new request("req1", PAGE_API, { "uri": pageUri }));
-        requests.push(new request("req2", AUTHOR_API, { "authorId": "$req1.primaryContentId" }));
-
-        if (includeUserAuthor)
-            requests.push(new request("req3", USER_AUTHOR_FOLLOW_GET_API, { "referenceId": "$req1.primaryContentId", "referenceType": "AUTHOR" }));
-
-        httpUtil.get(API_PREFIX, null, { "requests": processRequests(requests) },
-            function(response, status) {
-                if (aCallBack != null) {
-                    var author = response.req2 && response.req2.status == 200 ? response.req2.response : null;
-                    var userauthor = includeUserAuthor && response.req3 && response.req3.status == 200 ? response.req3.response : null;
-                    aCallBack(author, userauthor);
                 }
             });
     },
@@ -361,21 +315,6 @@ export default {
             }
             processGetResponse(response, status, aCallBack)
         })
-    },
-
-    getEventByUri: (pageUri, aCallBack) => {
-
-        var requests = [];
-        requests.push(new request("req1", PAGE_API, { "uri": pageUri }));
-        requests.push(new request("req2", EVENT_API, { "eventId": "$req1.primaryContentId" }));
-
-        httpUtil.get(API_PREFIX, null, { "requests": processRequests(requests) },
-            function(response, status) {
-                if (aCallBack != null) {
-                    var event = response.req2.status == 200 ? response.req2.response : null;
-                    aCallBack(event);
-                }
-            });
     },
 
     getEventBySlug: (slug, limit, offset, aCallBack) => {

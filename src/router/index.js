@@ -676,69 +676,11 @@ var router = new Router({
                 'store': 'listpage',
                 'title': '__("seo_home_page")',
                 'id_prop': 'list_page_url'
-            },
-            beforeEnter: (to, from, next) => {
-                console.log(to);
-                const pathToGo = to.path;
-                DataAccessor.getPageType(pathToGo, (response) => {
-                    if (response.status === 200) {
-                        switch (response.response.pageType) {
-                            case 'PRATILIPI':
-                                DataAccessor.getPratilipiById(response.response.primaryContentId, false, (data) => {
-                                    if (data) {
-                                        next(data.pageUrl);
-                                    } else {
-                                        // redirect to page not found
-                                    }
-                                });
-                            case 'AUTHOR':
-                                DataAccessor.getAuthorById(response.response.primaryContentId, false, (data) => {
-                                    if (data) {
-                                        next(data.pageUrl);
-                                    } else {
-                                        // redirect to page not found
-                                    }
-                                });
-                            default:
-                                next();
-                        }
-                    } else {
-                        next();
-                    }
-                });
             }
         }, {
             path: '*',
             meta: {
                 'title': '__("seo_home_page") | __("pratilipi")'
-            },
-            beforeEnter: (to, from, next) => {
-                console.log('Going to an unknown world!');
-                const pathToGo = to.path;
-                DataAccessor.getPageType(pathToGo, (response) => {
-                    if (response.status === 200) {
-                        switch (response.response.pageType) {
-                            case 'PRATILIPI':
-                                DataAccessor.getPratilipiById(response.response.primaryContentId, false, (data) => {
-                                    if (data) {
-                                        next(data.pageUrl);
-                                    } else {
-                                        // redirect to page not found
-                                    }
-                                });
-                            case 'AUTHOR':
-                                DataAccessor.getAuthorById(response.response.primaryContentId, false, (data) => {
-                                    if (data) {
-                                        next(data.pageUrl);
-                                    } else {
-                                        // redirect to page not found
-                                    }
-                                });
-                        }
-                    } else {
-                        // redirect to page not found
-                    }
-                });
             }
         }
     ],
