@@ -35,7 +35,7 @@ export default {
                 console.log("Response: " , data.response);
                 commit('setForYouDataLoadingSuccess', data.response);
             } else {
-                commit('setListPageInitialDataLoadingError');
+                commit('setForYouLoadingError');
             }
         });
     },

@@ -52,6 +52,11 @@ export default {
         state.data = state.data.concat(temp);
         state.data = state.data.concat(data.for_you);
         state.cursor = data.cursor;
+        state.finished = data.finished;
+    },
+
+    setForYouLoadingError(state) {
+        state.loading_state = 'LOADING_ERROR';
     },
 
     setListPageInitialDataLoadingError(state) {

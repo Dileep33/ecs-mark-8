@@ -60,7 +60,8 @@
                 'getPratilipiListTotalCount',
                 'getPratilipiListTitle',
                 'getPratilipiListCursor',
-                'getPageTitle'
+                'getPageTitle',
+                'getFinishedStatus'
             ])
         },
         methods: {
@@ -83,7 +84,7 @@
                 const sbHeight = window.innerHeight * (window.innerHeight / document.body.offsetHeight)
                 const nintyPercentOfList = ( 80 / 100 ) * $('.list-page').innerHeight();
 
-                if (newScrollPosition + sbHeight > nintyPercentOfList && this.getPratilipiListLoadingState !== 'LOADING' && this.getPratilipiListCursor !== null) {
+                if (newScrollPosition + sbHeight > nintyPercentOfList && this.getPratilipiListLoadingState !== 'LOADING' && this.getPratilipiListCursor !== null && !this.getFinishedStatus) {
                     this.fetchForYouListPagePratilipis({ "userId" : this.getUserDetails.userId, "cursor" : this.getPratilipiListCursor, "language": this.getCurrentLanguage().fullName.toUpperCase()});
                 }
             },
@@ -102,6 +103,11 @@
                     this.isCreated=false;
                 }
             },
+            'getPratilipiListData'(){
+                if (this.getPratilipiListData.length < 9 && !this.getFinishedStatus) {
+                    this.fetchForYouListPagePratilipis({'userId' : this.getUserDetails.userId, "cursor" : this.getPratilipiListCursor, "language": this.getCurrentLanguage().fullName.toUpperCase()});
+                }
+            }
         },
         mounted() {
             this.triggerAnanlyticsEvent(`LANDED_FORYOU_CATEGORY`, 'CONTROL', {

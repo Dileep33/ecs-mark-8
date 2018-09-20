@@ -177,6 +177,11 @@ import { mapGetters, mapActions } from 'vuex'
                     this.isCreated=false;
                 }
             },
+            'getForYouList'(){
+                if (this.getForYouList.length < 6) {
+                    this.fetchForYouListPagePratilipis({'userId' : this.getUserDetails.userId, "cursor" : "0-0", "language": this.getCurrentLanguage().fullName.toUpperCase()});
+                }
+            }
         },
         destroyed() {
             window.removeEventListener('scroll', this.updateScroll);
