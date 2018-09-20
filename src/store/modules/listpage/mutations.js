@@ -39,6 +39,17 @@ export default {
 
     setForYouDataLoadingSuccess(state, data) {
         state.loading_state = 'LOADING_SUCCESS';
+        let i = 0;
+        let j = 0;
+        let temp = state.data;
+        for( i = 0; i < data.for_you.length; i++){
+            for( j = 0; j < state.data.length; j++) {
+                if (data.for_you[i].pratilipiId === state.data[j].pratilipiId)
+                    temp.splice(j, 1)
+            }
+        }
+        state.data = [];
+        state.data = state.data.concat(temp);
         state.data = state.data.concat(data.for_you);
         state.cursor = data.cursor;
     },

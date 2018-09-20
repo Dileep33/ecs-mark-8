@@ -108,6 +108,11 @@
                 'USER_ID': this.getUserDetails.userId,
             });
             window.addEventListener('scroll', this.updateScroll);
+
+            if (this.getUserDetails.userId && !this.getUserDetails.isGuest) {
+                console.log(this.getUserDetails);
+                this.fetchForYouListPagePratilipis({'userId' : this.getUserDetails.userId, "cursor" : "0-0", "language": this.getCurrentLanguage().fullName.toUpperCase()});
+            }
         },
         destroyed() {
             window.removeEventListener('scroll', this.updateScroll);

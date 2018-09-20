@@ -100,4 +100,16 @@ export default {
             }
         })
     },
+
+    fetchForYouListPagePratilipis({commit, state}, {userId, cursor, language}) {
+        commit('setForYouLoadingTrue');
+        console.log("uid - ",userId)
+        DataAccessor.getForYouPratilipiList(userId, cursor, language, function(data) {
+            if (data.status === 200) {
+                commit('setForYouLoadingSuccess', data.response);
+            } else {
+                commit('setForYouLoadingError');
+            }
+        });
+    },
 }

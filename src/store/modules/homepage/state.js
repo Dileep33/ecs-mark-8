@@ -24,5 +24,10 @@ export default {
     horoscope: {
         loading_state: 'LOADING',
         data: [],
+    },
+
+    for_you : {
+        loading_state: 'LOADING',
+        data: [],
     }
 }
