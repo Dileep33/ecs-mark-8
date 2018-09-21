@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form class="forms landed_login" id="signup" v-if="currentStep === 'LANDED_LOGIN'">
+        <form class="forms" id="signup" v-if="currentStep === 'LANDED_LOGIN'">
             <div class="pratilipi-logo">
                 <img src="../../../assets/pratilipi_logo.png" />
                 <br>
