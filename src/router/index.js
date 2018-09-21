@@ -125,6 +125,10 @@ function _getDefaultPageOGTags(pageStoreName) {
             break;
         case 'authorpage':
             return [{
+                    name: 'robots',
+                    content: 'INDEX'
+                },
+                {
                     property: 'og:title',
                     content: '__("seo_login_page") | __("pratilipi")'
                 },

@@ -93,6 +93,7 @@ import { mapGetters, mapActions } from 'vuex'
                 scrollPosition: null,
                 percentScrolled: null,
                 isCreated: false,
+                backupCall: true
             }
         },
         mixins: [
@@ -145,6 +146,7 @@ import { mapGetters, mapActions } from 'vuex'
             this.fetchBanners(this.getCurrentLanguage().fullName.toUpperCase());
             this.getListOfSections(this.getCurrentLanguage().fullName.toUpperCase());
             this.isCreated = true;
+            this.backupCall = true;
             if (this.$route.query.utm_image) {
                 document.head.querySelector('meta[property="og:image"]').content = this.$route.query.utm_image;
             }
@@ -178,8 +180,9 @@ import { mapGetters, mapActions } from 'vuex'
                 }
             },
             'getForYouList'(){
-                if (this.getForYouList.length < 6) {
-                    this.fetchForYouListPagePratilipis({'userId' : this.getUserDetails.userId, "cursor" : "0-0", "language": this.getCurrentLanguage().fullName.toUpperCase()});
+                if (this.getForYouList && this.getForYouList.length < 6 && this.backupCall) {
+                    this.backupCall = false;
+                    this.fetchForYouListPagePratilipis({'userId' : this.getUserDetails.userId, "cursor" : "10-0", "language": this.getCurrentLanguage().fullName.toUpperCase()});
                 }
             }
         },
