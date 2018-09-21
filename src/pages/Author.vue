@@ -417,6 +417,9 @@ export default {
             document.head.querySelector('meta[property="og:description"]').content = authorData.summary;
             document.head.querySelector('meta[property="og:image"]').content = this.getOgResolutionImage(authorData.imageUrl);
             document.head.querySelector('meta[property="og:url"]').content = window.location.href;
+            if (authorData.contentPublished === 0) {
+                document.head.querySelector('meta[name="robots"]').content = "NOINDEX";
+            }
         },
         triggerDashboardClickEvent() {
             this.triggerAnanlyticsEvent(`CLICKDASHBOARD_MYPROFILEM_MYPROFILE`, 'CONTROL', {
