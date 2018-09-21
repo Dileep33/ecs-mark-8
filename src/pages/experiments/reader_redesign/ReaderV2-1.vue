@@ -315,7 +315,7 @@
 </template>
 
 <script>
-import ReadLayout from '@/layout/Reader-layout.vue';
+import ReadLayout from '@/layout/experiments/share_after_rating/Reader-layout.vue';
 import mixins from '@/mixins';
 import 'vue-awesome/icons/file-text'
 import 'vue-awesome/icons/file-text-o'
