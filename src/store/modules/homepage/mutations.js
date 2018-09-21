@@ -29,7 +29,7 @@ export default {
 
     setForYouLoadingSuccess(state, data) {
         state.for_you.loading_state = 'LOADING_SUCCESS';
-        state.for_you.data = data.for_you;
+        state.for_you.data = state.for_you.data.concat(data.for_you);
     },
 
     setForYouLoadingError(state) {
