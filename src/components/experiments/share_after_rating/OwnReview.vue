@@ -232,14 +232,18 @@ export default {
                 this.closeReview();
                 this.initialRating = data.rating;
                 
-                this.setShareDetails({ data: this.pratilipiData, type: 'PRATILIPI', screen_name: this.screenName, screen_location: this.screenLocation })
-                setTimeout(() => {
-                    $('#share_modal').modal('show');
-                    this.triggerAnanlyticsEvent(`OPENSHRBOOK_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
-                        ...pratilipiAnalyticsData,
-                        'USER_ID': this.getUserDetails.userId
-                    });
-                }, 1000);
+                console.log("RATING: ", data.rating);
+                
+                if (data.rating > 3) {
+                    this.setShareDetails({ data: this.pratilipiData, type: 'PRATILIPI', screen_name: this.screenName, screen_location: this.screenLocation })
+                    setTimeout(() => {
+                        $('#share_modal').modal('show');
+                        this.triggerAnanlyticsEvent(`OPENSHRBOOK_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
+                            ...pratilipiAnalyticsData,
+                            'USER_ID': this.getUserDetails.userId
+                        });
+                    }, 1000);
+                }
             }
         },
         checkAndDeleteReview(e) {
