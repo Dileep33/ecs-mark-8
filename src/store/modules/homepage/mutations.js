@@ -23,6 +23,20 @@ export default {
         state.sections.loading_state = 'LOADING';
     },
 
+    setForYouLoadingTrue(state) {
+        state.for_you.loading_state = 'LOADING';
+    },
+
+    setForYouLoadingSuccess(state, data) {
+        state.for_you.loading_state = 'LOADING_SUCCESS';
+        state.for_you.data = data.for_you;
+    },
+
+    setForYouLoadingError(state) {
+        state.for_you.loading_state = 'LOADING_ERROR';
+    },
+
+
     setSectionData(state, sectionData) {
         console.log(state);
         state.sections.loading_state = 'LOADING_SUCCESS';

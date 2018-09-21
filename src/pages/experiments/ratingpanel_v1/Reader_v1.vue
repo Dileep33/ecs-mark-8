@@ -128,8 +128,6 @@
                                     v-if="isNextPratilipiEnabled && getPratilipiData.nextPratilipi.pratilipiId>0"
                                 ></NextPratilipiStrip>
                             </div>
-                            
-                            <PhoneModal></PhoneModal>
 
                            <ShareStrip
                                 v-if="selectedChapter == getIndexData.length"
@@ -314,7 +312,6 @@ import NextPratilipiStrip from '@/components/NextPratilipiStrip.vue'
 import WebPushUtil from '@/utils/WebPushUtil';
 import { mapGetters, mapActions } from 'vuex';
 import constants from '@/constants';
-import PhoneModal from '@/components/PhoneModal';
 
 
 export default {
@@ -327,8 +324,7 @@ export default {
         Recommendation,
         ShareStrip,
         OpenInApp,
-        NextPratilipiStrip,
-        PhoneModal
+        NextPratilipiStrip
     },
     mixins: [
         mixins

@@ -2601,5 +2601,15 @@ export default {
         "SCREEN_NAME": "CATEGORY",
         "LOCATION": "FORYOU",
         "ACTION": "LANDED"
+    },
+    "CLICKBOOK_FORYOU_CATEGORY": {
+        "SCREEN_NAME": "CATEGORY",
+        "LOCATION": "FORYOU",
+        "ACTION": "CLICKBOOK"
+    },
+    "CLICKBOOK_FORYOU_HOME": {
+        "SCREEN_NAME": "HOME",
+        "LOCATION": "FORYOU",
+        "ACTION": "CLICKBOOK"
     }
 };

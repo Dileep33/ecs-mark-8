@@ -4,17 +4,17 @@
             <Banners v-if="getHomePageBannersLoadingState === 'LOADING_SUCCESS'"
                 :banners="getHomePageBanners"
             ></Banners>
-            <!-- <VapasiShayari 
-                screenName="HOME"
-                v-if="this.isMobile() && getCurrentLanguage().fullName == 'hindi' && (parseInt(this.getCookie('bucket_id')) || 0) >= 11 && (parseInt(this.getCookie('bucket_id')) || 0) <= 40"></VapasiShayari> -->
-            <!--
-            <VapasiJoke
-                screenName="HOME"
-                v-if="this.isMobile() && getCurrentLanguage().fullName == 'gujarati'"></VapasiJoke>
-            <VapasiHoroscope
-                screenName="HOME"
-                v-if="this.isMobile() && getCurrentLanguage().fullName == 'marathi'"></VapasiHoroscope>
-            -->
+            <div v-if="getForYourLoadingState  === 'LOADING_SUCCESS'">
+                <PratilipiListComponent
+                    :pratilipiList="getForYouList"
+                    title="__('for_you')"
+                    :listPageUrl="'/for-you'"
+                    :screenName="'HOME'"
+                    :position="0"
+                    :screenLocation="'FORYOU'"
+                    v-bind="{ addToLibrary, removeFromLibrary }"
+                ></PratilipiListComponent>
+            </div>
             <DummyLoader v-if="getHomePageLoadingState === 'LOADING'"></DummyLoader>
             <div v-if="getHomePageLoadingState === 'LOADING_SUCCESS'" v-for="(eachSection, index) in getHomePageSections" v-bind:key="eachSection.listPageUrl">
                 <PratilipiListComponent
@@ -91,7 +91,8 @@ import { mapGetters, mapActions } from 'vuex'
                 isWebPushModalEnabled: false,
                 webPushModalTriggered: false,
                 scrollPosition: null,
-                percentScrolled: null
+                percentScrolled: null,
+                isCreated: false,
             }
         },
         mixins: [
@@ -102,7 +103,9 @@ import { mapGetters, mapActions } from 'vuex'
                 'getHomePageSections',
                 'getHomePageLoadingState',
                 'getHomePageBanners',
-                'getHomePageBannersLoadingState'
+                'getHomePageBannersLoadingState',
+                'getForYouList',
+                'getForYourLoadingState',
             ]),
             ...mapGetters([
                 'getUserDetails'
@@ -114,7 +117,8 @@ import { mapGetters, mapActions } from 'vuex'
                 'getListOfSections',
                 'addToLibrary',
                 'removeFromLibrary',
-                'fetchBanners'
+                'fetchBanners',
+                'fetchForYouListPagePratilipis'
             ]),
             closeWebPushStrip() {
                 this.isWebPushStripEnabled = false
@@ -135,17 +139,17 @@ import { mapGetters, mapActions } from 'vuex'
             DummyLoader,
             WebPushStrip,
             WebPushModal,
-            // VapasiQuote,
             VapasiShayari,
-            // VapasiHoroscope,
-            // VapasiJoke
         },
         created() {
             this.fetchBanners(this.getCurrentLanguage().fullName.toUpperCase());
             this.getListOfSections(this.getCurrentLanguage().fullName.toUpperCase());
+            this.isCreated = true;
             if (this.$route.query.utm_image) {
                 document.head.querySelector('meta[property="og:image"]').content = this.$route.query.utm_image;
             }
+
+
             document.head.querySelector('meta[name="description"]').content = "__('seo_home_page_meta_description')";
         },
         mounted() {
@@ -153,13 +157,29 @@ import { mapGetters, mapActions } from 'vuex'
                 'USER_ID': this.getUserDetails.userId
             });
             window.addEventListener('scroll', this.updateScroll);
-
+            if (this.getUserDetails.userId && !this.getUserDetails.isGuest) {
+                this.fetchForYouListPagePratilipis({'userId' : this.getUserDetails.userId, "cursor" : "0-0", "language": this.getCurrentLanguage().fullName.toUpperCase()});
+            }
         },
         watch: {
             'percentScrolled'(newPercentScrolled, prevPercentScrolled) {
                 if (newPercentScrolled > 90 && !this.webPushModalTriggered && this.isWebPushModalEnabled) {
-                    this.webPushModalTriggered = true
+                    this.webPushModalTriggered = true;
                     this.openWebPushModal()
+                }
+            },
+            'getUserDetails.userId'() {
+                if(this.isCreated) {
+                    if (!this.getUserDetails.isGuest) {
+                        this.fetchForYouListPagePratilipis({'userId' : this.getUserDetails.userId, "cursor" : "0-0", "language": this.getCurrentLanguage().fullName.toUpperCase()});
+                    }
+                } else {
+                    this.isCreated=false;
+                }
+            },
+            'getForYouList'(){
+                if (this.getForYouList.length < 6) {
+                    this.fetchForYouListPagePratilipis({'userId' : this.getUserDetails.userId, "cursor" : "0-0", "language": this.getCurrentLanguage().fullName.toUpperCase()});
                 }
             }
         },

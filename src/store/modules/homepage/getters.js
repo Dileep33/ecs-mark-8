@@ -17,7 +17,7 @@ export default {
     //         return total + product.price * product.quantity
     //     }, 0)
     // }
-    
+
     getHomePageSections: state => state.sections.data,
     getHomePageLoadingState: state => state.sections.loading_state,
     getHomePageBanners: state => state.banners.data,
@@ -27,4 +27,7 @@ export default {
     getJokeImage: state => state.joke.imageUrl,
     getQuoteImage: state => state.quote.imageUrl,
     getHoroscope: state => state.horoscope.data,
+    getForYouList: state => state.for_you.data,
+    getForYourLoadingState: state => state.for_you.loading_state,
+
 }

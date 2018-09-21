@@ -12,8 +12,8 @@
                                 v-if="getPratilipiListLoadingState === 'LOADING_SUCCESS' || getPratilipiListData.length !== 0"
                                 :addToLibrary="addToLibrary"
                                 :removeFromLibrary="removeFromLibrary"
-                                :screenName="'FOR_YOU'"
-                                :screenLocation="'FOR_YOU'"
+                                :screenName="'CATEGORY'"
+                                :screenLocation="'FORYOU'"
                             ></PratilipiComponent>
                         </div>
                         <DummyLoader v-if="getPratilipiListLoadingState === 'LOADING'" :sectionCount="1"
@@ -60,7 +60,8 @@
                 'getPratilipiListTotalCount',
                 'getPratilipiListTitle',
                 'getPratilipiListCursor',
-                'getPageTitle'
+                'getPageTitle',
+                'getFinishedStatus'
             ])
         },
         methods: {
@@ -83,7 +84,7 @@
                 const sbHeight = window.innerHeight * (window.innerHeight / document.body.offsetHeight)
                 const nintyPercentOfList = ( 80 / 100 ) * $('.list-page').innerHeight();
 
-                if (newScrollPosition + sbHeight > nintyPercentOfList && this.getPratilipiListLoadingState !== 'LOADING' && this.getPratilipiListCursor !== null) {
+                if (newScrollPosition + sbHeight > nintyPercentOfList && this.getPratilipiListLoadingState !== 'LOADING' && this.getPratilipiListCursor !== null && !this.getFinishedStatus) {
                     this.fetchForYouListPagePratilipis({ "userId" : this.getUserDetails.userId, "cursor" : this.getPratilipiListCursor, "language": this.getCurrentLanguage().fullName.toUpperCase()});
                 }
             },
@@ -102,12 +103,22 @@
                     this.isCreated=false;
                 }
             },
+            'getPratilipiListData'(){
+                if (this.getPratilipiListData.length < 9 && !this.getFinishedStatus) {
+                    this.fetchForYouListPagePratilipis({'userId' : this.getUserDetails.userId, "cursor" : this.getPratilipiListCursor, "language": this.getCurrentLanguage().fullName.toUpperCase()});
+                }
+            }
         },
         mounted() {
             this.triggerAnanlyticsEvent(`LANDED_FORYOU_CATEGORY`, 'CONTROL', {
                 'USER_ID': this.getUserDetails.userId,
             });
             window.addEventListener('scroll', this.updateScroll);
+
+            if (this.getUserDetails.userId && !this.getUserDetails.isGuest) {
+                console.log(this.getUserDetails);
+                this.fetchForYouListPagePratilipis({'userId' : this.getUserDetails.userId, "cursor" : "0-0", "language": this.getCurrentLanguage().fullName.toUpperCase()});
+            }
         },
         destroyed() {
             window.removeEventListener('scroll', this.updateScroll);
