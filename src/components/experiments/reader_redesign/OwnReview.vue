@@ -176,7 +176,7 @@ export default {
                     this.setShareDetails({ data: this.pratilipiData, type: 'PRATILIPI', screen_name: this.screenName, screen_location: this.screenLocation })
                     setTimeout(() => {
                         $('#share_modal').modal('show');
-                        this.triggerAnanlyticsEvent(`OPENSHRBOOK_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
+                        this.triggerAnanlyticsEvent(`OPENSHRBOOK_${this.screenLocation}_${this.screenName}`, 'WSH001', {
                             ...pratilipiAnalyticsData,
                             'USER_ID': this.getUserDetails.userId
                         });
