@@ -274,9 +274,16 @@ var router = new Router({
             name: 'Pratilipi',
             component: () => {
                 if (process.env.REALM === 'PROD') {
-                    return new Promise((resolve) => {
-                        resolve(PratilipiPageComponent)
-                    });
+                    let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 42;
+                    console.log("bucket id ", bucketId);
+
+                    if (bucketId > 70 && bucketId <= 100) {
+                        return import ('@/pages/experiments/share_after_rating/Pratilipi.vue');
+                    } else {
+                        return new Promise((resolve) => {
+                            resolve(PratilipiPageComponent)
+                        });
+                    }
                 } else if (process.env.REALM === 'PROD_BRIDGE') {
 
                 } else {

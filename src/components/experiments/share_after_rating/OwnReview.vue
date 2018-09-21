@@ -1,6 +1,24 @@
 <template>
-    <li class="ownReview ownReviewv2">
+    <Review
+        v-if="screenName=='BOOK' && userReview && userReview.review!=null && userReview.review!='' && !editRatingMode"
+        :loadCommentsOfReview="loadCommentsOfReview"
+        :likeOrDislikeReview="likeOrDislikeReview"
+        :userPratilipiData="userPratilipiData"
+        :eachReview="userReview" :key="userReview.userPratilipiId"
+        :authorId="authorId"
+        :createComment="createComment"
+        :deleteComment="deleteComment"
+        :likeOrDislikeComment="likeOrDislikeComment"
+        :updateComment="updateComment"
+        :openReviewAndEditRating="openReviewAndEditRating"
+        :checkAndDeleteReview="checkAndDeleteReview"
+        :screenName="screenName"
+        :screenLocation="'REVIEWS'"
+        :pratilipiData="pratilipiData"
+        ></Review>
+    <li class="ownReview" v-else>
         <div  v-if="authorId !== getUserDetails.authorId" class="comment-main-level">
+            <div class="comment-avatar"><img :src="userPratilipiData.userId == 0 ? defaultAuthorImage : getLowResolutionImage(userPratilipiData.userImageUrl)" alt="author"></div>
             <div class="comment-box">
                 <div class="already-rated"  v-if="userPratilipiData.reviewDateMillis != null && !editRatingMode">
                     <button class="btn more-options" type="button" id="ownReviewMoreOptions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -14,15 +32,18 @@
                             __("review_delete_review")
                         </button>
                     </div>
+                    <div class="comment-meta">
+                        <h6 class="comment-name"><router-link :to="userPratilipiData.userProfilePageUrl">{{ userPratilipiData.userName }}</router-link></h6>
+                        <span>{{ userPratilipiData.reviewDateMillis | convertDate }}</span>
+                    </div>
                     <div class="rating">
                         <i class="material-icons" v-for="index in Number(parseInt(userPratilipiData.rating))" :key="index + Math.random()">star</i>
                         <i class="material-icons" v-for="index in 5 - Number(parseInt(userPratilipiData.rating))" :key="index + Math.random()">star_border</i>
                     </div>
-                    <!-- <span class="review-date">{{ userPratilipiData.reviewDateMillis | convertDate }}</span> -->
-                    
-                    <div class="comment-content" v-if="userPratilipiData.review">
-                        “{{ userPratilipiData.review }}“
+                    <div class="comment-content">
+                        {{ userPratilipiData.review }}
                     </div>
+                    <button class="btn btn-primary write-review-btn" v-if="(userPratilipiData.review === '' || !userPratilipiData.review) && !editRatingMode" @click="openReview" >__("review_write_a_review")</button>
                     <div class="review-box">
                         <form>
                             <div class="form-group">
@@ -35,6 +56,7 @@
                     </div>
                 </div>
                 <div class="rate-now" v-if="!userPratilipiData.reviewDateMillis || editRatingMode">
+                    <span class="text">__("rating_your_rating")</span>
                     <fieldset class="rating" @click="openReview">
                         <input  type="radio" id="star5" name="rating" value="5" :checked="userPratilipiData.rating == 5" @change="changeRating"/><label class = "full star" for="star5"></label>
                         <input  type="radio" id="star4" name="rating" value="4" :checked="userPratilipiData.rating == 4" @change="changeRating"/><label class = "full star" for="star4"></label>
@@ -43,14 +65,16 @@
                         <input  type="radio" id="star1" name="rating" value="1" :checked="userPratilipiData.rating == 1" @change="changeRating"/><label class = "full star" for="star1"></label>
                     </fieldset>
                     <p class="rating-helper"></p>
+                    <button class="btn btn-primary write-review-btn" v-if="!userPratilipiData.review || userPratilipiData.review === ''" @click="openReview">__("review_write_a_review")</button>
+                    <button class="btn btn-primary write-review-btn" @click="openReview" v-else>__("review_edit_review")</button>
                     <div class="review-box">
                         <form>
                             <div class="form-group">
                                 <!-- <textarea :value="newReview" @input="newReview = $event.target.value" class="form-control" rows="2" placeholder="__('review_write_a_review')"></textarea> -->
                                 <TranslatingInputTextArea :value="newReview" :oninput="updatePrefilledValue" :enableSpeechToText=true screenLocation="RATEREV" placeholder="__('review_write_a_review')" class="modal-textarea"></TranslatingInputTextArea>
                             </div>
-                            <button type="button" @click="cancelReview" class="cancel-review">__("cancel")</button>
                             <button type="button" :disabled="!isSaveActive &&  (newReview === '' || !newReview)" class="btn btn-primary" @click="checkAndUpdateReview({ review: newReview, pratilipiId: userPratilipiData.pratilipiId, rating: userPratilipiData.rating })">__("save")</button>
+                            <button type="button" @click="cancelReview" class="btn btn-light">__("cancel")</button>
                         </form>
                     </div>
                 </div>
@@ -61,7 +85,8 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import inViewport from 'vue-in-viewport-mixin';
-import mixins from '@/mixins'
+import mixins from '@/mixins';
+import Review from '@/components/Review.vue';
 import Spinner from '@/components/Spinner.vue';
 import TranslatingInputTextArea from '@/components/TranslatingInputTextArea.vue';
 
@@ -94,14 +119,38 @@ export default {
             type: String,
             required: true
         },
-        experimentId: {
-            type: String,
-            required: true
-        },
         pratilipiData: {
             type: Object,
             required: true
-        }
+        },
+        userReview: {
+            type: Object,
+            required: false
+        },
+        likeOrDislikeReview: {
+            type: Function,
+            required: true
+        },
+        likeOrDislikeComment: {
+            type: Function,
+            required: true
+        },
+        loadCommentsOfReview: {
+            type: Function,
+            required: true
+        },
+        createComment: {
+            type: Function,
+            required: true
+        },
+        updateComment: {
+            type: Function,
+            required: true
+        },
+        deleteComment: {
+            type: Function,
+            required: true
+        },
     },
     data() {
         return {
@@ -134,7 +183,7 @@ export default {
         changeRating(e) {
             // let action = this.userPratilipiData.rating ? 'EDITRATE' : 'RATE';
             let action = 'RATE';
-            this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, `${this.experimentId}`, {
+            this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': e.target.value
             });
@@ -143,8 +192,21 @@ export default {
             this.updateRatingInStore( { review : this.newReview, pratilipiId : this.userPratilipiData.pratilipiId, pageName : this.$route.meta.store, rating : parseInt(e.target.value)});
             this.isSaveActive = true;
 
-            $(".rate-wrap").addClass("fullwidth");
-            $(".share-wrap").hide();
+            // if (this.getUserDetails.isGuest) {
+            //     $('#star1').prop('checked', false);
+            //     $('#star2').prop('checked', false);
+            //     $('#star3').prop('checked', false);
+            //     $('#star4').prop('checked', false);
+            //     $('#star5').prop('checked', false);
+            //     // this.setAfterLoginAction({ action: `reviews/setPratilipiRating`, data: {
+            //     //     rating: newRating,
+            //     //     pratilipiId: this.userPratilipiData.pratilipiId,
+            //     //     pageName: this.$route.meta.store
+            //     // } });
+            //     this.openLoginModal(this.$route.meta.store, 'RATE', this.screenLocation);
+            // } else {
+            //     this.isSaveActive = true;
+            // }
         },
         checkAndUpdateReview(data) {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.pratilipiData);
@@ -152,7 +214,7 @@ export default {
             if (action === 'EDITREVIEW') {
                 pratilipiAnalyticsData['ENTITY_STATE'] = 'UPDATE';
             }
-            this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, `${this.experimentId}`, {
+            this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': this.userPratilipiData.rating
@@ -190,25 +252,32 @@ export default {
                 $(".write-review-btn").hide()
             }, 0);
             this.editRatingMode = true;
-            $(".rate-wrap").addClass("fullwidth");
-            $(".share-wrap").hide();
         },
         openReview() {
             $(".review-box").fadeIn();
+            $(".write-review-btn").hide();
+            if(this.screenName === 'READER') {
+                setTimeout(() => {
+                    $('.translatingTextArea').focus();
+                }, 0);
+            }
+            else {
+                setTimeout(() => {
+                    $('#translatingTextArea').focus();
+                }, 0);
+            }
         },
         cancelReview(e) {
             $(".review-box").hide();
+            $(".write-review-btn").fadeIn();
             $('.rating input').prop('checked', false);
             this.editRatingMode = false;
-            $(".rate-wrap").removeClass("fullwidth");
-            $(".share-wrap").show();
             this.updateRatingInStore( { review : this.newReview, pratilipiId : this.userPratilipiData.pratilipiId, pageName : this.$route.meta.store, rating : parseInt(this.initialRating)});
         },
         closeReview(e) {
             $(".review-box").hide();
+            $(".write-review-btn").fadeIn();
             $('.rating input').prop('checked', false);
-            $(".rate-wrap").removeClass("fullwidth");
-            $(".share-wrap").show();
             this.editRatingMode = false;
         },
         ratingHelperText() {
@@ -254,11 +323,11 @@ export default {
             if (visible) {
 
                 if (this.screenLocation === 'BOOKEND' && this.screenName === 'READER') {
-                    this.triggerAnanlyticsEvent(`LANDED_${this.screenLocation}_${this.screenName}`, `${this.experimentId}`, {
+                    this.triggerAnanlyticsEvent(`LANDED_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
                         'USER_ID': this.getUserDetails.userId
                     });
                 } else {
-                    this.triggerAnanlyticsEvent(`VIEWED_${this.screenLocation}_${this.screenName}`, `${this.experimentId}`, {
+                    this.triggerAnanlyticsEvent(`VIEWED_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
                         'USER_ID': this.getUserDetails.userId
                     });
                 }
@@ -269,11 +338,13 @@ export default {
             if(editRatingMode) {
                 setTimeout(()=> {
                     this.ratingHelperText();
-                }, 500);
+                    this.openReview();
+                }, 200);
             }
         }
     },
      components: {
+        Review,
         TranslatingInputTextArea
     }
 }
@@ -284,25 +355,50 @@ export default {
 li {
     list-style: none;
 }
-.rate-wrap {
-    .already-rated .more-options {
-        display: none;
-    }
-}
 .comment-main-level {
-    margin: 0;
+    margin: 0 5px 10px;
     text-align: center;
     position: relative;
     font-size: 14px;
+    .comment-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        position: relative;
+        z-index: 1;
+        border: 3px solid #FFF;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        overflow: hidden;
+        margin: 0 auto 20px;
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
     .comment-box {
-        padding: 0;
-        color: #000;
+        margin-top: -50px;
+        padding: 40px 5px 10px;
+        .write-review-btn {
+            background: #d0021b;
+            border: 0;
+            font-size: 14px;
+            margin: 5px 0;
+            &:focus {
+                outline: none;
+                box-shadow: none;
+            }
+            &:focus, &:active {
+                background: #d0021b;
+                outline: none;
+                box-shadow: none !important;
+            }
+        }
         .already-rated {
             text-align: center;
             .more-options {
                 position: absolute;
                 right: 0;
-                top: 0;
+                top: 30px;
                 background: none;
                 i {
                     font-size: 18px;
@@ -333,26 +429,14 @@ li {
                 }
             }
             .rating {
-                text-align: left;
-                margin: 5px 0;
                 i {
-                    font-size: 30px;
-                    color: #F5A623
+                    font-size: 18px;
+                    color: #6c757d
                 }
-            }
-            .comment-content {
-                text-align: left;
-            }
-            .review-date {
-                font-size: 12px;
-                text-align: left;
-                display: block;
-                margin: 5px 0;
-                color: #555;
             }
             .review-box {
                 clear: both;
-                margin: 4px 0;
+                margin: 4px 10px;
                 display: none;
                 overflow: visible;
                 label {
@@ -362,56 +446,38 @@ li {
                     float: right;
                     font-size: 14px;
                     margin-left: 5px;
-                    &.cancel-review {
-                        font-size: 12px;
-                        color: #d0021b;
-                        position: absolute;
-                        top: -20px;
-                        right: 0;
-                        background: none;
-                        border: 0;
-                    }
                     &.btn-primary {
-                        background: #4E9862;
+                        background: #d0021b;
                         border: 0;
-                        border-radius: 1px;
                     }
                 }
             }
         }
         .rate-now {
             text-align: center;
-            text-align: left;
-            overflow: hidden;
             span.text {
                 display: block;
                 margin: 0;
                 font-size: 14px;
             }
             .rating-helper{
-                font-size: 13px;
+                font-size: 18px;
                 height: 20px;
-                color: #000;
-                margin: 0 0 0 5px;
-                text-align: left;
-                display: inline-block;
             }
             .rating {
                 border: none;
-                width: 150px;
-                margin: 0;
-                display: inline-block;
-                vertical-align: middle;
+                width: 240px;
+                margin: 0 auto;
                 input {
                     display: none;
                 }
                 label:before {
-                    margin: 0;
-                    font-size: 30px;
+                    margin: 2px 5px 0 0;
+                    font-size: 40px;
                     font-family: 'Material Icons';
                     display: inline-block;
                     content: "\e83a";
-                    color: #F5A623;
+                    color: #28a745;
                 }
                 label {
                     color: #9e9e9e;
@@ -427,7 +493,7 @@ li {
             }
             .review-box {
                 clear: both;
-                margin: 4px 5px;
+                margin: 4px 10px;
                 display: none;
                 overflow: visible;
                 label {
@@ -437,30 +503,13 @@ li {
                     float: right;
                     font-size: 14px;
                     margin-left: 5px;
-                    &.cancel-review {
-                        font-size: 12px;
-                        color: #d0021b;
-                        position: absolute;
-                        top: -20px;
-                        right: 0;
-                        background: none;
-                        border: 0;
-                    }
                     &.btn-primary {
-                        background: #4E9862;
+                        background: #d0021b;
                         border: 0;
-                        border-radius: 1px;
                     }
                 }
             }
         }
-    }
-}
-</style>
-<style lang="scss">
-.ownReview.ownReviewv2 {
-    .form-control {
-        border-radius: 0;
     }
 }
 </style>
