@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="forms" id="signup" v-if="currentStep === 'LANDED_LOGIN'">
+        <form class="forms" id="signup" v-if="currentStep === 'LANDED_LOGIN'">
             <div class="pratilipi-logo">
                 <img src="../../../assets/pratilipi_logo.png" />
                 <br>
@@ -23,13 +23,14 @@
                     <span v-if="(getLoginError && getLoginError.email)">{{ getLoginError.email }}</span>
                     <span v-else>__("email_entered_incorrectly")</span>
                 </p>
-                <input type="email" @keyup.enter="checkEmailAndGoToSecondStep" :class="{error: emailIsInvalid || (getLoginError && getLoginError.email) }" v-model="email" class="form-control" placeholder="__('email')">
+                <input type="email" @keydown.enter="checkEmailAndGoToSecondStep" :class="{error: emailIsInvalid || (getLoginError && getLoginError.email) }" v-model="email" class="form-control" placeholder="__('email')">
+                <input type="password" hidden="true">
                 <button type="button" @click="checkEmailAndGoToSecondStep">
                     <span>__("user_sign_in")</span>
                     <i class="material-icons">keyboard_arrow_right</i>
                 </button>
             </div>
-        </div>
+        </form>
 
         <div class="forms" id="signup-form" v-if="currentStep === 'REGISTRATION'">
 
