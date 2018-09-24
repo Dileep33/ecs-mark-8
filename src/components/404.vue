@@ -2,6 +2,7 @@
     <div class="page-not-found">
         <div class="container">
             <div class="not-found-image">
+                <h1>404</h1>
                 <div class="title">__("page_not_found_heading")</div>
                 <router-link
                 :to="{ name: 'Home'}"
@@ -53,33 +54,29 @@ export default {
 .page-not-found {
     background: #fff;
     margin: 0 0 10px;
-    text-align: left;
     position: relative;
-    @media screen and (max-width: 992px ) {
-        margin-top: 0;
-    }
     .container {
         padding: 0;
     }
     .not-found-image {
-        background: #fff url(../assets/404.jpg) no-repeat right top;
         background-size: contain;
-        height: 275px;
         width: 100%;
-        margin: -10px 0 30px;
+        margin: 0 0 30px;
         position: relative;
+        text-align: center;
+        h1 {
+            font-size: 100px;
+            margin: 0;
+            font-weight: 300;
+            color: #0003;
+        }
         .title {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: bold;
-            padding: 50px 10px 5px;
-            max-width: 500px;
-            @media screen and (max-width: 576px ) {
-                max-width: 300px;
-                padding-top: 20px;
-            }
+            padding: 10px 10px 5px;
         }
         .desc {
-            margin: 0 10px;
+            margin: 0 auto;
             font-size: 14px;
             max-width: 500px;
             color: #2c3e50;
@@ -127,6 +124,7 @@ export default {
             width: 100%;
             max-width: 340px;
             height: 150px;
+            margin: 10px 0;
         }
         a {
             color: #212121;
