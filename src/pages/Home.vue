@@ -4,7 +4,7 @@
             <Banners v-if="getHomePageBannersLoadingState === 'LOADING_SUCCESS'"
                 :banners="getHomePageBanners"
             ></Banners>
-            <div v-if="getForYourLoadingState  === 'LOADING_SUCCESS'">
+            <!-- <div v-if="getForYourLoadingState  === 'LOADING_SUCCESS'">
                 <PratilipiListComponent
                     :pratilipiList="getForYouList"
                     title="__('for_you')"
@@ -14,7 +14,7 @@
                     :screenLocation="'FORYOU'"
                     v-bind="{ addToLibrary, removeFromLibrary }"
                 ></PratilipiListComponent>
-            </div>
+            </div> -->
             <DummyLoader v-if="getHomePageLoadingState === 'LOADING'"></DummyLoader>
             <div v-if="getHomePageLoadingState === 'LOADING_SUCCESS'" v-for="(eachSection, index) in getHomePageSections" v-bind:key="eachSection.listPageUrl">
                 <PratilipiListComponent
