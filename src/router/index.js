@@ -35,6 +35,7 @@ import ShayariPageComponent from '@/pages/Shayari.vue'
 import ChatStoryComponent from '@/pages/ChatStory.vue'
 import EndChatStoryComponent from '@/pages/EndChatStory.vue'
 import AuthorDashboardComponent from '@/pages/AuthorDashboard.vue'
+import NotFoundPageComponent from '@/pages/404.vue'
 
 import {
     getCookie,
@@ -245,8 +246,14 @@ var router = new Router({
                 'title': '__("seo_search_page") | __("pratilipi")',
                 metaTags: _getDefaultPageOGTags('searchpage')
             }
-        },
-        {
+        }, {
+            path: '/404',
+            name: 'Notfound_Page',
+            component: NotFoundPageComponent,
+            meta: {
+                'title': '__("page_not_found_heading")'
+            }
+        }, {
             path: '/videoseries',
             name: 'Videoseries_Page',
             component: VideoseriesPageComponent,
@@ -683,6 +690,9 @@ var router = new Router({
             }
         }, {
             path: '*',
+            beforeEnter: (to, from, next) => {
+                next('/404');
+            },
             meta: {
                 'title': '__("seo_home_page") | __("pratilipi")'
             }

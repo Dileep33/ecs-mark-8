@@ -44,7 +44,6 @@
                 </div>
             </div>
         </div>
-        <PageNotFound v-if="(getPratilipiListLoadingState === 'LOADING_ERROR' || getPratilipiListData.length === 0 ) && getPratilipiListLoadingState !== 'LOADING'"></PageNotFound>
     </MainLayout>
 </template>
 
@@ -187,6 +186,11 @@ export default {
         });
     },
     watch: {
+        'getPratilipiListLoadingState'(pratilipiLoadingState){
+            if (pratilipiLoadingState === 'LOADING_ERROR' || (pratilipiLoadingState === 'LOADING_SUCCESS' && this.getPratilipiListData.length === 0)) {
+                this.$router.push('/404');
+            }
+        },
         'scrollPosition'(newScrollPosition){
             const sbHeight = window.innerHeight * (window.innerHeight / document.body.offsetHeight)
             const nintyPercentOfList = ( 50 / 100 ) * $('.list-page').innerHeight();
