@@ -129,11 +129,17 @@
                                 ></NextPratilipiStrip>
                             </div>
 
-                           <ShareStrip
-                                v-if="selectedChapter == getIndexData.length"
+                           <ShareStripV1
+                                v-if="selectedChapter == getIndexData.length && (getCookie('bucket_id') > 70 && getCookie('bucket_id') <= 85)"
                                 :data="getPratilipiData"
                                 :type="'PRATILIPI'">
-                            </ShareStrip>
+                            </ShareStripV1>
+                            
+                            <ShareStripV2
+                                 v-if="selectedChapter == getIndexData.length && (getCookie('bucket_id') > 85 && getCookie('bucket_id') <= 100)"
+                                 :data="getPratilipiData"
+                                 :type="'PRATILIPI'">
+                             </ShareStripV2>
 
                             <div class="book-bottom-ratings p-lr-15">
                                 <Reviews
@@ -307,7 +313,8 @@ import WebPushStrip from '@/components/WebPushStrip.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
 import Recommendation from '@/components/Recommendation.vue';
 import OpenInApp from '@/components/OpenInApp.vue';
-import ShareStrip from '@/components/ShareStrip.vue';
+import ShareStripV1 from '@/components/experiments/share_ui/ShareStrip_v1.vue';
+import ShareStripV2 from '@/components/experiments/share_ui/ShareStrip_v2.vue';
 import NextPratilipiStrip from '@/components/NextPratilipiStrip.vue'
 import WebPushUtil from '@/utils/WebPushUtil';
 import { mapGetters, mapActions } from 'vuex';
@@ -322,7 +329,8 @@ export default {
         WebPushStrip,
         WebPushModal,
         Recommendation,
-        ShareStrip,
+        ShareStripV1,
+        ShareStripV2,
         OpenInApp,
         NextPratilipiStrip
     },
