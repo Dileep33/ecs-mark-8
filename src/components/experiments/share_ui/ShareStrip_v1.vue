@@ -59,7 +59,7 @@ export default {
             if (this.getPratilipiData) {
                 pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
             }
-            this.triggerAnanlyticsEvent(`SHAREBOOKFB_BOOKEND_READER`, 'WSH002', {
+            this.triggerAnanlyticsEvent(`SHAREBOOKFB_BOOKEND_READER`, 'WSH004', {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': 'FACEBOOK'
@@ -70,7 +70,7 @@ export default {
             if (this.getPratilipiData) {
                 pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
             }
-            this.triggerAnanlyticsEvent(`SHAREBOOKGP_BOOKEND_READER`, 'WSH002', {
+            this.triggerAnanlyticsEvent(`SHAREBOOKGP_BOOKEND_READER`, 'WSH004', {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': 'GOOGLEPLUS'
@@ -81,7 +81,7 @@ export default {
             if (this.getPratilipiData) {
                 pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
             }
-            this.triggerAnanlyticsEvent(`SHAREBOOKTW_BOOKEND_READER`, 'WSH002', {
+            this.triggerAnanlyticsEvent(`SHAREBOOKTW_BOOKEND_READER`, 'WSH004', {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': 'TWITTER'
@@ -92,7 +92,7 @@ export default {
             if (this.getPratilipiData) {
                 pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
             }
-            this.triggerAnanlyticsEvent(`SHAREBOOKWA_BOOKEND_READER`, 'WSH002', {
+            this.triggerAnanlyticsEvent(`SHAREBOOKWA_BOOKEND_READER`, 'WSH004', {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': 'WHATSAPP'
