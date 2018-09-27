@@ -10,16 +10,14 @@ import store from './store'
 import router from './router'
 import Icon from 'vue-awesome/components/Icon'
 import VueLazyload from 'vue-lazyload'
+import Raven from 'raven-js';
+import RavenVue from 'raven-js/plugins/vue';
 
-if (process.env.REALM !== 'PROD' && process.env.NODE_ENV === 'production') {
-    import('raven-js').then((Raven) => {
-        import('raven-js/plugins/vue').then((RavenVue) => {
-            Raven
-                .config('https://04a769a856594059abd7e06da9a203e7@sentry.io/305909')
-                .addPlugin(RavenVue, Vue)
-                .install();
-        });
-    });
+if (process.env.NODE_ENV === 'production') {
+    Raven
+        .config(process.env.SENTRY_ENDPOINT)
+        .addPlugin(RavenVue, Vue)
+        .install();
 }
 
 import linkify from 'vue-linkify'

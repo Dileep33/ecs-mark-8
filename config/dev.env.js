@@ -18,5 +18,6 @@ module.exports = merge(prodEnv, {
   GA_WEBSITE_MODE: "'Standard'",
   GA_WEBSITE_VERSION: "'Mark-8'",
   GOOGLE_CLIENT_ID: "'659873510744-kfim969enh181h4gbctffrjg5j47tfuq.apps.googleusercontent.com'",
+  SENTRY_ENDPOINT: "'https://146d34f31c894bd9a28f2b00b4fe2223@sentry.io/1289493'",
   REALM: `"${process.env.REALM || 'PROD'}"`
 })

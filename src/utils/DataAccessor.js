@@ -1,4 +1,5 @@
 import { httpUtil, formatParams } from './HttpUtil';
+import Raven from 'raven-js';
 
 
 const API_PREFIX = (window.location.origin.indexOf(".pratilipi.com") > -1 || window.location.origin.indexOf(".ptlp.co")) > -1 ? "/api" : "https://gamma.pratilipi.com/api";
@@ -118,19 +119,15 @@ const processRequests = function(requests) {
 
 const processGetResponse = function(response, status, aCallBack) {
     if (status !== 200 && status !== 404) {
-        if (process.env.REALM !== 'PROD') {
-            import('raven-js').then((Raven) => {
-                Raven.captureMessage('Server Exception', {
-                    level: 'error', // one of 'info', 'warning', or 'error'
-                    extra: {
-                        language: process.env.LANGUAGE,
-                        status,
-                        response: response.message,
-                        method: 'GET'
-                    }
-                });
-            });
-        }
+        Raven.captureMessage('Server Exception', {
+            level: 'error', // one of 'info', 'warning', or 'error'
+            extra: {
+                language: process.env.LANGUAGE,
+                status,
+                response: response.message,
+                method: 'GET'
+            }
+        });
     }
 
     if (aCallBack != null)
@@ -148,19 +145,15 @@ const processPostResponse = function(response, status, successCallBack, errorCal
         successCallBack(response);
     else if (status != 200 && errorCallBack != null) {
 
-        if (process.env.REALM !== 'PROD') {
-            import('raven-js').then((Raven) => {
-                Raven.captureMessage('Server Exception', {
-                    level: 'error', // one of 'info', 'warning', or 'error'
-                    extra: {
-                        language: process.env.LANGUAGE,
-                        status,
-                        response: response.message,
-                        method: 'POST'
-                    }
-                });
-            });
-        }
+        Raven.captureMessage('Server Exception', {
+            level: 'error', // one of 'info', 'warning', or 'error'
+            extra: {
+                language: process.env.LANGUAGE,
+                status,
+                response: response.message,
+                method: 'POST'
+            }
+        });
         errorCallBack(response);
     }
 };
