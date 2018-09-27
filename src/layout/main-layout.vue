@@ -8,8 +8,8 @@
         <slot></slot>
         <PratilipiModal></PratilipiModal>
         <LoginModal></LoginModal>
-        <ShareModalOne v-if="getCookie('bucket_id') > 70 && getCookie('bucket_id') <= 85"></ShareModalOne>
-        <ShareModalTwo v-else-if="getCookie('bucket_id') > 85 && getCookie('bucket_id') <= 100"></ShareModalTwo>
+        <ShareModalOne v-if="getCookie('bucket_id') > 70 && getCookie('bucket_id') <= 85 && $route.meta.store !== 'authorpage'"></ShareModalOne>
+        <ShareModalTwo v-else-if="getCookie('bucket_id') > 85 && getCookie('bucket_id') <= 100 && $route.meta.store !== 'authorpage'"></ShareModalTwo>
         <ShareModal v-else></ShareModal>
         <InputModal></InputModal>
         <MultiInputModal></MultiInputModal>
