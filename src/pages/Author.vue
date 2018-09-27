@@ -472,19 +472,19 @@ export default {
                 if (this.publishedContentsLoadingState !== 'LOADING' && this.getPublishedContentsCursor && currentlyActiveTab === 'published') {
                     this.fetchMorePublishedContents({
                         authorId: this.getAuthorData.authorId,
-                        resultCount: 10
+                        resultCount: 15
                     });
                 }
                 if (this.getAuthorFollowingLoadingState !== 'LOADING' && this.getAuthorFollowingCursor && currentlyActiveTab === 'following' ) {
                     this.fetchMoreAuthorFollowingUsers({
                         userId: this.getAuthorData.user.userId,
-                        resultCount: 5
+                        resultCount: 15
                     });
                 }
                 if (this.getAuthorFollowersLoadingState !== 'LOADING' && this.getAuthorFollowersCursor && currentlyActiveTab === 'followers' ) {
                     this.fetchMoreAuthorFollowerUsers({
                         authorId: this.getAuthorData.authorId,
-                        resultCount: 5
+                        resultCount: 15
                     });
                 }
             }
