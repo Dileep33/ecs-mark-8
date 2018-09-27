@@ -438,7 +438,8 @@ var router = new Router({
             },
             meta: {
                 'store': 'readerpage',
-                'title': '__("seo_home_page")'
+                'title': '__("seo_home_page")',
+                metaTags: _getDefaultPageOGTags('pratilipipage')
             }
         }, {
             path: '/read/:slug',
@@ -468,7 +469,8 @@ var router = new Router({
             },
             meta: {
                 'store': 'readerv2page',
-                'title': '__("seo_home_page")'
+                'title': '__("seo_home_page")',
+                metaTags: _getDefaultPageOGTags('pratilipipage')
             }
         }, {
             path: '/followers',
