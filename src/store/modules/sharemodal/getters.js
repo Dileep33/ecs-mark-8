@@ -1,3 +1,7 @@
+import {
+    getCookie
+} from '@/mixins/methods'
+
 export default {
     getShareDetails: state => state.share_data,
     getShareType: state => state.share_type,
@@ -19,9 +23,18 @@ export default {
         let shareUrl;
         switch(state.share_type) {
             case 'PRATILIPI':
-                shareUrl = encodeURIComponent(`https://${state.share_data.language.toLowerCase()}.pratilipi.com/story/${state.share_data.pageUrl.split('-').pop()}?utm_campaign=Shared&utm_source=twitter`);
+                let share_text = state.share_data.title
+                let shareUrl = encodeURIComponent(`https://${state.share_data.language.toLowerCase()}.pratilipi.com/story/${state.share_data.pageUrl.split('-').pop()}?utm_campaign=Shared&utm_source=twitter`);
+                if (getCookie('bucket_id') > 70 && getCookie('bucket_id') <= 85) {
+                    share_text = '__("share_ui_title_3")- ' + state.share_data.title
+                    shareUrl = encodeURIComponent(`https://${state.share_data.language.toLowerCase()}.pratilipi.com/story/${state.share_data.pageUrl.split('-').pop()}?utm_campaign=Shared&utm_source=twitter&utm_medium=WSH002`);
+                }
+                else if (getCookie('bucket_id') > 85 && getCookie('bucket_id') <= 99) {
+                    share_text = '__("share_ui_title_4_1")' + state.share_data.title + '__("share_ui_title_4_2")'
+                    shareUrl = encodeURIComponent(`https://${state.share_data.language.toLowerCase()}.pratilipi.com/story/${state.share_data.pageUrl.split('-').pop()}?utm_campaign=Shared&utm_source=twitter&utm_medium=WSH002`);
+                }
                 console.log(shareUrl);
-                return `http://twitter.com/share?text=${state.share_data.title}&url=${shareUrl}`;
+                return `http://twitter.com/share?text=${share_text}&url=${shareUrl}`;
             case 'AUTHOR':
                 shareUrl = encodeURIComponent(`https://${state.share_data.language.toLowerCase()}.pratilipi.com/user/${state.share_data.pageUrl.split('-').pop()}?utm_campaign=SharedProfile&utm_source=twitter`)
                 return `http://twitter.com/share?text=${state.share_data.title}&url=${shareUrl}`;
@@ -44,8 +57,17 @@ export default {
         let shareUrl;
         switch(state.share_type) {
             case 'PRATILIPI':
-                shareUrl = encodeURIComponent(`https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}?utm_campaign=Shared&utm_source=whatsapp`);
-                return `https://api.whatsapp.com/send?text=${shareUrl}`
+                let share_text = state.share_data.title
+                let shareUrl = encodeURIComponent(`https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}?utm_campaign=Shared&utm_source=whatsapp`);
+                if (getCookie('bucket_id') > 70 && getCookie('bucket_id') <= 85) {
+                    share_text = '__("share_ui_title_3")- ' + state.share_data.title
+                    shareUrl = encodeURIComponent(`https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}?utm_campaign=Shared&utm_source=whatsapp&utm_medium=WSH002`);
+                }
+                else if (getCookie('bucket_id') > 85 && getCookie('bucket_id') <= 99) {
+                    share_text = '__("share_ui_title_4_1")' + state.share_data.title + '__("share_ui_title_4_2")'
+                    shareUrl = encodeURIComponent(`https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}?utm_campaign=Shared&utm_source=whatsapp&utm_medium=WSH003`);
+                }
+                return `https://api.whatsapp.com/send?text=${share_text} ${shareUrl}`
             case 'AUTHOR':
                 shareUrl = encodeURIComponent(`https://${state.share_data.language.toLowerCase()}.pratilipi.com${state.share_data.pageUrl}?utm_campaign=SharedProfile&utm_source=whatsapp`);
                 return `https://api.whatsapp.com/send?text=${shareUrl}`
