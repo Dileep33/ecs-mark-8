@@ -116,7 +116,7 @@
                             </div>
 			    <meta itemprop="inLanguage" v-bind:content="getPratilipiData.language" />
                             <meta itemprop="image" v-bind:content="getPratilipiData.coverImageUrl" />
-			    <meta v-for="tag in selectedTags" itemprop="genre" v-bind:content="tag.nameEn"/>
+			    <!-- <meta v-for="tag in selectedTags" itemprop="genre" v-bind:content="tag.nameEn"/> -->
                             <Spinner v-if="getPratilipiContentLoadingState !== 'LOADING_SUCCESS'"></Spinner>
                             <div class="book-navigation p-lr-15" v-if="getPratilipiContentLoadingState === 'LOADING_SUCCESS'">
                                 <div class="prev" v-if="selectedChapter != 1" @click="goToPreviousChapter">__("reader_prev_chapter")</div>
