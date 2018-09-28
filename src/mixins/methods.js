@@ -302,14 +302,14 @@ export function setAnalyticsUserProperty(propertyName, propertyValue) {
         setTimeout(() => {
             if (propertyName === 'USER_ID') {
                 try {
-                    FB.AppEvents.setUserID(String(propertyValue));
+                    window.FB.AppEvents.setUserID(String(propertyValue));
                 } catch (e) {}
             }
-            if (window.FB && FB.AppEvents.getUserID() === undefined || FB.AppEvents.getUserID() === null || FB.AppEvents.getUserID().trim() === '') {
+            if (window.FB && window.FB.AppEvents.getUserID() === undefined || window.FB.AppEvents.getUserID() === null || window.FB.AppEvents.getUserID().trim() === '') {
                 return;
             }
             try{
-                FB.AppEvents.updateUserProperties(propertyObject, function (res, error) {
+                window.FB.AppEvents.updateUserProperties(propertyObject, function (res, error) {
                     console.log(res);
                 });
             } catch (e) {}
@@ -317,15 +317,15 @@ export function setAnalyticsUserProperty(propertyName, propertyValue) {
     } else {
         if (propertyName === 'USER_ID') {
             try {
-                FB.AppEvents.setUserID(String(propertyValue));
+                window.FB.AppEvents.setUserID(String(propertyValue));
             } catch (e) {}
         }
-        if (FB.AppEvents.getUserID() === undefined || FB.AppEvents.getUserID() === null || FB.AppEvents.getUserID().trim() === '') {
+        if ((window.FB && window.FB.AppEvents && window.FB.AppEvents.getUserID() === undefined) || window.FB.AppEvents.getUserID() === null || window.FB.AppEvents.getUserID().trim() === '') {
             return;
         }
 
         try {
-            FB.AppEvents.updateUserProperties(propertyObject, function (res) {
+            window.FB.AppEvents.updateUserProperties(propertyObject, function (res) {
                 console.log("FACEBOOK USER_PROPS: ", res);
             });
         } catch(e) {}
@@ -494,12 +494,12 @@ export function triggerAnanlyticsEvent(eventName, experimentType, eventProperty)
         if (!window.fbApiInit) {
             setTimeout(() => {
                 try {
-                    FB.AppEvents.logEvent(eventName, null, eventProperty)
+                    window.FB.AppEvents.logEvent(eventName, null, eventProperty)
                 } catch (e) {}
             }, 15000);
         } else {
             try {
-                FB.AppEvents.logEvent(eventName, null, eventProperty)
+                window.FB.AppEvents.logEvent(eventName, null, eventProperty)
             } catch (e) {}
         }
 
