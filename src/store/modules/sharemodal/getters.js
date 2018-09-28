@@ -31,7 +31,7 @@ export default {
                 }
                 else if (getCookie('bucket_id') > 85 && getCookie('bucket_id') <= 99) {
                     share_text = '__("share_ui_title_4_1")' + state.share_data.title + '__("share_ui_title_4_2")'
-                    shareUrl = encodeURIComponent(`https://${state.share_data.language.toLowerCase()}.pratilipi.com/story/${state.share_data.pageUrl.split('-').pop()}?utm_campaign=Shared&utm_source=twitter&utm_medium=WSH002`);
+                    shareUrl = encodeURIComponent(`https://${state.share_data.language.toLowerCase()}.pratilipi.com/story/${state.share_data.pageUrl.split('-').pop()}?utm_campaign=Shared&utm_source=twitter&utm_medium=WSH003`);
                 }
                 console.log(shareUrl);
                 return `http://twitter.com/share?text=${share_text}&url=${shareUrl}`;
