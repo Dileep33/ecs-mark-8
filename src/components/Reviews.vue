@@ -6,8 +6,15 @@
                 :authorId="authorId"
                 :screenName="screenName"
                 :pratilipiData="pratilipiData"
+                :userReview="userReview"
+                :loadCommentsOfReview="loadCommentsOfReview"
+                :likeOrDislikeReview="likeOrDislikeReview"
+                :createComment="verifyAndCreateComment"
+                :deleteComment="deleteComment"
+                :likeOrDislikeComment="verifyAndLikeComment"
+                :updateComment="updateComment"
                 :screenLocation="screenLocation"></OwnReview>
-            <li class="all-reviews" v-if="getReviewsData.length > 0">__("pratilipi_count_reviews")</li>
+            <li class="all-reviews" v-if="getReviewsData.length > 0 && ( userReview.review==null || userReview.review=='' )">__("pratilipi_count_reviews")</li>
             <li class="no-results" v-if="getReviewsData.length === 0">__("pratilipi_no_reviews")</li>
             <Review
                 v-if="haveInfiniteScroll && getReviewsData.length > 0 && !(userPratilipiData.userId==eachReview.userId)"
@@ -54,6 +61,11 @@ import mixins from '@/mixins';
 import OwnReview from '@/components/OwnReview.vue';
 
 export default {
+    data() {
+        return {
+            userReview: {}
+        }
+    },
     props: {
         pratilipiId: {
             type: Number,
@@ -140,7 +152,17 @@ export default {
         },
     },
     created() {
-        this.fetchPratilipiReviews({ pratilipiId: this.pratilipiId, resultCount: this.haveInfiniteScroll ? 4 : 2 });
+        this.fetchPratilipiReviews({ pratilipiId: this.pratilipiId, userPratilipiData: this.userPratilipiData, resultCount: this.haveInfiniteScroll ? 4 : 2 });
+    },
+    watch: {
+        getReviewsData(newReviewsData) {
+            this.userReview = {};
+            newReviewsData.forEach((eachReview) => {
+                if ( this.userPratilipiData.userId==eachReview.userId ) {
+                    this.userReview = eachReview;
+                }
+            });
+        }
     },
     components: {
         Spinner,

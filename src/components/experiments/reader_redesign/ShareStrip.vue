@@ -1,0 +1,206 @@
+<template>
+    <div class="social-share" :class="className">
+        <span class="text">__("seo_share_page"): </span>
+        <a :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="google">
+            <span class="social-icon"><icon name="whatsapp" scale="1.3"></icon></span>
+        </a>
+        <a :href="getFacebookShareUrl" @click="triggerFbEndShareEvent" class="fb" target="_blank" rel="noopener" aria-label="whatsapp">
+            <span class="social-icon"><icon name="facebook-f" scale="1.3"></icon></span>
+        </a>
+        <a :href="getTwitterUrl" @click="triggerTwEndShareEvent" class="twitter" target="_blank" rel="noopener" aria-label="facebook">
+           <span class="social-icon"><icon name="twitter" scale="1.3"></icon></span>
+        </a>
+        <a :href="getGooglePlusUrl" @click="triggerGpEndShareEvent" class="google" target="_blank" rel="noopener" aria-label="twitter">
+            <span class="social-icon"><icon name="google-plus"></icon></span>
+        </a>
+        <a class="link" v-if="false" >
+            <span class="social-icon"><icon name="link"></icon></span>
+        </a>
+        <input type="text" id="inlineShareUri" hidden>
+    </div>
+</template>
+
+<script>
+import { mapGetters, mapActions } from 'vuex'
+import mixins from '@/mixins';
+
+export default {
+    name: 'Social-Share-Strip',
+    mixins: [
+        mixins
+    ],
+    computed: {
+        ...mapGetters([
+            'getFacebookShareUrl',
+            'getTwitterUrl',
+            'getGooglePlusUrl',
+            'getWhatsAppUri',
+            'getContentUri',
+            'getUserDetails',
+            'getPratilipiData'
+        ]),
+    },
+    props: {
+        data: {
+            type: Object,
+            required: true
+        },
+        type: {
+            type: String,
+            required: true
+        },
+        className: {
+            type: String
+        },
+        screenLocation: {
+            type: String,
+            required: true
+        },
+        experimentId: {
+            type: String,
+            required: true
+        }
+    },
+    methods: {
+        ...mapActions([
+            'setShareDetails'
+        ]),
+        triggerFbEndShareEvent() {
+            let pratilipiAnalyticsData = {};
+            if (this.getPratilipiData) {
+                pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
+            }
+            this.triggerAnanlyticsEvent(`SHAREBOOKFB_${this.screenLocation}_READER`, `${this.experimentId}`, {
+                ...pratilipiAnalyticsData,
+                'USER_ID': this.getUserDetails.userId,
+                'ENTITY_VALUE': 'FACEBOOK'
+            });
+        },
+        triggerGpEndShareEvent() {
+            let pratilipiAnalyticsData = {};
+            if (this.getPratilipiData) {
+                pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
+            }
+            this.triggerAnanlyticsEvent(`SHAREBOOKGP_${this.screenLocation}_READER`, `${this.experimentId}`, {
+                ...pratilipiAnalyticsData,
+                'USER_ID': this.getUserDetails.userId,
+                'ENTITY_VALUE': 'GOOGLEPLUS'
+            });
+        },
+        triggerTwEndShareEvent() {
+            let pratilipiAnalyticsData = {};
+            if (this.getPratilipiData) {
+                pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
+            }
+            this.triggerAnanlyticsEvent(`SHAREBOOKTW_${this.screenLocation}_READER`, `${this.experimentId}`, {
+                ...pratilipiAnalyticsData,
+                'USER_ID': this.getUserDetails.userId,
+                'ENTITY_VALUE': 'TWITTER'
+            });
+        },
+        triggerWaEndShareEvent() {
+            let pratilipiAnalyticsData = {};
+            if (this.getPratilipiData) {
+                pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
+            }
+            this.triggerAnanlyticsEvent(`SHAREBOOKWA_${this.screenLocation}_READER`, `${this.experimentId}`, {
+                ...pratilipiAnalyticsData,
+                'USER_ID': this.getUserDetails.userId,
+                'ENTITY_VALUE': 'WHATSAPP'
+            });
+        }
+    },
+    components: {
+        
+    },
+    created() {
+        this.setShareDetails({ data: this.data, type: this.type })
+    }
+}
+</script>
+
+<style  lang="scss" scoped>
+.social-share {
+    width: 130px;
+    margin: 0 auto;
+    text-align: center;
+    span.text {
+        font-size: 14px;
+        color: #555;
+        display: block;
+        margin-bottom: 5px;
+    }
+    a {
+        vertical-align: middle;
+        color: #2c3e50;
+        display: inline-block;
+        text-align: left;
+        margin: 0 0 5px;
+        font-size: 14px;
+        .social-icon {
+            display: inline-block;
+            width: 45px;
+            height: 45px;
+            background: #3b5998;
+            color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 45px;
+            margin-right: 5px;
+        }
+        .fa-icon {
+            vertical-align: middle;
+        }
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}
+.social-share a.twitter .social-icon  {
+    background: #00aced;
+}
+.social-share a.google .social-icon { 
+    background: #dd4b39;
+}
+.social-share a.whatsapp .social-icon {
+    background: #48C631;
+}
+.social-share a.link .social-icon {
+    background: #2c3e50;
+}
+.social-share.reader-sidebar {
+    text-align: left;
+    padding: 10px 0;
+    margin: 0;
+    .text, .google {
+        display: none;
+    }
+    a {
+        .social-icon {
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+        }
+    }
+}
+.social-share.reader-main {
+    text-align: right;
+    padding: 5px 0;
+    .text, .google {
+        display: none;
+    }
+    a {
+        .social-icon {
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+        }
+        &.twitter .social-icon {
+            margin-right: 0;
+        }
+        &.whatsapp .social-icon .fa-icon {
+            margin-top: -4px;
+        }
+    }
+}
+</style>

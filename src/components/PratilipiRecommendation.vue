@@ -1,7 +1,7 @@
 <template>
     <div class="pratilipi-wrap">
         <div class="pratilipi">
-            <router-link :to="redirectToReader ? pratilipiData.readPageUrl : pratilipiData.pageUrl" @click.native="triggerReadPratilipiEvent" :title="pratilipiData.title">
+            <router-link :to="redirectToReader ? (pratilipiData.newReadPageUrl ? pratilipiData.newReadPageUrl : pratilipiData.readPageUrl ): pratilipiData.pageUrl" @click.native="triggerReadPratilipiEvent" :title="pratilipiData.title">
                 <div class="recommendation" v-lazy:background-image="pratilipiImageObject">
                     <span class="title">{{ pratilipiData.title }}</span>
                     <div class="stats-container">
@@ -56,6 +56,9 @@ export default {
         },
         experimentId: {
             type: String
+        },
+        index: {
+            type: Number
         }
     },
     mixins: [
@@ -105,10 +108,15 @@ export default {
         triggerReadPratilipiEvent() {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.pratilipiData);
             let action = this.redirectToReader && this.screenLocation === 'LIBRARY' ? 'READBOOK' : 'CLICKBOOK';
-            this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, this.experimentId ? this.experimentId : 'CONTROL', {
+            let eventData = {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId
-            });
+            }
+            if (action === 'CLICKBOOK') {
+                eventData.RECOMMENDATION_TYPE = this.pratilipiData.meta.recommendationType;
+                eventData.POSITION = this.index + 1;
+            }
+            this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, this.experimentId ? this.experimentId : 'CONTROL', eventData);
         },
         imageHasBeenRendered() {
             console.log('has been rendered');

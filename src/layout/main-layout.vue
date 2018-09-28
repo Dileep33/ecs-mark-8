@@ -8,7 +8,9 @@
         <slot></slot>
         <PratilipiModal></PratilipiModal>
         <LoginModal></LoginModal>
-        <ShareModal></ShareModal>
+        <ShareModalOne v-if="getCookie('bucket_id') > 70 && getCookie('bucket_id') <= 85 && $route.meta.store !== 'authorpage'"></ShareModalOne>
+        <ShareModalTwo v-else-if="getCookie('bucket_id') > 85 && getCookie('bucket_id') <= 100 && $route.meta.store !== 'authorpage'"></ShareModalTwo>
+        <ShareModal v-else></ShareModal>
         <InputModal></InputModal>
         <MultiInputModal></MultiInputModal>
         <ConfirmationModal></ConfirmationModal>
@@ -25,6 +27,8 @@ import AppBannerTwo from '@/components/experiments/appbanner_v2/AppBanner.vue';
 import AppBannerThree from '@/components/experiments/appbanner_v3/AppBanner.vue';
 import PratilipiModal from '@/components/PratilipiModal.vue';
 import LoginModal from '@/components/LoginModal.vue';
+import ShareModalOne from '@/components/experiments/share_ui/Share_v1.vue';
+import ShareModalTwo from '@/components/experiments/share_ui/Share_v2.vue';
 import ShareModal from '@/components/Share.vue';
 import InputModal from '@/components/InputModal.vue';
 import MultiInputModal from '@/components/MultiInputModal.vue';
@@ -56,6 +60,7 @@ export default {
     methods: {
         ...mapActions([
             'fetchUserDetails',
+            'setAfterLoginAction',
             'fetchInitialNotifications',
             'attachMessageNotificationListener'
         ])
@@ -68,6 +73,8 @@ export default {
         AppBannerThree,
         PratilipiModal,
         LoginModal,
+        ShareModalOne,
+        ShareModalTwo,
         ShareModal,
         InputModal,
         MultiInputModal,
@@ -86,7 +93,8 @@ export default {
         this.currentLocale = 'language-' + process.env.LANGUAGE;
     },
     mounted() {
-	$("body").removeClass("modal-open");
+        const that = this;
+        $("body").removeClass("modal-open");
         $(document).on('show.bs.modal', '.modal', function (event) {
             var zIndex = 1040 + (10 * $('.modal:visible').length);
             $(this).css('z-index', zIndex);
@@ -109,6 +117,7 @@ export default {
 
         $('div.modal').on('hide.bs.modal', function() {
             const hash = this.id;
+            that.setAfterLoginAction({ action: null, data: null });
             history.pushState('', document.title, window.location.href.substr(0, window.location.href.indexOf('#')));
         });
     }

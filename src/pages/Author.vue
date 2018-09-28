@@ -34,7 +34,11 @@
                                 </div>
                             </div>
                             <div class="profile-user-name" itemprop="name">{{ getAuthorData.name }}</div>
-                            <div class="profile-read-by">__("author_readby_count")</div>
+                            <div class="profile-read-by">__("author_readby_count_1"){{  getAuthorData.totalReadCount  }}__("author_readby_count_2")</div>
+                            <router-link :to="this.$route.path + '/dashboard'" class="author-dashboard-link" v-if="(getUserDetails.userId === getAuthorData.user.userId) && (getAuthorData.contentPublished > 0)" @click.native="triggerDashboardClickEvent()">
+                                <i class="material-icons">bar_chart</i>
+                                <span>__("author_dashboard_statistics")</span>
+                            </router-link>
                             <div class="profile-summary" v-if="getAuthorData.summary || getAuthorData.hasAccessToUpdate">
                                 <div class="head-title">
                                     <span>__("author_about")</span>
@@ -88,7 +92,7 @@
                                 <a href="#" v-if="getUserDetails.userId === getAuthorData.user.userId" v-on:click="tabchange" class="active" data-tab="library">__("library")</a>
                                 <a href="#" id="menu-published" v-on:click="tabchange" data-tab="published"><span>{{ getAuthorData.contentPublished }}</span>__("author_published_contents")</a>
                                 <a href="#" v-on:click="tabchange" data-tab="followers"><span>{{ getAuthorData.followCount }}</span>__("author_followers")</a>
-                                <a href="#" v-on:click="tabchange" data-tab="following"><span>{{ getAuthorData.user.followCount }} </span>__("author_following")</a> 
+                                <a href="#" v-on:click="tabchange" data-tab="following"><span>{{ getAuthorData.user.followCount }} </span>__("author_following")</a>
                             </div>
                             <div class="bottom-contents">
                                 <div class="list published-contents" id="published" itemscope itemtype="http://schema.org/Collection">
@@ -387,13 +391,13 @@ export default {
                 initial_value: this.getAuthorData.summary,
                 pratilipi_data: this.getAuthorData,
                 data: {
-                    authorData: { 
+                    authorData: {
                         authorId: this.getAuthorData.authorId,
                         summary: this.getAuthorData.summary
                     }
                 }
             });
-            this.openInputModal();  
+            this.openInputModal();
         },
         detectOverflow() {
             const element = $('.profile-summary p');
@@ -407,6 +411,20 @@ export default {
                 // your element doesn't have overflow
                 this.showShowMoreOfSummary = false;
             }
+        },
+        setAuthorPageOgTags(authorData) {
+            document.head.querySelector('meta[property="og:title"]').content = authorData.name;
+            document.head.querySelector('meta[property="og:description"]').content = authorData.summary;
+            document.head.querySelector('meta[property="og:image"]').content = this.getOgResolutionImage(authorData.imageUrl);
+            document.head.querySelector('meta[property="og:url"]').content = window.location.href;
+            if (authorData.contentPublished === 0) {
+                document.head.querySelector('meta[name="robots"]').content = "NOINDEX";
+            }
+        },
+        triggerDashboardClickEvent() {
+            this.triggerAnanlyticsEvent(`CLICKDASHBOARD_MYPROFILEM_MYPROFILE`, 'CONTROL', {
+                'USER_ID': this.getUserDetails.userId
+            });
         }
     },
     watch: {
@@ -454,19 +472,19 @@ export default {
                 if (this.publishedContentsLoadingState !== 'LOADING' && this.getPublishedContentsCursor && currentlyActiveTab === 'published') {
                     this.fetchMorePublishedContents({
                         authorId: this.getAuthorData.authorId,
-                        resultCount: 10
+                        resultCount: 15
                     });
                 }
                 if (this.getAuthorFollowingLoadingState !== 'LOADING' && this.getAuthorFollowingCursor && currentlyActiveTab === 'following' ) {
                     this.fetchMoreAuthorFollowingUsers({
                         userId: this.getAuthorData.user.userId,
-                        resultCount: 5
+                        resultCount: 15
                     });
                 }
                 if (this.getAuthorFollowersLoadingState !== 'LOADING' && this.getAuthorFollowersCursor && currentlyActiveTab === 'followers' ) {
                     this.fetchMoreAuthorFollowerUsers({
                         authorId: this.getAuthorData.authorId,
-                        resultCount: 5
+                        resultCount: 15
                     });
                 }
             }
@@ -498,12 +516,17 @@ export default {
                 setTimeout(() => {
                     that.detectOverflow();
                 }, 0);
+
+                this.setAuthorPageOgTags(this.getAuthorData);
             }
         }
     },
     created() {
         const { user_slug } = this.$route.params;
         this.fetchAuthorDetails(user_slug);
+        if (this.getAuthorDataLoadingState == 'LOADING_SUCCESS') {
+            this.setAuthorPageOgTags(this.getAuthorData);
+        }
     },
     components: {
         MainLayout,
@@ -680,6 +703,21 @@ export default {
         .profile-user-name {
             font-weight: bold;
             margin: 5px 0 0;
+        }
+        .author-dashboard-link {
+            color: #d0021b;
+            font-size: 14px;
+            padding: 0 10px 5px;
+            margin-bottom: 5px;
+            display: block;
+            text-decoration: none;
+            i {
+                vertical-align: middle;
+                font-size: 20px;
+            }
+            span {
+                vertical-align: middle;
+            }
         }
         .profile-read-by {
             font-size: 12px;

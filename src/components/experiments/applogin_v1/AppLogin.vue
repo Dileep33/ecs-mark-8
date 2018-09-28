@@ -1,13 +1,12 @@
 <template>
     <div>
-        <div class="forms" id="signup" v-if="currentStep === 'LANDED_LOGIN'">
+        <form class="forms" id="signup" v-if="currentStep === 'LANDED_LOGIN'">
             <div class="pratilipi-logo">
                 <img src="../../../assets/pratilipi_logo.png" />
                 <br>
-                <span>__("welcome_pratilipi")</span>
-                <p class="subtitle" v-if="getPostLoginAction.action && getPostLoginAction.action.indexOf('addToLibrary') > -1">__('login_popup_story_added_to_library')</p>
-                <p class="subtitle" v-else-if="getPostLoginAction.action && getPostLoginAction.action.indexOf('saveOrUpdateReview') > -1">__("login_popup_read_and_rate_stories")</p>
-                <p class="subtitle" v-else>__("about_pratilipi")</p>
+                <span v-if="getPostLoginAction.action && getPostLoginAction.action.indexOf('addToLibrary') > -1">__('login_popup_story_added_to_library')</span>
+                <span v-else-if="getPostLoginAction.action && getPostLoginAction.action.indexOf('follow') > -1">__("login_popup_follow_unfollow")</span>
+                <span v-else>__("login_popup_default")</span>
             </div>
             <div class="social-login">
                 <FacebookLogin></FacebookLogin>
@@ -24,13 +23,14 @@
                     <span v-if="(getLoginError && getLoginError.email)">{{ getLoginError.email }}</span>
                     <span v-else>__("email_entered_incorrectly")</span>
                 </p>
-                <input type="email" @keyup.enter="checkEmailAndGoToSecondStep" :class="{error: emailIsInvalid || (getLoginError && getLoginError.email) }" v-model="email" class="form-control" :placeholder="'__("email")'">
+                <input type="email" @keydown.enter="checkEmailAndGoToSecondStep" :class="{error: emailIsInvalid || (getLoginError && getLoginError.email) }" v-model="email" class="form-control" placeholder="__('email')">
+                <input type="password" hidden="true">
                 <button type="button" @click="checkEmailAndGoToSecondStep">
                     <span>__("user_sign_in")</span>
                     <i class="material-icons">keyboard_arrow_right</i>
                 </button>
             </div>
-        </div>
+        </form>
 
         <div class="forms" id="signup-form" v-if="currentStep === 'REGISTRATION'">
 
@@ -44,7 +44,7 @@
                     <span v-if="(getLoginError && getLoginError.name)">{{ getLoginError.name }}</span>
                     <span v-else>__("name_required")</span>
                 </p>
-                <input type="text" ref="name" @keyup.enter="verifyAndSignupUser({ name, email, password, language: getCurrentLanguage().fullName.toUpperCase() })" :class="{error: nameIsInvalid || (getLoginError && getLoginError.name) }" v-model="name" class="form-control" :placeholder="'__("user_full_name")'">
+                <input type="text" ref="name" @keyup.enter="verifyAndSignupUser({ name, email, password, language: getCurrentLanguage().fullName.toUpperCase() })" :class="{error: nameIsInvalid || (getLoginError && getLoginError.name) }" v-model="name" class="form-control" placeholder="__('user_full_name')">
             </div>
             <div class="form-group">
                 <p class="validation_error" v-if="emailIsInvalid || (getLoginError && getLoginError.email)">
@@ -52,7 +52,7 @@
                     <span v-if="(getLoginError && getLoginError.email)">{{ getLoginError.email }}</span>
                     <span v-else>__("email_entered_incorrectly")</span>
                 </p>
-                <input type="email" @keyup.enter="verifyAndSignupUser({ name, email, password, language: getCurrentLanguage().fullName.toUpperCase() })" :class="{error: emailIsInvalid || (getLoginError && getLoginError.email) }" v-model="email" class="form-control" :placeholder="'__("email")'">
+                <input type="email" @keyup.enter="verifyAndSignupUser({ name, email, password, language: getCurrentLanguage().fullName.toUpperCase() })" :class="{error: emailIsInvalid || (getLoginError && getLoginError.email) }" v-model="email" class="form-control" placeholder="__('email')">
             </div>
             <div class="form-group">
                 <p class="validation_error" v-if="passwordIsInvalid || (getLoginError && getLoginError.password)">
@@ -60,7 +60,7 @@
                     <span v-if="(getLoginError && getLoginError.password)">{{ getLoginError.password }}</span>
                     <span v-else>__("password_minimum")</span>
                 </p>
-                <input autocomplete="new-password" @keyup.enter="verifyAndSignupUser({ name, email, password, language: getCurrentLanguage().fullName.toUpperCase() })" :class="{error: passwordIsInvalid || (getLoginError && getLoginError.password) }" v-model="password" type="password" class="form-control" :placeholder="'__("user_password")'">
+                <input autocomplete="new-password" @keyup.enter="verifyAndSignupUser({ name, email, password, language: getCurrentLanguage().fullName.toUpperCase() })" :class="{error: passwordIsInvalid || (getLoginError && getLoginError.password) }" v-model="password" type="password" class="form-control" placeholder="__('user_password')">
             </div>
 
 
@@ -87,7 +87,7 @@
                         <span v-if="(getLoginError && getLoginError.email)">{{ getLoginError.email }}</span>
                         <span v-else>__("email_entered_incorrectly")</span>
                     </p>
-                    <input type="email" @keyup.enter="validateAndLoginUser({email, password})" :class="{error: emailIsInvalid || (getLoginError && getLoginError.email) }" class="form-control" v-model="email" :placeholder="'__("email")'">
+                    <input type="email" @keyup.enter="validateAndLoginUser({email, password})" :class="{error: emailIsInvalid || (getLoginError && getLoginError.email) }" class="form-control" v-model="email" placeholder="__('email')">
                 </div>
                 <div class="form-group">
                     <p class="validation_error" v-if="passwordIsInvalid || (getLoginError && getLoginError.password)">
@@ -95,7 +95,7 @@
                         <span v-if="(getLoginError && getLoginError.password)">{{ getLoginError.password }}</span>
                         <span v-else>__("password_minimum")</span>
                     </p>
-                    <input type="password" ref="password" @keyup.enter="validateAndLoginUser({email, password})" :class="{error: passwordIsInvalid || (getLoginError && getLoginError.password) }" class="form-control" v-model="password" :placeholder="'__("user_password")'">
+                    <input type="password" ref="password" @keyup.enter="validateAndLoginUser({email, password})" :class="{error: passwordIsInvalid || (getLoginError && getLoginError.password) }" class="form-control" v-model="password" placeholder="__('user_password')">
                     <a v-if="!openForgotPasswordInTab" @click="triggerEventAndOpenForgotPasswordModal" href="#" class="forgot-pass">__("user_forgot_password")</a>
                     <router-link v-else :to="'/login#forgot-pass'" target="_blank" class="forgot-pass">__("user_forgot_password")</router-link>
                 </div>
@@ -308,6 +308,11 @@ export default {
             height: 25%;
             width: 25%;
             padding-bottom: 10px;
+        }
+        span {
+            margin-bottom: 15px;
+            font-size: 15px;
+            display: block;
         }
 
         p.subtitle {

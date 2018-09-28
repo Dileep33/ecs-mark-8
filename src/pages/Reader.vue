@@ -129,8 +129,20 @@
                                 ></NextPratilipiStrip>
                             </div>
 
+                            <ShareStripV1
+                                 v-if="selectedChapter == getIndexData.length && (getCookie('bucket_id') > 70 && getCookie('bucket_id') <= 85)"
+                                 :data="getPratilipiData"
+                                 :type="'PRATILIPI'">
+                             </ShareStripV1>
+                             
+                             <ShareStripV2
+                                  v-if="selectedChapter == getIndexData.length && (getCookie('bucket_id') > 85 && getCookie('bucket_id') <= 100)"
+                                  :data="getPratilipiData"
+                                  :type="'PRATILIPI'">
+                              </ShareStripV2>
+                              
                            <ShareStrip
-                                v-if="selectedChapter == getIndexData.length"
+                                v-if="selectedChapter == getIndexData.length && (getCookie('bucket_id') >= 0 && getCookie('bucket_id') <= 70)"
                                 :data="getPratilipiData"
                                 :type="'PRATILIPI'">
                             </ShareStrip>
@@ -198,12 +210,12 @@
                         </div>
                         <div class="rating-count" @click="openRatingModal">
                             <i class="material-icons">star_rate</i>
-			    <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-                            	<span itemprop="ratingCount">{{ getPratilipiData.ratingCount }}</span>
-        			<meta itemprop="ratingValue" v-bind:content="getPratilipiData.averageRating | round(1)" />
-                    <meta itemprop="bestRating" v-bind:content="5"/>
-                    <meta itemprop="worstRating" v-bind:content="1"/>
-			    </span>
+                  			    <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+                                              	<span itemprop="ratingCount">{{ getPratilipiData.ratingCount }}</span>
+                          			<meta itemprop="ratingValue" v-bind:content="getPratilipiData.averageRating | round(1)" />
+                                      <meta itemprop="bestRating" v-bind:content="5"/>
+                                      <meta itemprop="worstRating" v-bind:content="1"/>
+                  			    </span>
                         </div>
                         <div class="add-to-lib">
                             <span v-if="getUserPratilipiData.addedToLib" @click="triggerAnanlyticsEventAndRemoveFromLibrary">
@@ -308,7 +320,7 @@ import Spinner from '@/components/Spinner.vue';
 import mixins from '@/mixins';
 import 'vue-awesome/icons/file-text'
 import 'vue-awesome/icons/file-text-o'
-import 'vue-awesome/icons/facebook-f'
+import 'vue-awesome/icons/facebook-square'
 import 'vue-awesome/icons/twitter'
 import 'vue-awesome/icons/google-plus'
 import 'vue-awesome/icons/whatsapp'
@@ -319,6 +331,8 @@ import WebPushModal from '@/components/WebPushModal.vue';
 import Recommendation from '@/components/Recommendation.vue';
 import OpenInApp from '@/components/OpenInApp.vue';
 import ShareStrip from '@/components/ShareStrip.vue';
+import ShareStripV1 from '@/components/experiments/share_ui/ShareStrip_v1.vue';
+import ShareStripV2 from '@/components/experiments/share_ui/ShareStrip_v2.vue';
 import NextPratilipiStrip from '@/components/NextPratilipiStrip.vue'
 import WebPushUtil from '@/utils/WebPushUtil';
 import { mapGetters, mapActions } from 'vuex';
@@ -333,6 +347,8 @@ export default {
         WebPushStrip,
         WebPushModal,
         Recommendation,
+        ShareStripV1,
+        ShareStripV2,
         ShareStrip,
         OpenInApp,
         NextPratilipiStrip
@@ -732,6 +748,17 @@ export default {
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': 'WHATSAPP'
             });
+        },
+        triggerFbEndShareEvent() {
+            let pratilipiAnalyticsData = {};
+            if (this.getPratilipiData) {
+                pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
+            }
+            this.triggerAnanlyticsEvent(`SHAREBOOKFB_BOOKEND_READER`, 'CONTROL', {
+                ...pratilipiAnalyticsData,
+                'USER_ID': this.getUserDetails.userId,
+                'ENTITY_VALUE': 'FACEBOOK'
+            });
         }
     },
     computed: {
@@ -754,7 +781,8 @@ export default {
         ]),
         ...mapGetters([
             'getUserDetails',
-            'getWhatsAppUri'
+            'getWhatsAppUri',
+            'getFacebookShareUrl'
         ])
     },
     created() {
@@ -1085,7 +1113,7 @@ export default {
     }
     .footer-section {
         box-shadow: 0 -1px 1px rgba(0,0,0,0.2);
-        padding: 10px 0;
+        padding: 10px;
         position: fixed;
         bottom: 0;
         z-index: 12;
@@ -1512,7 +1540,6 @@ export default {
             display: block !important;
         }
         .comment-box .rate-now .rating {
-            width: 200px;
             label:before {
                 font-size: 35px;
             }

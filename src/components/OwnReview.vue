@@ -1,5 +1,22 @@
 <template>
-    <li class="ownReview">
+    <Review
+        v-if="screenName=='BOOK' && userReview && userReview.review!=null && userReview.review!='' && !editRatingMode"
+        :loadCommentsOfReview="loadCommentsOfReview"
+        :likeOrDislikeReview="likeOrDislikeReview"
+        :userPratilipiData="userPratilipiData"
+        :eachReview="userReview" :key="userReview.userPratilipiId"
+        :authorId="authorId"
+        :createComment="createComment"
+        :deleteComment="deleteComment"
+        :likeOrDislikeComment="likeOrDislikeComment"
+        :updateComment="updateComment"
+        :openReviewAndEditRating="openReviewAndEditRating"
+        :checkAndDeleteReview="checkAndDeleteReview"
+        :screenName="screenName"
+        :screenLocation="'REVIEWS'"
+        :pratilipiData="pratilipiData"
+        ></Review>
+    <li class="ownReview" v-else>
         <div  v-if="authorId !== getUserDetails.authorId" class="comment-main-level">
             <div class="comment-avatar"><img :src="userPratilipiData.userId == 0 ? defaultAuthorImage : getLowResolutionImage(userPratilipiData.userImageUrl)" alt="author"></div>
             <div class="comment-box">
@@ -68,7 +85,8 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import inViewport from 'vue-in-viewport-mixin';
-import mixins from '@/mixins'
+import mixins from '@/mixins';
+import Review from '@/components/Review.vue';
 import Spinner from '@/components/Spinner.vue';
 import TranslatingInputTextArea from '@/components/TranslatingInputTextArea.vue';
 
@@ -104,7 +122,35 @@ export default {
         pratilipiData: {
             type: Object,
             required: true
-        }
+        },
+        userReview: {
+            type: Object,
+            required: false
+        },
+        likeOrDislikeReview: {
+            type: Function,
+            required: true
+        },
+        likeOrDislikeComment: {
+            type: Function,
+            required: true
+        },
+        loadCommentsOfReview: {
+            type: Function,
+            required: true
+        },
+        createComment: {
+            type: Function,
+            required: true
+        },
+        updateComment: {
+            type: Function,
+            required: true
+        },
+        deleteComment: {
+            type: Function,
+            required: true
+        },
     },
     data() {
         return {
@@ -134,7 +180,8 @@ export default {
             'setAfterLoginAction'
         ]),
         changeRating(e) {
-            let action = this.userPratilipiData.rating ? 'EDITRATE' : 'RATE';
+            // let action = this.userPratilipiData.rating ? 'EDITRATE' : 'RATE';
+            let action = 'RATE';
             this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': e.target.value
@@ -187,6 +234,7 @@ export default {
         },
         checkAndDeleteReview(e) {
             this.deleteReview({ pratilipiId: this.userPratilipiData.pratilipiId, pageName: this.$route.meta.store });
+            this.newReview = '';
         },
         openReviewAndEditRating() {
             this.openReview();
@@ -198,6 +246,16 @@ export default {
         openReview() {
             $(".review-box").fadeIn();
             $(".write-review-btn").hide();
+            if(this.screenName === 'READER') {
+                setTimeout(() => {
+                    $('.translatingTextArea').focus();
+                }, 0);
+            }
+            else {
+                setTimeout(() => {
+                    $('#translatingTextArea').focus();
+                }, 0);
+            }
         },
         cancelReview(e) {
             $(".review-box").hide();
@@ -270,11 +328,13 @@ export default {
             if(editRatingMode) {
                 setTimeout(()=> {
                     this.ratingHelperText();
-                }, 500);
+                    this.openReview();
+                }, 200);
             }
         }
     },
      components: {
+        Review,
         TranslatingInputTextArea
     }
 }
@@ -368,7 +428,7 @@ li {
                 clear: both;
                 margin: 4px 10px;
                 display: none;
-                overflow: hidden;
+                overflow: visible;
                 label {
                     font-size: 14px;
                 }
@@ -425,7 +485,7 @@ li {
                 clear: both;
                 margin: 4px 10px;
                 display: none;
-                overflow: hidden;
+                overflow: visible;
                 label {
                     font-size: 14px;
                 }

@@ -17,7 +17,7 @@ Vue.filter('showThousandsInK', (value, decimals) => {
     if (value < 1000) {
         return value;
     }
-    
+
     value = value / 1000;
 
     if (!decimals) {
@@ -32,7 +32,7 @@ Vue.filter('showThousandsInCommas', (value, decimals) => {
     if (value < 1000) {
         return value;
     }
-    
+
     var x = value;
     x = x.toString();
     var lastThree = x.substring(x.length - 3);
@@ -56,13 +56,13 @@ Vue.filter('showInMinutesOrHours', function(value) {
 
     let readingTimeInNativeLanguage;
     if (finalHours > 1) {
-        readingTimeInNativeLanguage = finalHours + ' ' + "__('hours')";
+        readingTimeInNativeLanguage = finalHours + ' ' + '__("hours")';
     } else if (finalHours === 1) {
-        readingTimeInNativeLanguage = finalHours + ' ' + "__('hour')";
+        readingTimeInNativeLanguage = finalHours + ' ' + '__("hour")';
     } else if (finalMinutes > 1) {
-        readingTimeInNativeLanguage = finalMinutes + ' ' + "__('minutes')";
+        readingTimeInNativeLanguage = finalMinutes + ' ' + '__("minutes")';
     } else {
-        readingTimeInNativeLanguage = finalMinutes + ' ' + "__('minute')";
+        readingTimeInNativeLanguage = finalMinutes + ' ' + '__("minute")';
     }
 
     return readingTimeInNativeLanguage;
@@ -71,15 +71,15 @@ Vue.filter('showInMinutesOrHours', function(value) {
 Vue.filter('getPratilipiTypeInNativeLanguage', function(value) {
     switch (value) {
         case 'STORY':
-            return "__('_pratilipi_type_story')";
+            return '__("_pratilipi_type_story")';
         case 'POEM':
-            return "__('_pratilipi_type_poem')";
+            return '__("_pratilipi_type_poem")';
         case 'ARTICLE':
-            return "__('_pratilipi_type_article')";
+            return '__("_pratilipi_type_article")';
         case 'BOOK':
-            return "__('_pratilipi_type_book')";
+            return '__("_pratilipi_type_book")';
         case 'MAGAZINE':
-            return "__('_pratilipi_type_magazine')";
+            return '__("_pratilipi_type_magazine")';
     }
 });
 
@@ -87,11 +87,11 @@ Vue.filter('getTranslatedLoginErrorMessage', function(value) {
     console.log(value);
     switch (value) {
         case 'Email not registered.':
-            return "__('email_not_registered')";
+            return '__("email_not_registered")';
         case 'Invalid Credentials!':
-            return "__('login_failed')";
+            return '__("login_failed")';
         case 'The email address is already registered':
-            return "__('email_already_registered')";
+            return '__("email_already_registered")';
         default:
             return value;
     }
@@ -104,18 +104,18 @@ Vue.filter('convertDate', function(value) {
 
     function month(m) {
         var months = [
-            "__('month_jan')", 
-            "__('month_feb')", 
-            "__('month_mar')",
-            "__('month_apr')", 
-            "__('month_may')", 
-            "__('month_jun')",
-            "__('month_jul')", 
-            "__('month_aug')", 
-            "__('month_sep')",
-            "__('month_oct')", 
-            "__('month_nov')", 
-            "__('month_dec')"
+            '__("month_jan")',
+            '__("month_feb")',
+            '__("month_mar")',
+            '__("month_apr")',
+            '__("month_may")',
+            '__("month_jun")',
+            '__("month_jul")',
+            '__("month_aug")',
+            '__("month_sep")',
+            '__("month_oct")',
+            '__("month_nov")',
+            '__("month_dec")'
         ];
         return months[m];
     }
@@ -124,29 +124,29 @@ Vue.filter('convertDate', function(value) {
 
 Vue.filter('readingTimeSchemaOrgFormat', function(value) {
 	let readingTimeInSchemaFormat = 'PT';
-	
+
 	// Calculating the read time in schema markup format
         if (!value) {
-		value = 0; 
-        }    
+		value = 0;
+        }
 
-        let readTimeMinutes = Math.round(value / 60); 
-        let readTimeHours = Math.round(readTimeMinutes / 60); 
+        let readTimeMinutes = Math.round(value / 60);
+        let readTimeHours = Math.round(readTimeMinutes / 60);
 
-        if (readTimeMinutes == 0) readTimeMinutes = 1; 
+        if (readTimeMinutes == 0) readTimeMinutes = 1;
 
-        if (readTimeHours >= 1) { 
-            readingTimeInSchemaFormat += readTimeHours+"H"     
+        if (readTimeHours >= 1) {
+            readingTimeInSchemaFormat += readTimeHours+"H"
         } else {
-            readingTimeInSchemaFormat += "0H" 
-        }    
+            readingTimeInSchemaFormat += "0H"
+        }
 
-        if (readTimeMinutes > 1) { 
+        if (readTimeMinutes > 1) {
             readingTimeInSchemaFormat += readTimeMinutes+"M"
         } else {
-            readingTimeInSchemaFormat += "0M" 
-        } 
-	return readingTimeInSchemaFormat;	
+            readingTimeInSchemaFormat += "0M"
+        }
+	return readingTimeInSchemaFormat;
 });
 
 

@@ -129,7 +129,7 @@ export default {
     followOrUnfollowAuthor({ commit, state, dispatch }) {
         commit('setFollowUnfollowLoadingDataLoadingTrue');
         setTimeout(() => {
-            dispatch('fetchInitialAuthorFollowerUsers', { authorId: state.author.data.authorId, resultCount: 5 });
+            dispatch('fetchInitialAuthorFollowerUsers', { authorId: state.author.data.authorId, resultCount: 15, cursor: 0 });
         }, 1200);
 
         DataAccessor.followOrUnfollowAuthor(state.author.data.authorId, !state.author.data.following, function(data) {

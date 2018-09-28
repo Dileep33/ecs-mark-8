@@ -5,7 +5,9 @@ export default {
     },
     userPratilipi: {
     	loading_state: 'LOADING',
-    	data: {}
+    	data: {
+            rating: null
+        }
     },
     index: {
     	loading_state: 'LOADING',

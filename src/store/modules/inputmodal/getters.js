@@ -18,6 +18,10 @@ export default {
                 return '__("author_about")';
             case 'pratilipi_confirm_move_to_drafts_title':
                 return '__("pratilipi_confirm_move_to_drafts_title")';
+            case 'event_participate_confirm_submission':
+                return '__("event_participate_confirm_submission")';
+            case 'pratilipi_confirm_delete_content':
+                return '__("pratilipi_confirm_delete_content")';
         }
     },
 

@@ -19,7 +19,7 @@ export default {
                 commit('setReaderPratilipiIndexDataLoadingError');
             }
 
-            if (state.userPratilipi && userPratilipiData.pratilipiId === state.userPratilipi.data.pratilipiId && state.userPratilipi.data.rating) {
+            if (state.userPratilipi && userPratilipiData && userPratilipiData.pratilipiId === state.userPratilipi.data.pratilipiId && state.userPratilipi.data.rating) {
                 userPratilipiData.rating = state.userPratilipi.data.rating;
                 userPratilipiData.reviewDateMillis = state.userPratilipi.data.reviewDateMillis;
             }
@@ -115,7 +115,7 @@ export default {
     setPratilipiRating({ commit, state }, { rating, pratilipiId }) {
         commit('setPratilipiRatingUpdateLoading');
         DataAccessor.createOrUpdateReview(pratilipiId, rating, null, function(successData) {
-            commit('setPratilipiReviewRatingUpdateSuccess', rating);
+            commit('setPratilipiReviewRatingUpdateSuccess', successData);
         }, (errorData) => {
             commit('setPratilipiRatingUpdateError');
         });

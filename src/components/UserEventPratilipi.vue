@@ -126,8 +126,8 @@ export default {
         deleteEventEntry() {
             this.setConfirmModalAction({
                 action: `eventpage/deleteEntryFromEvent`,
-                heading: 'event_participate_confirm_submission',
-                message: 'event_participate_cannot_change_drafts',
+                heading: 'pratilipi_confirm_delete_content',
+                message: '',
                 data: {eventId : this.pratilipiData.eventId, eventEntryId : this.pratilipiData.eventEntryId}
             });
             this.openPrimaryConfirmationModal();

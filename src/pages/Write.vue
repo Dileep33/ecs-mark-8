@@ -4,7 +4,7 @@
             <div class="container">
                 <div class="page-content">
                     <div class="row">
-                        <div class="col-lg-12 d-none d-lg-block d-xl-block" v-if="!isMobile()"><!-- Desktop only -->
+                        <div class="col-md-12 d-none d-md-block d-lg-block d-xl-block" v-if="!isMobile()"><!-- Desktop only -->
                             <div class="card write-now">
                                 <div class="card-content">
                                     <p>__("write_help")</p>

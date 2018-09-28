@@ -17,7 +17,7 @@
                         <span v-if="(getLoginError && getLoginError.name)">{{ getLoginError.name }}</span>
                         <span v-else>__("name_required")</span>
                     </p>
-                    <input type="text" :class="{error: nameIsInvalid || (getLoginError && getLoginError.name) }" v-model="name" class="form-control" :placeholder="'__("user_full_name")'">
+                    <input type="text" :class="{error: nameIsInvalid || (getLoginError && getLoginError.name) }" v-model="name" class="form-control" placeholder="__('user_full_name')">
                 </div>
                 <div class="form-group">
                     <p class="validation_error" v-if="emailIsInvalid || (getLoginError && getLoginError.email)">
@@ -25,7 +25,7 @@
                         <span v-if="(getLoginError && getLoginError.email)">{{ getLoginError.email }}</span>
                         <span v-else>__("email_entered_incorrectly")</span>
                     </p>
-                    <input type="email" :class="{error: emailIsInvalid || (getLoginError && getLoginError.email) }" v-model="email" class="form-control" :placeholder="'__("user_email")'">
+                    <input type="email" :class="{error: emailIsInvalid || (getLoginError && getLoginError.email) }" v-model="email" class="form-control" placeholder="__('user_email')">
                 </div>
                 <div class="form-group">
                     <p class="validation_error" v-if="passwordIsInvalid || (getLoginError && getLoginError.password)">
@@ -33,7 +33,7 @@
                         <span v-if="(getLoginError && getLoginError.password)">{{ getLoginError.password }}</span>
                         <span v-else>__("password_minimum")</span>
                     </p>
-                    <input autocomplete="new-password" :class="{error: passwordIsInvalid || (getLoginError && getLoginError.password) }" v-model="password" type="password" class="form-control" :placeholder="'__("user_password")'">
+                    <input autocomplete="new-password" :class="{error: passwordIsInvalid || (getLoginError && getLoginError.password) }" v-model="password" type="password" class="form-control" placeholder="__('user_password')">
                 </div>
                 <button type="button" @click="verifyAndSignupUser({ name, email, password, language: getCurrentLanguage().fullName.toUpperCase() })" class="btn sign-in">__("user_sign_up")</button>
                 <span class="terms-section">__("register_part_1") <a href="/privacy-policy" target="_blank">__("footer_privacy_policy")</a> __("register_part_2") <a href="/terms-of-service" target="_blank">__("footer_terms_of_service")</a> __("register_part_3")</span>

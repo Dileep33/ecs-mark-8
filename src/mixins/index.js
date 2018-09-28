@@ -12,6 +12,7 @@ import {
     getLowResolutionImage,
     getMediumResolutionImage,
     getHighResolutionImage,
+    getOgResolutionImage,
     isMobile,
     isAndroid,
     isChrome,
@@ -30,7 +31,8 @@ import {
     setCookie,
     isCurrentEvent,
     validateFirstAndSecondPassword,
-    isTestEnvironment
+    isTestEnvironment,
+    getLanguageCode
 } from '@/mixins/methods'
 import { defaultAuthorImage } from '@/mixins/data'
 export default {
@@ -53,6 +55,7 @@ export default {
         getLowResolutionImage,
         getMediumResolutionImage,
         getHighResolutionImage,
+        getOgResolutionImage,
         isMobile,
         isAndroid,
         isChrome,
@@ -71,6 +74,7 @@ export default {
         isCurrentEvent,
         openPrimaryConfirmationModal,
         validateFirstAndSecondPassword,
-        isTestEnvironment
+        isTestEnvironment,
+        getLanguageCode
     }
 }

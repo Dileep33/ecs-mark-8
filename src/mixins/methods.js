@@ -4,6 +4,10 @@ import readerV1AnalyticsEvents from '@/static_scripts/experiment_events/reader_v
 import readerV2AnalyticsEvents from '@/static_scripts/experiment_events/reader_v2'
 import recommendationV1AnalyticsEvents from '@/static_scripts/experiment_events/recommendation_v1'
 import appLoginV1AnalyticsEvents from '@/static_scripts/experiment_events/applogin_v1'
+import ratingStickersV1AnalyticsEvents from '@/static_scripts/experiment_events/rating_stickers_v1'
+import readerFooterAnalyticsEvents from '@/static_scripts/experiment_events/reader_footer'
+import ratingPanelV1AnalyticsEvents from '@/static_scripts/experiment_events/ratingpanel_v1'
+import ratingPanelV2AnalyticsEvents from '@/static_scripts/experiment_events/ratingpanel_v2'
 
 const recommendation_v1 = ['WREC001'];
 const applogin_v1 = ['WSU001', 'WSU002'];
@@ -38,9 +42,6 @@ export function openLoginModal(pageSource, action, location) {
         switch (action) {
             case 'LIBRARYADD':
                 experimentId = 'WSU001';
-                break;
-            case 'REVIEW':
-                experimentId = 'WSU002';
                 break;
             default:
                 experimentId = 'CONTROL';
@@ -223,6 +224,23 @@ export function getMediumResolutionImage(imageUrl) {
     }
 }
 
+// For Facebook Og Profile Image
+export function getOgResolutionImage(imageUrl) {
+    let type;
+
+    if (isChrome()){
+        type = 'webp';
+    } else {
+        type = 'jpg';
+    }
+
+    if (imageUrl.indexOf('?') === -1) {
+        return imageUrl + `?quality=high&type=${type}&width=220`;
+    } else {
+        return imageUrl + `&quality=high&type=${type}&width=220`;
+    }
+}
+
 export function getHighResolutionImage(imageUrl) {
     let type;
     if (isChrome()){
@@ -355,8 +373,20 @@ export function triggerAnanlyticsEvent(eventName, experimentType, eventProperty)
         case (experimentType === 'WREC001'):
             eventProps = { ...recommendationV1AnalyticsEvents[eventName] };
             break;
-        case (experimentType === 'WSU001' || experimentType === 'WSU002'):
+        case (experimentType === 'WSU001'):
             eventProps = { ...appLoginV1AnalyticsEvents[eventName] };
+            break;
+        case (experimentType === 'WRAT001'):
+            eventProps = { ...ratingStickersV1AnalyticsEvents[eventName] };
+            break;
+        case (experimentType === 'WBB001'):
+            eventProps = { ...readerFooterAnalyticsEvents[eventName] };
+            break;
+        case (experimentType === 'WRA001'):
+            eventProps = { ...ratingPanelV1AnalyticsEvents[eventName] };
+            break;
+        case (experimentType === 'WRA002'):
+            eventProps = { ...ratingPanelV2AnalyticsEvents[eventName] };
             break;
         default:
             eventProps = { ...controlAnalyticsEvents[eventName] };
@@ -507,6 +537,10 @@ export function getCookie( cname ) {
         if( c.indexOf( name ) == 0 ) return c.substring( name.length, c.length );
     }
     return null;
+}
+
+export function getLanguageCode( languageEnv) {
+    return languageEnv;
 }
 
 export function setCookie( name, value, days, path ) {

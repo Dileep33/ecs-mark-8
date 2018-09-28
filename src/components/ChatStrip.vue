@@ -1,6 +1,6 @@
 <template>
     <div class="chat-stories">
-        <router-link :to="'/chat-story/' + firstChatStorySlug" @click.native="triggerChatStripAnalytics()">
+        <router-link :to="'/chat-story/' + ChatStorySlugToday" @click.native="triggerChatStripAnalytics()">
             <span>__("chatstory_strip")</span>
             <i class="material-icons">keyboard_arrow_right</i>
         </router-link>
@@ -52,8 +52,9 @@ export default {
         }
     },
     created() {
-        const firstChatStory = chatStories[Object.keys(chatStories)[0]];
-        this.firstChatStorySlug = firstChatStory['url-slug'];
+        // change the story key everyday
+        const ChatStoryToday = chatStories[Object.keys(chatStories)[0]];
+        this.ChatStorySlugToday = ChatStoryToday['url-slug'];
     },
     watch: {
         'inViewport.now'(visible) {
@@ -79,7 +80,7 @@ export default {
         padding: 10px 0;
         text-decoration: none;
         font-size: 16px;
-        color: #fff;
+        color: #ffffff;
         width: 100%;
         display: block;
         font-weight: bold;

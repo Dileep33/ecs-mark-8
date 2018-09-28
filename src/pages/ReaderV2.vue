@@ -8,8 +8,9 @@
         <ServerError class="read-page-server-error" :action="'readerv2page/fetchReaderData'" :data="currentChapterSlugId" v-if="getPratilipiLoadingState === 'LOADING_ERROR'"></ServerError>
 
         <!-- Reader Data Loaded success -->
-        <div 
-            class="read-page" 
+        <div
+            class="read-page"
+            itemscope itemtype="http://schema.org/Book"
             :class="getReaderReadingModeStyle"
             v-if="getPratilipiLoadingState === 'LOADING_SUCCESS'">
 
@@ -56,7 +57,9 @@
                     <div class="book-cover"><img :src="getPratilipiData.coverImageUrl" v-bind:alt="getPratilipiData.displayTitle"></div>
                     <div class="book-name">{{ getPratilipiData.title }}</div>
                     <router-link :to="getAuthorData.pageUrl" class="author-link">
-                        <span class="auth-name">{{ getAuthorData.displayName }}</span>
+                        <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+                            <span class="auth-name" itemprop="name">{{ getAuthorData.displayName }}</span>
+                        </span>
                     </router-link>
                     <div class="follow-btn-w-count" v-if="!getAuthorData.following">
                         <button @click="followPratilipiAuthor" >
@@ -175,7 +178,7 @@
                             -->
                             <div class="content-section p-lr-15"
                                 :class="getContentSectionStyle"
-                                v-if="renderedChapterIdSlug = currentChapterSlugId" 
+                                v-if="renderedChapterIdSlug = currentChapterSlugId"
                                 v-html="getPratilipiContent[currentChapterSlugId].content">
                             </div>
                             <div class="book-navigation p-lr-15" v-if="getPratilipiContentLoadingState === 'LOADING_SUCCESS'">
@@ -253,7 +256,12 @@
                         </div>
                         <div class="rating-count" @click="openRatingModal">
                             <i class="material-icons">star_rate</i>
-                            <span>{{ getPratilipiData.ratingCount }}</span>
+                            <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+                                <span itemprop="ratingCount">{{ getPratilipiData.ratingCount }}</span>
+                                <meta itemprop="ratingValue" v-bind:content="getPratilipiData.averageRating | round(1)" />
+                                <meta itemprop="bestRating" v-bind:content="5"/>
+                                <meta itemprop="worstRating" v-bind:content="1"/>
+                            </span>
                         </div>
                         <div class="add-to-lib">
                             <span v-if="getUserPratilipiData.addedToLib" @click="removePratilipiFromLibrary">
@@ -324,7 +332,7 @@ import ReadLayout from '@/layout/Reader-layout.vue';
 import mixins from '@/mixins';
 import 'vue-awesome/icons/file-text'
 import 'vue-awesome/icons/file-text-o'
-import 'vue-awesome/icons/facebook-f'
+import 'vue-awesome/icons/facebook-square'
 import 'vue-awesome/icons/twitter'
 import 'vue-awesome/icons/google-plus'
 import 'vue-awesome/icons/whatsapp'
@@ -343,23 +351,19 @@ import WebPushUtil from '@/utils/WebPushUtil';
 import { mapGetters, mapActions } from 'vuex';
 import constants from '@/constants';
 import LoadingState from '@/enum/LoadingState'
-
 const READER_FONT_SIZE_COOKIE_NAME = 'reader_font_size'
 const READER_LINE_HEIGHT_COOKIE_NAME = 'reader_line_height'
 const READER_READING_MODE_COOKIE_NAME = 'reader_reading_mode'
-
 const ReaderLineHeight = {
     SMALL: 'SMALL',
     MEDIUM: 'MEDIUM',
     LARGE: 'LARGE'
 }
-
 const ReaderReadingMode = {
     WHITE: 'WHITE',
     NIGHT: 'NIGHT',
     SEPIA: 'SEPIA'
 }
-
 export default {
     components: {
         ReadLayout,
@@ -387,43 +391,33 @@ export default {
             readingMode: this.getCookie(READER_READING_MODE_COOKIE_NAME) || ReaderReadingMode.WHITE,
             language: constants.LANGUAGES.filter((eachLanguage) => eachLanguage.shortName === process.env.LANGUAGE)[0].fullName.toUpperCase(),
             documentTitle: null,
-
             /* content */
             currentChapterSlugId: null,
             renderedChapterIdSlug: null,
-
             /* report content text */
             reportName: '',
             reportEmail: '',
             reportContentText: '',
-
             /* modal flags */
             openRateRev: false,
             openRateReaderm: false,
-
             /* web push */
             webPushModalTriggered: false,
             isWebPushStripEnabled: false,
             isWebPushModalEnabled: false,
-
             /* user pratilipi calc */
             maxReadPercentage: 0,
             maxReadPercentageLastUpdated: Date.now(),
             maxReadPercentageCompleted: false,
-
             /* scroll */
             scrollPosition: 0,
             readerPercentScrolled: 0,
-
             scrollCounter: 0,
-            scrollDirection: null,            
-
+            scrollDirection: null,
             /* open in app strip */
             shouldShowOpenInAppStrip: false,
-
             /* content serialisation */
             isNextPratilipiEnabled: false,
-
             /* metaDescription */
             metaDescription: ''
         }
@@ -446,9 +440,8 @@ export default {
             'setShareDetails',
             'setAfterLoginAction'
         ]),
-
         /* analytics */
-        _triggerReaderAnalyticsEvent(eventName, entityValue, parentId) {
+        _triggerReaderAnalyticsEvent(eventName, entityValue, parentId, experimentId) {
             let pratilipiData = this.getPratilipiData
             pratilipiData['author'] = this.getAuthorData
             let options = {
@@ -461,9 +454,14 @@ export default {
             if (parentId) {
                 options['PARENT_ID'] = parentId
             }
-            this.triggerAnanlyticsEvent(eventName, 'CONTROL', options)
+            if (experimentId) {
+                options['EXPERIMENT_ID'] = experimentId
+            }
+            else {
+                options['EXPERIMENT_ID'] = 'CONTROL'
+            }
+            this.triggerAnanlyticsEvent(eventName, options['EXPERIMENT_ID'], options)
         },
-
         /* reader */
         increaseFont() {
             if (this.fontSize + 2 <= this.maxFontSize) {
@@ -509,7 +507,6 @@ export default {
             this.setCookie(READER_READING_MODE_COOKIE_NAME, this.readingMode, 7)
             this._triggerReaderAnalyticsEvent('READERBACKGROUND_SETTINGS_READER', 'SEPIA')
         },
-
         /* content */
         goToPreviousChapter() {
             const currentChapterIndex = this.getIndexData.map(indexData => indexData.slugId).indexOf(this.currentChapterSlugId)
@@ -533,7 +530,6 @@ export default {
             this._triggerReaderAnalyticsEvent('GOTOHOME_RECOMMENDBOOK_READER')
             this.$router.push('/')
         },
-
         /* library */
         addPratilipiToLibrary() {
             this._triggerReaderAnalyticsEvent('LIBRARYADD_READERM_READER')
@@ -548,7 +544,6 @@ export default {
             this._triggerReaderAnalyticsEvent('LIBRARYREMOVE_READERM_READER')
             this.removeFromLibrary()
         },
-
         /* follow */
         followPratilipiAuthor() {
             this._triggerReaderAnalyticsEvent('FOLLOW_INDEX_READER', this.getAuthorData.followCount)
@@ -563,7 +558,6 @@ export default {
             this._triggerReaderAnalyticsEvent('UNFOLLOW_INDEX_READER', this.getAuthorData.followCount)
             this.unFollowAuthor()
         },
-
         /* rating */
         openRatingModal() {
             if (this.getUserDetails.authorId !== this.getAuthorData.authorId) {
@@ -581,7 +575,6 @@ export default {
             $('.overlay-2').fadeOut()
             $("body").removeClass("modal-open")
         },
-
         /* review */
         openReviewModal() {
             if (this.getUserDetails.authorId !== this.getAuthorData.authorId) {
@@ -599,11 +592,11 @@ export default {
             $('.overlay-1').fadeOut()
             $("body").removeClass("modal-open")
         },
-
         /* sidebar */
         openSidebar() {
             $('#sidebar').addClass('active')
             $('.overlay').fadeIn()
+            this._triggerReaderAnalyticsEvent('CLICKMENU_TOPBAR_READER', null)
         },
         closeSidebar() {
             $('#sidebar').removeClass('active')
@@ -614,7 +607,6 @@ export default {
             $('#sidebar').removeClass('active')
             $('.overlay').fadeOut()
         },
-
         /* report */
         updateReportContentText(value) {
             this.reportContentText = value
@@ -625,65 +617,60 @@ export default {
             this.reportContentText = ''
         },
         submitReport() {
-            const 
+            const
                 name = this.reportName.trim(),
                 email = this.reportEmail.trim(),
                 message = this.reportContentText.trim(),
                 pratilipiId = this.getPratilipiData.pratilipiId,
                 language = this.language,
                 dataType = 'PRATILIPI'
-
             if (name === '') {
                 this.triggerAlert({message: '__("user_name_empty")', timer: 1000})
                 return
             }
-
             if (email === '') {
                 this.triggerAlert({message: '__("user_email_empty")', timer: 1000})
                 return
             }
-
             if (!this.validateEmail(email)) {
                 this.triggerAlert({message: '__("user_email_invalid")', timer: 1000})
                 return
             }
-
             if (message === '') {
                 this.triggerAlert({message: '__("report_title")', timer: 1000})
                 return
             }
-
             // ux actions
             this.submitPrailipiReport({name, email, message, pratilipiId, language, dataType})
             this.triggerAlert({message: '__("success_generic_message")', timer: 3000})
             $('#readerReportModal').modal('hide')
-
             // resetting values
             this.setReportDefaultValues()
         },
-
         /* settings */
         triggerSettingsEvent() {
             this._triggerReaderAnalyticsEvent('LANDED_SETTINGS_READER')
         },
-
         /* share */
         openShareModal() {
             this._triggerReaderAnalyticsEvent('CLICKSHRBOOK_READERM_READER')
             this.setShareDetails({ data: this.getPratilipiData, type: 'PRATILIPI', screen_name: 'READER', screen_location: 'READERM' })
             $('#share_modal').modal('show')
         },
-
         /* content serialisation */
         hideStripAndRedirect() {
             this.isNextPratilipiEnabled = false
             this._triggerReaderAnalyticsEvent('CLICK_NEXTPRATILIPI_READER')
             this.$router.push({path: this.getPratilipiData.nextPratilipi.newReadPageUrl || this.getPratilipiData.nextPratilipi.readPageUrl})
         },
-
         /* whatsapp share */
         triggerWaEndShareEvent() {
             this._triggerReaderAnalyticsEvent('SHAREBOOKWA_BOOKEND_READER', 'WHATSAPP')
+        },
+
+        /* facebook share */
+        triggerFbEndShareEvent() {
+            this._triggerReaderAnalyticsEvent('SHAREBOOKFB_BOOKEND_READER', 'FACEBOOK')
         },
 
         /* scroll */
@@ -715,7 +702,8 @@ export default {
         ]),
         ...mapGetters([
             'getUserDetails',
-            'getWhatsAppUri'
+            'getWhatsAppUri',
+            'getFacebookShareUrl'
         ]),
         getContentSectionStyle() {
             const classMap = {
@@ -740,10 +728,8 @@ export default {
     mounted() {
         /* disabling right click */
         $('.read-page').bind("contextmenu", e => e.preventDefault())
-
         /* listen to window scroll */
         window.addEventListener('scroll', this.updateScroll)
-
         /* setting default values */
         this.setReportDefaultValues()
     },
@@ -755,7 +741,7 @@ export default {
             if (this.getIndexData.filter(indexData => indexData.slugId === this.currentChapterSlugId).length) {
                 this.fetchContentData(this.currentChapterSlugId)
             } else {
-                this.fetchReaderData(this.currentChapterSlugId)                
+                this.fetchReaderData(this.currentChapterSlugId)
             }
         },
         'renderedChapterIdSlug' () {
@@ -770,7 +756,6 @@ export default {
                 self.maxReadPercentage = maxReadPercentage
                 self.maxReadPercentageCompleted = maxReadPercentage === 100
             })
-
             // setting the document title of the page
             let titleArray = []
             let chapterMeta = this.getIndexData.filter(indexData => indexData.slugId === this.renderedChapterIdSlug)[0]
@@ -794,13 +779,11 @@ export default {
             if (this.getPratilipiData.titleEn && this.getPratilipiData.titleEn !== 'null' && this.getPratilipiData.titleEn !== 'undefined') {
                 titleArray.push(this.getPratilipiData.titleEn)
             }
-
             // removing meta description from head section
             if ($('meta[name="description"]')) {
                 this.metaDescription = $('meta[name="description"]').attr('content')
                 $('meta[name="description"]').remove()
             }
-
             // setting og tags
             $('meta[property="og:title"]').remove()
             $('meta[property="og:description"]').remove()
@@ -810,10 +793,8 @@ export default {
             $('head').append(`<meta property='og:description' content='${this.getPratilipiData.summary ? (this.getPratilipiData.summary + ' « ' + this.getAuthorData.fullName) : this.getPratilipiData.summary}'>`)
             $('head').append(`<meta property='og:image' content='${this.getPratilipiData.coverImageUrl}'>`)
             $('head').append(`<meta property='og:url' content='${this.getPratilipiData.pageUrl}'>`)
-
             // default value for webPushModalTriggered is false
             this.webPushModalTriggered = false
-
             // setting up values for isWebPushStripEnabled and isWebPushModalEnabled
             this.isWebPushStripEnabled = this.getPratilipiData.state === "PUBLISHED" && WebPushUtil.canShowCustomPrompt() && (parseInt(this.getCookie('bucketId')) || 0) >= 20 && (parseInt(this.getCookie('bucketId')) || 0) < 30
             this.isWebPushModalEnabled =  this.getPratilipiData.state === "PUBLISHED" && WebPushUtil.canShowCustomPrompt() && (parseInt(this.getCookie('bucketId')) || 0) >= 30 && (parseInt(this.getCookie('bucketId')) || 0) < 60
@@ -850,15 +831,12 @@ export default {
                 $('.reader-progress').removeClass('progress-up')
                 this.scrollCounter = 0
             }
-
             if (this.scrollDirection === 'UP' && !this.shouldShowOpenInAppStrip){
                 this.shouldShowOpenInAppStrip = true
             }
-
             if (this.scrollDirection === 'DOWN') {
                 this.shouldShowOpenInAppStrip = false
             }
-
         },
         'readerPercentScrolled'() {
             // webpush modal trigger
@@ -915,26 +893,20 @@ export default {
         $('meta[property="og:description"]').remove()
         $('meta[property="og:image"]').remove()
         $('meta[property="og:url"]').remove()
-
         // adding meta description of the page
         $('head').append(`<meta name="description" content="${this.metaDescription}">`)
-
         window.removeEventListener('scroll', this.updateScroll)
     }
 }
 </script>
 
 <style lang="scss" scoped>
-
 $theme-white-background-color: #ffffff;
 $theme-white-color: #2c3e50;
-
 $theme-black-background-color: #000000;
 $theme-black-color: #ffffff;
-
 $theme-yellow-background-color: #F4ECD8;
 $theme-yellow-color: #2c3e50;
-
 .read-page {
     margin: 0;
     padding: 0;
@@ -1158,7 +1130,7 @@ $theme-yellow-color: #2c3e50;
                 -ms-user-select: none;
                 user-select: none;
                 .whatsapp-share-btn {
-                    a.whatsapp {
+                    a {
                         font-size: 14px;
                         .social-icon {
                             text-align: center;
@@ -1480,6 +1452,7 @@ $theme-yellow-color: #2c3e50;
         display: flex;
         justify-content: center;
         width: 100%;
+        max-width: 520px;
         cursor: pointer;
         overflow: hidden;
     }
@@ -1531,19 +1504,15 @@ $theme-yellow-color: #2c3e50;
 </style>
 
 <style lang="scss">
-
 $theme-white-background-color: #ffffff;
 $theme-white-color: #2c3e50;
-
 $theme-black-background-color: #000000;
 $theme-black-color: #ffffff;
-
 $theme-yellow-background-color: #F4ECD8;
 $theme-yellow-color: #2c3e50;
-
 .read-page.theme-white {
     .book-content {
-        .book-recomendations .container-fluid, 
+        .book-recomendations .container-fluid,
         .comment-box,
         .book-bottom-webpush-subscribe .webpush-container .webpush-inner-container {
             background: $theme-white-background-color !important;
@@ -1553,7 +1522,7 @@ $theme-yellow-color: #2c3e50;
 }
 .read-page.theme-black {
     .book-content {
-        .book-recomendations .container-fluid, 
+        .book-recomendations .container-fluid,
         .comment-box,
         .book-bottom-webpush-subscribe .webpush-container .webpush-inner-container {
             background: $theme-black-background-color !important;
@@ -1563,11 +1532,14 @@ $theme-yellow-color: #2c3e50;
 }
 .read-page.theme-yellow {
     .book-content {
-        .book-recomendations .container-fluid, 
+        .book-recomendations .container-fluid,
         .comment-box,
         .book-bottom-webpush-subscribe .webpush-container .webpush-inner-container {
             background: $theme-yellow-background-color !important;
             color: $theme-yellow-color !important;
+        }
+        .translations {
+            color: $theme-black-background-color !important;
         }
     }
 }
@@ -1581,7 +1553,6 @@ $theme-yellow-color: #2c3e50;
             display: block !important;
         }
         .comment-box .rate-now .rating {
-            width: 200px;
             label:before {
                 font-size: 35px;
             }

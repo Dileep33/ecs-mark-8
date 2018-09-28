@@ -1,7 +1,7 @@
 <template>
     <span class="translate-input-wrapper">
-        <textarea class="form-control" type="text"
-            :value="value" 
+        <textarea class="form-control translatingTextArea" id="translatingTextArea" type="text"
+            :value="value"
             @keyup.up="goUpInSuggestions"
             @keyup.down="goDownInSuggestions"
             @input="getTranslation"
@@ -127,7 +127,7 @@ export default {
         voiceInput(e) {
             // closing suggestions if its open
             this.suggestions = []
- 
+
             // clicking on the button reloads the page for some reason. Hence e.preventDefault()
             e.preventDefault()
 
@@ -180,7 +180,6 @@ export default {
     .translations {
         padding: 0;
         margin: 0;
-        position: absolute;
         background: #fff;
         z-index: 9999;
         width: 100%;

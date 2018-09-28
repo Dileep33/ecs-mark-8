@@ -11,6 +11,7 @@ import WritePageComponent from '@/pages/Write.vue'
 import EventsPageComponent from '@/pages/Events'
 import EventPageComponent from '@/pages/Event'
 import BlogsPageComponent from '@/pages/Blogs.vue'
+import ForYouPageComponent from '@/pages/ForYou.vue'
 import BlogPageComponent from '@/pages/Blog.vue'
 import NotificationComponent from '@/pages/Notification.vue'
 import SettingsPageComponent from '@/pages/Settings.vue'
@@ -32,9 +33,13 @@ import AdminEventSubmissions from '@/pages/AdminEventSubmissions'
 import AdminEventSubmission from '@/pages/AdminEventSubmission'
 import ShayariPageComponent from '@/pages/Shayari.vue'
 import ChatStoryComponent from '@/pages/ChatStory.vue'
+import EndChatStoryComponent from '@/pages/EndChatStory.vue'
+import AuthorDashboardComponent from '@/pages/AuthorDashboard.vue'
+import NotFoundPageComponent from '@/pages/404.vue'
 
 import {
-    getCookie
+    getCookie,
+    getLanguageCode
 } from '@/mixins/methods'
 import DataAccessor from '@/utils/DataAccessor'
 Vue.use(Router)
@@ -66,6 +71,14 @@ const defaultMetaTags = [{
     {
         property: 'og:url',
         content: window.location.href
+    },
+    {
+        name: 'twitter:card',
+        content: 'summary'
+    },
+    {
+        name: 'twitter:site',
+        content: '@TeamPratilipi'
     }
 ]
 
@@ -73,12 +86,16 @@ function _getDefaultPageOGTags(pageStoreName) {
     switch (pageStoreName) {
         case 'homepage':
             return [{
+                    name: 'title',
+                    content: '__("seo_home_page_meta_title")'
+                },
+                {
                     property: 'og:title',
-                    content: '__("seo_home_page") | __("pratilipi")'
+                    content: '__("seo_home_page")'
                 },
                 {
                     property: 'og:description',
-                    content: '__("home_page_title")'
+                    content: '__("seo_home_page_meta_description")'
                 },
                 ...defaultMetaTags
             ];
@@ -103,6 +120,30 @@ function _getDefaultPageOGTags(pageStoreName) {
                 {
                     property: 'og:description',
                     content: '__("home_page_title")'
+                },
+                ...defaultMetaTags
+            ];
+            break;
+        case 'authorpage':
+            return [{
+                    name: 'robots',
+                    content: 'INDEX'
+                },
+                {
+                    property: 'og:title',
+                    content: '__("seo_login_page") | __("pratilipi")'
+                },
+                {
+                    property: 'og:description',
+                    content: '__("home_page_title")'
+                },
+                {
+                    property: 'og:image:width',
+                    content: '220'
+                },
+                {
+                    property: 'og:image:height',
+                    content: '220'
                 },
                 ...defaultMetaTags
             ];
@@ -152,6 +193,14 @@ function _getDefaultPageOGTags(pageStoreName) {
                     property: 'og:description',
                     content: '__("home_page_title")'
                 },
+                {
+                    property: 'og:image:width',
+                    content: '220'
+                },
+                {
+                    property: 'og:image:height',
+                    content: '220'
+                },
                 ...defaultMetaTags
             ];
             break;
@@ -166,18 +215,13 @@ var router = new Router({
             path: '/',
             name: 'Home',
             component: () => {
-                if (getCookie('bucket_id') > 10 && getCookie('bucket_id') <= 70) {
-                    return import ('@/pages/experiments/chatStories/Home.vue');
-                }
-                else {
-                    return new Promise((resolve) => {
-                        resolve(Home)
-                    });
-                }
+                return new Promise((resolve) => {
+                    resolve(Home)
+                });
             },
             meta: {
                 'store': 'homepage',
-                'title': '__("seo_home_page") | __("pratilipi")',
+                'title': '__("seo_home_page")',
                 metaTags: _getDefaultPageOGTags('homepage')
             },
             beforeEnter: (to, from, next) => {
@@ -202,8 +246,14 @@ var router = new Router({
                 'title': '__("seo_search_page") | __("pratilipi")',
                 metaTags: _getDefaultPageOGTags('searchpage')
             }
-        },
-        {
+        }, {
+            path: '/404',
+            name: 'Notfound_Page',
+            component: NotFoundPageComponent,
+            meta: {
+                'title': '__("page_not_found_heading")'
+            }
+        }, {
             path: '/videoseries',
             name: 'Videoseries_Page',
             component: VideoseriesPageComponent,
@@ -235,16 +285,9 @@ var router = new Router({
             name: 'Pratilipi',
             component: () => {
                 if (process.env.REALM === 'PROD') {
-                    if ((getCookie('bucket_id') > 10 && getCookie('bucket_id') <= 40) || (getCookie('bucket_id') > 70 && getCookie('bucket_id') <= 100)) {
-                        return import ('@/pages/experiments/chatStories/Pratilipi_v1.vue');
-                    }
-                    else if (getCookie('bucket_id') > 40 && getCookie('bucket_id') <= 70) {
-                        return import ('@/pages/experiments/chatStories/Pratilipi_v2.vue');
-                    } else {
-                        return new Promise((resolve) => {
-                            resolve(PratilipiPageComponent)
-                        });
-                    }
+                    return new Promise((resolve) => {
+                        resolve(PratilipiPageComponent)
+                    });
                 } else if (process.env.REALM === 'PROD_BRIDGE') {
 
                 } else {
@@ -272,6 +315,17 @@ var router = new Router({
             path: '/user/:user_slug',
             name: 'User',
             component: AuthorPageComponent,
+            meta: {
+                'store': 'authorpage',
+                'title': '__("seo_home_page")',
+                'id_prop': 'user_slug',
+                metaTags: _getDefaultPageOGTags('authorpage')
+
+            }
+        }, {
+            path: '/user/:user_slug/dashboard',
+            name: 'AuthorDashboard_Page',
+            component: AuthorDashboardComponent,
             meta: {
                 'store': 'authorpage',
                 'title': '__("seo_home_page")',
@@ -333,6 +387,15 @@ var router = new Router({
             }
         },
         {
+            path: '/for-you',
+            name: 'For_You',
+            component: ForYouPageComponent,
+            meta: {
+                'store': 'blogpage',
+                'title': '__("seo_home_page")',
+            }
+        },
+        {
             path: '/blog',
             name: 'Blogs_Page',
             component: BlogsPageComponent,
@@ -362,32 +425,52 @@ var router = new Router({
             path: '/read',
             name: 'Reader_Page',
             component: () => {
-                if (process.env.REALM === 'PROD') {
-                    let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 42;
-                    console.log("bucket id ", bucketId);
-                    if (bucketId >= 40 && bucketId < 80) {
-                        return import ('@/pages/experiments/recommendation_v1/Reader.vue');
-                    } else {
-                        return new Promise((resolve, reject) => resolve(ReaderPageComponent));
-                    }
+                let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 42;
+                console.log("bucket id ", bucketId);
 
-                } else if (process.env.REALM === 'PROD_BRIDGE') {
-                    return new Promise((resolve, reject) => resolve(ReaderPageComponent));
+                if (bucketId > 10 && bucketId <= 70 && getLanguageCode(process.env.LANGUAGE) === 'hi') {
+                    return import ('@/pages/experiments/rating_stickers_v1/Reader.vue');
+                } else if (bucketId > 70 && bucketId <= 100 && getLanguageCode(process.env.LANGUAGE) === 'hi'){
+                    return import ('@/pages/experiments/ratingpanel_v1/Reader_v1.vue');
                 } else {
                     return new Promise((resolve, reject) => resolve(ReaderPageComponent));
                 }
             },
             meta: {
                 'store': 'readerpage',
-                'title': '__("seo_home_page")'
+                'title': '__("seo_home_page")',
+                metaTags: _getDefaultPageOGTags('pratilipipage')
             }
         }, {
             path: '/read/:slug',
             name: 'Reader_Page_V2',
-            component: ReaderPageV2Component,
+            component: () => {
+                let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 42;
+                console.log("bucket id ", bucketId);
+                if (bucketId > 10 && bucketId <= 25 && getLanguageCode(process.env.LANGUAGE) === 'hi') {
+                    return import ('@/pages/experiments/rating_stickers_v1/ReaderV2WithSignIn1.vue');
+                } else if (bucketId > 25 && bucketId <= 40 && getLanguageCode(process.env.LANGUAGE) === 'hi') {
+                    return import ('@/pages/experiments/rating_stickers_v1/ReaderV2WithSignIn2.vue');
+                } else if (bucketId > 40 && bucketId <= 70 && getLanguageCode(process.env.LANGUAGE) === 'hi') {
+                    return import ('@/pages/experiments/rating_stickers_v1/ReaderV2.vue');
+                } else if (bucketId > 10 && bucketId <= 25 && getLanguageCode(process.env.LANGUAGE) !== 'hi') {
+                    return import ('@/pages/experiments/reader_redesign/ReaderV2WithSignIn1.vue');
+                } else if (bucketId > 25 && bucketId <= 40 && getLanguageCode(process.env.LANGUAGE) !== 'hi') {
+                    return import ('@/pages/experiments/reader_redesign/ReaderV2WithSignIn2.vue');
+                } else if (bucketId > 40 && bucketId <= 70 && getLanguageCode(process.env.LANGUAGE) !== 'hi') {
+                    return import ('@/pages/experiments/reader_redesign/ReaderV2.vue');
+                } else if (bucketId > 70 && bucketId <= 85) {
+                    return import ('@/pages/experiments/reader_redesign/ReaderV2-1.vue');
+                } else if (bucketId > 85 && bucketId <= 100) {
+                    return import ('@/pages/experiments/reader_redesign/ReaderV2-2.vue');
+                } else {
+                    return new Promise((resolve, reject) => resolve(ReaderPageV2Component));
+                }
+            },
             meta: {
                 'store': 'readerv2page',
-                'title': '__("seo_home_page")'
+                'title': '__("seo_home_page")',
+                metaTags: _getDefaultPageOGTags('pratilipipage')
             }
         }, {
             path: '/followers',
@@ -591,6 +674,14 @@ var router = new Router({
                 metaTags: _getDefaultPageOGTags('pratilipipage')
             }
         }, {
+            path: '/end-chat-stories',
+            name: 'EndChatStory',
+            component: EndChatStoryComponent,
+            meta: {
+                'title': '__("seo_home_page")',
+                metaTags: _getDefaultPageOGTags('pratilipipage')
+            }
+        }, {
             path: '/:list_page_url',
             name: 'List_Page',
             component: ListPageComponent,
@@ -598,69 +689,14 @@ var router = new Router({
                 'store': 'listpage',
                 'title': '__("seo_home_page")',
                 'id_prop': 'list_page_url'
-            },
-            beforeEnter: (to, from, next) => {
-                console.log(to);
-                const pathToGo = to.path;
-                DataAccessor.getPageType(pathToGo, (response) => {
-                    if (response.status === 200) {
-                        switch (response.response.pageType) {
-                            case 'PRATILIPI':
-                                DataAccessor.getPratilipiById(response.response.primaryContentId, false, (data) => {
-                                    if (data) {
-                                        next(data.pageUrl);
-                                    } else {
-                                        // redirect to page not found
-                                    }
-                                });
-                            case 'AUTHOR':
-                                DataAccessor.getAuthorById(response.response.primaryContentId, false, (data) => {
-                                    if (data) {
-                                        next(data.pageUrl);
-                                    } else {
-                                        // redirect to page not found
-                                    }
-                                });
-                            default:
-                                next();
-                        }
-                    } else {
-                        next();
-                    }
-                });
             }
         }, {
             path: '*',
+            beforeEnter: (to, from, next) => {
+                next('/404');
+            },
             meta: {
                 'title': '__("seo_home_page") | __("pratilipi")'
-            },
-            beforeEnter: (to, from, next) => {
-                console.log('Going to an unknown world!');
-                const pathToGo = to.path;
-                DataAccessor.getPageType(pathToGo, (response) => {
-                    if (response.status === 200) {
-                        switch (response.response.pageType) {
-                            case 'PRATILIPI':
-                                DataAccessor.getPratilipiById(response.response.primaryContentId, false, (data) => {
-                                    if (data) {
-                                        next(data.pageUrl);
-                                    } else {
-                                        // redirect to page not found
-                                    }
-                                });
-                            case 'AUTHOR':
-                                DataAccessor.getAuthorById(response.response.primaryContentId, false, (data) => {
-                                    if (data) {
-                                        next(data.pageUrl);
-                                    } else {
-                                        // redirect to page not found
-                                    }
-                                });
-                        }
-                    } else {
-                        // redirect to page not found
-                    }
-                });
             }
         }
     ],

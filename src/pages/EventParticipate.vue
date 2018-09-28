@@ -49,11 +49,11 @@
                                             <i class="material-icons">error</i>
                                             <span>This is a madatory field</span>
                                         </p>
-                                        <TranslatingInput :classObj="{ error: titleIsMissing }" :value="title" :oninput="updateCurrentTitle" :placeholder="'__("writer_input_title")'"></TranslatingInput>
+                                        <TranslatingInput :classObj="{ error: titleIsMissing }" :value="title" :oninput="updateCurrentTitle" placeholder="__('writer_input_title')"></TranslatingInput>
                                     </div>
                                     <div class="form-group">
                                         <label for="pratilipi_write_title_en_input">__("writer_input_title_en")</label>
-                                        <input type="text" :value="titleEn" @input="($event) => { titleEn = $event.target.value}" class="form-control" id="pratilipi_write_title_en_input" :placeholder="'__("writer_input_title_en")'">
+                                        <input type="text" :value="titleEn" @input="($event) => { titleEn = $event.target.value}" class="form-control" id="pratilipi_write_title_en_input" placeholder="__('writer_input_title_en')">
                                     </div>
                                     <div class="form-group">
                                         <label for="pratilipi_write_type">__("write_type")</label>
@@ -106,7 +106,7 @@
                             <div class="col-md-8">
                                 <div class="head-title">__("pratilipi_summary")</div>
                                 <br>
-                                <TranslatingInput :value="description" :oninput="(value) => { description = value}" :placeholder="'__("edit_pratilipi_summary")'"></TranslatingInput>
+                                <TranslatingInput :value="description" :oninput="(value) => { description = value}" placeholder="__('edit_pratilipi_summary')"></TranslatingInput>
                             </div>
                         </div>
                         <div class="row writer-navigation">
@@ -303,8 +303,8 @@ export default {
 
             this.setConfirmModalAction({
                 action: `eventparticipate/updateDescriptionAndTags`,
-                heading: 'pratilipi_confirm_delete_content',
-                message: 'pratilipi_confirm_delete_content',
+                heading: 'event_participate_confirm_submission',
+                message: '',
                 data: { eventPratilipiId: this.pratilipiId, description: this.description || '', state: 'EVENT' }
             });
             this.openPrimaryConfirmationModal();

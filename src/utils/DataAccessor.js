@@ -1,4 +1,5 @@
 import { httpUtil, formatParams } from './HttpUtil';
+import Raven from 'raven-js';
 
 
 const API_PREFIX = (window.location.origin.indexOf(".pratilipi.com") > -1 || window.location.origin.indexOf(".ptlp.co")) > -1 ? "/api" : "https://gamma.pratilipi.com/api";
@@ -13,11 +14,11 @@ const SEARCH_CORE_API = "/search";
 const RECOMMENDATION_PREFIX = "/recommendations/v2.1";
 const RECOMMENDATION_PRATILIPI_API = "/pratilipis";
 
-const PAGE_API = "/page";
 const PAGE_CONTENT_API = "/page/content";
 const PRATILIPI_API = "/pratilipi?_apiVer=2";
 const PRATILIPI_LIST_API = "/pratilipi/list?_apiVer=3";
 const PRATILIPI_LIST_RECENT_API = "/stats/recent_published";
+const PRATILIPI_LIST_FOR_YOU_API = "/stats/for_you";
 const PRATILIPI_LIST_HIGH_RATED_API = "/stats/high_rated";
 const PRATILIPI_CONTENT_API = "/pratilipi/content";
 const PRATILIPI_CONTENT_INDEX_API = "/pratilipi/content/index";
@@ -28,6 +29,7 @@ const USER_PRATILIPI_LIBRARY_LIST_API = "/userpratilipi/library/list";
 const AUTHOR_API = "/author";
 
 const AUTHOR_NEW_API = "/authors";
+const AUTHOR_DASHBOARD_API = "/stats/author_dashboard";
 const USER_API = "/user?_apiVer=2";
 const USER_LOGIN_API = "/user/login";
 const USER_IS_VALID = "/users/v2.0/identifiers/is-valid";
@@ -117,19 +119,15 @@ const processRequests = function(requests) {
 
 const processGetResponse = function(response, status, aCallBack) {
     if (status !== 200 && status !== 404) {
-        if (process.env.REALM !== 'PROD') {
-            import('raven-js').then((Raven) => {
-                Raven.captureMessage('Server Exception', {
-                    level: 'error', // one of 'info', 'warning', or 'error'
-                    extra: {
-                        language: process.env.LANGUAGE,
-                        status,
-                        response: response.message,
-                        method: 'GET'
-                    }
-                });
-            });
-        }
+        Raven.captureMessage('Server Exception', {
+            level: 'error', // one of 'info', 'warning', or 'error'
+            extra: {
+                language: process.env.LANGUAGE,
+                status,
+                response: response.message,
+                method: 'GET'
+            }
+        });
     }
 
     if (aCallBack != null)
@@ -147,19 +145,15 @@ const processPostResponse = function(response, status, successCallBack, errorCal
         successCallBack(response);
     else if (status != 200 && errorCallBack != null) {
 
-        if (process.env.REALM !== 'PROD') {
-            import('raven-js').then((Raven) => {
-                Raven.captureMessage('Server Exception', {
-                    level: 'error', // one of 'info', 'warning', or 'error'
-                    extra: {
-                        language: process.env.LANGUAGE,
-                        status,
-                        response: response.message,
-                        method: 'POST'
-                    }
-                });
-            });
-        }
+        Raven.captureMessage('Server Exception', {
+            level: 'error', // one of 'info', 'warning', or 'error'
+            extra: {
+                language: process.env.LANGUAGE,
+                status,
+                response: response.message,
+                method: 'POST'
+            }
+        });
         errorCallBack(response);
     }
 };
@@ -167,32 +161,6 @@ const processPostResponse = function(response, status, successCallBack, errorCal
 
 /* DataAccessor */
 export default {
-
-    getPageType: (pageUri, aCallBack) => {
-        httpUtil.get(API_PREFIX + PAGE_API,
-            null,
-            { uri: pageUri },
-            function(response, status) { processGetResponse(response, status, aCallBack) });
-    },
-
-    getPratilipiByUri: (pageUri, includeUserPratilipi, aCallBack) => {
-
-        var requests = [];
-        requests.push(new request("req1", PAGE_API, { "uri": pageUri }));
-        requests.push(new request("req2", PRATILIPI_API, { "pratilipiId": "$req1.primaryContentId" }));
-
-        if (includeUserPratilipi)
-            requests.push(new request("req3", USER_PRATILIPI_API, { "pratilipiId": "$req1.primaryContentId" }));
-
-        httpUtil.get(API_PREFIX, null, { "requests": processRequests(requests) },
-            function(response, status) {
-                if (aCallBack != null) {
-                    var pratilipi = response.req2 && response.req2.status == 200 ? response.req2.response : null;
-                    var userpratilipi = includeUserPratilipi && response.req3 && response.req3.status == 200 ? response.req3.response : null;
-                    aCallBack(pratilipi, userpratilipi);
-                }
-            });
-    },
 
     getPratilipiBySlug: (slug, includeUserPratilipi, aCallBack) => {
         var requests = [];
@@ -245,25 +213,6 @@ export default {
                     var index = response.req2 && response.req2.status == 200 ? response.req2.response : null;
                     var userpratilipi = response.req3 && response.req3.status == 200 ? response.req3.response : null;
                     aCallBack(pratilipi, index, userpratilipi);
-                }
-            });
-    },
-
-    getAuthorByUri: (pageUri, includeUserAuthor, aCallBack) => {
-
-        var requests = [];
-        requests.push(new request("req1", PAGE_API, { "uri": pageUri }));
-        requests.push(new request("req2", AUTHOR_API, { "authorId": "$req1.primaryContentId" }));
-
-        if (includeUserAuthor)
-            requests.push(new request("req3", USER_AUTHOR_FOLLOW_GET_API, { "referenceId": "$req1.primaryContentId", "referenceType": "AUTHOR" }));
-
-        httpUtil.get(API_PREFIX, null, { "requests": processRequests(requests) },
-            function(response, status) {
-                if (aCallBack != null) {
-                    var author = response.req2 && response.req2.status == 200 ? response.req2.response : null;
-                    var userauthor = includeUserAuthor && response.req3 && response.req3.status == 200 ? response.req3.response : null;
-                    aCallBack(author, userauthor);
                 }
             });
     },
@@ -359,21 +308,6 @@ export default {
             }
             processGetResponse(response, status, aCallBack)
         })
-    },
-
-    getEventByUri: (pageUri, aCallBack) => {
-
-        var requests = [];
-        requests.push(new request("req1", PAGE_API, { "uri": pageUri }));
-        requests.push(new request("req2", EVENT_API, { "eventId": "$req1.primaryContentId" }));
-
-        httpUtil.get(API_PREFIX, null, { "requests": processRequests(requests) },
-            function(response, status) {
-                if (aCallBack != null) {
-                    var event = response.req2.status == 200 ? response.req2.response : null;
-                    aCallBack(event);
-                }
-            });
     },
 
     getEventBySlug: (slug, limit, offset, aCallBack) => {
@@ -576,7 +510,7 @@ export default {
             params,
             function(response, status) { processGetResponse(response, status, aCallBack) });
     },
-    
+
     getRecentPratilipiListByListName: (listName, offset, cursor, resultCount, language, timeFilter, aCallBack) => {
         if (listName == null) return;
         var params = { "category": listName, "language": language };
@@ -589,7 +523,21 @@ export default {
             params,
             function(response, status) { processGetResponse(response, status, aCallBack) });
     },
-    
+
+    getForYouPratilipiList: (userId, cursor, language,aCallBack) => {
+
+        var params = {
+            'userId' : userId,
+            'cursor' : cursor,
+            'language' : language
+        };
+
+        httpUtil.get(API_PREFIX + PRATILIPI_LIST_FOR_YOU_API,
+            null,
+            params,
+            function(response, status) { processGetResponse(response, status, aCallBack) });
+    },
+
     getHighRatedPratilipiListByListName: (listName, offset, cursor, resultCount, language, timeFilter, aCallBack) => {
         if (listName == null) return;
         var params = { "category": listName, "language": language };
@@ -1107,6 +1055,15 @@ export default {
             null,
             {
                 userId
+            },
+            function( response, status ) { processGetResponse( response, status, aCallBack ) });
+    },
+
+    getAuthorDashboardByAuthorId: (authorId, aCallBack) => {
+        httpUtil.get( API_PREFIX + AUTHOR_DASHBOARD_API,
+            null,
+            {
+                authorId
             },
             function( response, status ) { processGetResponse( response, status, aCallBack ) });
     },

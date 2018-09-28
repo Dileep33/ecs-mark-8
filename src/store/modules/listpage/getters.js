@@ -17,12 +17,13 @@ export default {
     //         return total + product.price * product.quantity
     //     }, 0)
     // }
-    
+
     getPratilipiListLoadingState: state => state.loading_state,
     getPratilipiListCursor: state => state.cursor,
     getPratilipiListData: state => state.data,
     getPratilipiListTotalCount: state => state.numberFound,
     getPratilipiListTitle: state => state.title,
+    getFinishedStatus: state => state.finished,
     getPageTitle: state => state.titleEn === "" || state.titleEn === null || state.titleEn === "undefined" || state.titleEn === "null" || state.titleEn === undefined ? state.title : state.title+" | "+state.titleEn
 
 }

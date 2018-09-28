@@ -4,5 +4,6 @@ export default {
     cursor : null,
     numberFound : 0,
     title : '',
-    titleEn : ''
+    titleEn : '',
+    finished : false
 }

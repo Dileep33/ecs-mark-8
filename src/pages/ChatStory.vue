@@ -34,11 +34,7 @@
                 </div>
             </div>
         </div>
-        <div class="end-of-stories">
-            <i class="material-icons">check_circle_outline</i>
-            <h3>__("chatstory_finish_1")</h3>
-            <p>__("chatstory_finish_2")</p>
-        </div>
+
     </MainLayout>
 </template>
 
@@ -70,7 +66,8 @@ export default {
             sender: null,
             liveMessages: [],
             chatHasEnded: false,
-            timeouts: []
+            timeouts: [],
+            allStories: []
         }
     },
     methods: {
@@ -126,13 +123,9 @@ export default {
             const nextStorySlug = chatStorySlugs[currentIndex + 1];
 
             if ((currentIndex + 1) < storyNumber) {
-              this.$router.push('/chat-story/' + nextStorySlug);
+                this.$router.push('/chat-story/' + nextStorySlug);
             } else {
-              $(".chatstory-page").hide();
-              $(".end-of-stories").fadeIn();
-              this.triggerAnanlyticsEvent('LANDED_FINISHED_CHATSTORY', 'CONTROL', {
-                  'USER_ID': this.getUserDetails.userId
-              });
+                this.$router.push('/end-chat-stories/');
             }
       },
       shareWhatsApp() {
@@ -217,11 +210,30 @@ export default {
         background-color: #f0e7df;
         background-repeat: no-repeat;
         background-position: center;
+        background-size: cover;
         background-image: url('/static/chat-default.jpg');
         &.love {
             background-image: url('/static/chat-love.jpg');
         }
-        &.horror, &.suspense {
+        &.friendship {
+            background-image: url('/static/chat-friendship.jpg');
+        }
+        &.social, &.society  {
+            background-image: url('/static/chat-social.jpg');
+        }
+        &.women {
+            background-image: url('/static/chat-women.jpg');
+        }
+        &.suspense {
+            background-image: url('/static/chat-suspense.jpg');
+            &::before {
+                background: rgba(0, 0, 0, 0);
+            }
+            .name {
+                color: #fff;
+            }
+        }
+        &.horror {
             background-image: url('/static/chat-horror.jpg');
             background-size: 100%;
             background-position: top center;
@@ -451,25 +463,6 @@ export default {
         &:hover {
             background: #d0021b;
         }
-    }
-}
-.end-of-stories {
-    background: #fff;
-    padding: 70px 0;
-    margin-top: 65px;
-    min-height: 500px;
-    display: none;
-    i {
-        font-size: 50px;
-        color: #4CAF50;
-    }
-    h3 {
-        font-size: 22px;
-        font-weight: normal;
-        color: #4CAF50;
-    }
-    p {
-        font-size: 14px;
     }
 }
 </style>

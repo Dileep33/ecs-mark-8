@@ -260,12 +260,6 @@
                             </Recommendation>
                         </div>
                     </div>
-
-                    <div class="go-to-home-screen">
-                        <button class="btn btn-sm btn-danger" v-if="isMobile()" @click="navigateToHome">
-                            __("reader_goto_home_page")
-                        </button>
-                    </div>
                 </div>
                 <Spinner v-if="getPratilipiLoadingState === 'LOADING'"></Spinner>
                 <ServerError :action="'pratilipipage/fetchPratilipiDetailsAndUserPratilipiData'" :data="$route.params.slug_id" v-if="getPratilipiLoadingState === 'LOADING_ERROR'"></ServerError>
@@ -276,7 +270,6 @@
                     :includeDisableButton=true
                     v-if="isWebPushModalEnabled"></WebPushModal>
             </div>
-            <ChatBanner></ChatBanner>
             <PratilipiPublishShareModal screenName="PRATILIPI" :pratilipi="getPratilipiData"></PratilipiPublishShareModal>
         </div>
     </MainLayout>
@@ -293,7 +286,6 @@ import ServerError from '@/components/ServerError.vue';
 import WebPushStrip from '@/components/WebPushStrip.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
 import BookTags from '@/components/BookTags.vue';
-import ChatBanner from '@/components/ChatBanner.vue';
 import MessageButton from '@/components/MessageButton.vue';
 import NextPratilipiStrip from '@/components/NextPratilipiStrip.vue';
 import mixins from '@/mixins';
@@ -664,6 +656,14 @@ export default {
             document.head.querySelector('meta[property="og:description"]').content = pratilipiData.summary + ' « ' + pratilipiData.author.fullName;
             document.head.querySelector('meta[property="og:image"]').content = pratilipiData.coverImageUrl;
             document.head.querySelector('meta[property="og:url"]').content = window.location.href;
+
+            var pratilipiBookImage = new Image();
+            pratilipiBookImage.src = pratilipiData.coverImageUrl;
+            pratilipiBookImage.onload = function()
+            {
+                document.head.querySelector('meta[property="og:image:width"]').content = this.naturalWidth;
+                document.head.querySelector('meta[property="og:image:height"]').content = this.naturalHeight;
+            }
         },
         hideStripAndRedirect(){
             this.isNextPratilipiEnabled = false;
@@ -696,7 +696,6 @@ export default {
 	    WebPushStrip,
 	    WebPushModal,
         BookShareStrip,
-        ChatBanner,
         MessageButton,
         VapasiQuote,
         VapasiHoroscope,
@@ -787,8 +786,13 @@ export default {
                 }, 0);
             }
 
-            if (status === 'LOADING_SUCCESS') {
-                this.readPageUrl = this.getPratilipiData.newReadPageUrl && this.isTestEnvironment() ? this.getPratilipiData.newReadPageUrl : this.getPratilipiData.readPageUrl
+            if (status === 'LOADING_SUCCESS') {        
+                let bucketId = parseInt(this.getCookie('bucketId')) || 0
+                this.readPageUrl = 
+                    this.getPratilipiData.newReadPageUrl && 
+                    // this.isTestEnvironment()
+                    (this.isTestEnvironment() || (bucketId >= 11 && bucketId < 20))
+                    ? this.getPratilipiData.newReadPageUrl : this.getPratilipiData.readPageUrl
             }
 
             this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.nextPratilipi && this.getPratilipiData.nextPratilipi.pratilipiId > 0;
@@ -972,6 +976,9 @@ export default {
                     width: 200px;
                     height: 300px;
                     position: relative;
+                    @media screen and (max-height: 640px ) {
+                        height: 230px;
+                    }
                     img {
                         object-fit: cover;
                         width: 100%;

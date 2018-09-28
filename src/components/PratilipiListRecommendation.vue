@@ -18,6 +18,7 @@
                             :screenName="screenName"
                             :screenLocation="screenLocation"
                             :experimentId="experimentId"
+														:index="index"
                     ></PratilipiComponent>
                     </div>
 					<router-link :to="listPageUrl" v-if="listPageUrl" class="view_more">

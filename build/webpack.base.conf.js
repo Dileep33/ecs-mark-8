@@ -6,10 +6,7 @@ const vueLoaderConfig = require('./vue-loader.conf');
 
 let StringReplacePlugin = require('string-replace-webpack-plugin');
 
-const translation = require('./i18n');
 const navigation = require('./categories');
-const languageJSON = translation[process.env.LANGUAGE || 'hi'];
-const navigationJSON = navigation[process.env.LANGUAGE || 'hi'];
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -32,7 +29,7 @@ module.exports = {
     app: './src/main.js'
   },
   output: {
-    path: config.build.assetsRoot,
+    path: config.build.assetsIntermediate,
     filename: '[name].js',
     publicPath: process.env.NODE_ENV === 'production'
       ? config.build.assetsPublicPath
@@ -47,7 +44,6 @@ module.exports = {
   },
   module: {
     rules: [
-      // ...(config.dev.useEslint ? [createLintingRule()] : []),
       {
         enforce: 'pre',
         test: /\.(vue|js)$/,
@@ -56,17 +52,18 @@ module.exports = {
             replacements: [{
               pattern: /__\(["|'](_*[a-zA-Z0-9]+(?:_[a-zA-Z0-9]+)*)["|']\)/g,
               replacement: function (match) {
-                return languageJSON[match.substring(4, match.length - 2)]
+                return '__ptlp_patttern' + match
               }
             }, {
               pattern: /__NAVIGATION_SECTION_LIST__/g,
               replacement: function (match) {
-                return JSON.stringify(navigationJSON)
+                return '__ptlp_patttern' + match
               }
             }]
           })
         }]
       },
+      // ...(config.dev.useEslint ? [createLintingRule()] : []),
       {
         test: /\.vue$/,
         loader: 'vue-loader',

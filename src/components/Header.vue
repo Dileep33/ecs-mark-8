@@ -21,7 +21,7 @@
                         <div class="search-box d-none d-lg-block">
                             <div class="form-group has-feedback" id="search-box-big">
                                 <label for="big-search">Search</label>
-                                <input autocomplete="off" id="big-search" type="text" class="form-control" :value="searchText" @input="changeSearchText" @keyup.enter="goToSearchPage" @click="opendesktopsearch" v-bind:placeholder="'__("search_bar_help")'"/>
+                                <input autocomplete="off" id="big-search" type="text" class="form-control" :value="searchText" @input="changeSearchText" @keyup.enter="goToSearchPage" @click="opendesktopsearch" placeholder="__('search_bar_help')"/>
                                 <button class="voice-input-button"
                                     v-bind:class="{ 'is-active': voiceRecognitionActive }"
                                     @click="voiceInput"
@@ -46,7 +46,7 @@
                         <div class="d-block d-lg-none search-box search-box-2 text-right">
                             <div class="form-group has-feedback" id="search-box-small">
                                 <label for="small-search">Search</label>
-                                <input autocomplete="off" type="text" id="small-search" class="form-control" :value="searchText" @input="changeSearchText" @keyup.enter="goToSearchPage" @click="openmobilesearch" v-bind:placeholder="'__("search")'"/>
+                                <input autocomplete="off" type="text" id="small-search" class="form-control" :value="searchText" @input="changeSearchText" @keyup.enter="goToSearchPage" @click="openmobilesearch" placeholder="__('search')"/>
                                 <button class="voice-input-button"
                                     v-bind:class="{ 'is-active': voiceRecognitionActive }"
                                     @click="voiceInput"
@@ -79,8 +79,8 @@
             <MainMenu :userDetails="userDetails"></MainMenu>
         </div>
         <div class="unread-message capsule" v-if="showUnreadCapsule" @click="triggerCapsuleClick">
-            <span v-if="initialUnreadConversations === 1">__("message_capsule_conversation")</span>
-            <span v-else>__("message_capsule_conversations")</span>
+            <span v-if="initialUnreadConversations === 1">__("message_capsule_conversation_1"){{  initialUnreadConversations  }}__("message_capsule_conversation_2")</span>
+            <span v-else>__("message_capsule_conversations_1"){{  initialUnreadConversations  }}__("message_capsule_conversations_2")</span>
         </div>
     </div>
 </template>
@@ -248,13 +248,13 @@ export default {
         },
         triggerCapsuleClick() {
             this.showUnreadCapsule = false;
-            
+
             const SCREEN_NAME = this.getAnalyticsPageSource(this.$route.meta.store);
             this.triggerAnanlyticsEvent('GOMESSAGESPAGE_HEADER_GLOBAL', 'CONTROL', {
                 'USER_ID': this.getUserDetails.userId,
                 SCREEN_NAME
             });
-            
+
             this.$router.push('/messages');
         }
     },

@@ -7,7 +7,7 @@ module.exports = {
   FIREBASE_GROWTH_DATABASE_URL: '"https://gr-pratilipi.firebaseio.com"',
   FIREBASE_PROJECT_ID: '"prod-pratilipi"',
   FIREBASE_STORAGE_BUCKET: '"prod-pratilipi.appspot.com"',
-  LANGUAGE: `"${process.env.LANGUAGE || 'hi'}"`,
+  LANGUAGE: `"${process.env.LANGUAGE || '__ptlp_patttern__TARGET_LANGUAGE__'}"`,
   FACEBOOK_APP_ID: '293990794105516',
   FACEBOOK_SDK_VERSION: '"v3.0"',
   AMPLITUDE_APP_ID: "'a2af45f6f1b31d716b0f34b3d4101e97'",
@@ -15,5 +15,6 @@ module.exports = {
   GA_WEBSITE_MODE: "'Standard'",
   GA_WEBSITE_VERSION: "'Mark-8'",
   GOOGLE_CLIENT_ID: "'659873510744-kfim969enh181h4gbctffrjg5j47tfuq.apps.googleusercontent.com'",
+  SENTRY_ENDPOINT: "'https://146d34f31c894bd9a28f2b00b4fe2223@sentry.io/1289493'",
   REALM: `"${process.env.REALM || 'PROD'}"`
 }
