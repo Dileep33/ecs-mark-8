@@ -175,7 +175,7 @@ export default {
 	// document.head.querySelector('meta[name="description"]').content = "";
         const { list_page_url } = this.$route.params;
 
-        const currentLocale = process.env.LANGUAGE;
+        const currentLocale = this.getLanguageCode(process.env.LANGUAGE);
         if (currentLocale == 'hi') {
             constants.LANGUAGES.forEach((eachLanguage) => {
                 if (eachLanguage.shortName === currentLocale) {
@@ -188,8 +188,7 @@ export default {
                     });
                 }
             });
-        }
-        else {
+        } else {
             constants.LANGUAGES.forEach((eachLanguage) => {
                 if (eachLanguage.shortName === currentLocale) {
                     this.fetchInitialListPagePratilipis({
