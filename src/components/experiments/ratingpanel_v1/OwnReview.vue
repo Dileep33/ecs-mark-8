@@ -311,9 +311,9 @@ export default {
                         this.triggerAnanlyticsEvent(`LANDED_${this.screenLocation}_${this.screenName}`, 'WSH004', {
                             'USER_ID': this.getUserDetails.userId
                         });
-                        this.setShareDetails({ data: this.pratilipiData, type: 'PRATILIPI', screen_name: 'SHAREBOOK', screen_location: 'BOOKEND' });
+                        this.setShareDetails({ data: this.pratilipiData, type: 'PRATILIPI', screen_name: 'READER', screen_location: 'AUTOBOOKEND' });
                         $('#share_modal').modal('show');
-                        this.triggerAnanlyticsEvent(`CLICKSHRBOOK_BOOKEND_READER`, 'WBE002', {
+                        this.triggerAnanlyticsEvent(`CLICKSHRBOOK_AUTOBOOKEND_READER`, 'WBE002', {
                             'USER_ID': this.getUserDetails.userId
                         });
                     }
@@ -321,9 +321,9 @@ export default {
                         this.triggerAnanlyticsEvent(`LANDED_${this.screenLocation}_${this.screenName}`, 'WSH005', {
                             'USER_ID': this.getUserDetails.userId
                         });
-                        this.setShareDetails({ data: this.pratilipiData, type: 'PRATILIPI', screen_name: 'SHAREBOOK', screen_location: 'BOOKEND' });
+                        this.setShareDetails({ data: this.pratilipiData, type: 'PRATILIPI', screen_name: 'READER', screen_location: 'AUTOBOOKEND' });
                         $('#share_modal').modal('show');
-                        this.triggerAnanlyticsEvent(`CLICKSHRBOOK_BOOKEND_READER`, 'WBE002', {
+                        this.triggerAnanlyticsEvent(`CLICKSHRBOOK_AUTOBOOKEND_READER`, 'WBE002', {
                             'USER_ID': this.getUserDetails.userId
                         });
                     }
