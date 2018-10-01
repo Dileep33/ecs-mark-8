@@ -315,7 +315,13 @@ export default {
 
                 if (this.screenLocation === 'BOOKEND' && this.screenName === 'READER') {
                     let bucketId = parseInt(this.getCookie('bucket_id')) || 0;
-                    if (bucketId > 70 && bucketId <= 85) {
+                    if (bucketId > 11 && bucketId <= 40) {
+                        this.openLoginModal(this.$route.meta.store, 'SIGNUPPOPUP', 'BOOKEND');
+                        this.triggerAnanlyticsEvent(`LANDED_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
+                            'USER_ID': this.getUserDetails.userId
+                        });
+                    }
+                    else if (bucketId > 70 && bucketId <= 85) {
                         this.triggerAnanlyticsEvent(`LANDED_${this.screenLocation}_${this.screenName}`, 'WSH004', {
                             'USER_ID': this.getUserDetails.userId
                         });

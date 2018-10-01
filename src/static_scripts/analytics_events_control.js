@@ -2636,5 +2636,10 @@ export default {
         "SCREEN_NAME": "READER",
         "LOCATION": "AUTOBOOKEND",
         "ACTION": "SHAREBOOKWA"
+    },
+    "SIGNUPPOPUP_BOOKEND_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "BOOKEND",
+        "ACTION": "SIGNUPPOPUP"
     }
 };
