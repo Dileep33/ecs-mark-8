@@ -32,7 +32,7 @@
                             __("review_delete_review")
                         </button>
                     </div>
-                    <div class="comment-meta">
+                    <div class="comment-meta" v-if="userPratilipiData.userProfilePageUrl">
                         <h6 class="comment-name"><router-link :to="userPratilipiData.userProfilePageUrl">{{ userPratilipiData.userName }}</router-link></h6>
                         <span>{{ userPratilipiData.reviewDateMillis | convertDate }}</span>
                     </div>
