@@ -700,9 +700,13 @@ var router = new Router({
             }
         }
     ],
-    scrollBehavior: () => ({
-        y: 0
-    })
+    scrollBehavior: (to, from, savedPosition) => {
+        if (savedPosition) {
+            return savedPosition
+        } else {
+            return { x: 0, y: 0 }
+        }
+    }
 });
 // This callback runs before every route change, including on page load.
 router.beforeEach((to, from, next) => {
