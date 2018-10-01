@@ -177,6 +177,7 @@ export default {
             'updateRatingInStore'
         ]),
         ...mapActions([
+            'setShareDetails',
             'setAfterLoginAction'
         ]),
         changeRating(e) {
@@ -318,9 +319,19 @@ export default {
                         this.triggerAnanlyticsEvent(`LANDED_${this.screenLocation}_${this.screenName}`, 'WSH004', {
                             'USER_ID': this.getUserDetails.userId
                         });
+                        this.setShareDetails({ data: this.pratilipiData, type: 'PRATILIPI', screen_name: 'SHAREBOOK', screen_location: 'BOOKEND' });
+                        $('#share_modal').modal('show');
+                        this.triggerAnanlyticsEvent(`CLICKSHRBOOK_BOOKEND_READER`, 'WBE002', {
+                            'USER_ID': this.getUserDetails.userId
+                        });
                     }
                     else if (bucketId > 85 && bucketId <= 99) {
                         this.triggerAnanlyticsEvent(`LANDED_${this.screenLocation}_${this.screenName}`, 'WSH005', {
+                            'USER_ID': this.getUserDetails.userId
+                        });
+                        this.setShareDetails({ data: this.pratilipiData, type: 'PRATILIPI', screen_name: 'SHAREBOOK', screen_location: 'BOOKEND' });
+                        $('#share_modal').modal('show');
+                        this.triggerAnanlyticsEvent(`CLICKSHRBOOK_BOOKEND_READER`, 'WBE002', {
                             'USER_ID': this.getUserDetails.userId
                         });
                     }
