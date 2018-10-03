@@ -334,7 +334,7 @@ export default {
                     });
                     
                     let bucketId = parseInt(this.getCookie('bucket_id')) || 0;
-                    if (bucketId > 11 && bucketId <= 40) {
+                    if (bucketId > 11 && bucketId <= 40 && this.getUserDetails.isGuest) {
                         this.openLoginModal(this.$route.meta.store, 'SIGNUPPOPUP', 'BOOKEND');
                     }
                 } else {
