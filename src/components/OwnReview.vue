@@ -177,6 +177,7 @@ export default {
             'updateRatingInStore'
         ]),
         ...mapActions([
+            'setShareDetails',
             'setAfterLoginAction'
         ]),
         changeRating(e) {
@@ -314,13 +315,29 @@ export default {
 
                 if (this.screenLocation === 'BOOKEND' && this.screenName === 'READER') {
                     let bucketId = parseInt(this.getCookie('bucket_id')) || 0;
-                    if (bucketId > 70 && bucketId <= 85) {
+                    if (bucketId > 11 && bucketId <= 40 && this.getUserDetails.isGuest) {
+                        this.openLoginModal(this.$route.meta.store, 'SIGNUPPOPUP', 'BOOKEND');
+                        this.triggerAnanlyticsEvent(`LANDED_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
+                            'USER_ID': this.getUserDetails.userId
+                        });
+                    }
+                    else if (bucketId > 70 && bucketId <= 85) {
                         this.triggerAnanlyticsEvent(`LANDED_${this.screenLocation}_${this.screenName}`, 'WSH004', {
+                            'USER_ID': this.getUserDetails.userId
+                        });
+                        this.setShareDetails({ data: this.pratilipiData, type: 'PRATILIPI', screen_name: 'READER', screen_location: 'AUTOBOOKEND' });
+                        $('#share_modal').modal('show');
+                        this.triggerAnanlyticsEvent(`CLICKSHRBOOK_AUTOBOOKEND_READER`, 'WBE002', {
                             'USER_ID': this.getUserDetails.userId
                         });
                     }
                     else if (bucketId > 85 && bucketId <= 99) {
                         this.triggerAnanlyticsEvent(`LANDED_${this.screenLocation}_${this.screenName}`, 'WSH005', {
+                            'USER_ID': this.getUserDetails.userId
+                        });
+                        this.setShareDetails({ data: this.pratilipiData, type: 'PRATILIPI', screen_name: 'READER', screen_location: 'AUTOBOOKEND' });
+                        $('#share_modal').modal('show');
+                        this.triggerAnanlyticsEvent(`CLICKSHRBOOK_AUTOBOOKEND_READER`, 'WBE002', {
                             'USER_ID': this.getUserDetails.userId
                         });
                     }

@@ -38,7 +38,12 @@ export function translateWord(word, callback) {
 export function openLoginModal(pageSource, action, location) {
 
     let experimentId = 'CONTROL';
-    if (getCookie('bucket_id') >= 71 && getCookie('bucket_id') < 100) {
+    if (getCookie('bucket_id') > 10 && getCookie('bucket_id') <= 40) {
+        if (action == "SIGNUPPOPUP" && location == "BOOKEND") {
+            experimentId = "WBE001";
+        }
+    }
+    else if (getCookie('bucket_id') >= 71 && getCookie('bucket_id') < 100) {
         switch (action) {
             case 'LIBRARYADD':
                 experimentId = 'WSU001';
@@ -48,12 +53,22 @@ export function openLoginModal(pageSource, action, location) {
                 break;
         }
     }
-    triggerAnanlyticsEvent('LANDED_REGISTERM_GLOBAL', experimentId, {
-        REFER_SCREEN: getAnalyticsPageSource(pageSource),
-        REFER_ACTION: action,
-        REFER_LOCATION: location
+    if (experimentId == "WBE001") {
+        triggerAnanlyticsEvent('SIGNUPPOPUP_BOOKEND_READER', experimentId, {
+            REFER_SCREEN: getAnalyticsPageSource(pageSource),
+            REFER_ACTION: action,
+            REFER_LOCATION: location
 
-    });
+        });
+    }
+    else {
+        triggerAnanlyticsEvent('LANDED_REGISTERM_GLOBAL', experimentId, {
+            REFER_SCREEN: getAnalyticsPageSource(pageSource),
+            REFER_ACTION: action,
+            REFER_LOCATION: location
+
+        });
+    }
     localStorage.setItem('login_modal_refer_details', JSON.stringify({
         REFER_SCREEN: getAnalyticsPageSource(pageSource),
         REFER_ACTION: action,

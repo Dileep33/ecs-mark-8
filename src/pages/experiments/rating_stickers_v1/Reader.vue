@@ -183,7 +183,7 @@
                                 message="__('web_push_message_2')"
                                 screenName="READER"
                                 :includeDisableButton=true
-                                v-if="selectedChapter == getIndexData.length && isWebPushModalEnabled"></WebPushModal>
+                                v-if="selectedChapter == getIndexData.length && isWebPushModalEnabled && (getCookie('bucket_id') > 40 && getCookie('bucket_id') <= 70)"></WebPushModal>
                         </div>
                     </div>
                 </div>
