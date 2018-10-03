@@ -96,7 +96,8 @@ export default {
             'fetchInitialListPagePratilipis',
             'fetchMorePratilipisForListPage',
             'addToLibrary',
-            'removeFromLibrary'
+            'removeFromLibrary',
+            'updateUserPreference'
         ]),
         updateScroll(e) {
             this.scrollPosition = window.scrollY
@@ -174,6 +175,11 @@ export default {
         console.log(this.$route)
 	// document.head.querySelector('meta[name="description"]').content = "";
         const { list_page_url } = this.$route.params;
+        const { uuid, type, value } = this.$route.query;
+
+        if( uuid && type && value) {
+            this.updateUserPreference({uuid, type, value});
+        }
 
         const currentLocale = this.getLanguageCode(process.env.LANGUAGE);
         if (currentLocale == 'hi') {

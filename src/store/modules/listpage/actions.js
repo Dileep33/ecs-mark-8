@@ -86,4 +86,12 @@ export default {
             commit('removePratilipiFromLibraryError');
         })
     },
+
+    updateUserPreference({ commit, state }, {uuid, type, value}) {
+        DataAccessor.postMarketingNewsletterPreference(uuid, type, value, (response) => {
+            console.log("success_preference")
+        }, (error) => {
+            console.log("error_preference")
+        })
+    }
 }
