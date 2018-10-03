@@ -116,7 +116,19 @@
                                   <span>__("read")</span>
                                 </router-link>
                             </div>
+                            
+                            <BookShareStripV1
+                            v-if="getCookie('bucket_id') > 70 && getCookie('bucket_id') <= 85"
+                            :data="getPratilipiData"
+                            :type="'PRATILIPI'"></BookShareStripV1>
+                            
+                            <BookShareStripV2
+                            v-else-if="getCookie('bucket_id') > 85 && getCookie('bucket_id') <= 100"
+                            :data="getPratilipiData"
+                            :type="'PRATILIPI'"></BookShareStripV2>
+                            
                             <BookShareStrip
+                            v-else
                             :data="getPratilipiData"
                             :type="'PRATILIPI'"></BookShareStrip>
                         </div>
@@ -275,6 +287,8 @@ import Recommendation from '@/components/Recommendation.vue';
 import AboutAuthor from '@/components/AboutAuthor.vue';
 import Spinner from '@/components/Spinner.vue';
 import Reviews from '@/components/Reviews.vue';
+import BookShareStripV1 from '@/components/experiments/share_ui/BookShareStrip_v1.vue';
+import BookShareStripV2 from '@/components/experiments/share_ui/BookShareStrip_v2.vue';
 import BookShareStrip from '@/components/BookShareStrip.vue';
 import ServerError from '@/components/ServerError.vue';
 import WebPushStrip from '@/components/WebPushStrip.vue';
@@ -688,6 +702,8 @@ export default {
         ServerError,
 	    WebPushStrip,
 	    WebPushModal,
+        BookShareStripV1,
+        BookShareStripV2,
         BookShareStrip,
         MessageButton,
         VapasiQuote,
@@ -767,7 +783,15 @@ export default {
         'getPratilipiLoadingState'(status) {
             if (status === 'LOADING_SUCCESS' && !this.hasLandedBeenTriggered) {
                 const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
-                this.triggerAnanlyticsEvent('LANDED_BOOKM_BOOK', 'CONTROL', {
+                
+                let experimentId = 'CONTROL';
+                if (this.getCookie('bucket_id') >= 71 && this.getCookie('bucket_id') < 85) {
+                    experimentId = 'WSH004'
+                }
+                else if (this.getCookie('bucket_id') >= 86 && this.getCookie('bucket_id') < 100) {
+                    experimentId = 'WSH005'
+                }
+                this.triggerAnanlyticsEvent('LANDED_BOOKM_BOOK', experimentId, {
                     ...pratilipiAnalyticsData,
                     'USER_ID': this.getUserDetails.userId
                 });

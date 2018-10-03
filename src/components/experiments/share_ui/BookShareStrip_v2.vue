@@ -1,6 +1,6 @@
 <template>
     <div class="social-share">
-        <span class="text">__("seo_share_page"): </span>
+        <span class="text">__("share_ui_title_2"): </span>
         <a :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="whatsapp">
             <span class="social-icon"><icon name="whatsapp"></icon></span>
         </a>
@@ -59,7 +59,7 @@ export default {
             if (this.getPratilipiData) {
                 pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
             }
-            this.triggerAnanlyticsEvent(`SHAREBOOKFB_BOOKM_BOOK`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`SHAREBOOKFB_BOOKM_BOOK`, 'WSH005', {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': 'FACEBOOK'
@@ -70,7 +70,7 @@ export default {
             if (this.getPratilipiData) {
                 pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
             }
-            this.triggerAnanlyticsEvent(`SHAREBOOKGP_BOOKM_BOOK`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`SHAREBOOKGP_BOOKM_BOOK`, 'WSH005', {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': 'GOOGLEPLUS'
@@ -81,7 +81,7 @@ export default {
             if (this.getPratilipiData) {
                 pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
             }
-            this.triggerAnanlyticsEvent(`SHAREBOOKTW_BOOKM_BOOK`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`SHAREBOOKTW_BOOKM_BOOK`, 'WSH005', {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': 'TWITTER'
@@ -92,7 +92,7 @@ export default {
             if (this.getPratilipiData) {
                 pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
             }
-            this.triggerAnanlyticsEvent(`SHAREBOOKWA_BOOKM_BOOK`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`SHAREBOOKWA_BOOKM_BOOK`, 'WSH005', {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': 'WHATSAPP'
