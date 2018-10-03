@@ -480,7 +480,16 @@ export default {
         },
         addPratilipiToLibrary(pratilipiId) {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
-            this.triggerAnanlyticsEvent(`LIBRARYADD_READERM_READER`, 'WBB001', {
+            
+            let experimentId = 'CONTROL';
+            if (this.getCookie('bucket_id') > 70 && this.getCookie('bucket_id') <= 85) {
+                experimentId = 'WBB002';
+            }
+            else if (this.getCookie('bucket_id') > 85 && this.getCookie('bucket_id') < 100) {
+                experimentId = 'WBB003';
+            }
+            
+            this.triggerAnanlyticsEvent(`LIBRARYADD_READERM_READER`, experimentId, {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId
             });
@@ -494,7 +503,16 @@ export default {
         },
         triggerAnanlyticsEventAndRemoveFromLibrary() {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
-            this.triggerAnanlyticsEvent(`LIBRARYREMOVE_READERM_READER`, 'WBB001', {
+            
+            let experimentId = 'CONTROL';
+            if (this.getCookie('bucket_id') > 70 && this.getCookie('bucket_id') <= 85) {
+                experimentId = 'WBB002';
+            }
+            else if (this.getCookie('bucket_id') > 85 && this.getCookie('bucket_id') < 100) {
+                experimentId = 'WBB003';
+            }
+            
+            this.triggerAnanlyticsEvent(`LIBRARYREMOVE_READERM_READER`, experimentId, {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId
             });
@@ -724,7 +742,15 @@ export default {
             if (this.getPratilipiData) {
                 pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
             }
-            this.triggerAnanlyticsEvent(`SHAREBOOKWA_BOOKEND_READER`, 'WBB001', {
+            
+            let experimentId = 'CONTROL';
+            if (this.getCookie('bucket_id') > 70 && this.getCookie('bucket_id') <= 85) {
+                experimentId = 'WBB002';
+            }
+            else if (this.getCookie('bucket_id') > 85 && this.getCookie('bucket_id') < 100) {
+                experimentId = 'WBB003';
+            }
+            this.triggerAnanlyticsEvent(`SHAREBOOKWA_BOOKEND_READER`, experimentId, {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': 'WHATSAPP'
@@ -735,7 +761,16 @@ export default {
             if (this.getPratilipiData) {
                 pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
             }
-            this.triggerAnanlyticsEvent(`SHAREBOOKFB_BOOKEND_READER`, 'WBB001', {
+            
+            let experimentId = 'CONTROL';
+            if (this.getCookie('bucket_id') > 70 && this.getCookie('bucket_id') <= 85) {
+                experimentId = 'WBB002';
+            }
+            else if (this.getCookie('bucket_id') > 85 && this.getCookie('bucket_id') < 100) {
+                experimentId = 'WBB003';
+            }
+            
+            this.triggerAnanlyticsEvent(`SHAREBOOKFB_BOOKEND_READER`, experimentId, {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': 'FACEBOOK'
