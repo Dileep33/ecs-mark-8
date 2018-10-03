@@ -785,10 +785,10 @@ export default {
                 const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
                 
                 let experimentId = 'CONTROL';
-                if (this.getCookie('bucket_id') >= 71 && this.getCookie('bucket_id') < 85) {
+                if (this.getCookie('bucket_id') > 70 && this.getCookie('bucket_id') <= 85) {
                     experimentId = 'WSH004'
                 }
-                else if (this.getCookie('bucket_id') >= 86 && this.getCookie('bucket_id') < 100) {
+                else if (this.getCookie('bucket_id') > 85 && this.getCookie('bucket_id') < 100) {
                     experimentId = 'WSH005'
                 }
                 this.triggerAnanlyticsEvent('LANDED_BOOKM_BOOK', experimentId, {
