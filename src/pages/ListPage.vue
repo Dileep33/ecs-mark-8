@@ -66,7 +66,7 @@ export default {
         return {
             user_id: null,
             scrollPosition: null,
-            list_type: 'high_rated',
+            list_type: 'relevant',
             currentLocale: process.env.LANGUAGE,
             timeFilter: {
                 fromSec: null,
