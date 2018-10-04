@@ -67,7 +67,8 @@ const TAGS_API = "/pratilipi/v2/categories/system";
 const USER_EMAIL_API = "/user/email";
 const TOP_AUTHORS_API = "/author/list/readcount";
 const WEB_DEVICES_API = "/web-push/fcmToken";
-const MARKETING_API = "/marketing/v1.0/newsletter/unsubscribe";
+const MARKETING_API_UNSUBSCRIBE = "/marketing/v1.0/newsletter/unsubscribe";
+const MARKETING_API_PREFERENCE = "/marketing/v1.0/newsletter/preference";
 
 const EVENT_PARTICIPATE_PREFIX = '/event-participate';
 const EVENT_PARTICIPATE_PREFIX_ADMIN = '/event-participate/admin';
@@ -1083,9 +1084,16 @@ export default {
     },
 
     postMarketingNewsletterUnsubscribe: (uuid, newsletterFrequency, newsletterUnsubscribeReason, successCallBack, errorCallBack) => {
-        httpUtil.post( API_PREFIX + MARKETING_API,
+        httpUtil.post( API_PREFIX + MARKETING_API_UNSUBSCRIBE,
             null,
             { uuid, newsletterFrequency, newsletterUnsubscribeReason },
+            function( response, status ) { processPostResponse( response, status, successCallBack, errorCallBack ) } );
+    },
+
+    postMarketingNewsletterPreference: (uuid, type, value, successCallBack, errorCallBack) => {
+        httpUtil.post( API_PREFIX + MARKETING_API_PREFERENCE,
+            null,
+            { uuid, type, value },
             function( response, status ) { processPostResponse( response, status, successCallBack, errorCallBack ) } );
     },
 

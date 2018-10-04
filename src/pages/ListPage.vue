@@ -5,10 +5,10 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h1>{{ getPratilipiListTitle }}</h1>
-                        <div class="list-tabs" v-if="currentLocale === 'hi'">
-                            <a href="#" @click="listchange" data-tab="tab-relevant">__("sorting_relevant")</a>
+                        <div class="list-tabs" v-if="currentLocale === 'hi' && $route.params.list_page_url === 'lovestories'">
+                            <a href="#" @click="listchange" class="active" data-tab="tab-relevant">__("sorting_relevant")</a>
                             <a href="#" @click="listchange" data-tab="tab-recent_published">__("sorting_latest")</a>
-                            <a href="#" @click="listchange" class="active" data-tab="tab-high_rated">__("sorting_highly_rated")</a>
+                            <a href="#" @click="listchange" data-tab="tab-high_rated">__("sorting_highly_rated")</a>
                             <div class="sorting" @click="toggleSortMenu" v-if="list_type != 'relevant'">
                                 <icon name="filter"></icon>
                             </div>
@@ -66,7 +66,7 @@ export default {
         return {
             user_id: null,
             scrollPosition: null,
-            list_type: 'high_rated',
+            list_type: 'relevant',
             currentLocale: process.env.LANGUAGE,
             timeFilter: {
                 fromSec: null,
@@ -96,7 +96,8 @@ export default {
             'fetchInitialListPagePratilipis',
             'fetchMorePratilipisForListPage',
             'addToLibrary',
-            'removeFromLibrary'
+            'removeFromLibrary',
+            'updateUserPreference'
         ]),
         updateScroll(e) {
             this.scrollPosition = window.scrollY
@@ -174,6 +175,11 @@ export default {
         console.log(this.$route)
 	// document.head.querySelector('meta[name="description"]').content = "";
         const { list_page_url } = this.$route.params;
+        const { uuid, type, value } = this.$route.query;
+
+        if( uuid && type && value) {
+            this.updateUserPreference({uuid, type, value});
+        }
 
         const currentLocale = this.getLanguageCode(process.env.LANGUAGE);
         if (currentLocale == 'hi') {
@@ -183,7 +189,7 @@ export default {
                         language: eachLanguage.fullName.toUpperCase(),
                         listName: list_page_url,
                         resultCount: 20,
-                        listType: this.list_type,
+                        // listType: this.list_type,
                         timeFilter: this.timeFilter
                     });
                 }

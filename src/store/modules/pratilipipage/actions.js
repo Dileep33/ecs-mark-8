@@ -229,5 +229,16 @@ export default {
                 commit('setEventDataLoadingError');
             }
         });
+    },
+    
+    submitPrailipiReport ({commit, state} , {name, email, value, pratilipiId , language }) {
+        let phone = null;
+        let dataType = "PRATILIPI";
+        let dataId = pratilipiId;
+        console.log(language);
+          DataAccessor.reportContent(name, email, phone, value, dataType, dataId, language, (response) => {
+        }, (errorData) => {
+            console.log("ERROR IN READ PERCENTAGE API");
+        })
     }
 }

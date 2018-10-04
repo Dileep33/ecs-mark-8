@@ -38,7 +38,7 @@
                             __("review_delete_review")
                         </button>
                     </div>
-                    <div class="comment-meta">
+                    <div class="comment-meta" v-if="userPratilipiData.userProfilePageUrl">
                         <h6 class="comment-name"><router-link :to="userPratilipiData.userProfilePageUrl">{{ userPratilipiData.userName }}</router-link></h6>
                         <span>{{ userPratilipiData.reviewDateMillis | convertDate }}</span>
                     </div>
@@ -332,6 +332,11 @@ export default {
                     this.triggerAnanlyticsEvent(`LANDED_${this.screenLocation}_${this.screenName}`, 'WRAT001', {
                         'USER_ID': this.getUserDetails.userId
                     });
+                    
+                    let bucketId = parseInt(this.getCookie('bucket_id')) || 0;
+                    if (bucketId > 11 && bucketId <= 40 && this.getUserDetails.isGuest) {
+                        this.openLoginModal(this.$route.meta.store, 'SIGNUPPOPUP', 'BOOKEND');
+                    }
                 } else {
                     this.triggerAnanlyticsEvent(`VIEWED_${this.screenLocation}_${this.screenName}`, 'WRAT001', {
                         'USER_ID': this.getUserDetails.userId

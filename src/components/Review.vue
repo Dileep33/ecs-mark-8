@@ -238,8 +238,33 @@ export default {
             this.newComment = `@${data.reviewUserName} `;
         },
         openReviewReport() {
-            $("#reportModalPratilipi").modal("show");
-            $("#reportModalPratilipi").appendTo("body");
+            if (this.getUserDetails.isGuest) {
+                this.openLoginModal(this.$route.meta.store, 'REVIEW', 'LOGIN');
+                return;
+            }
+            
+            const currentLocale = process.env.LANGUAGE;
+            constants.LANGUAGES.forEach((eachLanguage) => {
+                if (eachLanguage.shortName === currentLocale) {
+                    this.language = eachLanguage.fullName.toUpperCase();
+                }
+            });
+
+            let user = this.getUserDetails;
+            let name = user.displayName;
+            let email = user.email;
+            let pratilipiId = this.eachReview.userPratilipiId;
+            let language = this.language;
+            let dataType = "REVIEW";
+            this.setInputModalSaveAction({
+                action: `${this.$route.meta.store}/submitPrailipiReport`,
+                heading: 'report_title',
+                prefilled_value: '',
+                initial_value: '',
+                pratilipi_data: this.pratilipiData,
+                data: {name, email, pratilipiId, language, dataType}
+            });
+            this.openInputModal();
         },
         submitReport() {
             if (this.getUserDetails.isGuest) {

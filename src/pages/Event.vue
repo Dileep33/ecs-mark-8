@@ -131,7 +131,7 @@ export default {
         return {
             scrollPosition: null,
             canParticipate: false,
-            blockedIds: [6900000000000117, 6900000000000114, 6900000000000112]
+            blockedIds: [6900000000000117, 6900000000000114, 6900000000000112, 6900000000000118]
         }
     },
     mixins: [
