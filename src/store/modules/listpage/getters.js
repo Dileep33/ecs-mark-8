@@ -24,6 +24,7 @@ export default {
     getPratilipiListTotalCount: state => state.numberFound,
     getPratilipiListTitle: state => state.title,
     getFinishedStatus: state => state.finished,
-    getPageTitle: state => state.titleEn === "" || state.titleEn === null || state.titleEn === "undefined" || state.titleEn === "null" || state.titleEn === undefined ? state.title : state.title+" | "+state.titleEn
-
+    getPageTitle: state => state.titleEn === "" || state.titleEn === null || state.titleEn === "undefined" || state.titleEn === "null" || state.titleEn === undefined ? state.title : state.title+" | "+state.titleEn,
+    getNavigationList: state => state.navigationList.data,
+    getNavigationListLoadingState: state => state.navigationList.loading_state
 }

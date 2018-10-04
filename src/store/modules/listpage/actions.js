@@ -86,4 +86,16 @@ export default {
             commit('removePratilipiFromLibraryError');
         })
     },
+
+    fetchNavigationList({ commit, state }, language) {
+        commit('setNavigationStatusLoadingTrue');
+        DataAccessor.getNavigationList(language, function(data) {
+            if (data.status === 200) {
+                console.log("Response: " , data.response);
+                commit('setNavigationStatusLoadingSuccess', data.response);
+            } else {
+                commit('setNavigationStatusLoadingError');
+            }
+        });
+    }
 }

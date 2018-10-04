@@ -19,6 +19,9 @@ import { mapGetters, mapActions } from 'vuex'
             ...mapActions('searchpage', [
                 'fetchTrendingSearch'
             ]),
+            ...mapActions('listpage', [
+                'fetchNavigationList'
+            ]),
             ...mapActions([
                 'fetchUserDetails',
                 'fetchInitialNotifications',
@@ -154,6 +157,7 @@ import { mapGetters, mapActions } from 'vuex'
             constants.LANGUAGES.forEach((eachLanguage) => {
             if (eachLanguage.shortName === currentLocale) {
                 this.fetchTrendingSearch(eachLanguage.fullName.toUpperCase());
+                this.fetchNavigationList(eachLanguage.fullName.toUpperCase());
             }
             });
         }

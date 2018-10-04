@@ -14,11 +14,11 @@
             <div class="category-list" v-for="each_category_section in category_sections" :key="each_category_section.title">
                 <h4 class="category-section">{{ each_category_section.title }}</h4>
                 <ul>
-                    <li v-for="each_category in each_category_section.categories" :key="each_category.categoryUrl" v-if="each_category.pratilipiListData.listName">
+                    <li v-for="each_category in each_category_section.linkList" :key="each_category.url" v-if="each_category.apiRequest.listName">
                         <router-link
-                        :to="{ path: each_category.categoryUrl }">
-                            <span class="category-img" v-bind:style="{ backgroundImage: 'url(https://0.ptlp.co/resource-all/android-category-banners/' + each_category.imageFileName  + ')' }"></span>
-                            <span class="category-name">{{ each_category.title }}</span>
+                        :to="{ path: each_category.url }">
+                            <span class="category-img" v-bind:style="{ backgroundImage: 'url(' + each_category.imageUrl  + ')' }"></span>
+                            <span class="category-name">{{ each_category.name }}</span>
                         </router-link>
                     </li>
                 </ul>
@@ -29,6 +29,7 @@
 
 <script>
 import Constants from '@/constants';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
     name: 'Pratilipi',
@@ -39,13 +40,25 @@ export default {
         }
     },
     computed: {
-        
+        ...mapGetters('listpage', [
+            'getNavigationList',
+            'getNavigationListLoadingState'
+        ])
     },
     methods: {
-        
+
+    },
+    watch: {
+        'getNavigationListLoadingState'(loadingState) {
+            if (loadingState === 'LOADING_SUCCESS') {
+                this.category_sections = this.getNavigationList;
+            }
+        }
     },
     created() {
-        this.category_sections = Constants.CATEGORY_DATA.sections;
+        if (this.getNavigationListLoadingState === 'LOADING_SUCCESS') {
+            this.category_sections = this.getNavigationList;
+        }
     }
 }
 </script>

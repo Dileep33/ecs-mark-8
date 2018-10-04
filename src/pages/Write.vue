@@ -26,7 +26,7 @@
                             <div class="card">
                                 <div class="head-title">__("author_drafts")</div>
                                 <div class="card-content drafts" @scroll="updateScroll">
-                                    
+
                                     <div class="draft" v-for="each_draft in draftedContents" :key="each_draft.pratilipiId">
                                         <router-link :to="each_draft.pageUrl" @click.native="triggerEventClickDraft()">
                                             <div class="draft-img" v-bind:style="{ backgroundImage: 'url(' + each_draft.coverImageUrl + ')' }"></div>
@@ -49,12 +49,12 @@
                             </div>
                         </div>
                         <div class="col-md-12 col-lg-6">
-                            <div class="card">
+                            <div class="card" v-if="eventData.apiRequest">
                                 <div class="head-title">{{ eventData.title}}</div>
                                 <div class="card-content">
                                     <router-link
-                                    :to="{ path: eventData.categoryUrl }">
-                                        <img :src="getHighResolutionImage('https://0.ptlp.co/event/banner?eventId=' + eventData.pratilipiListData.eventId)" alt="Events">
+                                    :to="{ path: eventData.url }">
+                                        <img :src="getHighResolutionImage('https://0.ptlp.co/event/banner?eventId=' + eventData.apiRequest.eventId )" alt="Events">
                                     </router-link>
                                 </div>
                             </div>
@@ -114,6 +114,10 @@ export default {
             'writepage/getDraftedContentsTotalCount',
             'getUserDetails'
         ]),
+        ...mapGetters('listpage', [
+            'getNavigationList',
+            'getNavigationListLoadingState'
+        ]),
         ...mapState({
             draftedContents: state => state.writepage.drafts.data,
             draftedContentsLoadingState: state => state.writepage.drafts.loading_state,
@@ -132,10 +136,10 @@ export default {
             const width = $('.card-content.drafts').outerWidth();
             const newScrollLeft = $('.card-content.drafts').scrollLeft();
             const scrollWidth = $('.card-content.drafts').get(0).scrollWidth
-            if (scrollWidth - newScrollLeft == width && 
+            if (scrollWidth - newScrollLeft == width &&
                 this.draftedContentsLoadingState !== 'LOADING' &&
                 this.draftedContentsCursor) {
-                this.fetchMoreDraftedContents({ 
+                this.fetchMoreDraftedContents({
                     authorId: this.getUserDetails.authorId,
                     resultCount: 10
                 });
@@ -151,7 +155,7 @@ export default {
             } else {
                 this.openWritePratilipiModal();
             }
-            
+
         },
         triggerEvent() {
             this.triggerAnanlyticsEvent(`GETANDROID_APPBANNER_CREATE`, 'CONTROL', {
@@ -172,23 +176,36 @@ export default {
     },
     watch: {
         'getUserDetails.authorId'(newValue) {
-            this.fetchInitialDraftedContents({ 
+            this.fetchInitialDraftedContents({
                 authorId: newValue,
                 resultCount: 10
             });
+        },
+        'getNavigationListLoadingState'(loadingState) {
+            if (loadingState === 'LOADING_SUCCESS') {
+                this.getNavigationList.forEach((eachSection) => {
+                    eachSection.linkList.forEach((eachCategory) => {
+                        if (eachCategory && eachCategory.apiRequest && eachCategory.apiRequest.eventId) {
+                            this.eventData = eachCategory;
+                        }
+                    });
+                });
+            }
         }
     },
     created() {
-        constants.CATEGORY_DATA.sections.forEach((eachSection) => {
-            eachSection.categories.forEach((eachCategory) => {
-                if (eachCategory && eachCategory.pratilipiListData && eachCategory.pratilipiListData.eventId) {
-                    this.eventData = eachCategory;
-                    console.log(this.eventData);
-                }
-            });
-        });
 
-        this.fetchInitialDraftedContents({ 
+        if (this.getNavigationListLoadingState === 'LOADING_SUCCESS') {
+            this.getNavigationList.forEach((eachSection) => {
+                eachSection.linkList.forEach((eachCategory) => {
+                    if (eachCategory && eachCategory.apiRequest && eachCategory.apiRequest.eventId) {
+                        this.eventData = eachCategory;
+                    }
+                });
+            });
+        }
+
+        this.fetchInitialDraftedContents({
             authorId: this.getUserDetails.authorId,
             resultCount: 10
         });

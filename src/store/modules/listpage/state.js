@@ -5,5 +5,9 @@ export default {
     numberFound : 0,
     title : '',
     titleEn : '',
-    finished : false
+    finished : false,
+    navigationList: {
+        data: [],
+        loading_state: 'LOADING'
+    }
 }

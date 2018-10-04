@@ -468,9 +468,9 @@ export default {
             function(response, status) { processGetResponse(response, status, aCallBack) });
     },
 
-    getNavigationList: (aCallBack) => {
+    getNavigationList: (language, aCallBack) => {
         httpUtil.get(API_PREFIX + NAVIGATION_LIST_API,
-            null, { "language": "${ language }" },
+            null, { language },
             function(response, status) { processGetResponse(response, status, aCallBack) });
     },
 

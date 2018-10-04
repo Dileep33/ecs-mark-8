@@ -102,5 +102,16 @@ export default {
 
     removePratilipiFromLibraryError(state) {
 
+    },
+
+    setNavigationStatusLoadingTrue(state){
+        state.navigationList.loading_state = 'LOADING';
+    },
+    setNavigationStatusLoadingSuccess(state, { navigationList }){
+        state.navigationList.data = navigationList;
+        state.navigationList.loading_state = 'LOADING_SUCCESS';
+    },
+    setNavigationStatusLoadingError(state){
+        state.navigationList.loading_state = 'LOADING_ERROR';
     }
 }

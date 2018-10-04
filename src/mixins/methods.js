@@ -320,7 +320,7 @@ export function setAnalyticsUserProperty(propertyName, propertyValue) {
                 FB.AppEvents.setUserID(String(propertyValue));
             } catch (e) {}
         }
-        if (FB.AppEvents.getUserID() === undefined || FB.AppEvents.getUserID() === null || FB.AppEvents.getUserID().trim() === '') {
+        if (window.FB && window.FB.AppEvents && FB.AppEvents.getUserID() === undefined || FB.AppEvents.getUserID() === null || FB.AppEvents.getUserID().trim() === '') {
             return;
         }
 
@@ -572,14 +572,6 @@ export function isCurrentEvent( eventId ) {
         eventId == 6900000000000078) {
         isItCurrentEvent = true;
     }
-    //
-    // constants.CATEGORY_DATA.sections.forEach((eachSection) => {
-    //     eachSection.categories.forEach((eachCategory) => {
-    //         if (eachCategory && eachCategory.pratilipiListData && eachCategory.pratilipiListData.eventId == eventId) {
-    //             isItCurrentEvent = true;
-    //         }
-    //     });
-    // });
 
     return isItCurrentEvent;
 }

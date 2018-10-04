@@ -9,13 +9,13 @@
                         <div class="category-list" v-for="each_category_section in category_sections" :key="each_category_section.title">
                             <h4 class="category-section">{{ each_category_section.title }}</h4>
                             <ul>
-                                <li v-for="each_category in each_category_section.categories"
-                                    :key="each_category.categoryUrl">
+                                <li v-for="each_category in each_category_section.linkList"
+                                    :key="each_category.url">
                                     <router-link
-                                    :to="{ path: each_category.categoryUrl }" @click.native="triggerAnanlyticsEventForClick(each_category.categoryUrl)"
+                                    :to="{ path: each_category.url }" @click.native="triggerAnanlyticsEventForClick(each_category.url)"
                                     class="category-img"
-                                    v-bind:style="{ backgroundImage: 'url(https://0.ptlp.co/resource-all/android-category-banners/' + each_category.imageFileName  + ')' }">
-                                        <span class="category-name">{{ each_category.title }}</span>
+                                    v-bind:style="{ backgroundImage: 'url(' + each_category.imageUrl  + ')' }">
+                                        <span class="category-name">{{ each_category.name }}</span>
                                     </router-link>
                                 </li>
                             </ul>
@@ -44,6 +44,10 @@ export default {
     computed: {
         ...mapGetters([
             'getUserDetails'
+        ]),
+        ...mapGetters('listpage', [
+            'getNavigationList',
+            'getNavigationListLoadingState'
         ])
     },
     methods: {
@@ -57,9 +61,17 @@ export default {
     mixins: [
         mixins
     ],
+    watch: {
+        'getNavigationListLoadingState'(loadingState) {
+            if (loadingState === 'LOADING_SUCCESS') {
+                this.category_sections = this.getNavigationList;
+            }
+        }
+    },
     created() {
-        this.category_sections = Constants.CATEGORY_DATA.sections;
-        console.log(Constants);
+        if (this.getNavigationListLoadingState === 'LOADING_SUCCESS') {
+            this.category_sections = this.getNavigationList;
+        }
     },
     mounted() {
         this.triggerAnanlyticsEvent('LANDED_DISCOVERM_DISCOVER', 'CONTROL', {
