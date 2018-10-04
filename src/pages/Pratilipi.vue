@@ -730,7 +730,7 @@ export default {
                     this.openPratilipiPublishShareModal()
                 }
                 // case 2: When state changes from the page
-                if (prevState === 'DRAFTED') {
+                if (prevState === 'DRAFTED' && this.getPratilipiData.author.authorId == this.getUserDetails.authorId) {
                     this.openPratilipiPublishShareModal()
                 }
             }
