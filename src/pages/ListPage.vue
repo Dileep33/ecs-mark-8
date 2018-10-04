@@ -59,6 +59,7 @@ import constants from '@/constants'
 import 'vue-awesome/icons/filter'
 import mixins from '@/mixins';
 import { mapGetters, mapActions } from 'vuex'
+import metaDesc from '@/constants/categories-metadata.json'
 
 export default {
     name: 'List-Page',
@@ -72,7 +73,8 @@ export default {
                 fromSec: null,
                 toSec: null
             },
-            timeText: null
+            timeText: null,
+            metaDesc
         }
     },
     mixins: [
@@ -173,7 +175,6 @@ export default {
     },
     created() {
         console.log(this.$route)
-	// document.head.querySelector('meta[name="description"]').content = "";
         const { list_page_url } = this.$route.params;
         const { uuid, type, value } = this.$route.query;
 
@@ -182,6 +183,13 @@ export default {
         }
 
         const currentLocale = this.getLanguageCode(process.env.LANGUAGE);
+        // Replacing meta description from static file
+        const metaDescription = this.metaDesc[currentLocale][list_page_url];
+        if (metaDescription) {
+            document.head.querySelector('meta[name="description"]').content = metaDescription;
+            document.head.querySelector('meta[property="og:description"]').content = metaDescription;
+        }
+        
         if (currentLocale == 'hi') {
             constants.LANGUAGES.forEach((eachLanguage) => {
                 if (eachLanguage.shortName === currentLocale) {
@@ -248,7 +256,7 @@ export default {
             });
         },
         'getPageTitle'(title) {
-            document.title = title;
+            document.title = title + " | Pratilipi";
         },
         'timeFilter'(timeFilter) {
             this.fetchInitialListPagePratilipis({
