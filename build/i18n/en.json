@@ -643,5 +643,11 @@
     "share_ui_title_3": "",
     "share_ui_title_4_1": "",
     "share_ui_title_4_2": "",
-    "welcome_pratilipi": ""
+    "welcome_pratilipi": "",
+    
+    "sorting_relevant": "For You",
+    "sorting_latest": "New",
+    "sorting_highly_rated": "Most Rated",
+    "sorting_clear": "clear",
+    "sorting_showing_results": "Showing results"
 }

@@ -636,5 +636,11 @@
     "share_ui_title_2": "రచనను చదవడానికి మీ స్నేహితులను ఆహ్వానించండి",
     "share_ui_title_3": "మీరు ఈ రచనను ఇష్టపడుతారు ",
     "share_ui_title_4_1": "",
-    "share_ui_title_4_2": " కూడా చదవండి"
+    "share_ui_title_4_2": " కూడా చదవండి",
+    
+    "sorting_relevant": "మీ కోసం",
+    "sorting_latest": "నూతనమైనవి",
+    "sorting_highly_rated": "అత్యధిక రేటింగ్ ఉన్నవి",
+    "sorting_clear": "క్లియర్ చేయండి",
+    "sorting_showing_results": "శోధన ఫలితాలు"
 }

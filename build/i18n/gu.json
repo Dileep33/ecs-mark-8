@@ -641,5 +641,11 @@
     "share_ui_title_2": "તમારા મિત્રોને આ રચના વાંચવા આમંત્રિત કરો",
     "share_ui_title_3": "આ રચના તમને ગમશે ",
     "share_ui_title_4_1": "તમારે ",
-    "share_ui_title_4_2": " વાંચવી જોઈએ"
+    "share_ui_title_4_2": " વાંચવી જોઈએ",
+    
+    "sorting_relevant": "તમારા માટે",
+    "sorting_latest": "નવું",
+    "sorting_highly_rated": "લોકપ્રિય",
+    "sorting_clear": "હટાવો ",
+    "sorting_showing_results": "શોધના પરિણામો"
 }

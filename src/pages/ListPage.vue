@@ -5,21 +5,21 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h1>{{ getPratilipiListTitle }}</h1>
-                        <div class="list-tabs" v-if="currentLocale === 'hi' && $route.params.list_page_url === 'lovestories'">
-                            <a href="#" @click="listchange" class="active" data-tab="tab-relevant">__("sorting_relevant")</a>
+                        <div class="list-tabs">
+                            <a href="#" @click="listchange" :class="{'active': currentLocale !== 'hi'}" data-tab="tab-relevant">__("sorting_relevant")</a>
                             <a href="#" @click="listchange" data-tab="tab-recent_published">__("sorting_latest")</a>
-                            <a href="#" @click="listchange" data-tab="tab-high_rated">__("sorting_highly_rated")</a>
-                            <div class="sorting" @click="toggleSortMenu" v-if="list_type != 'relevant'">
+                            <a href="#" @click="listchange" :class="{'active': currentLocale === 'hi'}" data-tab="tab-high_rated">__("sorting_highly_rated")</a>
+                            <div class="sorting" :class="{'active': currentLocale === 'hi'}" @click="toggleSortMenu" v-if="list_type != 'relevant'">
                                 <icon name="filter"></icon>
                             </div>
                             <div class="clear"></div>
                             <div class="sorting-menu">
                                 <span class="sort-item" @click='sortList($event, null, 119, "< 2 mins")'>< 2 mins</span>
                                 <span class="sort-item" @click='sortList($event, 120, 299, "2 - 5 mins")'>2 - 5 mins</span>
-                                <span class="sort-item" @click='sortList($event, 300, 1799, "5 mins - 30 mins")'>5 mins - 30 mins</span>
+                                <span class="sort-item" :class="{'active': currentLocale === 'hi'}" @click='sortList($event, 300, 1799, "5 mins - 30 mins")'>5 mins - 30 mins</span>
                                 <span class="sort-item" @click='sortList($event, 1800, 3599, "30 mins - 1 hr")'>30 mins - 1 hr</span>
                                 <span class="sort-item" @click='sortList($event, 3600, null, "> 1 hr")'>> 1 hr</span>
-                                <div class="sort-item link-clear" @click="clearSortList">
+                                <div class="sort-item link-clear" :class="{'active': currentLocale === 'hi'}" @click="clearSortList">
                                     <i class="material-icons">close</i>
                                     <span>__("sorting_clear")</span>
                                 </div>
@@ -177,6 +177,13 @@ export default {
         console.log(this.$route)
         const { list_page_url } = this.$route.params;
         const { uuid, type, value } = this.$route.query;
+        
+        if (this.currentLocale === 'hi') {
+            this.list_type = 'high_rated';
+            this.timeFilter.fromSec = 300;
+            this.timeFilter.toSec = 1799;
+            this.timeText = "5 mins - 30 mins";
+        }
 
         if( uuid && type && value) {
             this.updateUserPreference({uuid, type, value});
@@ -190,30 +197,17 @@ export default {
             document.head.querySelector('meta[property="og:description"]').content = metaDescription;
         }
         
-        if (currentLocale == 'hi') {
-            constants.LANGUAGES.forEach((eachLanguage) => {
-                if (eachLanguage.shortName === currentLocale) {
-                    this.fetchInitialListPagePratilipis({
-                        language: eachLanguage.fullName.toUpperCase(),
-                        listName: list_page_url,
-                        resultCount: 20,
-                        // listType: this.list_type,
-                        timeFilter: this.timeFilter
-                    });
-                }
-            });
-        } else {
-            constants.LANGUAGES.forEach((eachLanguage) => {
-                if (eachLanguage.shortName === currentLocale) {
-                    this.fetchInitialListPagePratilipis({
-                        language: eachLanguage.fullName.toUpperCase(),
-                        listName: list_page_url,
-                        resultCount: 20,
-                        timeFilter: this.timeFilter
-                    });
-                }
-            });
-        }
+        constants.LANGUAGES.forEach((eachLanguage) => {
+            if (eachLanguage.shortName === currentLocale) {
+                this.fetchInitialListPagePratilipis({
+                    language: eachLanguage.fullName.toUpperCase(),
+                    listName: list_page_url,
+                    resultCount: 20,
+                    listType: this.list_type,
+                    timeFilter: this.timeFilter
+                });
+            }
+        });
     },
     watch: {
         'getPratilipiListLoadingState'(pratilipiLoadingState){
@@ -312,7 +306,7 @@ export default {
         max-width: 90%;
         position: relative;
         clear: both;
-        height: 34px;
+        min-height: 34px;
         a {
             display: block;
             padding: 5px;
@@ -391,6 +385,9 @@ export default {
         }
         span {
             vertical-align: middle;
+        }
+        &.active {
+            display: block;
         }
     }
     .filter-helper {

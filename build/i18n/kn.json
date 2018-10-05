@@ -636,5 +636,11 @@
     "share_ui_title_2": "ನಿಮ್ಮ ಸ್ನೇಹಿತರನ್ನು ಈ ಕೃತಿಯನ್ನು ಓದಲು ಆಹ್ವಾನಿಸಿ",
     "share_ui_title_3": "ಈ ಬರಹವನ್ನು ನೀವು ಇಷ್ಟ ಪಡುತ್ತೀರಾ ",
     "share_ui_title_4_1": "",
-    "share_ui_title_4_2": " ಕೃತಿಯನ್ನೂ ಓದಿರಿ"
+    "share_ui_title_4_2": " ಕೃತಿಯನ್ನೂ ಓದಿರಿ",
+    
+    "sorting_relevant": "ನಿಮಗಾಗಿ",
+    "sorting_latest": "ಹೊಸತು",
+    "sorting_highly_rated": "ಜನಪ್ರಿಯ",
+    "sorting_clear": "ಕ್ಲಿಯರ್ ಮಾಡಿ",
+    "sorting_showing_results": "ಹುಡುಕಾಟದ ಫಲಿತಾಂಶಗಳು"
 }
