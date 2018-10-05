@@ -101,6 +101,7 @@ var Website = defineEnum({
     BENGALI:            { hostName: "bengali.pratilipi.com",    mobileHostName: "bn.pratilipi.com", displayLanguage: Language.BENGALI,      filterLanguage: Language.BENGALI },
     KANNADA:            { hostName: "kannada.pratilipi.com",    mobileHostName: "kn.pratilipi.com", displayLanguage: Language.KANNADA,      filterLanguage: Language.KANNADA },
     TELUGU:         { hostName: "telugu.pratilipi.com",     mobileHostName: "te.pratilipi.com", displayLanguage: Language.TELUGU,       filterLanguage: Language.TELUGU },
+    ENGLISH:         { hostName: "english.pratilipi.com",     mobileHostName: "en.pratilipi.com", displayLanguage: Language.ENGLISH,       filterLanguage: Language.ENGLISH },
 
     GAMMA_ALL_LANGUAGE: { hostName: "www-gamma.pratilipi.com",          mobileHostName: "m-gamma.pratilipi.com",  displayLanguage: Language.ENGLISH,    filterLanguage: null },
     GAMMA_HINDI:            { hostName: "hindi-gamma.pratilipi.com",        mobileHostName: "hi-gamma.pratilipi.com", displayLanguage: Language.HINDI,      filterLanguage: Language.HINDI },
@@ -111,6 +112,7 @@ var Website = defineEnum({
     GAMMA_BENGALI:      { hostName: "bengali-gamma.pratilipi.com",      mobileHostName: "bn-gamma.pratilipi.com", displayLanguage: Language.BENGALI,    filterLanguage: Language.BENGALI },
     GAMMA_KANNADA:      { hostName: "kannada-gamma.pratilipi.com",      mobileHostName: "kn-gamma.pratilipi.com", displayLanguage: Language.KANNADA,    filterLanguage: Language.KANNADA },
     GAMMA_TELUGU:       { hostName: "telugu-gamma.pratilipi.com",       mobileHostName: "te-gamma.pratilipi.com", displayLanguage: Language.TELUGU, filterLanguage: Language.TELUGU },
+    GAMMA_ENGLISH:      { hostName: "english-gamma.pratilipi.com",      mobileHostName: "en-gamma.pratilipi.com", displayLanguage: Language.ENGLISH,       filterLanguage: Language.ENGLISH },
 
     GAMMA_ALL_LANGUAGE_GR:  { hostName: "www-gamma-gr.pratilipi.com",          mobileHostName: "m-gamma-gr.pratilipi.com",  displayLanguage: Language.ENGLISH,  filterLanguage: null },
     GAMMA_HINDI_GR:         { hostName: "hindi-gamma-gr.pratilipi.com",        mobileHostName: "hi-gamma-gr.pratilipi.com", displayLanguage: Language.HINDI,        filterLanguage: Language.HINDI },
@@ -120,7 +122,9 @@ var Website = defineEnum({
     GAMMA_MALAYALAM_GR:     { hostName: "malayalam-gamma-gr.pratilipi.com",    mobileHostName: "ml-gamma-gr.pratilipi.com", displayLanguage: Language.MALAYALAM,    filterLanguage: Language.MALAYALAM },
     GAMMA_BENGALI_GR:       { hostName: "bengali-gamma-gr.pratilipi.com",      mobileHostName: "bn-gamma-gr.pratilipi.com", displayLanguage: Language.BENGALI,  filterLanguage: Language.BENGALI },
     GAMMA_KANNADA_GR:       { hostName: "kannada-gamma-gr.pratilipi.com",      mobileHostName: "kn-gamma-gr.pratilipi.com", displayLanguage: Language.KANNADA,  filterLanguage: Language.KANNADA },
-    GAMMA_TELUGU_GR:            { hostName: "telugu-gamma-gr.pratilipi.com",       mobileHostName: "te-gamma-gr.pratilipi.com", displayLanguage: Language.TELUGU,   filterLanguage: Language.TELUGU },
+    GAMMA_TELUGU_GR:        { hostName: "telugu-gamma-gr.pratilipi.com",       mobileHostName: "te-gamma-gr.pratilipi.com", displayLanguage: Language.TELUGU,   filterLanguage: Language.TELUGU },
+    GAMMA_ENGLISH_GR:       { hostName: "english-gamma-gr.pratilipi.com",      mobileHostName: "en-gamma-gr.pratilipi.com", displayLanguage: Language.ENGLISH,       filterLanguage: Language.ENGLISH },
+    
 
     DEVO_ALL_LANGUAGE:{ hostName: "www-devo.ptlp.co",       mobileHostName: "m-devo.ptlp.co", displayLanguage: Language.ENGLISH,        filterLanguage: null },
     DEVO_HINDI:       { hostName: "hindi-devo.ptlp.co",     mobileHostName: "hi-devo.ptlp.co", displayLanguage: Language.HINDI,     filterLanguage: Language.HINDI },
@@ -131,6 +135,8 @@ var Website = defineEnum({
     DEVO_BENGALI:     { hostName: "bengali-devo.ptlp.co",   mobileHostName: "bn-devo.ptlp.co", displayLanguage: Language.BENGALI,   filterLanguage: Language.BENGALI },
     DEVO_TELUGU:      { hostName: "telugu-devo.ptlp.co",    mobileHostName: "te-devo.ptlp.co", displayLanguage: Language.TELUGU,    filterLanguage: Language.TELUGU },
     DEVO_KANNADA:     { hostName: "kannada-devo.ptlp.co",   mobileHostName: "kn-devo.ptlp.co", displayLanguage: Language.KANNADA,   filterLanguage: Language.KANNADA },
+    DEVO_ENGLISH:     { hostName: "english-devo.ptlp.co",   mobileHostName: "en-devo.ptlp.co", displayLanguage: Language.ENGLISH,       filterLanguage: Language.ENGLISH },
+    
 
     DEVO_ALL_LANGUAGE_GR:{ hostName: "www-devo-gr.ptlp.co",       mobileHostName: "m-devo-gr.ptlp.co", displayLanguage: Language.ENGLISH,       filterLanguage: null },
     DEVO_HINDI_GR:       { hostName: "hindi-devo-gr.ptlp.co",     mobileHostName: "hi-devo-gr.ptlp.co", displayLanguage: Language.HINDI,        filterLanguage: Language.HINDI },
@@ -141,6 +147,7 @@ var Website = defineEnum({
     DEVO_BENGALI_GR:     { hostName: "bengali-devo-gr.ptlp.co",   mobileHostName: "bn-devo-gr.ptlp.co", displayLanguage: Language.BENGALI,  filterLanguage: Language.BENGALI },
     DEVO_TELUGU_GR:      { hostName: "telugu-devo-gr.ptlp.co",    mobileHostName: "te-devo-gr.ptlp.co", displayLanguage: Language.TELUGU,   filterLanguage: Language.TELUGU },
     DEVO_KANNADA_GR:     { hostName: "kannada-devo-gr.ptlp.co",   mobileHostName: "kn-devo-gr.ptlp.co", displayLanguage: Language.KANNADA,  filterLanguage: Language.KANNADA },
+    DEVO_ENGLISH_GR:     { hostName: "english-devo-gr.ptlp.co",   mobileHostName: "en-devo-gr.ptlp.co", displayLanguage: Language.ENGLISH,       filterLanguage: Language.ENGLISH },
 
     ALPHA:  { hostName: "localhost:8080", mobileHostName: "localhost:8081", displayLanguage: Language.HINDI, displayLanguage: Language.HINDI,  }
 
