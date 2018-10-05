@@ -310,7 +310,7 @@ export default {
         a {
             display: block;
             padding: 5px;
-            margin-right: 10px;
+            margin-right: 5px;
             text-decoration: none;
             color: #555;
             font-size: 14px;
@@ -320,6 +320,9 @@ export default {
             &.active {
                 color: #d0021b;
                 border-color: #d0021b;
+            }
+            &:last-child {
+                margin-right: 0;
             }
         }
         .sorting {
