@@ -8,7 +8,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body social">
+          <div class="modal-body social" :class="{ 'autobookend': this.getScreenDetails.screen_location === 'AUTOBOOKEND' }">
               <a :href="getFacebookShareUrl" @click="triggerFbShareEvent" class="fb" target="_blank" rel="noopener">
                   <span class="social-icon"><icon name="facebook-f"></icon></span>
                   __("facebook")
@@ -207,6 +207,27 @@ export default {
         }
         .social a.link .social-icon {
             background: #2c3e50;
+        }
+        .social.autobookend {
+            a.twitter, a.google {
+                display: none;
+            }
+            .social-icon {
+                margin-right: 5px;
+            }
+            a {
+                color: #fff;
+                border-radius: 4px;
+                margin-bottom: 10px;
+                font-weight: bold;
+                &.fb {
+                    background: #39569a;
+                }
+                &.whatsapp {
+                    background: #41c822;
+                    margin-bottom: 5px;
+                }
+            }
         }
     }
 </style>
