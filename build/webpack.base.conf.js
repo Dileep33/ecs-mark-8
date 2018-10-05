@@ -6,8 +6,6 @@ const vueLoaderConfig = require('./vue-loader.conf');
 
 let StringReplacePlugin = require('string-replace-webpack-plugin');
 
-const navigation = require('./categories');
-
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }

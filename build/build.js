@@ -5,8 +5,6 @@ process.env.NODE_ENV = 'production'
 
 const translation = require('./i18n');
 const languageJSON = translation[process.env.LANGUAGE || 'hi'];
-const navigation = require('./categories');
-const navigationJSON = navigation[process.env.LANGUAGE || 'hi'];
 
 const ora = require('ora')
 const rm = require('rimraf')
@@ -56,8 +54,8 @@ rm(path.join(targetLanguageFolder, config.build.assetsSubDirectory), err => {
 
   const replaceOptions = {
     files: [targetStaticFolder + '/**/*.js', targetLanguageFolder + '/**/*.html', targetStaticFolder + '/**/*.css'],
-    from: [/__ptlp_patttern__\(["|'](_*[a-zA-Z0-9]+(?:_[a-zA-Z0-9]+)*)["|']\)/g, /\"__ptlp_patttern__NAVIGATION_SECTION_LIST__\"/g, /__ptlp_patttern__TARGET_LANGUAGE__/g],
-    to: [(match) => languageJSON[match.substring(19, match.length - 2)], (match) => JSON.stringify(navigationJSON).replace(/"/g, "'"), (match) => process.env.LANGUAGE],
+    from: [/__ptlp_patttern__\(["|'](_*[a-zA-Z0-9]+(?:_[a-zA-Z0-9]+)*)["|']\)/g, /__ptlp_patttern__TARGET_LANGUAGE__/g],
+    to: [(match) => languageJSON[match.substring(19, match.length - 2)], (match) => process.env.LANGUAGE],
   };
 
   try {

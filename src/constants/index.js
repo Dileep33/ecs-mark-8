@@ -48,6 +48,11 @@ export default {
             nativeWord: "ప్రతిలిపి",
             languageNative: "తెలుగు"
         },
-    ],
-    CATEGORY_DATA: `__NAVIGATION_SECTION_LIST__`
+        {
+            shortName: 'en',
+            fullName: 'english',
+            nativeWord: "Pratilipi",
+            languageNative: "English"
+        }
+    ]
 }
