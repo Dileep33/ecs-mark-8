@@ -100,6 +100,15 @@ function _getDefaultPageOGTags(pageStoreName) {
                 ...defaultMetaTags
             ];
             break;
+        case 'listpage':
+            return [
+                {
+                    property: 'og:description',
+                    content: '__("seo_home_page_meta_description")'
+                },
+                ...defaultMetaTags
+            ];
+            break;
         case 'searchpage':
             return [{
                     property: 'og:title',
@@ -687,8 +696,9 @@ var router = new Router({
             component: ListPageComponent,
             meta: {
                 'store': 'listpage',
-                'title': '__("seo_home_page")',
-                'id_prop': 'list_page_url'
+                'title': '__("seo_navigation_page") | __("pratilipi")',
+                'id_prop': 'list_page_url',
+                metaTags: _getDefaultPageOGTags('listpage')
             }
         }, {
             path: '*',
