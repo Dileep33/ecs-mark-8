@@ -7,9 +7,7 @@ const vueLoaderConfig = require('./vue-loader.conf');
 let StringReplacePlugin = require('string-replace-webpack-plugin');
 
 const translation = require('./i18n');
-const navigation = require('./categories');
 const languageJSON = translation[process.env.LANGUAGE || 'hi'];
-const navigationJSON = navigation[process.env.LANGUAGE || 'hi'];
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -57,11 +55,6 @@ module.exports = {
               pattern: /__\(["|'](_*[a-zA-Z0-9]+(?:_[a-zA-Z0-9]+)*)["|']\)/g,
               replacement: function (match) {
                 return languageJSON[match.substring(4, match.length - 2)]
-              }
-            }, {
-              pattern: /\`__NAVIGATION_SECTION_LIST__\`/g,
-              replacement: function (match) {
-                return JSON.stringify(navigationJSON)
               }
             }]
           })

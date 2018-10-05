@@ -6,5 +6,6 @@ module.exports = {
     ml: require('./ml.json'),
     mr: require('./mr.json'),
     ta: require('./ta.json'),
-    te: require('./te.json')
+    te: require('./te.json'),
+    en: require('./en.json')
 }

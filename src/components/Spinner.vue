@@ -54,6 +54,11 @@ export default {
                 language: 'mr',
                 text: 'प्र',
                 frontFacing: false
+            },
+            {
+                language: 'en',
+                text: 'P',
+                frontFacing: false
             }]
         }
     },

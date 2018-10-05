@@ -210,7 +210,7 @@ export default {
                          $('.rating-helper').text('__("rating_hated_it")');
                         break;
                     case "star2" :
-                        $('.rating-helper').text('__("rating_didnt_like_it")');
+                        $('.rating-helper').text("__('rating_didnt_like_it')");
                         break;
                     case "star3" :
                         $('.rating-helper').text('__("rating_just_ok")');
