@@ -116,17 +116,17 @@
                                   <span>__("read")</span>
                                 </router-link>
                             </div>
-                            
+
                             <BookShareStripV1
                             v-if="getCookie('bucket_id') > 70 && getCookie('bucket_id') <= 85"
                             :data="getPratilipiData"
                             :type="'PRATILIPI'"></BookShareStripV1>
-                            
+
                             <BookShareStripV2
                             v-else-if="getCookie('bucket_id') > 85 && getCookie('bucket_id') <= 100"
                             :data="getPratilipiData"
                             :type="'PRATILIPI'"></BookShareStripV2>
-                            
+
                             <BookShareStrip
                             v-else
                             :data="getPratilipiData"
@@ -783,7 +783,7 @@ export default {
         'getPratilipiLoadingState'(status) {
             if (status === 'LOADING_SUCCESS' && !this.hasLandedBeenTriggered) {
                 const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
-                
+
                 let experimentId = 'CONTROL';
                 if (this.getCookie('bucket_id') > 70 && this.getCookie('bucket_id') <= 85) {
                     experimentId = 'WSH004'
@@ -804,12 +804,12 @@ export default {
 
             if (status === 'LOADING_SUCCESS') {
                 let bucketId = parseInt(this.getCookie('bucket_id')) || 0
-                // this.readPageUrl =
-                //     this.getPratilipiData.newReadPageUrl && (this.isTestEnvironment() || bucketId > 10 && bucketId <= 20)
-                //     ? this.getPratilipiData.newReadPageUrl : this.getPratilipiData.readPageUrl
-                this.readPageUrl = this.getPratilipiData.readPageUrl
+                this.readPageUrl =
+                    this.getPratilipiData.newReadPageUrl && (bucketId >= 0 && bucketId <= 70)
+                    ? this.getPratilipiData.newReadPageUrl : this.getPratilipiData.readPageUrl
+                // this.readPageUrl = this.getPratilipiData.readPageUrl
             }
-                
+
             this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.nextPratilipi && this.getPratilipiData.nextPratilipi.pratilipiId > 0;
             if (status === 'LOADING_SUCCESS' && this.isNextPratilipiEnabled && !this.hasNextPratilipiBeenTriggered) {
                 console.log("showing next pratilipi");
