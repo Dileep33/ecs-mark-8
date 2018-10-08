@@ -1,10 +1,8 @@
 <template>
     <div :class="currentLocale">
         <Header :userDetails="getUserDetails" :notificationCount="getNotificationCount" :pendingMessages="messageNotificationList"></Header>
-        <AppBannerOne v-if="getCookie('bucket_id') > 70 && getCookie('bucket_id') <= 80"></AppBannerOne>
-        <AppBannerTwo v-else-if="getCookie('bucket_id') > 80 && getCookie('bucket_id') <= 90"></AppBannerTwo>
-        <AppBannerThree v-else-if="getCookie('bucket_id') > 90 && getCookie('bucket_id') <= 100"></AppBannerThree>
-        <AppBanner v-else-if="(getCookie('bucket_id') >= 0 && getCookie('bucket_id') <= 40 && currentLocale === 'language-hi') || currentLocale !== 'language-hi'"></AppBanner>
+        <AppBannerTwo v-if="$route.meta.store !== 'pratilipipage'"></AppBannerTwo>
+        <AppBanner v-else></AppBanner>
         <slot></slot>
         <PratilipiModal></PratilipiModal>
         <LoginModal></LoginModal>
@@ -22,9 +20,7 @@
 <script>
 import Header from '@/components/Header.vue';
 import AppBanner from '@/components/AppBanner.vue';
-import AppBannerOne from '@/components/experiments/appbanner_v1/AppBanner.vue';
 import AppBannerTwo from '@/components/experiments/appbanner_v2/AppBanner.vue';
-import AppBannerThree from '@/components/experiments/appbanner_v3/AppBanner.vue';
 import PratilipiModal from '@/components/PratilipiModal.vue';
 import LoginModal from '@/components/LoginModal.vue';
 import ShareModalOne from '@/components/experiments/share_ui/Share_v1.vue';
@@ -68,9 +64,7 @@ export default {
     components: {
         Header,
         AppBanner,
-        AppBannerOne,
         AppBannerTwo,
-        AppBannerThree,
         PratilipiModal,
         LoginModal,
         ShareModalOne,
