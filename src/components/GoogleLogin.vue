@@ -18,24 +18,14 @@ export default {
         loginToGoogle() {
             const that = this;
 
-            gapi.load( 'auth2', () => {
-                const googleClientId = process.env.GOOGLE_CLIENT_ID;
-                gapi.auth2.init({
-                    client_id: `${googleClientId}`,
-                    cookiepolicy: 'single_host_origin',
-                    ux_mode: 'popup',
-                    prompt: 'select_account'
-                }).then(() => {
-                    const GoogleAuth = gapi.auth2.getAuthInstance();
-                    GoogleAuth.signIn().then( function( googleUser ) {
-                        console.log(GoogleAuth.currentUser.get());
-                        that.loginUserWithGoogleToken({ googleIdToken: googleUser.getAuthResponse().id_token, language: that.getCurrentLanguage().fullName.toUpperCase() });
-                    }, function( error ) {
-                        console.log( JSON.stringify( error, undefined, 2 ) );
-                    });
-                });
+            const GoogleAuth = gapi.auth2.getAuthInstance();
+            GoogleAuth.signIn().then( function( googleUser ) {
+                console.log(GoogleAuth.currentUser.get());
+                that.loginUserWithGoogleToken({ googleIdToken: googleUser.getAuthResponse().id_token, language: that.getCurrentLanguage().fullName.toUpperCase() });
+            }, function( error ) {
+                console.log( JSON.stringify( error, undefined, 2 ) );
             });
-        }
+}
     },
     components: {
 
@@ -54,7 +44,15 @@ export default {
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'google-client-jssdk'));
         document.getElementById('google-client-jssdk').onload = () => {
-
+            gapi.load( 'auth2', () => {
+                const googleClientId = process.env.GOOGLE_CLIENT_ID;
+                gapi.auth2.init({
+                    client_id: `${googleClientId}`,
+                    cookiepolicy: 'single_host_origin',
+                    ux_mode: 'popup',
+                    prompt: 'select_account'
+                });
+            });
         }
     }
 }
