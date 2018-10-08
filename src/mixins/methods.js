@@ -494,6 +494,18 @@ export function triggerAnanlyticsEvent(eventName, experimentType, eventProperty)
                     'dimension7':  eventProps.EXPERIMENT_ID
                 });
                 break;
+            case 'CLICKBOOK_RECOMMENDBOOK_BOOK':
+            case 'CLICKBOOK_RECOMMENDBOOK_READER':
+                ga('send', {
+                    hitType: 'event',
+                    eventCategory: eventProps.LOCATION,
+                    eventAction: eventProps.ACTION,
+                    eventLabel: eventProps.SCREEN_NAME,
+                    'dimension7': eventProps.EXPERIMENT_ID,
+                    'dimension8': eventProps.RECOMMENDATION_TYPE,
+                    'metric8': eventProps.POSITION
+                });
+                break;
             default:
                 ga('send', {
                     hitType: 'event',
