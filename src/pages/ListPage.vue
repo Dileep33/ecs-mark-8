@@ -6,9 +6,9 @@
                     <div class="col-md-12">
                         <h1>{{ getPratilipiListTitle }}</h1>
                         <div class="list-tabs">
-                            <a href="#" @click="listchange" :class="{'active': currentLocale !== 'hi'}" data-tab="tab-relevant">__("sorting_relevant")</a>
-                            <a href="#" @click="listchange" data-tab="tab-recent_published">__("sorting_latest")</a>
-                            <a href="#" @click="listchange" :class="{'active': currentLocale === 'hi'}" data-tab="tab-high_rated">__("sorting_highly_rated")</a>
+                            <a href="#" @click="listchange" :class="{'active': currentLocale !== 'hi' || !this.isFilterActive }" data-tab="tab-relevant">__("sorting_relevant")</a>
+                            <a href="#" @click="listchange" data-tab="tab-recent_published" v-if="this.isFilterActive">__("sorting_latest")</a>
+                            <a href="#" @click="listchange" :class="{'active': (currentLocale === 'hi' && this.isFilterActive )}" data-tab="tab-high_rated" v-if="this.isFilterActive">__("sorting_highly_rated")</a>
                             <div class="sorting" :class="{'active': currentLocale === 'hi'}" @click="toggleSortMenu" v-if="list_type != 'relevant'">
                                 <icon name="filter"></icon>
                             </div>
@@ -60,6 +60,7 @@ import 'vue-awesome/icons/filter'
 import mixins from '@/mixins';
 import { mapGetters, mapActions } from 'vuex'
 import metaDesc from '@/constants/categories-metadata.json'
+import categoriesWithoutFilter from '@/constants/categories-without-filter.json'
 
 export default {
     name: 'List-Page',
@@ -74,7 +75,8 @@ export default {
                 toSec: null
             },
             timeText: null,
-            metaDesc
+            metaDesc,
+            isFilterActive: true
         }
     },
     mixins: [
@@ -178,7 +180,13 @@ export default {
         const { list_page_url } = this.$route.params;
         const { uuid, type, value } = this.$route.query;
         
-        if (this.currentLocale === 'hi') {
+        const currentLocale = this.getLanguageCode(process.env.LANGUAGE);
+        
+        if (categoriesWithoutFilter[currentLocale].indexOf(list_page_url) > -1) {
+            this.isFilterActive = false;
+        }
+        
+        if (this.currentLocale === 'hi' && this.isFilterActive) {
             this.list_type = 'high_rated';
             this.timeFilter.fromSec = 300;
             this.timeFilter.toSec = 1799;
@@ -189,7 +197,6 @@ export default {
             this.updateUserPreference({uuid, type, value});
         }
 
-        const currentLocale = this.getLanguageCode(process.env.LANGUAGE);
         // Replacing meta description from static file
         const metaDescription = this.metaDesc[currentLocale][list_page_url];
         if (metaDescription) {
