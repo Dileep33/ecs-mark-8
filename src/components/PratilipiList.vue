@@ -3,7 +3,7 @@
 		<div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <h2 class="section-title">
+                    <h2 class="section-title" :class="{'partnership-title': partnership}">
                         <router-link v-if="listPageUrl" :to="listPageUrl" @click.native="triggerListLink">
                            <span> {{title}} </span>
                         </router-link>
@@ -19,6 +19,12 @@
                             <i class="material-icons">keyboard_arrow_right</i>
                         </router-link>
                     </h2>
+                    <div class="sponsored" v-if="partnership">
+                        <a :href="partnership[0].link" target="_blank">
+                            <span>{{ partnership[0].caption }}</span>
+                            <img :src="partnership[0].imageUrl" :alt="partnership[0].name">
+                        </a>
+                    </div>
                 </div>
             </div>
 	        <div class="pratilipi-list" v-if="pratilipiList.length > 0">
@@ -93,6 +99,9 @@ export default {
         screenLocation: {
             type: String,
             required: true
+        },
+        partnership: {
+            type: Array
         }
     },
     mixins: [
@@ -207,6 +216,36 @@ export default {
 				margin-bottom: 0;
                 width: calc(100% - 30px;)
             }
+            &.partnership-title {
+                @media screen and (max-width: 576px ) {
+                    width: calc(100% - 160px);
+                    max-width: 60%;
+                }
+            }
+        }
+        
+        .sponsored {
+            float: right;
+            margin: 7px 10px 0 0;
+            text-align: right;
+            @media screen and (max-width: 576px ) {
+                margin: 7px 0 0 0;
+            }
+            a {
+                text-decoration: none;
+                span {
+                    font-size: 12px;
+                    color: #444;
+                    display: block;
+                    @media screen and (max-width: 576px ) {
+                        font-size: 9px;
+                    }
+                }
+                img {
+                    max-width: 100px;
+                    display: block;
+                }
+            }
         }
 
         .section-title-see-more {
@@ -215,7 +254,7 @@ export default {
             font-size: 22px;
             text-align: right;
             line-height: 24px;
-            width: 40%;
+            width: auto;
             float: right;
             overflow: hidden;
             text-overflow: ellipsis;
