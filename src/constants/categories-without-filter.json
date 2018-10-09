@@ -3,80 +3,83 @@
         "aleek-kahini",
         "anugalpo",
         "other-articles",
-        "swabikash"
+        "pathoker-pratham-pchondo",
+        "newcontents",
+        "classic-sahitya"
     ],
     "gu": [
         "arogya-sukh",
         "articles",
         "bhajan",
-        "film-and-music",
-        "jivan-charitra",
         "laghu-katha",
         "poems",
-        "pravas-ane-yatra",
         "rasthaal",
-        "self-help",
-        "serialized-stories",
         "short-story",
         "women",
-        "yangistaan"
+        "yangistaan",
+        "vachakoni-top-pasand",
+        "newcontents",
+        "meghanino-vartavaibhav",
+        "classic-sahitya",
+        "magazines"
     ],
     "hi": [
         "chhoti-kahaniya",
         "gazals",
         "other-articles",
         "poems",
-        "stories"
+        "stories",
+        "sarvadhik-pathako-ki-pasand",
+        "premchand-sahitya",
+        "newcontents",
+        "classic",
+        "magazines"
     ],
     "kn": [
         "books",
-        "cinema",
-        "dhaaraavaahi",
         "life",
         "nonfiction",
         "otherstories",
         "poems",
-        "science"
+        "science",
+        "most-read",
+        "newcontents",
+        "classic-sahitya"
     ],
     "ml": [
         "classics",
         "family",
         "fiveminute",
-        "letters",
-        "lives",
         "most-read",
         "newcontents",
         "non-fiction",
         "poems",
-        "serialized-stories",
         "series",
         "stories",
         "two-minute"
     ],
     "mr": [
         "bhavishya",
-        "bodhkatha",
-        "historical",
-        "jivancharitra",
-        "kadambari",
         "laghukatha",
         "other-articles",
         "other-poems",
         "other-stories",
-        "pravas-varnan",
-        "swadishta-pakkala",
-        "women"
+        "most-read",
+        "newcontents",
+        "classic-sahitya",
+        "sane-guruji-kathamala"
     ],
     "ta": [
         "articles",
         "bookreview",
         "books",
-        "cinema",
         "education",
-        "novels",
         "poems",
-        "spiritual",
-        "stories"
+        "stories",
+        "fiveminstories",
+        "most-read",
+        "ministories",
+        "newcontents"
     ],
     "te": [
         "childwritten",
@@ -86,9 +89,11 @@
         "ministories",
         "nonfiction",
         "poems",
-        "spiritual",
         "stories",
         "teluguculture",
-        "yangistan"
+        "yangistan",
+        "most-read",
+        "newcontents",
+        "fivemin"
     ]
 }
