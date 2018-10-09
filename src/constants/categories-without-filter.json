@@ -5,7 +5,10 @@
         "other-articles",
         "pathoker-pratham-pchondo",
         "newcontents",
-        "classic-sahitya"
+        "classic-sahitya",
+        "other-stories",
+        "poetry",
+        "serialized-stories"
     ],
     "gu": [
         "arogya-sukh",
@@ -21,7 +24,8 @@
         "newcontents",
         "meghanino-vartavaibhav",
         "classic-sahitya",
-        "magazines"
+        "magazines",
+        "serialized-stories"
     ],
     "hi": [
         "chhoti-kahaniya",
@@ -33,7 +37,8 @@
         "premchand-sahitya",
         "newcontents",
         "classic",
-        "magazines"
+        "magazines",
+        "serialized-stories"
     ],
     "kn": [
         "books",
@@ -44,7 +49,8 @@
         "science",
         "most-read",
         "newcontents",
-        "classic-sahitya"
+        "classic-sahitya",
+        "serialized-stories"
     ],
     "ml": [
         "classics",
@@ -56,7 +62,8 @@
         "poems",
         "series",
         "stories",
-        "two-minute"
+        "two-minute",
+        "serialized-stories"
     ],
     "mr": [
         "bhavishya",
@@ -67,7 +74,9 @@
         "most-read",
         "newcontents",
         "classic-sahitya",
-        "sane-guruji-kathamala"
+        "sane-guruji-kathamala",
+        "women",
+        "serialized-stories"
     ],
     "ta": [
         "articles",
@@ -79,7 +88,8 @@
         "fiveminstories",
         "most-read",
         "ministories",
-        "newcontents"
+        "newcontents",
+        "serialized-stories"
     ],
     "te": [
         "childwritten",
@@ -94,6 +104,7 @@
         "yangistan",
         "most-read",
         "newcontents",
-        "fivemin"
+        "fivemin",
+        "serialized-stories"
     ]
 }
