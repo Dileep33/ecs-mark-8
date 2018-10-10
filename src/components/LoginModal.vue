@@ -196,7 +196,7 @@ button.back {
 }
 .login-menu {
     // border-bottom: 1px solid #e9e9e9;
-    padding: 8px 0 10px;
+    padding: 8px 0 0;
     text-align: center;
     overflow: hidden;
     width: 100%;
