@@ -2,12 +2,22 @@
     <div>
         <form class="forms" id="signup" v-if="currentStep === 'LANDED_LOGIN'">
             <div class="pratilipi-logo">
-                <img src="../../../assets/pratilipi_logo.png" />
-                <br>
-                <span v-if="getPostLoginAction.action && getPostLoginAction.action.indexOf('addToLibrary') > -1">__('login_popup_story_added_to_library')</span>
-                <span v-else-if="getPostLoginAction.action && getPostLoginAction.action.indexOf('follow') > -1">__("login_popup_follow_unfollow")</span>
-                <span v-else-if="getPostLoginAction.action && getPostLoginAction.action.indexOf('saveOrUpdateReview') > -1">__("login_popup_read_and_rate_stories")</span>
-                <span v-else>__("login_popup_default")</span>
+                <div class="custom-graphics" v-if="getPostLoginAction.action && getPostLoginAction.action.indexOf('addToLibrary') > -1">
+                    <img src="../../../assets/login-graphics/login-library.svg" />
+                    <span>__('login_popup_story_added_to_library')</span>
+                </div>
+                <div class="custom-graphics" v-else-if="getPostLoginAction.action && getPostLoginAction.action.indexOf('follow') > -1">
+                    <img src="../../../assets/login-graphics/login-follower.svg" />
+                    <span >__("login_popup_follow_unfollow")</span>
+                </div>
+                <div class="custom-graphics" v-else-if="getPostLoginAction.action && (getPostLoginAction.action.indexOf('saveOrUpdateReview') > -1 || getPostLoginAction.action.indexOf('setPratilipiRating') > -1) ">
+                    <img src="../../../assets/login-graphics/login-rating.svg" />
+                    <span>__("login_popup_read_and_rate_stories")</span>
+                </div>
+                <div class="custom-graphics" v-else>
+                    <img src="../../../assets/login-graphics/login-generic.svg" />
+                    <span>__("login_popup_default")</span>
+                </div>
             </div>
             <div class="social-login">
                 <FacebookLogin></FacebookLogin>
@@ -277,6 +287,7 @@ export default {
     display: none;
     &#signup {
         display: block;
+        margin-top: 10px;
     }
     &#signup-form {
         display: block;
@@ -304,16 +315,24 @@ export default {
 
     .pratilipi-logo {
         text-align: center;
-        img {
-            display: inline-block;
-            height: 25%;
-            width: 25%;
-            padding-bottom: 10px;
-        }
-        span {
-            margin-bottom: 15px;
-            font-size: 15px;
-            display: block;
+        .custom-graphics {
+            margin: 0 auto 10px;
+            overflow: hidden;
+            max-width: 400px;
+            img {
+                display: inline-block;
+                vertical-align: middle;
+                width: 25%;
+                max-height: 110px;
+            }
+            span {
+                font-size: 15px;
+                display: inline-block;
+                vertical-align: middle;
+                width: 72%;
+                padding-left: 10px;
+                text-align: left;
+            }
         }
 
         p.subtitle {
