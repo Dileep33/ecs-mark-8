@@ -17,10 +17,9 @@
                             <RegisterWithCustomMessage
                                 :currentStep="currentStep"
                                 :changeCurrentStep="changeCurrentStep"
-                                v-if="getCookie('bucket_id') >=11 && getCookie('bucket_id') < 100"
                             ></RegisterWithCustomMessage>
                             
-                            <Register :currentStep="currentStep" :changeCurrentStep="changeCurrentStep" v-else></Register>
+                            <!-- <Register :currentStep="currentStep" :changeCurrentStep="changeCurrentStep" v-else></Register> -->
 
                             <!-- Modal -->
                             <!--<ForgetPasswordModal></ForgetPasswordModal>-->
@@ -46,7 +45,7 @@
 import MainLayout from '@/layout/main-layout.vue';
 import Spinner from '@/components/Spinner.vue';
 import Login from '@/components/Login.vue';
-import Register from '@/components/AppLogin.vue';
+// import Register from '@/components/AppLogin.vue';
 import RegisterWithCustomMessage from '@/components/experiments/applogin_v1/AppLogin';
 // import ForgetPasswordModal from '@/components/ForgetPasswordModal.vue';
 import mixins from '@/mixins';
@@ -60,7 +59,7 @@ export default {
         MainLayout,
         Spinner,
         Login,
-        Register,
+        // Register,
         RegisterWithCustomMessage
         // ForgetPasswordModal
     },

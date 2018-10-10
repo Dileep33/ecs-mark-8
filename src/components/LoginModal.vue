@@ -23,16 +23,15 @@
                         :openForgotPasswordInTab="true"
                         :shouldRemoveError="shouldRemoveError"
                         :resetShouldRemoveError="resetShouldRemoveError"
-                        v-if="getCookie('bucket_id') >=11 && getCookie('bucket_id') < 100"
                     ></RegisterWithCustomMessage>
-                    <Register
+                    <!-- <Register
                         :currentStep="currentStep"
                         :changeCurrentStep="changeCurrentStep"
                         :openForgotPasswordInTab="true"
                         :shouldRemoveError="shouldRemoveError"
                         :resetShouldRemoveError="resetShouldRemoveError"
                         v-else
-                    ></Register>
+                    ></Register> -->
                 </div>
             </div>
         </div>
@@ -42,7 +41,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import Login from '@/components/Login';
 import mixins from '@/mixins';
-import Register from '@/components/AppLogin';
+// import Register from '@/components/AppLogin';
 import RegisterWithCustomMessage from '@/components/experiments/applogin_v1/AppLogin';
 
 export default {
@@ -164,7 +163,7 @@ export default {
     components: {
         Login,
         RegisterWithCustomMessage,
-        Register
+        // Register
     }
 }
 
