@@ -503,7 +503,7 @@ export function triggerAnanlyticsEvent(eventName, experimentType, eventProperty)
                     eventLabel: eventProps.SCREEN_NAME,
                     'dimension7': eventProps.EXPERIMENT_ID,
                     'dimension8': eventProps.RECOMMENDATION_TYPE,
-                    'metric8': eventProps.POSITION
+                    'metric1': eventProps.POSITION
                 });
                 break;
             default:
