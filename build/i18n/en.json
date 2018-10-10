@@ -422,7 +422,7 @@
     "seo_root_domain": "Pratilipi - Read, Write and Share Stories in your own mother tongue",
     "seo_pratilipi_page": "${ authorNameEn }\\'s content ${ pratilipiTitleEn } Summary",
     "seo_author_page": "${ authorNameEn }",
-    "seo_home_page": "Read ${ language } Stories, Poems and Books",
+    "seo_home_page": "Read English Stories, Poems and Books",
     "seo_events_page": "Online Competitions",
     "seo_library_page": "Your Saved Stories, Poems and Books",
     "seo_event_page": "${ eventNameEn }",
