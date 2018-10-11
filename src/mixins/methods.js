@@ -432,12 +432,24 @@ export function triggerAnanlyticsEvent(eventName, experimentType, eventProperty)
             }
         }
 
+        let experimentId = experimentType;
+        const bucketId = getCookie('bucket_id');
+        if (experimentType === 'CONTROL' && bucketId < 10) {
+            experimentId = 'CONTROL';
+        } else if (experimentType === 'CONTROL' && bucketId >= 10 && bucketId < 40) {
+            experimentId = 'TEST1';
+        } else if (experimentType === 'CONTROL' && bucketId >= 40 && bucketId < 70) {
+            experimentId = 'TEST2';
+        } else if (experimentType === 'CONTROL' && bucketId >= 70) {
+            experimentId = 'TEST3';
+        }
+
         eventProps = {
             ...eventProps,
             ...eventProperty,
             'DEVICE_TYPE': isMobile() ? 'MOBILE':'DESKTOP',
             'WEBSITE_TYPE': 'MARK8',
-            'EXPERIMENT_ID': experimentType,
+            'EXPERIMENT_ID': experimentId,
             'ENVIRONMENT': process.env.REALM,
             'CONTENT_LANGUAGE': getCurrentLanguage().fullName.toUpperCase(),
             'SCREEN_LOCATION': eventProps.SCREEN_NAME + '_' + eventProps.LOCATION
