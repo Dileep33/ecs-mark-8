@@ -188,12 +188,12 @@ export default {
             'setAfterLoginAction'
         ]),
         getRatingStickerSource(ratingValue) {
-            return `../../../../static/rating_stickers/${this.getLanguageCode(process.env.LANGUAGE)}/${ratingValue}.png`
+            return `../../static/rating_stickers/${this.getLanguageCode(process.env.LANGUAGE)}/${ratingValue}.png`
         },
         changeRating(ratingValue) {
             // let action = this.userPratilipiData.rating ? 'EDITRATE' : 'RATE';
             let action = 'RATE';
-            this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, 'WRAT001', {
+            this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': ratingValue
             });
