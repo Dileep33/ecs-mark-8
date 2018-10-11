@@ -13,7 +13,22 @@
                 :deleteComment="deleteComment"
                 :likeOrDislikeComment="verifyAndLikeComment"
                 :updateComment="updateComment"
-                :screenLocation="screenLocation"></OwnReview>
+                :screenLocation="screenLocation"
+                v-if="!shouldLoadOwnReviewWithStickers"></OwnReview>
+            <OwnReviewWithStickers
+                :userPratilipiData="userPratilipiData"
+                :authorId="authorId"
+                :screenName="screenName"
+                :pratilipiData="pratilipiData"
+                :userReview="userReview"
+                :loadCommentsOfReview="loadCommentsOfReview"
+                :likeOrDislikeReview="likeOrDislikeReview"
+                :createComment="verifyAndCreateComment"
+                :deleteComment="deleteComment"
+                :likeOrDislikeComment="verifyAndLikeComment"
+                :updateComment="updateComment"
+                :screenLocation="screenLocation"
+                v-else></OwnReviewWithStickers>
             <li class="all-reviews" v-if="getReviewsData.length > 0 && ( userReview.review==null || userReview.review=='' )">__("pratilipi_count_reviews")</li>
             <li class="no-results" v-if="getReviewsData.length === 0">__("pratilipi_no_reviews")</li>
             <Review
@@ -59,11 +74,13 @@ import Spinner from '@/components/Spinner.vue';
 import Review from '@/components/Review.vue';
 import mixins from '@/mixins';
 import OwnReview from '@/components/experiments/ratingpanel_v1/OwnReview.vue';
+import OwnReviewWithStickers from '@/components/OwnReviewWithStickers.vue';
 
 export default {
     data() {
         return {
-            userReview: {}
+            userReview: {},
+            shouldLoadOwnReviewWithStickers: false
         }
     },
     props: {
@@ -153,6 +170,11 @@ export default {
     },
     created() {
         this.fetchPratilipiReviews({ pratilipiId: this.pratilipiId, userPratilipiData: this.userPratilipiData, resultCount: this.haveInfiniteScroll ? 4 : 2 });
+
+        const languageCode = this.getLanguageCode(process.env.LANGUAGE);
+        if (languageCode !== 'kn') {
+            this.shouldLoadOwnReviewWithStickers = true;
+        }
     },
     watch: {
         getReviewsData(newReviewsData) {
@@ -167,7 +189,8 @@ export default {
     components: {
         Spinner,
         Review,
-        OwnReview
+        OwnReview,
+        OwnReviewWithStickers
     }
 }
 
