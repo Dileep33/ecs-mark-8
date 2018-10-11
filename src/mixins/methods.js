@@ -626,5 +626,6 @@ export function validateFirstAndSecondPassword(firstPassword, secondPassword) {
 }
 
 export function isTestEnvironment() {
-    return (!window.location.host.endsWith('.pratilipi.com')) || window.location.host.split('.')[0].includes('-gamma')
+    //return (!window.location.host.endsWith('.pratilipi.com')) || window.location.host.split('.')[0].includes('-gamma')
+    return (!window.location.host.endsWith('.pratilipi.com'))
 }

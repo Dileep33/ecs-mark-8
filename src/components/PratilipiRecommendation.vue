@@ -1,7 +1,7 @@
 <template>
     <div class="pratilipi-wrap">
         <div class="pratilipi">
-            <router-link :to="redirectToReader ? (pratilipiData.newReadPageUrl ? pratilipiData.newReadPageUrl : pratilipiData.readPageUrl ): pratilipiData.pageUrl" @click.native="triggerReadPratilipiEvent" :title="pratilipiData.title">
+            <router-link :to="redirectToReader ? (pratilipiData.newReadPageUrl && this.isTestEnvironment() ? pratilipiData.newReadPageUrl : pratilipiData.readPageUrl ): pratilipiData.pageUrl" @click.native="triggerReadPratilipiEvent" :title="pratilipiData.title">
                 <div class="recommendation" v-lazy:background-image="pratilipiImageObject">
                     <span class="title">{{ pratilipiData.title }}</span>
                     <div class="stats-container">
