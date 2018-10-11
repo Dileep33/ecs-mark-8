@@ -218,7 +218,7 @@ export default {
     },
     watch: {
         'getPratilipiListLoadingState'(pratilipiLoadingState){
-            if (pratilipiLoadingState === 'LOADING_ERROR' || (pratilipiLoadingState === 'LOADING_SUCCESS' && this.getPratilipiListData.length === 0)) {
+            if (pratilipiLoadingState === 'LOADING_ERROR') {
                 this.$router.push('/404');
             }
         },

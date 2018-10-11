@@ -21,6 +21,15 @@ export default {
             if (data.status === 200) {
                 console.log("Response: " , data.response);
                 commit('setListPageInitialDataLoadingSuccess', data.response);
+            } else if(data.status === 404) {
+                commit('setListPageInitialDataLoadingSuccess', {
+                    pratilipiList: [],
+                    cursor: 0,
+                    limit: 0,
+                    found: 0,
+                    limit: 0,
+                    offset: 0
+                });
             } else {
                 commit('setListPageInitialDataLoadingError');
             }
@@ -41,6 +50,9 @@ export default {
     },
 
     fetchMorePratilipisForListPage({ commit, state }, { listName, language, resultCount, listType, timeFilter }) {
+        if (state.numberFound <= state.cursor) {
+            return;
+        }
         commit('setListPageDynamicLoadingTrue');
         let pratilipiListFunction;
         switch (listType) {
