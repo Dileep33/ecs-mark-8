@@ -124,7 +124,7 @@ var Website = defineEnum({
     GAMMA_KANNADA_GR:       { hostName: "kannada-gamma-gr.pratilipi.com",      mobileHostName: "kn-gamma-gr.pratilipi.com", displayLanguage: Language.KANNADA,  filterLanguage: Language.KANNADA },
     GAMMA_TELUGU_GR:        { hostName: "telugu-gamma-gr.pratilipi.com",       mobileHostName: "te-gamma-gr.pratilipi.com", displayLanguage: Language.TELUGU,   filterLanguage: Language.TELUGU },
     GAMMA_ENGLISH_GR:       { hostName: "english-gamma-gr.pratilipi.com",      mobileHostName: "en-gamma-gr.pratilipi.com", displayLanguage: Language.ENGLISH,       filterLanguage: Language.ENGLISH },
-    
+
 
     DEVO_ALL_LANGUAGE:{ hostName: "www-devo.ptlp.co",       mobileHostName: "m-devo.ptlp.co", displayLanguage: Language.ENGLISH,        filterLanguage: null },
     DEVO_HINDI:       { hostName: "hindi-devo.ptlp.co",     mobileHostName: "hi-devo.ptlp.co", displayLanguage: Language.HINDI,     filterLanguage: Language.HINDI },
@@ -136,7 +136,7 @@ var Website = defineEnum({
     DEVO_TELUGU:      { hostName: "telugu-devo.ptlp.co",    mobileHostName: "te-devo.ptlp.co", displayLanguage: Language.TELUGU,    filterLanguage: Language.TELUGU },
     DEVO_KANNADA:     { hostName: "kannada-devo.ptlp.co",   mobileHostName: "kn-devo.ptlp.co", displayLanguage: Language.KANNADA,   filterLanguage: Language.KANNADA },
     DEVO_ENGLISH:     { hostName: "english-devo.ptlp.co",   mobileHostName: "en-devo.ptlp.co", displayLanguage: Language.ENGLISH,       filterLanguage: Language.ENGLISH },
-    
+
 
     DEVO_ALL_LANGUAGE_GR:{ hostName: "www-devo-gr.ptlp.co",       mobileHostName: "m-devo-gr.ptlp.co", displayLanguage: Language.ENGLISH,       filterLanguage: null },
     DEVO_HINDI_GR:       { hostName: "hindi-devo-gr.ptlp.co",     mobileHostName: "hi-devo-gr.ptlp.co", displayLanguage: Language.HINDI,        filterLanguage: Language.HINDI },
@@ -179,7 +179,7 @@ const app = express();
 
 // gzip all responses
 app.use( compression({ level: 9 }) );
-app.use( morgan('short') );
+// app.use( morgan('short') );
 
 // Health
 app.get( '/health', (req, res, next) => {
@@ -195,7 +195,6 @@ app.get( '/*', (req, res, next) => {
 
     var bucketId = Number(req.headers["bucket-id"] || 0) + 1;
 
-    console.log('BUCKET ID: ', bucketId);
     if (process.env.REALM != 'product' && Number(bucketId) > 10) {
         next();
         return
