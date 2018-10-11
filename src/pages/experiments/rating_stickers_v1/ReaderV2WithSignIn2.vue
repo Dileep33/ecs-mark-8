@@ -198,10 +198,10 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <!-- Sign In Banner 2 -->
                             <SignInBanner2 v-if="(getIndexData[getIndexData.length -1].slugId === currentChapterSlugId) && getUserDetails.isGuest"></SignInBanner2>
-                            
+
                             <div class="book-recomendations p-r-10" v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId">
                                 <Recommendation
                                     :contextId="getPratilipiData.pratilipiId"
@@ -561,6 +561,7 @@ export default {
 
         /* rating */
         openRatingModal() {
+            this._triggerReaderAnalyticsEvent('RATEINTENT_BOTTOMBAR_READER')
             if (this.getUserDetails.authorId !== this.getAuthorData.authorId) {
                 this.openRateReaderm = true
                 $(".rating-popout").addClass("show")
@@ -579,6 +580,7 @@ export default {
 
         /* review */
         openReviewModal() {
+            this._triggerReaderAnalyticsEvent('REVIEWINTENT_BOTTOMBAR_READER');
             if (this.getUserDetails.authorId !== this.getAuthorData.authorId) {
                 $(".review-popout").addClass("show")
                 $('.overlay-1').fadeIn()
@@ -681,7 +683,7 @@ export default {
 
         /* whatsapp share */
         triggerWaEndShareEvent() {
-            this._triggerReaderAnalyticsEvent('SHAREBOOKWA_BOOKEND_READER', 'WHATSAPP')
+            this._triggerReaderAnalyticsEvent('SHAREBOOKWA_BOTTOMBAR_READER', 'WHATSAPP')
         },
 
         /* scroll */
@@ -799,7 +801,7 @@ export default {
                 this.metaDescription = $('meta[name="description"]').attr('content')
                 $('meta[name="description"]').remove()
             }
-            
+
             this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.hasOwnProperty('nextPratilipi') && this.getPratilipiData.nextPratilipi.hasOwnProperty('pratilipiId');
 
             // setting og tags

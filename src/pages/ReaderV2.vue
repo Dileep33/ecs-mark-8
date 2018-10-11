@@ -560,6 +560,7 @@ export default {
         },
         /* rating */
         openRatingModal() {
+            this._triggerReaderAnalyticsEvent('RATEINTENT_BOTTOMBAR_READER')
             if (this.getUserDetails.authorId !== this.getAuthorData.authorId) {
                 this.openRateReaderm = true
                 $(".rating-popout").addClass("show")
@@ -577,6 +578,7 @@ export default {
         },
         /* review */
         openReviewModal() {
+            this._triggerReaderAnalyticsEvent('REVIEWINTENT_BOTTOMBAR_READER');
             if (this.getUserDetails.authorId !== this.getAuthorData.authorId) {
                 $(".review-popout").addClass("show")
                 $('.overlay-1').fadeIn()
@@ -665,7 +667,7 @@ export default {
         },
         /* whatsapp share */
         triggerWaEndShareEvent() {
-            this._triggerReaderAnalyticsEvent('SHAREBOOKWA_BOOKEND_READER', 'WHATSAPP')
+            this._triggerReaderAnalyticsEvent('SHAREBOOKWA_BOTTOMBAR_READER', 'WHATSAPP')
         },
 
         /* facebook share */

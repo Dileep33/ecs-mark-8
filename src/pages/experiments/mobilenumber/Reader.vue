@@ -128,7 +128,7 @@
                                     v-if="isNextPratilipiEnabled && getPratilipiData.nextPratilipi.pratilipiId>0"
                                 ></NextPratilipiStrip>
                             </div>
-                            
+
                             <PhoneModal></PhoneModal>
 
                            <ShareStrip
@@ -654,6 +654,11 @@ export default {
             $(".whatsapp-share-btn .social-icon").addClass("black");
         },
         openReviewModal() {
+            const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
+            this.triggerAnanlyticsEvent('REVIEWINTENT_BOTTOMBAR_READER', 'CONTROL', {
+                ...pratilipiAnalyticsData,
+                'USER_ID': this.getUserDetails.userId
+            });
             $(".review-popout").addClass("show");
             $('.overlay-1').fadeIn();
             $('.overlay-2').fadeOut();
@@ -662,6 +667,11 @@ export default {
             this.openRateRev = true;
         },
         openRatingModal() {
+            const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
+            this.triggerAnanlyticsEvent('RATEINTENT_BOTTOMBAR_READER', 'CONTROL', {
+                ...pratilipiAnalyticsData,
+                'USER_ID': this.getUserDetails.userId
+            });
             if (this.getUserDetails.authorId === this.getPratilipiData.author.authorId) {
                 return;
             }
@@ -731,7 +741,7 @@ export default {
             if (this.getPratilipiData) {
                 pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
             }
-            this.triggerAnanlyticsEvent(`SHAREBOOKWA_BOOKEND_READER`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`SHAREBOOKWA_BOTTOMBAR_READER`, 'CONTROL', {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': 'WHATSAPP'

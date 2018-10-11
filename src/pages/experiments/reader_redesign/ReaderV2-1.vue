@@ -8,8 +8,8 @@
         <ServerError class="read-page-server-error" :action="'readerv2page/fetchReaderData'" :data="currentChapterSlugId" v-if="getPratilipiLoadingState === 'LOADING_ERROR'"></ServerError>
 
         <!-- Reader Data Loaded success -->
-        <div 
-            class="read-page" 
+        <div
+            class="read-page"
             itemscope itemtype="http://schema.org/Book"
             :class="getReaderReadingModeStyle"
             v-if="getPratilipiLoadingState === 'LOADING_SUCCESS'">
@@ -165,7 +165,7 @@
                             -->
                             <div class="content-section p-lr-15"
                                 :class="getContentSectionStyle"
-                                v-if="renderedChapterIdSlug = currentChapterSlugId" 
+                                v-if="renderedChapterIdSlug = currentChapterSlugId"
                                 v-html="getPratilipiContent[currentChapterSlugId].content">
                             </div>
                             <div class="book-navigation p-lr-15" v-if="getPratilipiContentLoadingState === 'LOADING_SUCCESS'">
@@ -415,7 +415,7 @@ export default {
             readerPercentScrolled: 0,
 
             scrollCounter: 0,
-            scrollDirection: null,            
+            scrollDirection: null,
 
             /* open in app strip */
             shouldShowOpenInAppStrip: false,
@@ -538,7 +538,7 @@ export default {
             this._triggerReaderAnalyticsEvent('GOTOHOME_RECOMMENDBOOK_READER')
             this.$router.push('/')
         },
-        
+
         /* follow */
         followPratilipiAuthor(screenLocation, experimentId) {
             this._triggerReaderAnalyticsEvent(`FOLLOW_${screenLocation}_READER`, this.getAuthorData.followCount, null,`${experimentId}`)
@@ -568,9 +568,10 @@ export default {
             this._triggerReaderAnalyticsEvent('LIBRARYREMOVE_READERM_READER', null, null, 'WRH001')
             this.removeFromLibrary()
         },
-        
+
         /* rating */
         openRatingModal() {
+            this._triggerReaderAnalyticsEvent('RATEINTENT_BOTTOMBAR_READER', null);
             if (this.getUserDetails.authorId !== this.getAuthorData.authorId) {
                 this.openRateReaderm = true
                 $(".rating-popout").addClass("show")
@@ -589,6 +590,7 @@ export default {
 
         /* review */
         openReviewModal() {
+            this._triggerReaderAnalyticsEvent('REVIEWINTENT_BOTTOMBAR_READER', null);
             if (this.getUserDetails.authorId !== this.getAuthorData.authorId) {
                 $(".review-popout").addClass("show")
                 $('.overlay-1').fadeIn()
@@ -617,7 +619,7 @@ export default {
             $('.overlay').fadeOut();
             this.openReaderSidebar= false
         },
-        
+
         triggerEventAndCloseSidebar(chapterNo) {
             this._triggerReaderAnalyticsEvent('CHANGECHAPTER_INDEX_READER', null, chapterNo, "WRI001")
             $('#sidebar').removeClass('active');
@@ -635,7 +637,7 @@ export default {
             this.reportContentText = ''
         },
         submitReport() {
-            const 
+            const
                 name = this.reportName.trim(),
                 email = this.reportEmail.trim(),
                 message = this.reportContentText.trim(),
@@ -693,7 +695,7 @@ export default {
 
         /* whatsapp share */
         triggerWaEndShareEvent() {
-            this._triggerReaderAnalyticsEvent('SHAREBOOKWA_BOOKEND_READER', 'WHATSAPP')
+            this._triggerReaderAnalyticsEvent('SHAREBOOKWA_BOTTOMBAR_READER', 'WHATSAPP')
         },
 
         /* scroll */
@@ -766,7 +768,7 @@ export default {
             if (this.getIndexData.filter(indexData => indexData.slugId === this.currentChapterSlugId).length) {
                 this.fetchContentData(this.currentChapterSlugId)
             } else {
-                this.fetchReaderData(this.currentChapterSlugId)                
+                this.fetchReaderData(this.currentChapterSlugId)
             }
         },
         'renderedChapterIdSlug' () {
@@ -811,7 +813,7 @@ export default {
                 this.metaDescription = $('meta[name="description"]').attr('content')
                 $('meta[name="description"]').remove()
             }
-            
+
             this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.hasOwnProperty('nextPratilipi') && this.getPratilipiData.nextPratilipi.hasOwnProperty('pratilipiId');
 
             // setting og tags
@@ -1448,7 +1450,7 @@ $theme-yellow-color: #2c3e50;
 
 .read-page.theme-white {
     .book-content {
-        .book-recomendations .container-fluid, 
+        .book-recomendations .container-fluid,
         .comment-box,
         .book-bottom-webpush-subscribe .webpush-container .webpush-inner-container {
             background: $theme-white-background-color !important;
@@ -1458,7 +1460,7 @@ $theme-yellow-color: #2c3e50;
 }
 .read-page.theme-black {
     .book-content {
-        .book-recomendations .container-fluid, 
+        .book-recomendations .container-fluid,
         .comment-box,
         .book-bottom-webpush-subscribe .webpush-container .webpush-inner-container {
             background: $theme-black-background-color !important;
@@ -1471,7 +1473,7 @@ $theme-yellow-color: #2c3e50;
 }
 .read-page.theme-yellow {
     .book-content {
-        .book-recomendations .container-fluid, 
+        .book-recomendations .container-fluid,
         .comment-box,
         .book-bottom-webpush-subscribe .webpush-container .webpush-inner-container {
             background: $theme-yellow-background-color !important;

@@ -1137,6 +1137,16 @@ export default {
         "LOCATION": "BOOKEND",
         "ACTION": "REVIEW"
     },
+    "RATEINTENT_BOTTOMBAR_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "BOTTOMBAR",
+        "ACTION": "RATEINTENT"
+    },
+    "REVIEWINTENT_BOTTOMBAR_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "BOTTOMBAR",
+        "ACTION": "REVIEWINTENT"
+    },
     "SHAREBOOKFB_BOOKEND_READER": {
         "SCREEN_NAME": "READER",
         "LOCATION": "BOOKEND",
@@ -1160,6 +1170,11 @@ export default {
     "SHAREBOOKWA_BOOKEND_READER": {
         "SCREEN_NAME": "READER",
         "LOCATION": "BOOKEND",
+        "ACTION": "SHAREBOOKWA"
+    },
+    "SHAREBOOKWA_BOTTOMBAR_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "BOTTOMBAR",
         "ACTION": "SHAREBOOKWA"
     },
     "SHAREBOOKWA_INDEX_READER": {

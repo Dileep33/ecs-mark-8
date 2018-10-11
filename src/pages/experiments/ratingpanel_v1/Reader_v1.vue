@@ -134,7 +134,7 @@
                                 :data="getPratilipiData"
                                 :type="'PRATILIPI'">
                             </ShareStripV1>
-                            
+
                             <ShareStripV2
                                  v-if="selectedChapter == getIndexData.length && (getCookie('bucket_id') > 85 && getCookie('bucket_id') <= 100)"
                                  :data="getPratilipiData"
@@ -480,7 +480,7 @@ export default {
         },
         addPratilipiToLibrary(pratilipiId) {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
-            
+
             let experimentId = 'CONTROL';
             if (this.getCookie('bucket_id') > 70 && this.getCookie('bucket_id') <= 85) {
                 experimentId = 'WBB002';
@@ -488,7 +488,7 @@ export default {
             else if (this.getCookie('bucket_id') > 85 && this.getCookie('bucket_id') < 100) {
                 experimentId = 'WBB003';
             }
-            
+
             this.triggerAnanlyticsEvent(`LIBRARYADD_READERM_READER`, experimentId, {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId
@@ -503,7 +503,7 @@ export default {
         },
         triggerAnanlyticsEventAndRemoveFromLibrary() {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
-            
+
             let experimentId = 'CONTROL';
             if (this.getCookie('bucket_id') > 70 && this.getCookie('bucket_id') <= 85) {
                 experimentId = 'WBB002';
@@ -511,7 +511,7 @@ export default {
             else if (this.getCookie('bucket_id') > 85 && this.getCookie('bucket_id') < 100) {
                 experimentId = 'WBB003';
             }
-            
+
             this.triggerAnanlyticsEvent(`LIBRARYREMOVE_READERM_READER`, experimentId, {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId
@@ -665,6 +665,11 @@ export default {
             $(".social-share-btn .social-icon").addClass("black");
         },
         openReviewModal() {
+            const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
+            this.triggerAnanlyticsEvent('REVIEWINTENT_BOTTOMBAR_READER', 'CONTROL', {
+                ...pratilipiAnalyticsData,
+                'USER_ID': this.getUserDetails.userId
+            });
             $(".review-popout").addClass("show");
             $('.overlay-1').fadeIn();
             $('.overlay-2').fadeOut();
@@ -673,6 +678,11 @@ export default {
             this.openRateRev = true;
         },
         openRatingModal() {
+            const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
+            this.triggerAnanlyticsEvent('RATEINTENT_BOTTOMBAR_READER', 'CONTROL', {
+                ...pratilipiAnalyticsData,
+                'USER_ID': this.getUserDetails.userId
+            });
             if (this.getUserDetails.authorId === this.getPratilipiData.author.authorId) {
                 return;
             }
@@ -742,7 +752,7 @@ export default {
             if (this.getPratilipiData) {
                 pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
             }
-            
+
             let experimentId = 'CONTROL';
             if (this.getCookie('bucket_id') > 70 && this.getCookie('bucket_id') <= 85) {
                 experimentId = 'WBB002';
@@ -761,7 +771,7 @@ export default {
             if (this.getPratilipiData) {
                 pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
             }
-            
+
             let experimentId = 'CONTROL';
             if (this.getCookie('bucket_id') > 70 && this.getCookie('bucket_id') <= 85) {
                 experimentId = 'WBB002';
@@ -769,7 +779,7 @@ export default {
             else if (this.getCookie('bucket_id') > 85 && this.getCookie('bucket_id') < 100) {
                 experimentId = 'WBB003';
             }
-            
+
             this.triggerAnanlyticsEvent(`SHAREBOOKFB_BOOKEND_READER`, experimentId, {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,

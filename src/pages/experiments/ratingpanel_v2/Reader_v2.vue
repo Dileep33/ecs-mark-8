@@ -188,7 +188,7 @@
                                     v-if="isNextPratilipiEnabled"
                                 ></NextPratilipiStrip>
                             </div>
-                            
+
                             <PhoneModal></PhoneModal>
 
                             <ShareStrip
@@ -571,6 +571,7 @@ export default {
 
         /* rating */
         openRatingModal() {
+            this._triggerReaderAnalyticsEvent('RATEINTENT_BOTTOMBAR_READER');
             if (this.getUserDetails.authorId !== this.getAuthorData.authorId) {
                 this.openRateReaderm = true
                 $(".rating-popout").addClass("show")
@@ -589,6 +590,7 @@ export default {
 
         /* review */
         openReviewModal() {
+            this._triggerReaderAnalyticsEvent('REVIEWINTENT_BOTTOMBAR_READER');
             if (this.getUserDetails.authorId !== this.getAuthorData.authorId) {
                 $(".review-popout").addClass("show")
                 $('.overlay-1').fadeIn()
