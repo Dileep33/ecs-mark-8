@@ -19,7 +19,7 @@
                         <i class="material-icons" v-for="index in 5 - Number(parseInt(userPratilipiData.rating))" :key="index + Math.random()">star_border</i>
                     </div>
                     <!-- <span class="review-date">{{ userPratilipiData.reviewDateMillis | convertDate }}</span> -->
-                    
+
                     <div class="comment-content" v-if="userPratilipiData.review">
                         “{{ userPratilipiData.review }}“
                     </div>
@@ -139,11 +139,33 @@ export default {
             });
 
             // update rating here
-            this.updateRatingInStore( { review : this.newReview, pratilipiId : this.userPratilipiData.pratilipiId, pageName : this.$route.meta.store, rating : parseInt(e.target.value)});
-            this.isSaveActive = true;
+            // this.updateRatingInStore( { review : this.newReview, pratilipiId : this.userPratilipiData.pratilipiId, pageName : this.$route.meta.store, rating : parseInt(e.target.value)});
+            // this.isSaveActive = true;
 
             $(".rate-wrap").addClass("fullwidth");
             $(".share-wrap").hide();
+
+            if (this.getUserDetails.isGuest) {
+                $('#star1').prop('checked', false);
+                $('#star2').prop('checked', false);
+                $('#star3').prop('checked', false);
+                $('#star4').prop('checked', false);
+                $('#star5').prop('checked', false);
+                this.setAfterLoginAction({ action: `reviews/setPratilipiRating`, data: {
+                    rating: parseInt(e.target.value),
+                    pratilipiId: this.userPratilipiData.pratilipiId,
+                    pageName: this.$route.meta.store
+                } });
+                this.openLoginModal(this.$route.meta.store, 'RATE', this.screenLocation);
+            } else {
+
+                this.setPratilipiRating({
+                    rating: parseInt(e.target.value),
+                    pratilipiId: this.userPratilipiData.pratilipiId,
+                    pageName: this.$route.meta.store
+                })
+                this.isSaveActive = true;
+            }
         },
         checkAndUpdateReview(data) {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.pratilipiData);
