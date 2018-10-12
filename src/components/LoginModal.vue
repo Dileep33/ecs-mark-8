@@ -23,7 +23,7 @@
                         :openForgotPasswordInTab="true"
                         :shouldRemoveError="shouldRemoveError"
                         :resetShouldRemoveError="resetShouldRemoveError"
-                        v-if="getCookie('bucket_id') >=11 && getCookie('bucket_id') < 100"
+                        v-if="getCookie('bucket_id') > 70 && getCookie('bucket_id') < 100"
                     ></RegisterWithCustomMessage>
                     <Register
                         :currentStep="currentStep"
@@ -197,7 +197,7 @@ button.back {
 }
 .login-menu {
     // border-bottom: 1px solid #e9e9e9;
-    padding: 8px 0 10px;
+    padding: 8px 0 0;
     text-align: center;
     overflow: hidden;
     width: 100%;
