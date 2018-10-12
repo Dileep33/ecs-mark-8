@@ -76,9 +76,6 @@ export default {
                 let experimentId = 'CONTROL';
                 if (this.getCookie('bucket_id') >= 71 && this.getCookie('bucket_id') < 100) {
                     switch (referDetails.REFER_ACTION) {
-                        case 'LIBRARYADD':
-                            experimentId = 'WSU001';
-                            break;
                         case 'REVIEW':
                             experimentId = 'WSU002';
                             break;

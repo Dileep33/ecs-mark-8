@@ -43,16 +43,6 @@ export function openLoginModal(pageSource, action, location) {
             experimentId = "WBE001";
         }
     }
-    else if (getCookie('bucket_id') >= 71 && getCookie('bucket_id') < 100) {
-        switch (action) {
-            case 'LIBRARYADD':
-                experimentId = 'WSU001';
-                break;
-            default:
-                experimentId = 'CONTROL';
-                break;
-        }
-    }
     if (experimentId == "WBE001") {
         triggerAnanlyticsEvent('SIGNUPPOPUP_BOOKEND_READER', experimentId, {
             REFER_SCREEN: getAnalyticsPageSource(pageSource),
