@@ -8,7 +8,16 @@
         "classic-sahitya",
         "other-stories",
         "poetry",
-        "serialized-stories"
+        "serialized-stories",
+        "bengalipoemsept",
+        "editorschoice",
+        "readers-love",
+        "currentevent",
+        "best-eight-hundred",
+        "popular",
+        "editorialcollectionnov",
+        "articles-home",
+        "author-of-the-week"
     ],
     "gu": [
         "arogya-sukh",
@@ -25,7 +34,19 @@
         "meghanino-vartavaibhav",
         "classic-sahitya",
         "magazines",
-        "serialized-stories"
+        "serialized-stories",
+        "gujaratipoemsept",
+        "best-sellers",
+        "popular-stories",
+        "editers-choice",
+        "aek-mulakat",
+        "best-three-hundred",
+        "rahasyamayi-vartao",
+        "monsoon",
+        "event-entries",
+        "articles-home",
+        "majani-kavitao",
+        "author-of-the-week"
     ],
     "hi": [
         "chhoti-kahaniya",
@@ -40,7 +61,18 @@
         "magazines",
         "serialized-stories",
         "vichar-vimarsh",
-        "swad-ka-tadka"
+        "swad-ka-tadka",
+        "hindipoemsept",
+        "vartman-sapardha",
+        "relationshipstories",
+        "Gyankosh",
+        "best-thoudand",
+        "evergreen-stories",
+        "editors-choice",
+        "ishq-kije-fir-samajiye",
+        "poems-home",
+        "articles-home",
+        "author-of-the-week"
     ],
     "kn": [
         "books",
@@ -52,7 +84,19 @@
         "most-read",
         "newcontents",
         "classic-sahitya",
-        "serialized-stories"
+        "serialized-stories",
+        "kannadapoemsept",
+        "love-stories",
+        "popular-stories",
+        "editors-choice",
+        "best-thousand",
+        "horrorhome",
+        "currentevent",
+        "poems-home",
+        "homewomen",
+        "homelife",
+        "articles-home",
+        "aow"
     ],
     "ml": [
         "classics",
@@ -65,7 +109,17 @@
         "series",
         "stories",
         "two-minute",
-        "serialized-stories"
+        "serialized-stories",
+        "malayalampoemsept",
+        "homelovev",
+        "homehorrorsp",
+        "tempmystery",
+        "topratedstories",
+        "popular",
+        "poems-home",
+        "homehumour",
+        "homefriendship",
+        "authorow"
     ],
     "mr": [
         "bhavishya",
@@ -78,7 +132,18 @@
         "classic-sahitya",
         "sane-guruji-kathamala",
         "women",
-        "serialized-stories"
+        "serialized-stories",
+        "marathipoemsept",
+        "lokpriya-katha",
+        "best-thousand",
+        "editors-choice",
+        "best-five-hundred",
+        "premkathaye",
+        "rahasyakathaye",
+        "event-entries",
+        "sundar-lekh",
+        "storyweaver-childrenstories",
+        "author-of-the-week"
     ],
     "ta": [
         "articles",
@@ -91,7 +156,19 @@
         "most-read",
         "ministories",
         "newcontents",
-        "serialized-stories"
+        "serialized-stories",
+        "tamilpoemsept",
+        "longform",
+        "homelove",
+        "homefivemin",
+        "homepoems",
+        "popular-stories",
+        "homefamily",
+        "homehorror",
+        "articles-home",
+        "homewomensday",
+        "authoroftheweek",
+        "homeevent"
     ],
     "te": [
         "childwritten",
@@ -107,6 +184,17 @@
         "most-read",
         "newcontents",
         "fivemin",
-        "serialized-stories"
+        "serialized-stories",
+        "telugupoemsept",
+        "pupular-stories",
+        "horror-suspense-home",
+        "homelove",
+        "editorial",
+        "hidden-gems",
+        "contest",
+        "articles-home",
+        "homesocial",
+        "homepoems",
+        "authoroftheweek"
     ]
 }
