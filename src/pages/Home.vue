@@ -24,6 +24,7 @@
                         :screenName="'HOME'"
                         :position="index"
                         :screenLocation="'COLLECTIONS'"
+                        :partnership="eachSection.partnership"
                         v-bind="{ addToLibrary, removeFromLibrary }"
                 ></PratilipiListComponent>
                 <div class="card webpush-strip-container" v-if="isWebPushStripEnabled && index === 6">
