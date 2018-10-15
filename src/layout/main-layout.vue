@@ -1,8 +1,8 @@
 <template>
     <div :class="currentLocale">
         <Header :userDetails="getUserDetails" :notificationCount="getNotificationCount" :pendingMessages="messageNotificationList"></Header>
-        <AppBannerTwo v-if="$route.meta.store !== 'pratilipipage'"></AppBannerTwo>
-        <AppBanner v-else></AppBanner>
+        <AppBannerTwo v-if="$route.meta.store !== 'pratilipipage' && currentLocale !== 'language-en'"></AppBannerTwo>
+        <AppBanner v-else-if="currentLocale !== 'language-en'"></AppBanner>
         <slot></slot>
         <PratilipiModal></PratilipiModal>
         <LoginModal></LoginModal>
