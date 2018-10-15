@@ -277,7 +277,10 @@
                             </span>
                         </div>
                         <div class="whatsapp-share-btn" v-if="isMobile()">
-                            <a :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="google">
+                            <a v-if="this.readerPercentScrolled > 80" :href="getWhatsAppUri" @click="triggerWaGreenEndShareEvent" class="whatsapp green" target="_blank" rel="noopener" aria-label="google">
+                                <span class="social-icon"><icon name="whatsapp"></icon></span>
+                            </a>
+                            <a v-else :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="google">
                                 <span class="social-icon"><icon name="whatsapp"></icon></span>
                             </a>
                         </div>
@@ -715,6 +718,10 @@ export default {
         triggerWaEndShareEvent() {
             this._triggerReaderAnalyticsEvent('SHAREBOOKWA_BOTTOMBAR_READER', 'WHATSAPP')
         },
+        /* whatsapp share Green */
+        triggerWaGreenEndShareEvent() {
+            this._triggerReaderAnalyticsEvent('SHAREBOOKWAG_BOTTOMBAR_READER', 'WHATSAPP')
+        },
 
         /* scroll */
         updateScroll() {
@@ -727,6 +734,13 @@ export default {
                 const readerPercentScrolled = (wintop / (docheight - winheight)) * 100
                 this.readerPercentScrolled = Math.max(readerPercentScrolled, 0)
                 $('.reader-progress .progress-bar').css('width', `${this.readerPercentScrolled}%`)
+            }
+            const $bookContentOriginal = $('.content-section')
+            if ($bookContentOriginal) {
+                const wintop2 = $(window).scrollTop()
+                const docheight2 = $bookContentOriginal.height()
+                const winheight2 = $(window).height()
+                const readerPercentScrolledOriginal = (wintop2 / (docheight2 - winheight2)) * 100
             }
         }
     },
@@ -848,7 +862,7 @@ export default {
             this.webPushModalTriggered = false
 
             // setting up values for isWebPushStripEnabled and isWebPushModalEnabled
-            this.isWebPushStripEnabled = this.getPratilipiData.state === "PUBLISHED" && WebPushUtil.canShowCustomPrompt() && (parseInt(this.getCookie('bucketId')) || 0) >= 20 && (parseInt(this.getCookie('bucketId')) || 0) < 30
+            // this.isWebPushStripEnabled = this.getPratilipiData.state === "PUBLISHED" && WebPushUtil.canShowCustomPrompt() && (parseInt(this.getCookie('bucketId')) || 0) >= 20 && (parseInt(this.getCookie('bucketId')) || 0) < 30
             this.isWebPushModalEnabled =  this.getPratilipiData.state === "PUBLISHED" && WebPushUtil.canShowCustomPrompt() && (parseInt(this.getCookie('bucketId')) || 0) >= 30 && (parseInt(this.getCookie('bucketId')) || 0) < 60
         },
         'getUserDetails.userId' (newUserId, oldUserId) {
@@ -1293,6 +1307,7 @@ $theme-yellow-color: #2c3e50;
                 .whatsapp-share-btn {
                     a.whatsapp {
                         font-size: 14px;
+                        vertical-align: -webkit-baseline-middle;
                         .social-icon {
                             text-align: center;
                         }
@@ -1302,6 +1317,12 @@ $theme-yellow-color: #2c3e50;
                         }
                         &:hover {
                             text-decoration: none;
+                        }
+                        &.green svg {
+                            color: #fff !important;
+                            background: #48C631;
+                            border-radius: 50%;
+                            padding: 4px;
                         }
                     }
                 }
