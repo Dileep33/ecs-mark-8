@@ -116,6 +116,11 @@
                                   <span>__("read")</span>
                                 </router-link>
                             </div>
+                            
+                            <!-- Facebook Individual SignUp -->
+                            <FacebookLogin
+                            :directBtn="true"
+                            v-if="this.getUserDetails.isGuest && (getCookie('bucket_id') > 70 && getCookie('bucket_id') <=99)"></FacebookLogin>
 
                             <BookShareStripV1
                             v-if="getCookie('bucket_id') > 70 && getCookie('bucket_id') <= 85"
@@ -304,6 +309,7 @@ import VapasiQuote from '@/components/VapasiQuote.vue';
 import VapasiHoroscope from '@/components/VapasiHoroscope.vue';
 import VapasiJoke from '@/components/VapasiJoke.vue';
 import PratilipiPublishShareModal from '@/components/PratilipiPublishShareModal.vue';
+import FacebookLogin from '@/components/FacebookLogin';
 
 export default {
     name: 'Pratilipi',
@@ -711,6 +717,7 @@ export default {
         VapasiJoke,
         NextPratilipiStrip,
         PratilipiPublishShareModal,
+        FacebookLogin
     },
     mounted() {
         window.addEventListener('scroll', this.updateScroll);
