@@ -669,6 +669,7 @@ export default {
             document.head.querySelector('meta[property="og:description"]').content = pratilipiData.summary + ` « ${pratilipiData.author ? pratilipiData.author.fullName: ''}`;
             document.head.querySelector('meta[property="og:image"]').content = pratilipiData.coverImageUrl;
             document.head.querySelector('meta[property="og:url"]').content = window.location.href;
+            document.head.querySelector('meta[property="al:android:url"]').content = window.location.href;
 
             var pratilipiBookImage = new Image();
             pratilipiBookImage.src = pratilipiData.coverImageUrl;
