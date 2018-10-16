@@ -6,6 +6,7 @@
         <ShareModalTwo v-else-if="getCookie('bucket_id') > 85 && getCookie('bucket_id') <= 100"></ShareModalTwo>
         <ShareModal v-else></ShareModal>
         <Alert :isReader="true"></Alert>
+        <InputModal></InputModal>
     </div>
 </template>
 
@@ -15,6 +16,7 @@ import ShareModalOne from '@/components/experiments/share_ui/Share_v1.vue';
 import ShareModalTwo from '@/components/experiments/share_ui/Share_v2.vue';
 import ShareModal from '@/components/Share.vue';
 import Alert from '@/components/Alert.vue';
+import InputModal from '@/components/InputModal.vue';
 import constants from '@/constants';
 import mixins from '@/mixins';
 
@@ -26,7 +28,8 @@ export default {
         ShareModalOne,
         ShareModalTwo,
         ShareModal,
-        Alert
+        Alert,
+        InputModal
     },
     mixins: [
         mixins
