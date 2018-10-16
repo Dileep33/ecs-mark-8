@@ -481,6 +481,7 @@ export function triggerAnanlyticsEvent(eventName, experimentType, eventProperty)
                     eventCategory: 'BOTTOMBAR',
                     eventAction: eventProps.ACTION,
                     eventLabel: eventProps.SCREEN_NAME,
+                    'dimension1': eventProps.USER_ID,
                     'dimension7':  eventProps.EXPERIMENT_ID
                 });
                 break;
@@ -493,6 +494,7 @@ export function triggerAnanlyticsEvent(eventName, experimentType, eventProperty)
                     eventCategory: 'TOPBAR',
                     eventAction: eventProps.ACTION,
                     eventLabel: eventProps.SCREEN_NAME,
+                    'dimension1': eventProps.USER_ID,
                     'dimension7':  eventProps.EXPERIMENT_ID
                 });
                 break;
@@ -503,6 +505,7 @@ export function triggerAnanlyticsEvent(eventName, experimentType, eventProperty)
                     eventCategory: eventProps.LOCATION,
                     eventAction: eventProps.ACTION,
                     eventLabel: eventProps.SCREEN_NAME,
+                    'dimension1': eventProps.USER_ID,
                     'dimension7': eventProps.EXPERIMENT_ID,
                     'dimension8': eventProps.RECOMMENDATION_TYPE,
                     'metric1': eventProps.POSITION
@@ -514,6 +517,7 @@ export function triggerAnanlyticsEvent(eventName, experimentType, eventProperty)
                     eventCategory: eventProps.LOCATION,
                     eventAction: eventProps.ACTION,
                     eventLabel: eventProps.SCREEN_NAME,
+                    'dimension1': eventProps.USER_ID,
                     'dimension7':  eventProps.EXPERIMENT_ID
                 });
         }
