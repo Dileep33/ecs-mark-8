@@ -123,7 +123,6 @@
                             v-if="this.getUserDetails.isGuest && (getCookie('bucket_id') > 70 && getCookie('bucket_id') <=99)"></FacebookLogin> -->
 
                             <BookShareStrip
-                            v-else
                             :data="getPratilipiData"
                             :type="'PRATILIPI'"></BookShareStrip>
                         </div>
