@@ -129,17 +129,11 @@
                                 ></NextPratilipiStrip>
                             </div>
 
-                           <ShareStripV1
-                                v-if="selectedChapter == getIndexData.length && (getCookie('bucket_id') > 70 && getCookie('bucket_id') <= 85)"
-                                :data="getPratilipiData"
-                                :type="'PRATILIPI'">
-                            </ShareStripV1>
-
-                            <ShareStripV2
-                                 v-if="selectedChapter == getIndexData.length && (getCookie('bucket_id') > 85 && getCookie('bucket_id') <= 100)"
+                            <ShareStrip
+                                 v-if="selectedChapter == getIndexData.length"
                                  :data="getPratilipiData"
                                  :type="'PRATILIPI'">
-                             </ShareStripV2>
+                             </ShareStrip>
 
                             <div class="book-bottom-ratings p-lr-15">
                                 <Reviews
@@ -313,8 +307,7 @@ import WebPushStrip from '@/components/WebPushStrip.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
 import Recommendation from '@/components/Recommendation.vue';
 import OpenInApp from '@/components/OpenInApp.vue';
-import ShareStripV1 from '@/components/experiments/share_ui/ShareStrip_v1.vue';
-import ShareStripV2 from '@/components/experiments/share_ui/ShareStrip_v2.vue';
+import ShareStrip from '@/components/ShareStrip.vue';
 import NextPratilipiStrip from '@/components/NextPratilipiStrip.vue'
 import WebPushUtil from '@/utils/WebPushUtil';
 import { mapGetters, mapActions } from 'vuex';
@@ -329,8 +322,7 @@ export default {
         WebPushStrip,
         WebPushModal,
         Recommendation,
-        ShareStripV1,
-        ShareStripV2,
+        ShareStrip,
         OpenInApp,
         NextPratilipiStrip
     },
@@ -482,12 +474,6 @@ export default {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
 
             let experimentId = 'CONTROL';
-            if (this.getCookie('bucket_id') > 70 && this.getCookie('bucket_id') <= 85) {
-                experimentId = 'WBB002';
-            }
-            else if (this.getCookie('bucket_id') > 85 && this.getCookie('bucket_id') < 100) {
-                experimentId = 'WBB003';
-            }
 
             this.triggerAnanlyticsEvent(`LIBRARYADD_READERM_READER`, experimentId, {
                 ...pratilipiAnalyticsData,
@@ -505,12 +491,6 @@ export default {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
 
             let experimentId = 'CONTROL';
-            if (this.getCookie('bucket_id') > 70 && this.getCookie('bucket_id') <= 85) {
-                experimentId = 'WBB002';
-            }
-            else if (this.getCookie('bucket_id') > 85 && this.getCookie('bucket_id') < 100) {
-                experimentId = 'WBB003';
-            }
 
             this.triggerAnanlyticsEvent(`LIBRARYREMOVE_READERM_READER`, experimentId, {
                 ...pratilipiAnalyticsData,
@@ -754,12 +734,6 @@ export default {
             }
 
             let experimentId = 'CONTROL';
-            if (this.getCookie('bucket_id') > 70 && this.getCookie('bucket_id') <= 85) {
-                experimentId = 'WBB002';
-            }
-            else if (this.getCookie('bucket_id') > 85 && this.getCookie('bucket_id') < 100) {
-                experimentId = 'WBB003';
-            }
             this.triggerAnanlyticsEvent(`SHAREBOOKWA_BOOKEND_READER`, experimentId, {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
@@ -773,12 +747,6 @@ export default {
             }
 
             let experimentId = 'CONTROL';
-            if (this.getCookie('bucket_id') > 70 && this.getCookie('bucket_id') <= 85) {
-                experimentId = 'WBB002';
-            }
-            else if (this.getCookie('bucket_id') > 85 && this.getCookie('bucket_id') < 100) {
-                experimentId = 'WBB003';
-            }
 
             this.triggerAnanlyticsEvent(`SHAREBOOKFB_BOOKEND_READER`, experimentId, {
                 ...pratilipiAnalyticsData,
