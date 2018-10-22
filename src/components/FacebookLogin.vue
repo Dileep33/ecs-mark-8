@@ -1,5 +1,5 @@
 <template>
-    <button v-if="directBtn" :class="{direct: directBtn}" @click="loginToFacebookDirect" type="button" name="button" class="fb"><icon name="facebook-f"></icon>__("facebook")</button>
+    <button v-if="directBtn" :class="{direct: directBtn}" @click="loginToFacebookDirect" type="button" name="button" class="fb"><icon name="facebook-f"></icon>__("user_sign_up_with_facebook")</button>
     <button v-else @click="loginToFacebook" type="button" name="button" class="fb"><icon name="facebook-f"></icon>__("facebook")</button>
 </template>
 
@@ -80,5 +80,9 @@ button.google {
 button.fb.direct {
     max-width: 96%;
     margin: 0 auto;
+    text-align: center;
+    .fa-icon {
+        margin: 0 15px 0 0;
+    }
 }
 </style>
