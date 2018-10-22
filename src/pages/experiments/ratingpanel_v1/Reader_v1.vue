@@ -736,7 +736,7 @@ export default {
                 pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
             }
 
-            let experimentId = 'CONTROL';
+            let experimentId = 'TEST302';
             this.triggerAnanlyticsEvent(`SHAREBOOKWA_BOTTOMBAR_READER`, experimentId, {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
@@ -749,7 +749,7 @@ export default {
                 pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
             }
 
-            let experimentId = 'CONTROL';
+            let experimentId = 'TEST302';
             this.triggerAnanlyticsEvent(`SHAREBOOKWAG_BOTTOMBAR_READER`, experimentId, {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,

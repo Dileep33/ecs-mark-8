@@ -312,9 +312,17 @@ export default {
             if (visible) {
 
                 if (this.screenLocation === 'BOOKEND' && this.screenName === 'READER') {
-                    this.triggerAnanlyticsEvent(`LANDED_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
-                        'USER_ID': this.getUserDetails.userId
-                    });
+                    let bucketId = parseInt(this.getCookie('bucket_id')) || 0;
+                    if (bucketId > 85 && bucketId <= 99) {
+                        this.triggerAnanlyticsEvent(`LANDED_${this.screenLocation}_${this.screenName}`, 'TEST302', {
+                            'USER_ID': this.getUserDetails.userId
+                        });
+                    }
+                    else {
+                        this.triggerAnanlyticsEvent(`LANDED_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
+                            'USER_ID': this.getUserDetails.userId
+                        });
+                    }
                 } else {
                     this.triggerAnanlyticsEvent(`VIEWED_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
                         'USER_ID': this.getUserDetails.userId
