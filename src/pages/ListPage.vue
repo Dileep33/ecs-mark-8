@@ -182,7 +182,7 @@ export default {
         
         const currentLocale = this.getLanguageCode(process.env.LANGUAGE);
         
-        if (categoriesWithoutFilter[currentLocale].indexOf(list_page_url) > -1) {
+        if (this.currentLocale === 'en' || (categoriesWithoutFilter[currentLocale].indexOf(list_page_url) > -1)) {
             this.isFilterActive = false;
         }
         
@@ -199,7 +199,7 @@ export default {
 
         // Replacing meta description from static file
         const metaDescription = this.metaDesc[currentLocale][list_page_url];
-        if (metaDescription) {
+        if (metaDescription || this.currentLocale != 'en') {
             document.head.querySelector('meta[name="description"]').content = metaDescription;
             document.head.querySelector('meta[property="og:description"]').content = metaDescription;
         }
