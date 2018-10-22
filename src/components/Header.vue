@@ -13,7 +13,7 @@
                             __("pratilipi")
                             </button>
                             <div class="dropdown-menu" aria-labelledby="languageDropdown">
-                                <a class="dropdown-item" :class="{ 'isActive': getCurrentLanguage().fullName === eachLanguage.fullName }" :href="'https://' + eachLanguage.fullName + '.pratilipi.com'" :key="index" v-for="(eachLanguage, index) in languages" v-if="eachLanguage.fullName != 'english'">{{ eachLanguage.languageNative }}</a>
+                                <a class="dropdown-item" :class="{ 'isActive': getCurrentLanguage().fullName === eachLanguage.fullName }" :href="'https://' + eachLanguage.fullName + '.pratilipi.com'" :key="index" v-for="(eachLanguage, index) in languages">{{ eachLanguage.languageNative }}</a>
                             </div>
                         </div>
                     </div>
