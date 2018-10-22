@@ -38,27 +38,12 @@ export function translateWord(word, callback) {
 export function openLoginModal(pageSource, action, location) {
 
     let experimentId = 'CONTROL';
-    if (getCookie('bucket_id') > 10 && getCookie('bucket_id') <= 40) {
-        if (action == "SIGNUPPOPUP" && location == "BOOKEND") {
-            experimentId = "WBE001";
-        }
-    }
-    if (experimentId == "WBE001") {
-        triggerAnanlyticsEvent('SIGNUPPOPUP_BOOKEND_READER', experimentId, {
-            REFER_SCREEN: getAnalyticsPageSource(pageSource),
-            REFER_ACTION: action,
-            REFER_LOCATION: location
+    triggerAnanlyticsEvent('LANDED_REGISTERM_GLOBAL', experimentId, {
+        REFER_SCREEN: getAnalyticsPageSource(pageSource),
+        REFER_ACTION: action,
+        REFER_LOCATION: location
 
-        });
-    }
-    else {
-        triggerAnanlyticsEvent('LANDED_REGISTERM_GLOBAL', experimentId, {
-            REFER_SCREEN: getAnalyticsPageSource(pageSource),
-            REFER_ACTION: action,
-            REFER_LOCATION: location
-
-        });
-    }
+    });
     localStorage.setItem('login_modal_refer_details', JSON.stringify({
         REFER_SCREEN: getAnalyticsPageSource(pageSource),
         REFER_ACTION: action,
@@ -481,6 +466,7 @@ export function triggerAnanlyticsEvent(eventName, experimentType, eventProperty)
                     eventCategory: 'BOTTOMBAR',
                     eventAction: eventProps.ACTION,
                     eventLabel: eventProps.SCREEN_NAME,
+                    'dimension1': eventProps.USER_ID,
                     'dimension7':  eventProps.EXPERIMENT_ID
                 });
                 break;
@@ -493,6 +479,7 @@ export function triggerAnanlyticsEvent(eventName, experimentType, eventProperty)
                     eventCategory: 'TOPBAR',
                     eventAction: eventProps.ACTION,
                     eventLabel: eventProps.SCREEN_NAME,
+                    'dimension1': eventProps.USER_ID,
                     'dimension7':  eventProps.EXPERIMENT_ID
                 });
                 break;
@@ -503,6 +490,7 @@ export function triggerAnanlyticsEvent(eventName, experimentType, eventProperty)
                     eventCategory: eventProps.LOCATION,
                     eventAction: eventProps.ACTION,
                     eventLabel: eventProps.SCREEN_NAME,
+                    'dimension1': eventProps.USER_ID,
                     'dimension7': eventProps.EXPERIMENT_ID,
                     'dimension8': eventProps.RECOMMENDATION_TYPE,
                     'metric1': eventProps.POSITION
@@ -514,6 +502,7 @@ export function triggerAnanlyticsEvent(eventName, experimentType, eventProperty)
                     eventCategory: eventProps.LOCATION,
                     eventAction: eventProps.ACTION,
                     eventLabel: eventProps.SCREEN_NAME,
+                    'dimension1': eventProps.USER_ID,
                     'dimension7':  eventProps.EXPERIMENT_ID
                 });
         }

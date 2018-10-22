@@ -203,6 +203,18 @@ function _getDefaultPageOGTags(pageStoreName) {
                     content: '__("home_page_title")'
                 },
                 {
+                    property: 'al:android:url',
+                    content: ''
+                },
+                {
+                    property: 'al:android:package',
+                    content: 'com.pratilipi.mobile.android'
+                },
+                {
+                    property: 'al:android:app_name',
+                    content: 'Pratilipi'
+                },
+                {
                     property: 'og:image:width',
                     content: '220'
                 },

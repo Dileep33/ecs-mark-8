@@ -13,7 +13,8 @@
                     <form>
                         <div class="form-group">
                             <label for="reportModalTextarea">{{ getModalTitle }}</label>
-                            <textarea :value="getModalActionAndData.prefilled_value" @input="updatePrefilledValue($event.target.value)" class="form-control" rows="3"></textarea>
+                            <!-- <textarea :value="getModalActionAndData.prefilled_value" @input="updatePrefilledValue($event.target.value)" class="form-control" rows="3"></textarea> -->
+                            <TranslatingInputTextArea :value="getModalActionAndData.prefilled_value" :oninput="updatePrefilledValue" screenLocation="RATEREV" class="modal-textarea"></TranslatingInputTextArea>
                         </div>
                         <button type="button" class="btn btn-submit" @click="dispatchActionAndCloseModal">__("submit")</button>
                         <button type="button" class="cancel" data-dismiss="modal" aria-label="Close">__("cancel")</button>
@@ -27,6 +28,7 @@
 <script>
 import mixins from '@/mixins';
 import { mapGetters, mapActions } from 'vuex'
+import TranslatingInputTextArea from '@/components/TranslatingInputTextArea.vue';
 
 export default {
     data() {
@@ -44,6 +46,9 @@ export default {
     mixins: [
         mixins
     ],
+    components: {
+        TranslatingInputTextArea
+    },
     methods: {
         ...mapActions([
             'dispatchAction',

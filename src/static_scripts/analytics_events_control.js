@@ -2656,5 +2656,10 @@ export default {
         "SCREEN_NAME": "READER",
         "LOCATION": "BOOKEND",
         "ACTION": "SIGNUPPOPUP"
+    },
+    "CLICKED_FACEBOOK_BOOK": {
+        "SCREEN_NAME": "BOOK",
+        "LOCATION": "FACEBOOK",
+        "ACTION": "CLICKED"
     }
 };

@@ -117,18 +117,12 @@
                                 </router-link>
                             </div>
 
-                            <BookShareStripV1
-                            v-if="getCookie('bucket_id') > 70 && getCookie('bucket_id') <= 85"
-                            :data="getPratilipiData"
-                            :type="'PRATILIPI'"></BookShareStripV1>
-
-                            <BookShareStripV2
-                            v-else-if="getCookie('bucket_id') > 85 && getCookie('bucket_id') <= 100"
-                            :data="getPratilipiData"
-                            :type="'PRATILIPI'"></BookShareStripV2>
+                            <!-- Facebook Individual SignUp -->
+                            <FacebookLogin
+                            :directBtn="true"
+                            v-if="this.getUserDetails.isGuest && (getCookie('bucket_id') > 70 && getCookie('bucket_id') <=99)"></FacebookLogin>
 
                             <BookShareStrip
-                            v-else
                             :data="getPratilipiData"
                             :type="'PRATILIPI'"></BookShareStrip>
                         </div>
@@ -287,8 +281,6 @@ import Recommendation from '@/components/Recommendation.vue';
 import AboutAuthor from '@/components/AboutAuthor.vue';
 import Spinner from '@/components/Spinner.vue';
 import Reviews from '@/components/Reviews.vue';
-import BookShareStripV1 from '@/components/experiments/share_ui/BookShareStrip_v1.vue';
-import BookShareStripV2 from '@/components/experiments/share_ui/BookShareStrip_v2.vue';
 import BookShareStrip from '@/components/BookShareStrip.vue';
 import ServerError from '@/components/ServerError.vue';
 import WebPushStrip from '@/components/WebPushStrip.vue';
@@ -304,6 +296,7 @@ import VapasiQuote from '@/components/VapasiQuote.vue';
 import VapasiHoroscope from '@/components/VapasiHoroscope.vue';
 import VapasiJoke from '@/components/VapasiJoke.vue';
 import PratilipiPublishShareModal from '@/components/PratilipiPublishShareModal.vue';
+import FacebookLogin from '@/components/FacebookLogin';
 
 export default {
     name: 'Pratilipi',
@@ -663,6 +656,7 @@ export default {
             document.head.querySelector('meta[property="og:description"]').content = pratilipiData.summary + ` « ${pratilipiData.author ? pratilipiData.author.fullName: ''}`;
             document.head.querySelector('meta[property="og:image"]').content = pratilipiData.coverImageUrl;
             document.head.querySelector('meta[property="og:url"]').content = window.location.href;
+            document.head.querySelector('meta[property="al:android:url"]').content = "https://" + pratilipiData.language.toLowerCase() + ".pratilipi.com/story/" + window.location.href.split('-').pop();
 
             var pratilipiBookImage = new Image();
             pratilipiBookImage.src = pratilipiData.coverImageUrl;
@@ -702,8 +696,6 @@ export default {
         ServerError,
 	    WebPushStrip,
 	    WebPushModal,
-        BookShareStripV1,
-        BookShareStripV2,
         BookShareStrip,
         MessageButton,
         VapasiQuote,
@@ -711,6 +703,7 @@ export default {
         VapasiJoke,
         NextPratilipiStrip,
         PratilipiPublishShareModal,
+        FacebookLogin
     },
     mounted() {
         window.addEventListener('scroll', this.updateScroll);
@@ -785,12 +778,6 @@ export default {
                 const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
 
                 let experimentId = 'CONTROL';
-                if (this.getCookie('bucket_id') > 70 && this.getCookie('bucket_id') <= 85) {
-                    experimentId = 'WSH004'
-                }
-                else if (this.getCookie('bucket_id') > 85 && this.getCookie('bucket_id') < 100) {
-                    experimentId = 'WSH005'
-                }
                 this.triggerAnanlyticsEvent('LANDED_BOOKM_BOOK', experimentId, {
                     ...pratilipiAnalyticsData,
                     'USER_ID': this.getUserDetails.userId
@@ -805,7 +792,7 @@ export default {
             if (status === 'LOADING_SUCCESS') {
                 let bucketId = parseInt(this.getCookie('bucket_id')) || 0
                 this.readPageUrl =
-                    this.getPratilipiData.newReadPageUrl && this.isTestEnvironment() &&  (bucketId >= 0 && bucketId <= 70)
+                    this.getPratilipiData.newReadPageUrl &&  (bucketId >= 0 && bucketId <= 30)
                     ? this.getPratilipiData.newReadPageUrl : this.getPratilipiData.readPageUrl
                 // this.readPageUrl = this.getPratilipiData.readPageUrl
             }

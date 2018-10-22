@@ -1,5 +1,6 @@
 <template>
-    <button @click="loginToFacebook" type="button" name="button" class="fb"><icon name="facebook-f"></icon>__("facebook")</button>
+    <button v-if="directBtn" :class="{direct: directBtn}" @click="loginToFacebookDirect" type="button" name="button" class="fb"><icon name="facebook-f"></icon>__("user_sign_up_with_facebook")</button>
+    <button v-else @click="loginToFacebook" type="button" name="button" class="fb"><icon name="facebook-f"></icon>__("facebook")</button>
 </template>
 
 <script>
@@ -11,10 +12,27 @@ export default {
     mixins: [
         mixins
     ],
+    props: {
+        directBtn: {
+            type: Boolean
+        }
+    },
     methods: {
         ...mapActions([
             'loginUserWithFacebookAccessToken'
         ]),
+        loginToFacebookDirect() {
+            localStorage.setItem('login_modal_refer_details', JSON.stringify({
+                REFER_SCREEN: "BOOK",
+                REFER_ACTION: "CLICKED",
+                REFER_LOCATION: "FACEBOOK"
+
+            }));
+            this.triggerAnanlyticsEvent(`CLICKED_FACEBOOK_BOOK`, 'CONTROL', {
+                
+            });
+            this.loginToFacebook();
+        },
         loginToFacebook() {
             const that = this;
             FB.login( function( fbResponse ) {
@@ -58,5 +76,13 @@ button.fb, button.google {
 }
 button.google {
     background: #DD4B39;
+}
+button.fb.direct {
+    max-width: 96%;
+    margin: 0 auto;
+    text-align: center;
+    .fa-icon {
+        margin: 0 15px 0 0;
+    }
 }
 </style>

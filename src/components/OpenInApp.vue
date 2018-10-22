@@ -1,6 +1,6 @@
 <template>
     <div class="reader-read-in-app-helper">
-        <div class="download-in-app-helper"  v-if="shouldShow">
+        <div class="download-in-app-helper" v-if="shouldShow && this.currentLocale !== 'en'">
             <p class="read-in-app-text" @click="downloadApp">
                 __('reader_read_in_app_helper_text')
             </p>
@@ -29,6 +29,7 @@ export default {
     },
     data() {
         return {
+            currentLocale: '',
             shouldShow: this.isVisible,
             fireViewedEvent : true,
         }
@@ -74,7 +75,7 @@ export default {
                 }, 5000);
             }
 
-            if (this.fireViewedEvent){
+            if (this.fireViewedEvent && this.currentLocale !== 'en'){
                 this.fireViewedEvent = false;
                 const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.pratilipiData);
                 this.triggerAnanlyticsEvent(`VIEWANDROID_OPENAPP_READER`, 'CONTROL', {
@@ -85,8 +86,8 @@ export default {
 
         }
     },
-    mounted() {
-        console.log(this);
+    created() {
+        this.currentLocale = this.getLanguageCode(process.env.LANGUAGE);
     }
 }
 </script>
