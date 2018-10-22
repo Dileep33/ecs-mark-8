@@ -1177,6 +1177,11 @@ export default {
         "LOCATION": "BOTTOMBAR",
         "ACTION": "SHAREBOOKWA"
     },
+    "SHAREBOOKWAG_BOTTOMBAR_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "BOTTOMBAR",
+        "ACTION": "SHAREBOOKWAG"
+    },
     "SHAREBOOKWA_INDEX_READER": {
         "SCREEN_NAME": "READER",
         "LOCATION": "INDEX",
