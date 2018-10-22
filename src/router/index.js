@@ -449,9 +449,7 @@ var router = new Router({
                 let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 42;
                 console.log("bucket id ", bucketId);
 
-                if (bucketId > 10 && bucketId <= 70 && getLanguageCode(process.env.LANGUAGE) === 'hi') {
-                    return import ('@/pages/experiments/rating_stickers_v1/Reader.vue');
-                } else if (bucketId > 70 && bucketId <= 100) {
+                if (bucketId > 70 && bucketId <= 100) {
                     return import ('@/pages/experiments/ratingpanel_v1/Reader_v1.vue');
                 } else {
                     return new Promise((resolve, reject) => resolve(ReaderPageComponent));
