@@ -26,7 +26,7 @@
                                             <TranslatingInput :value="authorData.lastName" placeholder="__('edit_author_last_name')" :oninput="updateLastName"></TranslatingInput>
                                         </div>
                                     </div>
-                                    <div class="form-row">
+                                    <div class="form-row" v-if="this.currentLocale !== 'en'">
                                         <div class="form-group col-md-6 col-sm-12">
                                             <label for="pratilipi-settings-first-name-en">__('edit_author_first_name_en') *</label>
                                             <input type="text" class="form-control" id="pratilipi-settings-first-name-en" v-model="authorData.firstNameEn" placeholder="__('edit_author_first_name_en')">
@@ -197,6 +197,7 @@ export default {
             oldPassword: '',
             newPassword: '',
             initial_author_data: null,
+            currentLocale: '',
             authorData: {
                 firstName: null,
                 lastName: null,
@@ -572,6 +573,8 @@ export default {
         if (this.getUserDetails.authorId) {
             this.fetchAuthorDetails(this.getUserDetails.authorId);
         }
+        
+        this.currentLocale = this.getLanguageCode(process.env.LANGUAGE);
     },
     mounted() {
         // Hide Footer when keyboard comes
