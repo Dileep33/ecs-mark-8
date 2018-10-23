@@ -6,7 +6,7 @@
                     <div class="book-details col-md-12 col-lg-5 p-0">
                         <div class="card">
                             <div class="book-image-container">
-                                <div class="book-image">
+                                <div class="book-image" :class="{'small-device': getCookie('bucket_id') > 70 && getCookie('bucket_id') < 100}">
                                      <img :src="getPratilipiData.coverImageUrl" :alt="getPratilipiData.title">
                                     <meta itemprop="image" v-bind:content="getPratilipiData.coverImageUrl" />
                                     <div class="progress-bar-read">
@@ -978,11 +978,16 @@ export default {
                     width: 200px;
                     height: 300px;
                     position: relative;
-                    @media screen and (max-height: 736px ) {
-                        height: 240px;
+                    &.small-device {
+                        @media screen and (max-height: 736px ) {
+                            height: 235px;
+                        }
+                        @media screen and (max-height: 640px ) {
+                            height: 155px;
+                        }
                     }
                     @media screen and (max-height: 640px ) {
-                        height: 170px;
+                        height: 230px;
                     }
                     img {
                         object-fit: cover;
