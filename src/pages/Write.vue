@@ -15,7 +15,7 @@
                         <div class="col-md-12 d-block d-md-block d-lg-none" v-if="isMobile()"><!-- Android only -->
                             <div class="card install-app">
                                 <div class="card-content english" v-if="this.currentLocale === 'en'">
-                                    <p>Head over to Pratilipi Desktop site to publish and share your stories with your friends.</p>
+                                    <p>Head over to our Pratilipi Desktop site to publish and share your stories with your friends.</p>
                                 </div>
                                 <div class="card-content" v-else>
                                     <a @click.prevent="triggerEvent" href="#" target="_blank" rel="noopener">
@@ -300,11 +300,11 @@ export default {
                 }
             }
             &.english {
-                padding: 20px;
+                padding: 20px 30px;
                 p {
                     font-size: 15px;
                     text-shadow: 0 1px #000;
-                    font-style: italic;
+                    letter-spacing: 0.5px;
                 }
             }
         }
