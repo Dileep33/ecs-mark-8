@@ -40,7 +40,7 @@
                             </div>
                         </div>
                         <Spinner v-if="draftedContentsLoadingState === 'LOADING' && !getUserDetails.isGuest"></Spinner>
-                        <div class="col-md-12 col-lg-6">
+                        <div class="col-md-12 col-lg-6" v-if="this.currentLocale !== 'en'">
                             <div class="card">
                                 <div class="head-title">__("event_events")</div>
                                 <div class="card-content">
@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 col-lg-6">
+                        <div class="col-md-12 col-lg-6" v-if="this.currentLocale !== 'en'">
                             <div class="card" v-if="eventData.apiRequest">
                                 <div class="head-title">{{ eventData.title}}</div>
                                 <div class="card-content">
@@ -62,7 +62,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 col-lg-6">
+                        <div class="col-md-12 col-lg-6" v-if="this.currentLocale !== 'en'">
                             <div class="card">
                                 <div class="head-title">__("seo_blog_page")</div>
                                 <div class="card-content">
@@ -73,7 +73,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 col-lg-6">
+                        <div class="col-md-12 col-lg-6" v-if="this.currentLocale !== 'en'">
                             <div class="card">
                                 <div class="head-title">__("seo_author_interview")</div>
                                 <div class="card-content">
