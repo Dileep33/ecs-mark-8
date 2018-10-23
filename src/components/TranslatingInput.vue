@@ -44,7 +44,8 @@ export default {
     data() {
         return {
             suggestions: [],
-            selectedSuggestion: 0
+            selectedSuggestion: 0,
+            currentLocale: ''
         }
     },
     watch:{
@@ -61,7 +62,7 @@ export default {
                 this.selectedSuggestion = 0;
             }
 
-            if (lastWord.trim().length > 0) {
+            if (this.currentLocale !== 'en' && lastWord.trim().length > 0) {
                 this.translateWord(lastWord, (suggestions) => {
                     that.suggestions = suggestions
                 });
@@ -102,6 +103,9 @@ export default {
         selectSuggestion() {
             this.selectTranslatedWord(this.suggestions[this.selectedSuggestion] + " ");
         }
+    },
+    created() {
+        this.currentLocale = this.getLanguageCode(process.env.LANGUAGE);
     }
 }
 </script>
