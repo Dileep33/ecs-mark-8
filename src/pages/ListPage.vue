@@ -182,10 +182,9 @@ export default {
         
         const currentLocale = this.getLanguageCode(process.env.LANGUAGE);
         
-        if (this.currentLocale === 'en' || (categoriesWithoutFilter[currentLocale].indexOf(list_page_url) > -1)) {
+        if (currentLocale === 'en' || categoriesWithoutFilter[currentLocale].indexOf(list_page_url) > -1) {
             this.isFilterActive = false;
         }
-        
         if (this.currentLocale === 'hi' && this.isFilterActive) {
             this.list_type = 'high_rated';
             this.timeFilter.fromSec = 300;
@@ -197,11 +196,13 @@ export default {
             this.updateUserPreference({uuid, type, value});
         }
 
-        // Replacing meta description from static file
-        const metaDescription = this.metaDesc[currentLocale][list_page_url];
-        if (metaDescription || this.currentLocale != 'en') {
-            document.head.querySelector('meta[name="description"]').content = metaDescription;
-            document.head.querySelector('meta[property="og:description"]').content = metaDescription;
+        if (this.currentLocale !== 'en') {
+            // Replacing meta description from static file
+            const metaDescription = this.metaDesc[currentLocale][list_page_url];
+            if (metaDescription) {
+                document.head.querySelector('meta[name="description"]').content = metaDescription;
+                document.head.querySelector('meta[property="og:description"]').content = metaDescription;
+            }
         }
         
         constants.LANGUAGES.forEach((eachLanguage) => {
