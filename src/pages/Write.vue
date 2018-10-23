@@ -14,11 +14,14 @@
                         </div>
                         <div class="col-md-12 d-block d-md-block d-lg-none" v-if="isMobile()"><!-- Android only -->
                             <div class="card install-app">
-                                <div class="card-content">
-                                <a @click.prevent="triggerEvent" href="#" target="_blank" rel="noopener">
-                                    <p>Write your stories on Pratilipi App</p>
-                                    <img src="https://www.ptlp.co/resource-all/image/google-play-badge.png" alt="">
-                                </a>
+                                <div class="card-content english" v-if="this.currentLocale === 'en'">
+                                    <p>Head over to Pratilipi Desktop site to publish and share your stories with your friends.</p>
+                                </div>
+                                <div class="card-content" v-else>
+                                    <a @click.prevent="triggerEvent" href="#" target="_blank" rel="noopener">
+                                        <p>Write your stories on Pratilipi App</p>
+                                        <img src="https://www.ptlp.co/resource-all/image/google-play-badge.png" alt="">
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -101,7 +104,8 @@ export default {
     data() {
         return {
             eventData: {},
-            scrollPosition: null
+            scrollPosition: null,
+            currentLocale: ''
         }
     },
     mixins: [
@@ -209,6 +213,8 @@ export default {
             authorId: this.getUserDetails.authorId,
             resultCount: 10
         });
+        
+        this.currentLocale = this.getLanguageCode(process.env.LANGUAGE);
     },
     mounted() {
         if (this.$route.query.type === 'STORY' && !this.isMobile()) {
@@ -291,6 +297,14 @@ export default {
                     line-height: 138px;
                     vertical-align: middle;
                     padding: 0;
+                }
+            }
+            &.english {
+                padding: 20px;
+                p {
+                    font-size: 15px;
+                    text-shadow: 0 1px #000;
+                    font-style: italic;
                 }
             }
         }
