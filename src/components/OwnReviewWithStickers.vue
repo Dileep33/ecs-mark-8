@@ -498,7 +498,7 @@ li {
                     padding: 5px;
                     border: 2px solid rgb(248, 248, 248);
                     border-radius: 50%;
-
+                    cursor:pointer;
                     &.selected {
                         border: 2px solid #d0021b;
                     }
