@@ -25,7 +25,7 @@
                             <label for="pratilipi_write_title_input">__("writer_input_title") *</label>
                             <TranslatingInput :value="title" :oninput="updatePrefilledValue" placeholder="__('writer_input_title')"></TranslatingInput>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" v-if="this.language !== 'ENGLISH'">
                             <label for="pratilipi_write_title_en_input">__("writer_input_title_en")</label>
                             <input type="text" :value="titleEn" @input="($event) => { titleEn = $event.target.value}" class="form-control" id="pratilipi_write_title_en_input" placeholder="__('writer_input_title_en')">
                         </div>
@@ -78,7 +78,7 @@ export default {
 
         },
         shouldBeActive() {
-            if ((this.title.length != 0) && (this.checkBox) && (this.type != null) && (this.titleEn != 0)) {
+            if ((this.title.length != 0) && (this.checkBox) && (this.type != null)) {
                 document.getElementById("createPratilipiAndGoToWriterButton").disabled = false;
             }
             else {

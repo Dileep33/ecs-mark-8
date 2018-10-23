@@ -175,9 +175,9 @@ export default {
         })
     },
 
-    submitPrailipiReport ({commit, state} , {name, email, message, pratilipiId , language }) {
+    submitPrailipiReport ({commit, state} , {name, email, message, pratilipiId , language, dataType }) {
         let phone = null;
-        let dataType = "PRATILIPI";
+        // let dataType = "PRATILIPI";
         let dataId = pratilipiId;
         console.log(language);
           DataAccessor.reportContent(name, email, phone, message, dataType, dataId, language, (response) => {
