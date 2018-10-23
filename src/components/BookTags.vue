@@ -1,12 +1,12 @@
 <template>
     <div class="card">
-        <div class="tags-section" v-if="pratilipiData.hasAccessToUpdate">
-            <div class="head-title">__("tags_categories") <button class="edit" @click="showTags"><i class="material-icons">mode_edit</i></button></div>
+        <div class="tags-section">
+            <div class="head-title">__("tags_categories") <button v-if="pratilipiData.hasAccessToUpdate" class="edit" @click="showTags"><i class="material-icons">mode_edit</i></button></div>
             <div class="tags">
                 <span v-for="each_tag in pratilipiData.tags" :key="each_tag.id">{{ each_tag.name}}</span>
                 <span v-for="(each_tag, index) in pratilipiData.suggestedTags" :key="index">{{ each_tag }}</span>
             </div>
-            <div class="edit-tags">
+            <div class="edit-tags" v-if="pratilipiData.hasAccessToUpdate">
                 <div class="desc">__("tags_select_for_max_people")</div>
                 <div class="tag-sections">
                     <div class="tag-section-title">__("tags_content_type")</div>

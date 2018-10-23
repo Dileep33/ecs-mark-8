@@ -158,7 +158,6 @@
                         </div>
 
                         <BookTags
-                            v-if="getPratilipiData.hasAccessToUpdate"
                             :selectedPratilipiType="selectedPratilipiType"
                             :isTagSelected="isTagSelected"
                             :selectedTags="selectedTags"

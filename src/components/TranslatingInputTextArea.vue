@@ -53,6 +53,7 @@ export default {
     },
     data() {
         return {
+            currentLocale: '',
             /* transliteration */
             suggestions: [],
             selectedSuggestion: 0,
@@ -71,6 +72,9 @@ export default {
     mounted() {
         this.isSpeechToTextEnabled = SpeechToTextUtil.isSupported() && this.enableSpeechToText
     },
+    created() {
+        this.currentLocale = this.getLanguageCode(process.env.LANGUAGE);
+    },
     methods: {
         getTranslation(e) {
             this.oninput(e.target.value);
@@ -83,7 +87,7 @@ export default {
                 this.selectedSuggestion = 0;
             }
 
-            if (lastWord.trim().length > 0) {
+            if (this.currentLocale !== 'en' && lastWord.trim().length > 0) {
                 this.translateWord(lastWord, (suggestions) => {
                     that.suggestions = suggestions
                 });
