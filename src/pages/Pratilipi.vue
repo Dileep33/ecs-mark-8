@@ -978,8 +978,11 @@ export default {
                     width: 200px;
                     height: 300px;
                     position: relative;
+                    @media screen and (max-height: 736px ) {
+                        height: 240px;
+                    }
                     @media screen and (max-height: 640px ) {
-                        height: 230px;
+                        height: 170px;
                     }
                     img {
                         object-fit: cover;
