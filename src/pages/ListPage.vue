@@ -182,7 +182,8 @@ export default {
         
         const currentLocale = this.getLanguageCode(process.env.LANGUAGE);
         
-        if (currentLocale === 'en' || categoriesWithoutFilter[currentLocale].indexOf(list_page_url) > -1) {
+        // if (currentLocale === 'en' || categoriesWithoutFilter[currentLocale].indexOf(list_page_url) > -1) {
+        if (categoriesWithoutFilter[currentLocale].indexOf(list_page_url) > -1) {
             this.isFilterActive = false;
         }
         
@@ -202,14 +203,14 @@ export default {
             this.updateUserPreference({uuid, type, value});
         }
 
-        if (this.currentLocale !== 'en') {
+        // if (this.currentLocale !== 'en') { //Shouldn't it be just currentLocale instead of this.currentLocale
             // Replacing meta description from static file
             const metaDescription = this.metaDesc[currentLocale][list_page_url];
             if (metaDescription) {
                 document.head.querySelector('meta[name="description"]').content = metaDescription;
                 document.head.querySelector('meta[property="og:description"]').content = metaDescription;
             }
-        }
+        // }
         
         constants.LANGUAGES.forEach((eachLanguage) => {
             if (eachLanguage.shortName === currentLocale) {
