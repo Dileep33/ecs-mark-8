@@ -449,11 +449,13 @@ var router = new Router({
                 let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 42;
                 console.log("bucket id ", bucketId);
 
-                if (bucketId > 70 && bucketId <= 100) {
-                    return import ('@/pages/experiments/ratingpanel_v1/Reader_v1.vue');
-                } else {
-                    return new Promise((resolve, reject) => resolve(ReaderPageComponent));
-                }
+                // if (bucketId > 70 && bucketId <= 100) {
+                //     return import ('@/pages/experiments/ratingpanel_v1/Reader_v1.vue');
+                // } else {
+                //     return new Promise((resolve, reject) => resolve(ReaderPageComponent));
+                // }
+                return new Promise((resolve, reject) => resolve(ReaderPageComponent));
+                
             },
             meta: {
                 'store': 'readerpage',
