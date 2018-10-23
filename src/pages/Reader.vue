@@ -483,7 +483,7 @@ export default {
         },
         addPratilipiToLibrary(pratilipiId) {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
-            this.triggerAnanlyticsEvent(`LIBRARYADD_READERM_READER`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`LIBRARYADD_BOTTOMBAR_READER`, 'CONTROL', {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId
             });
@@ -497,7 +497,7 @@ export default {
         },
         triggerAnanlyticsEventAndRemoveFromLibrary() {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
-            this.triggerAnanlyticsEvent(`LIBRARYREMOVE_READERM_READER`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`LIBRARYREMOVE_BOTTOMBAR_READER`, 'CONTROL', {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId
             });
@@ -710,7 +710,7 @@ export default {
         },
         openShareModal() {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
-            this.triggerAnanlyticsEvent(`CLICKSHRBOOK_READERM_READER`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`CLICKSHRBOOK_BOTTOMBAR_READER`, 'CONTROL', {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId
             });
@@ -737,7 +737,7 @@ export default {
             if (this.getPratilipiData) {
                 pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
             }
-            this.triggerAnanlyticsEvent(`SHAREBOOKWA_BOOKEND_READER`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`SHAREBOOKWA_BOTTOMBAR_READER`, 'CONTROL', {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': 'WHATSAPP'
