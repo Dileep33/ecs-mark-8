@@ -57,7 +57,7 @@
                                 :screenName="'BOOK'"
                                 :locationName="'BOOKM'"
                                 ></MessageButton>
-                            <div class="book-stats" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+                            <div v-if="getReviewsData.length > 0" class="book-stats" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
                                 <span class="avg-rating stars-green" ><span class="rating-text" itemprop="ratingValue">{{ getPratilipiData.averageRating | round(1) }}</span> <i class="material-icons">star_rate</i></span>
                                 <span class="review-count"> <span itemprop="ratingCount">{{ getPratilipiData.ratingCount }}</span> __("rating_ratings")</span>
                                 <meta itemprop="bestRating" v-bind:content="5"/>
