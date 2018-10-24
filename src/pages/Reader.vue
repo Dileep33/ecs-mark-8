@@ -148,7 +148,7 @@
                                 </Reviews>
                             </div>
 
-                            <div class="book-bottom-webpush-subscribe">
+                            <div class="book-bottom-webpush-subscribe" v-if="this.currentLocale !== 'en'">
                                    <div class="webpush-container">
                                     <div class="webpush-inner-container">
                                        <WebPushStrip
@@ -183,7 +183,7 @@
                                 message="__('web_push_message_2')"
                                 screenName="READER"
                                 :includeDisableButton=true
-                                v-if="selectedChapter == getIndexData.length && isWebPushModalEnabled && (getCookie('bucket_id') > 40 && getCookie('bucket_id') <= 70)"></WebPushModal>
+                                v-if="selectedChapter == getIndexData.length && isWebPushModalEnabled && (getCookie('bucket_id') > 40 && getCookie('bucket_id') <= 70) && this.currentLocale !== 'en'"></WebPushModal>
                         </div>
                     </div>
                 </div>
@@ -362,6 +362,7 @@ export default {
             readingMode: 'white',
             isNextPratilipiEnabled: false,
             chapter: '__("writer_chapter") ',
+            currentLocale: ''
         }
     },
     methods: {
@@ -795,6 +796,8 @@ export default {
                 this.language = eachLanguage.fullName.toUpperCase();
             }
         });
+        
+        this.currentLocale = this.getLanguageCode(process.env.LANGUAGE);
     },
     mounted() {
         $('.read-page').bind("contextmenu",function(e){

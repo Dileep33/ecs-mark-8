@@ -27,7 +27,7 @@
                         :partnership="eachSection.partnership"
                         v-bind="{ addToLibrary, removeFromLibrary }"
                 ></PratilipiListComponent>
-                <div class="card webpush-strip-container" v-if="isWebPushStripEnabled && index === 6">
+                <div class="card webpush-strip-container" v-if="isWebPushStripEnabled && index === 6 && this.currentLocale !== 'en'">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-8">
@@ -58,7 +58,7 @@
                 title="__('web_push_title')"
                 message="__('web_push_message_2')"
                 :includeDisableButton=true
-                v-if="isWebPushModalEnabled"></WebPushModal>
+                v-if="isWebPushModalEnabled && this.currentLocale !== 'en'"></WebPushModal>
         </div>
     </MainLayout>
 </template>
@@ -94,7 +94,8 @@ import { mapGetters, mapActions } from 'vuex'
                 scrollPosition: null,
                 percentScrolled: null,
                 isCreated: false,
-                backupCall: true
+                backupCall: true,
+                currentLocale: ''
             }
         },
         mixins: [
@@ -154,6 +155,8 @@ import { mapGetters, mapActions } from 'vuex'
 
 
             document.head.querySelector('meta[name="description"]').content = "__('seo_home_page_meta_description')";
+            
+            this.currentLocale = this.getLanguageCode(process.env.LANGUAGE);
         },
         mounted() {
             this.triggerAnanlyticsEvent('LANDED_HOMEM_HOME', 'CONTROL', {

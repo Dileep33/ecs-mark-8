@@ -186,14 +186,14 @@
                                     v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId && !openRateReaderm && !openRateRev && getUserPratilipiLoadingState === 'LOADING_SUCCESS'">
                                 </Reviews>
                             </div>
-                            <div class="book-bottom-webpush-subscribe">
+                            <div class="book-bottom-webpush-subscribe" v-if="this.currentLocale !== 'en'">
                                    <div class="webpush-container">
                                     <div class="webpush-inner-container">
                                        <WebPushStrip
                                             screenName="READER"
                                             title="__('web_push_title')"
                                             message="__('web_push_message_3')"
-                                            v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId && isWebPushStripEnabled">
+                                            v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId && isWebPushStripEnabled && this.currentLocale !== 'en'">
                                         </WebPushStrip>
                                     </div>
                                 </div>
@@ -421,7 +421,8 @@ export default {
             isNextPratilipiEnabled: false,
 
             /* metaDescription */
-            metaDescription: ''
+            metaDescription: '',
+            currentLocale: ''
         }
     },
     methods: {
@@ -746,6 +747,8 @@ export default {
     created() {
         this.currentChapterSlugId = window.location.pathname.split('/').pop().split('-').pop();
         this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.hasOwnProperty('nextPratilipi') && this.getPratilipiData.nextPratilipi.hasOwnProperty('pratilipiId');
+        
+        this.currentLocale = this.getLanguageCode(process.env.LANGUAGE);
     },
     mounted() {
         /* disabling right click */

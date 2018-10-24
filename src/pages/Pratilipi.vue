@@ -134,7 +134,7 @@
                                 :pratilipi='getPratilipiData.nextPratilipi'
                             ></NextPratilipiStrip>
                         </div>
-                        <div class="card webpush-strip-container" v-if="isWebPushStripEnabled">
+                        <div class="card webpush-strip-container" v-if="isWebPushStripEnabled && this.currentLocale !== 'en'">
                             <div class="row">
                                 <div class="col-8">
                                     <div class="head-title">
@@ -267,7 +267,7 @@
                     title="__('web_push_title')"
                     message="__('web_push_message_2')"
                     :includeDisableButton=true
-                    v-if="isWebPushModalEnabled"></WebPushModal>
+                    v-if="isWebPushModalEnabled && this.currentLocale !== 'en'"></WebPushModal>
             </div>
             <PratilipiPublishShareModal screenName="PRATILIPI" :pratilipi="getPratilipiData"></PratilipiPublishShareModal>
         </div>
@@ -320,7 +320,8 @@ export default {
             percentageRead: null,
             isNextPratilipiEnabled: false,
             currentPageUrl: null,
-            readPageUrl: null
+            readPageUrl: null,
+            currentLocale: ''
         }
     },
     mixins: [
@@ -684,6 +685,8 @@ export default {
         document.title = this.getPratilipiData.title;
 
         this.fetchPratilipiDetailsAndUserPratilipiData(slug_id);
+        
+        this.currentLocale = this.getLanguageCode(process.env.LANGUAGE);
     },
     components: {
         MainLayout,

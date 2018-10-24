@@ -195,7 +195,7 @@
                                     v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId && !openRateReaderm && !openRateRev && getUserPratilipiLoadingState === 'LOADING_SUCCESS'">
                                 </Reviews>
                             </div>
-                            <div class="book-bottom-webpush-subscribe">
+                            <div class="book-bottom-webpush-subscribe" v-if="this.currentLocale !== 'en'">
                                    <div class="webpush-container">
                                     <div class="webpush-inner-container">
                                        <WebPushStrip
@@ -227,7 +227,7 @@
                                 message="__('web_push_message_2')"
                                 screenName="READER"
                                 :includeDisableButton=true
-                                v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId && isWebPushModalEnabled"></WebPushModal>
+                                v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId && isWebPushModalEnabled && this.currentLocale !== 'en'"></WebPushModal>
                         </div>
                     </div>
                 </div>
@@ -424,7 +424,8 @@ export default {
             isNextPratilipiEnabled: false,
 
             /* metaDescription */
-            metaDescription: ''
+            metaDescription: '',
+            currentLocale: ''
         }
     },
     methods: {
@@ -749,6 +750,8 @@ export default {
     created() {
         this.currentChapterSlugId = window.location.pathname.split('/').pop().split('-').pop();
         this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.hasOwnProperty('nextPratilipi') && this.getPratilipiData.nextPratilipi.hasOwnProperty('pratilipiId');
+        
+        this.currentLocale = this.getLanguageCode(process.env.LANGUAGE);
     },
     mounted() {
         /* disabling right click */
