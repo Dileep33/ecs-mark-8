@@ -15,7 +15,7 @@
                             <label>{{ getInputModalSubheadings[0] }}</label>
                             <TranslatingInput :value="getModalActionAndData.prefilled_value" :oninput="updatePrefilledValue"></TranslatingInput>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" v-if="this.currentLocale !== 'en'">
                             <label>{{ getInputModalSubheadings[1] }}</label>
                             <input type="text" :value="getModalActionAndData.prefilled_value_two" class="form-control" @input="updatePrefilledValueTwo($event.target.value)" placeholder="__('writer_input_title_en')">
                         </div>
@@ -31,11 +31,15 @@
 <script>
 import TranslatingInput from '@/components/TranslatingInput.vue';
 import { mapGetters, mapActions } from 'vuex'
+import mixins from '@/mixins'
 
 export default {
+    mixins: [
+        mixins
+    ],
     data() {
         return {
-            
+            currentLocale: ''
         }
     },
     computed: {
@@ -59,6 +63,9 @@ export default {
     components: {
         TranslatingInput
     },
+    created() {
+        this.currentLocale = this.getLanguageCode(process.env.LANGUAGE);
+    }
 }
 </script>
 
