@@ -231,7 +231,7 @@
                                 :pratilipiData="getPratilipiData"
                                 v-if="getPratilipiLoadingState === 'LOADING_SUCCESS'">
                             </Reviews>
-                            <button type="button" class="load_more" name="button" @click="openReviewModal">__("view_more")</button>
+                            <button type="button" class="load_more" name="button" @click="openReviewModal" v-if="getReviewsData.length > 3">__("view_more")</button>
                             <!-- Reviews MODAL -->
                             <div class="review-popout" v-if="getPratilipiLoadingState === 'LOADING_SUCCESS'">
                                 <button type="button" class="close-review" name="button" @click="closeReviewModal"><i class="material-icons">close</i></button>
@@ -340,6 +340,9 @@ export default {
             'getRouteToMessageUserState',
             'getEventData',
             'getEventDataLoadingState'
+        ]),
+        ...mapGetters('reviews', [
+            'getReviewsData'
         ]),
         ...mapGetters([
             'getUserDetails'
