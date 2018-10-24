@@ -92,7 +92,11 @@
                                 <a href="#" v-if="getUserDetails.userId === getAuthorData.user.userId" v-on:click="tabchange" class="active" data-tab="library">__("library")</a>
                                 <a href="#" id="menu-published" v-on:click="tabchange" data-tab="published"><span>{{ getAuthorData.contentPublished }}</span>__("author_published_contents")</a>
                                 <a href="#" v-on:click="tabchange" data-tab="followers"><span>{{ getAuthorData.followCount }}</span>__("author_followers")</a>
-                                <a href="#" v-on:click="tabchange" data-tab="following"><span>{{ getAuthorData.user.followCount }} </span>__("author_following")</a>
+                                <a href="#" v-on:click="tabchange" data-tab="following">
+                                    <span v-if="getAuthorData.user.userId">{{ getAuthorData.user.followCount }} </span>
+                                    <span v-else>0</span>
+                                    __("author_following")
+                                </a>
                             </div>
                             <div class="bottom-contents">
                                 <div class="list published-contents" id="published" itemscope itemtype="http://schema.org/Collection">
@@ -145,7 +149,7 @@
                                         <p class="message" v-if="getAuthorFollowersLoadingState === 'LOADING_SUCCESS' && getAuthorFollowers.length == 0 && getUserDetails.userId !== getAuthorData.user.userId">__("author_no_followers")</p>
                                     <Spinner v-if="getAuthorFollowersLoadingState === 'LOADING'"></Spinner>
                                 </div>
-                                <div class="list following" id="following" v-if="getAuthorData.user.userId">
+                                <div class="list following" id="following">
                                     <AuthorCard v-for="each_following in getAuthorFollowing"
                                         :authorData="each_following"
                                         :key="each_following.author.id"
@@ -154,8 +158,8 @@
                                         :followOrUnfollowAuthor="followOrUnfollowFollowing"
                                         :inFollowingTab="true"></AuthorCard>
                                     <p class="message" v-if="getAuthorFollowingLoadingState === 'LOADING_SUCCESS' && getAuthorFollowing.length == 0 && getUserDetails.userId === getAuthorData.user.userId">__("user_no_following")</p>
-                                    <p class="message" v-if="getAuthorFollowingLoadingState === 'LOADING_SUCCESS' && getAuthorFollowing.length == 0 && getUserDetails.userId !== getAuthorData.user.userId">__("author_no_following")</p>
-                                    <Spinner v-if="getAuthorFollowingLoadingState === 'LOADING'"></Spinner>
+                                    <p class="message" v-if="(getAuthorFollowingLoadingState === 'LOADING_SUCCESS' && getAuthorFollowing.length == 0 && getUserDetails.userId !== getAuthorData.user.userId) || !(getAuthorData.user.userId)">__("author_no_following")</p>
+                                    <Spinner v-if="getAuthorFollowingLoadingState === 'LOADING' && getAuthorData.user.userId"></Spinner>
                                 </div>
                             </div>
                         </div>
