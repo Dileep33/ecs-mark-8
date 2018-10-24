@@ -229,6 +229,7 @@ export default {
     li.no-results {
         text-align: center;
         font-size: 13px;
+        clear: both;
     }
 }
 .y-scrolling {
