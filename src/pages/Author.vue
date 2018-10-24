@@ -865,7 +865,7 @@ export default {
         a.view_more {
 			position: relative;
             display: inline-block;
-            vertical-align: text-bottom;
+            vertical-align: baseline;
 			.view_more_card {
 				width: 260px;
 				background: #fff;
