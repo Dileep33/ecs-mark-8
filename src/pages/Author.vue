@@ -145,7 +145,7 @@
                                         <p class="message" v-if="getAuthorFollowersLoadingState === 'LOADING_SUCCESS' && getAuthorFollowers.length == 0 && getUserDetails.userId !== getAuthorData.user.userId">__("author_no_followers")</p>
                                     <Spinner v-if="getAuthorFollowersLoadingState === 'LOADING'"></Spinner>
                                 </div>
-                                <div class="list following" id="following">
+                                <div class="list following" id="following" v-if="getAuthorData.user.userId">
                                     <AuthorCard v-for="each_following in getAuthorFollowing"
                                         :authorData="each_following"
                                         :key="each_following.author.id"
