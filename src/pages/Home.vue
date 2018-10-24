@@ -27,7 +27,7 @@
                         :partnership="eachSection.partnership"
                         v-bind="{ addToLibrary, removeFromLibrary }"
                 ></PratilipiListComponent>
-                <div class="card webpush-strip-container" v-if="isWebPushStripEnabled && index === 6 && this.currentLocale !== 'en'">
+                <div class="card webpush-strip-container" v-if="isWebPushStripEnabled && index === 6 && currentLocale !== 'en'">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-8">
