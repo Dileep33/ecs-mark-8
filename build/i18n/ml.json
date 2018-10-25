@@ -643,5 +643,8 @@
     "sorting_latest": "പുതിയവ",
     "sorting_highly_rated": "ഹൈലി റേറ്റഡ്‌",
     "sorting_clear": "ക്ലിയര്‍ ചെയ്യൂ",
-    "sorting_showing_results": "തിരച്ചിലിന്‍റെ ഫലങ്ങള്‍"
+    "sorting_showing_results": "തിരച്ചിലിന്‍റെ ഫലങ്ങള്‍",
+    
+    "read_now": "ഇപ്പോള്‍ വായിക്കൂ",
+    "read_later": "പിന്നീട് വായിക്കൂ"
 }

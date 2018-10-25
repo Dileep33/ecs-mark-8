@@ -663,5 +663,8 @@
     "sorting_latest": "नवीन",
     "sorting_highly_rated": "लोकप्रिय",
     "sorting_clear": "हटवा",
-    "sorting_showing_results": "शोध परिणाम"
+    "sorting_showing_results": "शोध परिणाम",
+    
+    "read_now": "त्वरित वाचा",
+    "read_later": "नंतर वाचा"
 }

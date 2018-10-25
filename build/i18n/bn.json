@@ -635,5 +635,8 @@
     "sorting_latest": "নতুন",
     "sorting_highly_rated": "জনপ্রিয়",
     "sorting_clear": "সরিয়ে দিন",
-    "sorting_showing_results": "খোঁজার ফলাফল"
+    "sorting_showing_results": "খোঁজার ফলাফল",
+    
+    "read_now": "এখন পড়ুন",
+    "read_later": "পরে পড়ুন"
 }
