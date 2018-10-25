@@ -172,9 +172,9 @@ export default {
         this.fetchPratilipiReviews({ pratilipiId: this.pratilipiId, userPratilipiData: this.userPratilipiData, resultCount: this.haveInfiniteScroll ? 4 : 2 });
 
         const languageCode = this.getLanguageCode(process.env.LANGUAGE);
-        if (languageCode !== 'kn' && languageCode !== 'en') {
-            this.shouldLoadOwnReviewWithStickers = true;
-        }
+        // if (languageCode !== 'kn' && languageCode !== 'en') {
+        //     this.shouldLoadOwnReviewWithStickers = true;
+        // }
     },
     watch: {
         getReviewsData(newReviewsData) {

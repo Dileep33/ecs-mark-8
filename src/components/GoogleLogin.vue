@@ -92,9 +92,9 @@ export default {
             return;
         }
 
-        setTimeout(() => {
-            this.oneTapSignin();
-        }, 3000);
+        // setTimeout(() => {
+        //     this.oneTapSignin();
+        // }, 3000);
         (function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) { return; }
