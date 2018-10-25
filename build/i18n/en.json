@@ -649,5 +649,8 @@
     "sorting_latest": "New",
     "sorting_highly_rated": "Most Rated",
     "sorting_clear": "clear",
-    "sorting_showing_results": "Showing results"
+    "sorting_showing_results": "Showing results",
+    
+    "read_now": "Read Now",
+    "read_later": "Read Later"
 }

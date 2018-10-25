@@ -642,5 +642,8 @@
     "sorting_latest": "புதியவை",
     "sorting_highly_rated": "அதிகம் மதிப்பிடப்பட்டவை",
     "sorting_clear": "க்ளியர்",
-    "sorting_showing_results": "தேடல் முடிவுகள்"
+    "sorting_showing_results": "தேடல் முடிவுகள்",
+    
+    "read_now": "இப்போது படிக்க",
+    "read_later": "பின்னர் படிக்க"
 }

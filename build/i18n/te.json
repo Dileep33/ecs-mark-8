@@ -642,5 +642,8 @@
     "sorting_latest": "నూతనమైనవి",
     "sorting_highly_rated": "అత్యధిక రేటింగ్ ఉన్నవి",
     "sorting_clear": "క్లియర్ చేయండి",
-    "sorting_showing_results": "శోధన ఫలితాలు"
+    "sorting_showing_results": "శోధన ఫలితాలు",
+    
+    "read_now": "ఇప్పుడే చదవండి",
+    "read_later": "తరువాత చదవండి"
 }

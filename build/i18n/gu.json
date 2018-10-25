@@ -647,5 +647,8 @@
     "sorting_latest": "નવું",
     "sorting_highly_rated": "લોકપ્રિય",
     "sorting_clear": "હટાવો ",
-    "sorting_showing_results": "શોધના પરિણામો"
+    "sorting_showing_results": "શોધના પરિણામો",
+    
+    "read_now": "અત્યારે વાંચો",
+    "read_later": "પછીથી વાંચો"
 }

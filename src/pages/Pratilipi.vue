@@ -90,7 +90,8 @@
                                             <i class="material-icons">bookmark_border</i>
                                             <i class="material-icons stacked white">add</i>
                                         </span>
-                                        __("library")
+                                        <span v-if="getCookie('bucket_id') > 70 && getCookie('bucket_id') <=99">__("read_later")</span>
+                                        <span v-else>__("library")</span>
                                     </button>
 
                                     <button v-if="getUserPratilipiData.addedToLib" class="library-btn" @click="removeFromLibraryAndTriggerAnalytics(getPratilipiData.pratilipiId)">
@@ -98,7 +99,7 @@
                                             <i class="material-icons added-to-lib">bookmark</i>
                                             <i class="material-icons stacked grey">check</i>
                                         </span>
-                                        __("library")
+                                        <span>__("library")</span>
                                     </button>
                                 </span>
 
@@ -113,7 +114,8 @@
                                   :to="readPageUrl"
                                   @click.native="logReadEvent"
                                   class="read-btn">
-                                  <span>__("read")</span>
+                                  <span v-if="getCookie('bucket_id') > 70 && getCookie('bucket_id') <=99">__("read_now")</span>
+                                  <span v-else>__("read")</span>
                                 </router-link>
                             </div>
 
@@ -1131,6 +1133,9 @@ export default {
                     padding: 0;
                     margin: 5px 0 10px;
                     cursor: pointer;
+                    @media screen and (max-width: 360px ) {
+                        font-size: 14px
+                    }
                     &:hover {
                         text-decoration: none;
                         opacity: 0.8;
