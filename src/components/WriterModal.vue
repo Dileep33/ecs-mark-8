@@ -145,6 +145,8 @@ export default {
                                 break;
                 case 'telugu': window.location="https://telugu.pratilipi.com/create";
                                 break;
+                case 'english': window.location="https://english.pratilipi.com/create";
+                                break;
                 }
             }
             else {
