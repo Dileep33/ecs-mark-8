@@ -57,7 +57,7 @@
                                 :screenName="'BOOK'"
                                 :locationName="'BOOKM'"
                                 ></MessageButton>
-                            <div v-if="getReviewsData.length > 0" class="book-stats" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+                            <div v-if="getPratilipiData.ratingCount" class="book-stats" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
                                 <span class="avg-rating stars-green" ><span class="rating-text" itemprop="ratingValue">{{ getPratilipiData.averageRating | round(1) }}</span> <i class="material-icons">star_rate</i></span>
                                 <span class="review-count"> <span itemprop="ratingCount">{{ getPratilipiData.ratingCount }}</span> __("rating_ratings")</span>
                                 <meta itemprop="bestRating" v-bind:content="5"/>
@@ -233,7 +233,7 @@
                                 :pratilipiData="getPratilipiData"
                                 v-if="getPratilipiLoadingState === 'LOADING_SUCCESS'">
                             </Reviews>
-                            <button type="button" class="load_more" name="button" @click="openReviewModal" v-if="getReviewsData.length > 3">__("view_more")</button>
+                            <button type="button" class="load_more" name="button" @click="openReviewModal" v-if="getPratilipiData.reviewCount > 3">__("view_more")</button>
                             <!-- Reviews MODAL -->
                             <div class="review-popout" v-if="getPratilipiLoadingState === 'LOADING_SUCCESS'">
                                 <button type="button" class="close-review" name="button" @click="closeReviewModal"><i class="material-icons">close</i></button>
@@ -342,9 +342,6 @@ export default {
             'getRouteToMessageUserState',
             'getEventData',
             'getEventDataLoadingState'
-        ]),
-        ...mapGetters('reviews', [
-            'getReviewsData'
         ]),
         ...mapGetters([
             'getUserDetails'
