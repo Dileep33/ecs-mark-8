@@ -90,7 +90,7 @@
                                             <i class="material-icons">bookmark_border</i>
                                             <i class="material-icons stacked white">add</i>
                                         </span>
-                                        <span v-if="getCookie('bucket_id') > 70 && getCookie('bucket_id') <=99">__("read_later")</span>
+                                        <span class="small-text" v-if="getCookie('bucket_id') > 70 && getCookie('bucket_id') <=99">__("read_later")</span>
                                         <span v-else>__("library")</span>
                                     </button>
 
@@ -114,7 +114,7 @@
                                   :to="readPageUrl"
                                   @click.native="logReadEvent"
                                   class="read-btn">
-                                  <span v-if="getCookie('bucket_id') > 70 && getCookie('bucket_id') <=99">__("read_now")</span>
+                                  <span class="small-text" v-if="getCookie('bucket_id') > 70 && getCookie('bucket_id') <=99">__("read_now")</span>
                                   <span v-else>__("read")</span>
                                 </router-link>
                             </div>
@@ -1130,8 +1130,10 @@ export default {
                     padding: 0;
                     margin: 5px 0 10px;
                     cursor: pointer;
-                    @media screen and (max-width: 360px ) {
-                        font-size: 14px
+                    .small-text {
+                        @media screen and (max-width: 360px ) {
+                            font-size: 14px;
+                        }
                     }
                     &:hover {
                         text-decoration: none;
