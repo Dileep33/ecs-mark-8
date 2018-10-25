@@ -25,7 +25,63 @@ export default {
             }, function( error ) {
                 console.log( JSON.stringify( error, undefined, 2 ) );
             });
-}
+        },
+        oneTapSignin() {
+            if (window.googleYoLoaded) {
+                const hintPromise = googleyolo.hint({
+                    supportedAuthMethods: [
+                        "https://accounts.google.com"
+                    ],
+                    supportedIdTokenProviders: [{
+                        uri: "https://accounts.google.com",
+                        clientId: process.env.GOOGLE_CLIENT_ID
+                    }]
+                });
+
+                googleyolo.cancelLastOperation().then(() => {
+                    // Credential selector closed.
+                });
+
+                const that = this;
+                hintPromise.then((credential) => {
+                    if (credential.idToken) {
+                        // Send the token to your auth backend.
+                        // useGoogleIdTokenForAuth(credential.idToken);
+                        that.loginUserWithGoogleToken({ googleIdToken: credential.idToken, language: that.getCurrentLanguage().fullName.toUpperCase() });
+                    }
+                }, (error) => {
+                    console.log(error);
+                    switch (error.type) {
+                    case "userCanceled":
+                      // The user closed the hint selector. Depending on the desired UX,
+                      // request manual sign up or do nothing.
+                      break;
+                    case "noCredentialsAvailable":
+                      // No hint available for the session. Depending on the desired UX,
+                      // request manual sign up or do nothing.
+                      break;
+                    case "requestFailed":
+                      // The request failed, most likely because of a timeout.
+                      // You can retry another time if necessary.
+                      break;
+                    case "operationCanceled":
+                      // The operation was programmatically canceled, do nothing.
+                      break;
+                    case "illegalConcurrentRequest":
+                      // Another operation is pending, this one was aborted.
+                      break;
+                    case "initializationError":
+                      // Failed to initialize. Refer to error.message for debugging.
+                      break;
+                    case "configurationError":
+                      // Configuration error. Refer to error.message for debugging.
+                      break;
+                    default:
+                      // Unknown error, do nothing.
+                    }
+                });
+            }
+        }
     },
     components: {
 
@@ -35,6 +91,10 @@ export default {
         if (document.getElementById('google-client-jssdk')) {
             return;
         }
+
+        setTimeout(() => {
+            this.oneTapSignin();
+        }, 3000);
         (function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) { return; }

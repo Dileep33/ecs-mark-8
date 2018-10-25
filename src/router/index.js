@@ -455,7 +455,7 @@ var router = new Router({
                 //     return new Promise((resolve, reject) => resolve(ReaderPageComponent));
                 // }
                 return new Promise((resolve, reject) => resolve(ReaderPageComponent));
-                
+
             },
             meta: {
                 'store': 'readerpage',

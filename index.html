@@ -15,6 +15,12 @@
     <link rel="manifest" href="/static/manifest.json" crossorigin="use-credentials"/>
     <link rel="preload" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" as="style">
     <link href='//fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+    <script src="https://smartlock.google.com/client"></script>
+    <script type="text/javascript">
+        window.onGoogleYoloLoad = (googleyolo) => {
+            window.googleYoLoaded = true;
+        };
+    </script>
   </head>
   <body>
     <div id="app"></div>
