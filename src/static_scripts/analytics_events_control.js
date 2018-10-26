@@ -2701,5 +2701,15 @@ export default {
         "SCREEN_NAME": "READER",
         "LOCATION": "OPENAPP",
         "ACTION": "SIGNUPDISMISS"
+    },
+    "CLICKREVIEW_BOOKEND_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "BOOKEND",
+        "ACTION": "CLICKREVIEW"
+    },
+    "VIEWREVIEW_BOOKM_BOOK": {
+        "SCREEN_NAME": "BOOK",
+        "LOCATION": "BOOKM",
+        "ACTION": "VIEWREVIEW"
     }
 };

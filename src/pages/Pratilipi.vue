@@ -806,6 +806,10 @@ export default {
                         $('html, body').animate({
                            scrollTop: $(".reviews-section").offset().top
                        }, 500);
+                       
+                       this.triggerAnanlyticsEvent(`VIEWREVIEW_BOOKM_BOOK`, 'CONTROL', {
+                           'USER_ID': this.getUserDetails.userId
+                       });
                     }
                 }, 500);
             }
