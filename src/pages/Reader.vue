@@ -128,8 +128,11 @@
                                     v-if="isNextPratilipiEnabled && getPratilipiData.nextPratilipi.pratilipiId>0"
                                 ></NextPratilipiStrip>
                             </div>
-
-                           <ShareStrip
+                            <div class="goto-readerpage-container">
+                                <router-link :to="gotoBookPageReview(getPratilipiData.pageUrl)" v-if="getCookie('bucket_id') > 40 && getCookie('bucket_id') <= 70">__("see_all_reviews")</router-link>
+                            </div>
+                            
+                            <ShareStrip
                                 v-if="selectedChapter == getIndexData.length"
                                 :data="getPratilipiData"
                                 :type="'PRATILIPI'">
@@ -754,6 +757,9 @@ export default {
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': 'FACEBOOK'
             });
+        },
+        gotoBookPageReview(url) {
+            return url+"#comments-list"
         }
     },
     computed: {
@@ -1592,6 +1598,13 @@ export default {
             width: 50%;
             height: 30px;
         }
+    }
+    .goto-readerpage-container {
+        text-align: center;
+        margin: 0px 0px 16px 0px;
+    }
+    .goto-readerpage-container a {
+        color: #d0021b;
     }
 }
 </style>
