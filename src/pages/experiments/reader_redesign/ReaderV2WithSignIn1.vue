@@ -255,7 +255,7 @@
                             </span>
                         </div>
                         <div class="whatsapp-share-btn" v-if="isMobile()">
-                            <a v-if="readerPercentScrolled > 100 && (getCookie('bucket_id') > 10 && getCookie('bucket_id') <= 25)" :href="getWhatsAppUri" @click="triggerWaGreenEndShareEvent" class="whatsapp green" target="_blank" rel="noopener" aria-label="whatsapp">
+                            <a v-if="readerPercentScrolled > 100 && (getCookie('bucket_id') > 10 && getCookie('bucket_id') <= 25) && getIndexData[getIndexData.length -1].slugId === currentChapterSlugId" :href="getWhatsAppUri" @click="triggerWaGreenEndShareEvent" class="whatsapp green" target="_blank" rel="noopener" aria-label="whatsapp">
                                 <span class="social-icon"><icon name="whatsapp"></icon></span>
                             </a>
                             <a v-else :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="whatsapp">
