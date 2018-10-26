@@ -1098,9 +1098,12 @@ export default {
     },
 
     postReadingPercent: (pratilipiId, chapterNo, percentageScrolled, index, successCallBack, errorCallBack) => {
-        for (var key in index) {
-            delete index[key].title;
+        let tempIndex = JSON.parse(JSON.stringify(index));
+
+        for (var key in tempIndex) {
+            delete tempIndex[key].title;
         }
+
         let params = {
             "pratilipiId": pratilipiId,
             "chapterNo": chapterNo,
