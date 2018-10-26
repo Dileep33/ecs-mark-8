@@ -1,5 +1,5 @@
 <template>
-    <div class="sign-up-strip">
+    <div class="sign-up-strip" :class="{'newreader': newreader}">
         <p class="sign-up-strip-text" @click="openSignUpPop">
             __("signup_to_read")
         </p>
@@ -18,6 +18,9 @@ export default {
         pratilipiData: {
             type: Object,
             required: true
+        },
+        newreader: {
+            type: Boolean
         }
     },
     mixins: [
@@ -74,6 +77,9 @@ export default {
     height: 50px;
     z-index: 10;
     display: none;
+    &.newreader {
+        bottom: 49px;
+    }
     p {
         margin: 0;
         font-size: 16px;
