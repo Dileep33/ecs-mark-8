@@ -512,12 +512,12 @@ export function triggerAnanlyticsEvent(eventName, experimentType, eventProperty)
         if (!window.fbApiInit) {
             setTimeout(() => {
                 try {
-                    window.FB.AppEvents.logEvent(eventName, null, eventProperty)
+                    window.FB.AppEvents.logEvent(eventName, null, eventProps)
                 } catch (e) {}
             }, 15000);
         } else {
             try {
-                window.FB.AppEvents.logEvent(eventName, null, eventProperty)
+                window.FB.AppEvents.logEvent(eventName, null, eventProps)
             } catch (e) {}
         }
 
