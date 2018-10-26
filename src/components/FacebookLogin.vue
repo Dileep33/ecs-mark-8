@@ -5,16 +5,24 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import inViewport from 'vue-in-viewport-mixin';
 import mixins from '@/mixins';
 
 export default {
     name: 'Facebook-Login-Button',
     mixins: [
-        mixins
+        mixins,
+        inViewport
     ],
     props: {
         directBtn: {
             type: Boolean
+        },
+        'in-viewport-once': {
+            default: true
+        },
+        'in-viewport-offset-top': {
+            default: -90
         }
     },
     methods: {
@@ -43,11 +51,16 @@ export default {
             }, { scope: 'public_profile,email,user_birthday' } );
         }
     },
-    components: {
+    watch: {
+        'inViewport.now'(visible) {
+            if (visible && this.directBtn) {
+                this.triggerAnanlyticsEvent(`VIEWED_FACEBOOK_BOOK`, 'CONTROL', {
+                    
+                });
 
+            }
+        }
     },
-    created() {
-    }
 }
 </script>
 
