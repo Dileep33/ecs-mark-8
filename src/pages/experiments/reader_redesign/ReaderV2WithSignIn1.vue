@@ -298,7 +298,7 @@
                 </div>
             </div>
 
-            <OpenInApp v-if="isAndroid() && readerPercentScrolled < 102 && getPratilipiLoadingState === 'LOADING_SUCCESS'" :isVisible="shouldShowOpenInAppStrip" :pratilipiData="getPratilipiData"></OpenInApp>
+            <OpenInApp v-if="isAndroid() && readerPercentScrolled < 102 && getPratilipiLoadingState === 'LOADING_SUCCESS' && (getCookie('bucket_id') > 40 && getCookie('bucket_id') <= 99)" :isVisible="shouldShowOpenInAppStrip" :pratilipiData="getPratilipiData"></OpenInApp>
             <div class="overlay" @click="closeSidebar"></div>
             <div class="overlay-1" @click="closeReviewModal"></div>
             <div class="overlay-2" @click="closeRatingModal"></div>
