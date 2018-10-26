@@ -333,7 +333,7 @@ export default {
 
                 if (this.screenLocation === 'BOOKEND' && this.screenName === 'READER') {
                     let bucketId = parseInt(this.getCookie('bucket_id')) || 0;
-                    if (bucketId > 85 && bucketId <= 99) {
+                    if (bucketId > 10 && bucketId <= 25) {
                         this.triggerAnanlyticsEvent(`LANDED_${this.screenLocation}_${this.screenName}`, 'TEST302', {
                             'USER_ID': this.getUserDetails.userId
                         });

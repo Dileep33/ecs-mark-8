@@ -255,10 +255,14 @@
                             </span>
                         </div>
                         <div class="whatsapp-share-btn" v-if="isMobile()">
-                            <a :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="google">
+                            <a v-if="readerPercentScrolled > 100 && (getCookie('bucket_id') > 10 && getCookie('bucket_id') <= 25)" :href="getWhatsAppUri" @click="triggerWaGreenEndShareEvent" class="whatsapp green" target="_blank" rel="noopener" aria-label="whatsapp">
+                                <span class="social-icon"><icon name="whatsapp"></icon></span>
+                            </a>
+                            <a v-else :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="whatsapp">
                                 <span class="social-icon"><icon name="whatsapp"></icon></span>
                             </a>
                         </div>
+                        
                         <div class="share-btn" @click="openShareModal">
                             <i class="material-icons">share</i>
                         </div>
@@ -695,16 +699,19 @@ export default {
 
         /* whatsapp share */
         triggerWaEndShareEvent() {
-            this._triggerReaderAnalyticsEvent('SHAREBOOKWA_BOTTOMBAR_READER', 'WHATSAPP')
+            this._triggerReaderAnalyticsEvent('SHAREBOOKWA_BOTTOMBAR_READER', 'WHATSAPP', null, 'TEST302')
+        },
+        triggerWaGreenEndShareEvent() {
+            this._triggerReaderAnalyticsEvent('SHAREBOOKWAG_BOTTOMBAR_READER', 'WHATSAPP', null, 'TEST302')
         },
 
         /* scroll */
         updateScroll() {
             this.scrollPosition = window.scrollY
-            const $bookContent = $('.book-content')
+            const $bookContent = $('.content-section')
             if ($bookContent) {
                 const wintop = $(window).scrollTop()
-                const docheight = $bookContent.height() + Number($bookContent.css('marginTop').replace('px', '')) + Number($bookContent.css('marginBottom').replace('px', ''))
+                const docheight = $bookContent.height() + 200;
                 const winheight = $(window).height()
                 const readerPercentScrolled = (wintop / (docheight - winheight)) * 100
                 this.readerPercentScrolled = Math.max(readerPercentScrolled, 0)
@@ -1187,6 +1194,12 @@ $theme-yellow-color: #2c3e50;
                         &:hover {
                             text-decoration: none;
                         }
+                        &.green svg {
+                          color: #fff !important;
+                          background: #48C631;
+                          border-radius: 50%;
+                          padding: 4px;
+                      }
                     }
                 }
             }
