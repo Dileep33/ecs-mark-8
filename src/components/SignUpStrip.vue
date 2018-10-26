@@ -1,5 +1,5 @@
 <template>
-    <div class="sign-up-strip" :class="{'newreader': newreader}">
+    <div class="sign-up-strip" :class="{'newreader': newreader, 'desktop': !isMobile()}" >
         <p class="sign-up-strip-text" @click="openSignUpPop">
             __("signup_to_read")
         </p>
@@ -80,6 +80,9 @@ export default {
     &.newreader {
         bottom: 49px;
     }
+    &.desktop {
+        bottom: 46px;
+    }
     p {
         margin: 0;
         font-size: 16px;
@@ -99,6 +102,8 @@ export default {
         outline: none;
         margin: 0;
         font-size: 25px;
+        background: none;
+        border: 0;
     }
 }
 </style>
