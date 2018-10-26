@@ -4,17 +4,6 @@
             <Banners v-if="getHomePageBannersLoadingState === 'LOADING_SUCCESS'"
                 :banners="getHomePageBanners"
             ></Banners>
-            <!-- <div v-if="getForYourLoadingState  === 'LOADING_SUCCESS'">
-                <PratilipiListComponent
-                    :pratilipiList="getForYouList"
-                    title="__('for_you')"
-                    :listPageUrl="'/for-you'"
-                    :screenName="'HOME'"
-                    :position="0"
-                    :screenLocation="'FORYOU'"
-                    v-bind="{ addToLibrary, removeFromLibrary }"
-                ></PratilipiListComponent>
-            </div> -->
             <DummyLoader v-if="getHomePageLoadingState === 'LOADING'"></DummyLoader>
             <div v-if="getHomePageLoadingState === 'LOADING_SUCCESS'" v-for="(eachSection, index) in getHomePageSections" v-bind:key="eachSection.listPageUrl">
                 <PratilipiListComponent
@@ -155,7 +144,7 @@ import { mapGetters, mapActions } from 'vuex'
 
 
             document.head.querySelector('meta[name="description"]').content = "__('seo_home_page_meta_description')";
-            
+
             this.currentLocale = this.getLanguageCode(process.env.LANGUAGE);
         },
         mounted() {
@@ -163,9 +152,6 @@ import { mapGetters, mapActions } from 'vuex'
                 'USER_ID': this.getUserDetails.userId
             });
             window.addEventListener('scroll', this.updateScroll);
-            if (this.getUserDetails.userId && !this.getUserDetails.isGuest) {
-                this.fetchForYouListPagePratilipis({'userId' : this.getUserDetails.userId, "cursor" : "0-0", "language": this.getCurrentLanguage().fullName.toUpperCase()});
-            }
         },
         watch: {
             'percentScrolled'(newPercentScrolled, prevPercentScrolled) {
@@ -181,12 +167,6 @@ import { mapGetters, mapActions } from 'vuex'
                     }
                 } else {
                     this.isCreated=false;
-                }
-            },
-            'getForYouList'(){
-                if (this.getForYouList && this.getForYouList.length < 6 && this.backupCall) {
-                    this.backupCall = false;
-                    this.fetchForYouListPagePratilipis({'userId' : this.getUserDetails.userId, "cursor" : "10-0", "language": this.getCurrentLanguage().fullName.toUpperCase()});
                 }
             }
         },
