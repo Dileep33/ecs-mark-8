@@ -2681,5 +2681,25 @@ export default {
         "SCREEN_NAME": "BOOK",
         "LOCATION": "FACEBOOK",
         "ACTION": "CLICKED"
+    },
+    "VIEWED_FACEBOOK_BOOK": {
+        "SCREEN_NAME": "BOOK",
+        "LOCATION": "FACEBOOK",
+        "ACTION": "VIEWED"
+    },
+    "SIGNUPVIEWED_OPENAPP_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "OPENAPP",
+        "ACTION": "SIGNUPVIEWED"
+    },
+    "SIGNUPREAD_OPENAPP_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "OPENAPP",
+        "ACTION": "SIGNUPREAD"
+    },
+    "SIGNUPDISMISS_OPENAPP_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "OPENAPP",
+        "ACTION": "SIGNUPDISMISS"
     }
 };
