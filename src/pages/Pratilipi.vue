@@ -796,7 +796,7 @@ export default {
             if (status === 'LOADING_SUCCESS') {
                 let bucketId = parseInt(this.getCookie('bucket_id')) || 0
                 this.readPageUrl =
-                    this.getPratilipiData.newReadPageUrl &&  (bucketId >= 0 && bucketId <= 30)
+                    this.getPratilipiData.newReadPageUrl
                     ? this.getPratilipiData.newReadPageUrl : this.getPratilipiData.readPageUrl
                 // this.readPageUrl = this.getPratilipiData.readPageUrl
                 
