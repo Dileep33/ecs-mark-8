@@ -221,7 +221,7 @@
                             <AboutAuthor :authorId="getPratilipiData.author.authorId" :pratilipiData="getPratilipiData"></AboutAuthor>
 
                         </div>
-                        <div class="card">
+                        <div class="card reviews-section">
                             <div class="head-title">__("review_heading")</div>
                             <Reviews
                                 :pratilipiId="getPratilipiData.pratilipiId"
@@ -799,6 +799,15 @@ export default {
                     this.getPratilipiData.newReadPageUrl &&  (bucketId >= 0 && bucketId <= 30)
                     ? this.getPratilipiData.newReadPageUrl : this.getPratilipiData.readPageUrl
                 // this.readPageUrl = this.getPratilipiData.readPageUrl
+                
+                // Scroll to All reviews
+                setTimeout(() => {
+                    if (this.$route.hash === '#comments-list') {
+                        $('html, body').animate({
+                           scrollTop: $(".reviews-section").offset().top
+                       }, 500);
+                    }
+                }, 500);
             }
 
             this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.nextPratilipi && this.getPratilipiData.nextPratilipi.pratilipiId > 0;
