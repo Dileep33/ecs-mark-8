@@ -3,7 +3,7 @@
         <p class="sign-up-strip-text" @click="openSignUpPop">
             __("signup_to_read")
         </p>
-        <button type="button" class="close" @click="closeStrip">
+        <button type="button" class="close-btn" @click="closeStrip">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -85,7 +85,7 @@ export default {
         font-size: 16px;
         font-weight: 500;
     }
-    .close {
+    .close-btn {
         position: absolute;
         right: 0;
         width: 50px;
@@ -97,6 +97,8 @@ export default {
         z-index: 11;
         cursor: pointer;
         outline: none;
+        margin: 0;
+        font-size: 25px;
     }
 }
 </style>
