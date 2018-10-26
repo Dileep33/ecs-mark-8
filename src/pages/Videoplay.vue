@@ -27,7 +27,7 @@
                             <ul style="flex-direction: row "> 
                                 <li v-for="each_event in getOtherVideos" style="">
                                 <router-link :to="{ name: 'Videos_Page', params: { videos_slug: each_event.pageUrl.split('/').pop() } }">
-                                    <img  class="videoseries-img" :src=" each_event.imageUrl ">
+                                    <img  class="videoseries-img" :src=" each_event.hqImageUrl ">
                                     <!-- <video width="320" height="240" controls>
                                     <source src="https://www.youtube.com/embed/2EgmDovRQY">
                                     </video> -->

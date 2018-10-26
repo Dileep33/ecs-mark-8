@@ -32,7 +32,7 @@
                             <ul>
                                 <li v-for="each_event in getListOfVideoPlayListdata" >
                                 <router-link :to="{ name: 'Videos_Page', params: { videos_slug: each_event.pageUrl.split('/').pop() } }">
-                                    <img  class="videoseries-img" :src=" each_event.imageUrl ">
+                                    <img  class="videoseries-img" :src=" each_event.hqImageUrl ">
                                         <span class="videoseries-name"> {{ each_event.displayTitle }}</span>
                                 </router-link>
                                 </li>
