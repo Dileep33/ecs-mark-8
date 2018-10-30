@@ -277,10 +277,7 @@
                             </span>
                         </div>
                         <div class="whatsapp-share-btn" v-if="isMobile()">
-                            <a v-if="this.readerPercentScrolled > 80" :href="getWhatsAppUri" @click="triggerWaGreenEndShareEvent" class="whatsapp green" target="_blank" rel="noopener" aria-label="google">
-                                <span class="social-icon"><icon name="whatsapp"></icon></span>
-                            </a>
-                            <a v-else :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="google">
+                            <a :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="google">
                                 <span class="social-icon"><icon name="whatsapp"></icon></span>
                             </a>
                         </div>
@@ -718,10 +715,6 @@ export default {
         /* whatsapp share */
         triggerWaEndShareEvent() {
             this._triggerReaderAnalyticsEvent('SHAREBOOKWA_BOTTOMBAR_READER', 'WHATSAPP')
-        },
-        /* whatsapp share Green */
-        triggerWaGreenEndShareEvent() {
-            this._triggerReaderAnalyticsEvent('SHAREBOOKWAG_BOTTOMBAR_READER', 'WHATSAPP')
         },
 
         /* scroll */
