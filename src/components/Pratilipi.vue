@@ -6,7 +6,7 @@
                 {{ pratilipiData.type | getPratilipiTypeInNativeLanguage }} <span></span>
             </div>
 	    <meta itemprop="inLanguage" v-bind:content="pratilipiData.language" />
-            <router-link :to="redirectToReader ? (pratilipiData.newReadPageUrl && this.isTestEnvironment() ? pratilipiData.newReadPageUrl : pratilipiData.readPageUrl) : pratilipiData.pageUrl" @click.native="triggerReadPratilipiEvent" :title="pratilipiData.title">
+            <router-link :to="redirectToReader ? (pratilipiData.newReadPageUrl ? pratilipiData.newReadPageUrl : pratilipiData.readPageUrl) : pratilipiData.pageUrl" @click.native="triggerReadPratilipiEvent" :title="pratilipiData.title">
                 <PratilipiImage :coverImageUrl="pratilipiData.coverImageUrl" :displayTitle="pratilipiData.displayTitle"></PratilipiImage>
             </router-link>
             <div class="image-mask">
@@ -22,7 +22,7 @@
                 </span>
                 <button type="button" data-toggle="modal" @click="openShareModal"><i class="material-icons">share</i></button>
             </div>
-            <router-link :to="redirectToReader ? (pratilipiData.newReadPageUrl && this.isTestEnvironment() ? pratilipiData.newReadPageUrl : pratilipiData.readPageUrl) : pratilipiData.pageUrl" @click.native="triggerReadPratilipiEvent" :title="pratilipiData.displayTitle">
+            <router-link :to="redirectToReader ? (pratilipiData.newReadPageUrl ? pratilipiData.newReadPageUrl : pratilipiData.readPageUrl) : pratilipiData.pageUrl" @click.native="triggerReadPratilipiEvent" :title="pratilipiData.displayTitle">
                 <div class="pratilipi-details">
                     <span class="title" itemprop="name">{{ pratilipiData.displayTitle }}</span>
                     <span v-if="!hideAuthorName" class="author" itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ pratilipiData.author.name ||  pratilipiData.author.displayName }}</span></span>
