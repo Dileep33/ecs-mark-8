@@ -663,7 +663,7 @@ export default {
         /* content serialisation */
         hideStripAndRedirect() {
             this.isNextPratilipiEnabled = false
-            this._triggerReaderAnalyticsEvent('CLICK_NEXTPRATILIPI_READER')
+            this._triggerReaderAnalyticsEvent('GONEXTPRATILIPI_BOOKEND_READER')
             this.$router.push({path: this.getPratilipiData.nextPratilipi.newReadPageUrl || this.getPratilipiData.nextPratilipi.readPageUrl})
         },
         /* whatsapp share */
