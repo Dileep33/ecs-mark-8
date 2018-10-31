@@ -731,7 +731,7 @@ export default {
         hideStripAndRedirect(){
             this.isNextPratilipiEnabled = false;
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
-            this.triggerAnanlyticsEvent(`CLICK_NEXTPRATILIPI_READER`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`GONEXTPRATILIPI_BOOKEND_READER`, 'CONTROL', {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId});
             this.$router.push({ path: '/read', query: { id: String(this.getPratilipiData.nextPratilipi.pratilipiId)} });
