@@ -8,8 +8,7 @@
                 <div v-else class="follow-name">{{ authorData.name || authorData.author.displayName }}</div>
             </router-link>
             <div class="follow-count">__("author_followers"):
-                <span v-if="authorData.followCount !== undefined">{{ authorData.followCount}}</span>
-                <span v-else-if="authorData.followersCount !== undefined">{{ authorData.followersCount}}</span>
+                <span v-if="authorData.followersCount !== undefined">{{ authorData.followersCount }}</span>
                 <span v-else>0 </span>
             </div>
 
@@ -78,7 +77,8 @@ export default {
     ],
     data() {
         return {
-            authorId: null
+            authorId: null,
+            followersCount: null
         }
     },
     computed: {
@@ -127,6 +127,7 @@ export default {
     created() {
         // console.log(this.authorData);
         this.authorId = this.authorData.authorId || this.authorData.author.id;
+        this.followersCount = this.authorData.followCount || this.authorData.followersCount
     }
 }
 </script>
