@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade" id="forgotPassModal" tabindex="-1" role="dialog" aria-labelledby="forgotPassModalLabel" aria-hidden="true">
+    <div class="modal fade" id="forgotPassModal" tabindex="-1" role="dialog" aria-labelledby="forgotPassModalLabel" aria-hidden="true" v-if="isLoginPage">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -12,7 +12,13 @@
                     <div id="password_reset">
                         <form>
                             <div class="form-group">
-                                <input type="email" :value="forgotten_password_email" @input="forgotten_password_email = $event.target.value" @keydown.enter="triggerEventAndSendPasswordResetEmail(forgotten_password_email)" class="form-control" placeholder="__('user_email')" required>
+                                <input 
+                                    type="email"
+                                    :value="forgotten_password_email"
+                                    @input="forgotten_password_email = $event.target.value"
+                                    @keydown.enter="triggerEventAndSendPasswordResetEmail(forgotten_password_email)"
+                                    class="form-control email-input-for-forget"
+                                    placeholder="__('user_email')" required>
                             </div>
                             <button type="button" @click="triggerEventAndSendPasswordResetEmail(forgotten_password_email)" class="btn sign-in">__("user_reset_password")</button>
                         </form>
@@ -39,6 +45,10 @@ export default {
     props: {
         email: {
             type: String,
+            required: false
+        },
+        isLoginPage: {
+            type: Boolean,
             required: false
         }
     },

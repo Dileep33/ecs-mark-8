@@ -17,11 +17,12 @@
                             <RegisterWithCustomMessage
                                 :currentStep="currentStep"
                                 :changeCurrentStep="changeCurrentStep"
+                                :isLoginPage="true"
                                 v-if="getCookie('bucket_id') > 70 && getCookie('bucket_id') < 100"
                                 
                             ></RegisterWithCustomMessage>
                             
-                            <Register :currentStep="currentStep" :changeCurrentStep="changeCurrentStep" v-else></Register>
+                            <Register :isLoginPage="true" :currentStep="currentStep" :changeCurrentStep="changeCurrentStep" v-else></Register>
 
                         </div>
                     </div>
