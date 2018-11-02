@@ -8,7 +8,7 @@
                 <div v-else class="follow-name">{{ authorData.name || authorData.author.displayName }}</div>
             </router-link>
             <div class="follow-count">__("author_followers"):
-                <span v-if="authorData.followersCount !== undefined">{{ authorData.followersCount }}</span>
+                <span v-if="followersCount !== undefined">{{ followersCount }}</span>
                 <span v-else>0 </span>
             </div>
 
