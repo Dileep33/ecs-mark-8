@@ -12,7 +12,7 @@
                     <div id="password_reset">
                         <form>
                             <div class="form-group">
-                                <input type="email" @input="forgotten_password_email = $event.target.value" class="form-control" placeholder="__('user_email')">
+                                <input type="email" @input="forgotten_password_email = $event.target.value" @keydown.enter="triggerEventAndSendPasswordResetEmail(forgotten_password_email)" class="form-control" placeholder="__('user_email')" required>
                             </div>
                             <button type="button" @click="triggerEventAndSendPasswordResetEmail(forgotten_password_email)" class="btn sign-in">__("user_reset_password")</button>
                         </form>
