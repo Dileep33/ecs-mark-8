@@ -1083,10 +1083,10 @@ export default {
             function( response, status ) { processPostResponse( response, status, successCallBack, errorCallBack ) } );
     },
 
-    postMarketingNewsletterUnsubscribe: (uuid, newsletterFrequency, newsletterUnsubscribeReason, successCallBack, errorCallBack) => {
+    postMarketingNewsletterUnsubscribe: (uuid, newsletterFrequency, newsletterUnsubscribeReason, campaignId, successCallBack, errorCallBack) => {
         httpUtil.post( API_PREFIX + MARKETING_API_UNSUBSCRIBE,
             null,
-            { uuid, newsletterFrequency, newsletterUnsubscribeReason },
+            { uuid, newsletterFrequency, newsletterUnsubscribeReason, campaignId },
             function( response, status ) { processPostResponse( response, status, successCallBack, errorCallBack ) } );
     },
 
