@@ -24,7 +24,7 @@
                             <Register :currentStep="currentStep" :changeCurrentStep="changeCurrentStep" v-else></Register>
 
                             <!-- Modal -->
-                            <!--<ForgetPasswordModal></ForgetPasswordModal>-->
+                            <ForgetPasswordModal></ForgetPasswordModal>
 
                         </div>
                     </div>
@@ -49,7 +49,7 @@ import Spinner from '@/components/Spinner.vue';
 import Login from '@/components/Login.vue';
 import Register from '@/components/AppLogin.vue';
 import RegisterWithCustomMessage from '@/components/experiments/applogin_v1/AppLogin';
-// import ForgetPasswordModal from '@/components/ForgetPasswordModal.vue';
+import ForgetPasswordModal from '@/components/ForgetPasswordModal.vue';
 import mixins from '@/mixins';
 import 'vue-awesome/icons/facebook-f'
 import 'vue-awesome/icons/google'
@@ -62,8 +62,8 @@ export default {
         Spinner,
         Login,
         Register,
-        RegisterWithCustomMessage
-        // ForgetPasswordModal
+        RegisterWithCustomMessage,
+        ForgetPasswordModal
     },
     mixins: [
         mixins

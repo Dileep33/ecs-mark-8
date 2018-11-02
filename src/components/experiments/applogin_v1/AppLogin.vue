@@ -40,6 +40,7 @@
                     <span>__("user_sign_in")</span>
                     <i class="material-icons">keyboard_arrow_right</i>
                 </button>
+                <a v-if="!openForgotPasswordInTab" @click="triggerEventAndOpenForgotPasswordModal" href="#" class="forgot-pass">__("user_forgot_password")</a>
             </div>
         </form>
 
