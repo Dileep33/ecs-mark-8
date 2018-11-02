@@ -112,7 +112,7 @@
             </form>
         </div>
 
-        <ForgetPassword></ForgetPassword>
+        <ForgetPassword :email="email"></ForgetPassword>
         <div class="spinner-overlay" v-if="getLoginLoadingState === 'LOADING'">
             <Spinner></Spinner>
         </div>
