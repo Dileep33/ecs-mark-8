@@ -1083,10 +1083,10 @@ export default {
             function( response, status ) { processPostResponse( response, status, successCallBack, errorCallBack ) } );
     },
 
-    postMarketingNewsletterUnsubscribe: (uuid, newsletterFrequency, newsletterUnsubscribeReason, successCallBack, errorCallBack) => {
+    postMarketingNewsletterUnsubscribe: (uuid, newsletterFrequency, newsletterUnsubscribeReason, campaignId, successCallBack, errorCallBack) => {
         httpUtil.post( API_PREFIX + MARKETING_API_UNSUBSCRIBE,
             null,
-            { uuid, newsletterFrequency, newsletterUnsubscribeReason },
+            { uuid, newsletterFrequency, newsletterUnsubscribeReason, campaignId },
             function( response, status ) { processPostResponse( response, status, successCallBack, errorCallBack ) } );
     },
 
@@ -1098,9 +1098,12 @@ export default {
     },
 
     postReadingPercent: (pratilipiId, chapterNo, percentageScrolled, index, successCallBack, errorCallBack) => {
-        for (var key in index) {
-            delete index[key].title;
+        let tempIndex = JSON.parse(JSON.stringify(index));
+
+        for (var key in tempIndex) {
+            delete tempIndex[key].title;
         }
+
         let params = {
             "pratilipiId": pratilipiId,
             "chapterNo": chapterNo,

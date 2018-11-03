@@ -63,12 +63,12 @@ export default {
 
         unSubscribeUser() {
             const that = this;
-            const {uuid} = this.$route.query;
+            const {uuid,campaignId} = this.$route.query;
             if(!uuid) {
                 alert("Invalid URL");
                 return;
             }
-            this.updateMarketingNewsletter({uuid, newsletterUnsubscribeReason: this.unSubscribeOption,newsletterFrequency: "NEVER"})
+            this.updateMarketingNewsletter({uuid, newsletterUnsubscribeReason: this.unSubscribeOption,newsletterFrequency: "NEVER",campaignId})
         }
         
     },

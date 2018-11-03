@@ -113,5 +113,10 @@ export default {
     },
     setNavigationStatusLoadingError(state){
         state.navigationList.loading_state = 'LOADING_ERROR';
+    },
+    
+    setPageTitleNull(state) {
+        state.title = '';
+        state.titleEn = '';
     }
 }

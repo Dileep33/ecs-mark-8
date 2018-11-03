@@ -56,9 +56,9 @@ export default {
     },
 
     // This is for unsubscribe non logged in page
-    updateMarketingNewsletter({ commit, state }, { uuid, newsletterFrequency, newsletterUnsubscribeReason }) {
+    updateMarketingNewsletter({ commit, state }, { uuid, newsletterFrequency, newsletterUnsubscribeReason, campaignId }) {
         commit('setMarketingFrequencyLoadingTrue');
-        DataAccessor.postMarketingNewsletterUnsubscribe(uuid, newsletterFrequency, newsletterUnsubscribeReason, (data) => {
+        DataAccessor.postMarketingNewsletterUnsubscribe(uuid, newsletterFrequency, newsletterUnsubscribeReason, campaignId, (data) => {
             commit('setMarketingFrequencyLoadingSuccess');
         }, () => {
             commit('setMarketingFrequencyLoadingError');

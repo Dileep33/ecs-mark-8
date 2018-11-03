@@ -533,7 +533,7 @@ export default {
         },
         /* library */
         addPratilipiToLibrary() {
-            this._triggerReaderAnalyticsEvent('LIBRARYADD_READERM_READER')
+            this._triggerReaderAnalyticsEvent('LIBRARYADD_BOTTOMBAR_READER')
             if (this.getUserDetails.isGuest) {
                 this.setAfterLoginAction({action: `${this.$route.meta.store}/addToLibrary`})
                 this.openLoginModal(this.$route.meta.store, 'LIBRARYADD', 'READERM')
@@ -542,7 +542,7 @@ export default {
             }
         },
         removePratilipiFromLibrary() {
-            this._triggerReaderAnalyticsEvent('LIBRARYREMOVE_READERM_READER')
+            this._triggerReaderAnalyticsEvent('LIBRARYREMOVE_BOTTOMBAR_READER')
             this.removeFromLibrary()
         },
         /* follow */
@@ -656,14 +656,14 @@ export default {
         },
         /* share */
         openShareModal() {
-            this._triggerReaderAnalyticsEvent('CLICKSHRBOOK_READERM_READER')
+            this._triggerReaderAnalyticsEvent('CLICKSHRBOOK_BOTTOMBAR_READER')
             this.setShareDetails({ data: this.getPratilipiData, type: 'PRATILIPI', screen_name: 'READER', screen_location: 'READERM' })
             $('#share_modal').modal('show')
         },
         /* content serialisation */
         hideStripAndRedirect() {
             this.isNextPratilipiEnabled = false
-            this._triggerReaderAnalyticsEvent('CLICK_NEXTPRATILIPI_READER')
+            this._triggerReaderAnalyticsEvent('GONEXTPRATILIPI_BOOKEND_READER')
             this.$router.push({path: this.getPratilipiData.nextPratilipi.newReadPageUrl || this.getPratilipiData.nextPratilipi.readPageUrl})
         },
         /* whatsapp share */

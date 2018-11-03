@@ -277,10 +277,7 @@
                             </span>
                         </div>
                         <div class="whatsapp-share-btn" v-if="isMobile()">
-                            <a v-if="this.readerPercentScrolled > 80" :href="getWhatsAppUri" @click="triggerWaGreenEndShareEvent" class="whatsapp green" target="_blank" rel="noopener" aria-label="google">
-                                <span class="social-icon"><icon name="whatsapp"></icon></span>
-                            </a>
-                            <a v-else :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="google">
+                            <a :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="google">
                                 <span class="social-icon"><icon name="whatsapp"></icon></span>
                             </a>
                         </div>
@@ -578,7 +575,7 @@ export default {
 
         /* library */
         addPratilipiToLibrary() {
-            this._triggerReaderAnalyticsEvent('LIBRARYADD_READERM_READER')
+            this._triggerReaderAnalyticsEvent('LIBRARYADD_BOTTOMBAR_READER')
             if (this.getUserDetails.isGuest) {
                 this.setAfterLoginAction({action: `${this.$route.meta.store}/addToLibrary`})
                 this.openLoginModal(this.$route.meta.store, 'LIBRARYADD', 'READERM')
@@ -587,7 +584,7 @@ export default {
             }
         },
         removePratilipiFromLibrary() {
-            this._triggerReaderAnalyticsEvent('LIBRARYREMOVE_READERM_READER')
+            this._triggerReaderAnalyticsEvent('LIBRARYREMOVE_BOTTOMBAR_READER')
             this.removeFromLibrary()
         },
 
@@ -703,7 +700,7 @@ export default {
 
         /* share */
         openShareModal() {
-            this._triggerReaderAnalyticsEvent('CLICKSHRBOOK_READERM_READER')
+            this._triggerReaderAnalyticsEvent('CLICKSHRBOOK_BOTTOMBAR_READER')
             this.setShareDetails({ data: this.getPratilipiData, type: 'PRATILIPI', screen_name: 'READER', screen_location: 'READERM' })
             $('#share_modal').modal('show')
         },
@@ -718,10 +715,6 @@ export default {
         /* whatsapp share */
         triggerWaEndShareEvent() {
             this._triggerReaderAnalyticsEvent('SHAREBOOKWA_BOTTOMBAR_READER', 'WHATSAPP')
-        },
-        /* whatsapp share Green */
-        triggerWaGreenEndShareEvent() {
-            this._triggerReaderAnalyticsEvent('SHAREBOOKWAG_BOTTOMBAR_READER', 'WHATSAPP')
         },
 
         /* scroll */

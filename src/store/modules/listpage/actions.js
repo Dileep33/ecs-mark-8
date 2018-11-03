@@ -118,5 +118,9 @@ export default {
         }, (error) => {
             console.log("error_preference")
         });
+    },
+    
+    setPageTitleNull({ commit, state}) {
+        commit('setPageTitleNull');
     }
 }

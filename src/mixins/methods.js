@@ -388,7 +388,7 @@ export function triggerAnanlyticsEvent(eventName, experimentType, eventProperty)
         delete eventProperty.SCREEN_NAME;
     }
 
-    if (eventName.indexOf('LANDED') > -1) {
+    if (eventName.indexOf('LANDED') > -1 || eventName === 'VIEWED_AUTHORDETAIL_BOOK') {
         eventProps = {
             ...eventProps,
             ...getReferrerData()
@@ -494,6 +494,17 @@ export function triggerAnanlyticsEvent(eventName, experimentType, eventProperty)
                     'dimension7': eventProps.EXPERIMENT_ID,
                     'dimension8': eventProps.RECOMMENDATION_TYPE,
                     'metric1': eventProps.POSITION
+                });
+                break;
+            case 'VIEWED_AUTHORDETAIL_BOOK':
+                ga('send', {
+                    hitType: 'event',
+                    eventCategory: eventProps.LOCATION,
+                    eventAction: eventProps.ACTION,
+                    eventLabel: eventProps.SCREEN_NAME,
+                    'dimension1': eventProps.USER_ID,
+                    'dimension7': eventProps.EXPERIMENT_ID,
+                    'dimension9': eventProps.REFER_ACTION
                 });
                 break;
             default:

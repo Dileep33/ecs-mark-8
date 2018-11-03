@@ -297,7 +297,6 @@
                 </div>
             </div>
             <OpenInApp v-if="isAndroid() && percentScrolled < 102 && getPratilipiLoadingState === 'LOADING_SUCCESS' && (getCookie('bucket_id') > 40 && getCookie('bucket_id') <= 99)" :isVisible="shouldShowOpenInAppStrip" :pratilipiData="getPratilipiData"></OpenInApp>
-            <SignUpStrip v-if="getPratilipiLoadingState === 'LOADING_SUCCESS' && (getCookie('bucket_id') > 25 && getCookie('bucket_id') <= 40)" :pratilipiData="getPratilipiData"></SignUpStrip>
             <div class="overlay" @click="closeSidebar"></div>
             <div class="overlay-1" @click="closeReviewModal"></div>
             <div class="overlay-2" @click="closeRatingModal"></div>
@@ -322,7 +321,6 @@ import WebPushStrip from '@/components/WebPushStrip.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
 import Recommendation from '@/components/Recommendation.vue';
 import OpenInApp from '@/components/OpenInApp.vue';
-import SignUpStrip from '@/components/SignUpStrip.vue';
 import ShareStrip from '@/components/ShareStrip.vue';
 import NextPratilipiStrip from '@/components/NextPratilipiStrip.vue'
 import WebPushUtil from '@/utils/WebPushUtil';
@@ -340,7 +338,6 @@ export default {
         Recommendation,
         ShareStrip,
         OpenInApp,
-        SignUpStrip,
         NextPratilipiStrip
     },
     mixins: [
@@ -734,7 +731,7 @@ export default {
         hideStripAndRedirect(){
             this.isNextPratilipiEnabled = false;
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
-            this.triggerAnanlyticsEvent(`CLICK_NEXTPRATILIPI_READER`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`GONEXTPRATILIPI_BOOKEND_READER`, 'CONTROL', {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId});
             this.$router.push({ path: '/read', query: { id: String(this.getPratilipiData.nextPratilipi.pratilipiId)} });

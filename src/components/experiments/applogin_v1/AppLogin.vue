@@ -40,6 +40,7 @@
                     <span>__("user_sign_in")</span>
                     <i class="material-icons">keyboard_arrow_right</i>
                 </button>
+                <a v-if="!openForgotPasswordInTab" @click="triggerEventAndOpenForgotPasswordModal" href="#" class="forgot-pass">__("user_forgot_password")</a>
             </div>
         </form>
 
@@ -121,7 +122,7 @@
             </form>
         </div>
 
-        <ForgetPassword></ForgetPassword>
+        <ForgetPassword :isLoginPage="isLoginPage" :email="email"></ForgetPassword>
         <div class="spinner-overlay" v-if="getLoginLoadingState === 'LOADING'">
             <Spinner></Spinner>
         </div>
@@ -153,6 +154,10 @@ export default {
         }
     },
     props: {
+        isLoginPage: {
+            type: Boolean,
+            required: false
+        },
         openForgotPasswordInTab: {
             type: Boolean,
             required: false,
@@ -225,6 +230,9 @@ export default {
         },
         triggerEventAndOpenForgotPasswordModal() {
             this.openForgotPasswordModal();
+            setTimeout(() => {
+                $(".email-input-for-forget").focus();
+            }, 500);
             this.triggerAnanlyticsEvent('LANDED_FORGOTPM_FORGOTP', 'CONTROL', {});
         }
     },

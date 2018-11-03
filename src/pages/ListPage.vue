@@ -101,7 +101,8 @@ export default {
             'fetchMorePratilipisForListPage',
             'addToLibrary',
             'removeFromLibrary',
-            'updateUserPreference'
+            'updateUserPreference',
+            'setPageTitleNull'
         ]),
         updateScroll(e) {
             this.scrollPosition = window.scrollY
@@ -286,6 +287,7 @@ export default {
     },
     destroyed() {
         window.removeEventListener('scroll', this.updateScroll);
+        this.setPageTitleNull();
     },
     components: {
         MainLayout,
@@ -312,7 +314,8 @@ export default {
         border-left: 3px solid #d0021b;
         padding-left: 10px;
         margin: 10px 0;
-	display:block;
+        display:block;
+        min-height: 28px;
     }
     .list-tabs {
         border-bottom: 1px solid #e9e9e9;

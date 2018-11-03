@@ -169,6 +169,9 @@
                                     v-if="isNextPratilipiEnabled"
                                 ></NextPratilipiStrip>
                             </div>
+                            <div class="goto-readerpage-container">
+                                <router-link :to="gotoBookPageReview(getPratilipiData.pageUrl)" @click.native="triggerClickReview()" v-if="getCookie('bucket_id') > 40 && getCookie('bucket_id') <= 70">__("see_all_reviews")</router-link>
+                            </div>
                             <ShareStrip
                                 v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId"
                                 :data="getPratilipiData"
@@ -548,7 +551,7 @@ export default {
 
         /* library */
         addPratilipiToLibrary() {
-            this._triggerReaderAnalyticsEvent('LIBRARYADD_READERM_READER')
+            this._triggerReaderAnalyticsEvent('LIBRARYADD_BOTTOMBAR_READER')
             if (this.getUserDetails.isGuest) {
                 this.setAfterLoginAction({action: `${this.$route.meta.store}/addToLibrary`})
                 this.openLoginModal(this.$route.meta.store, 'LIBRARYADD', 'READERM')
@@ -557,7 +560,7 @@ export default {
             }
         },
         removePratilipiFromLibrary() {
-            this._triggerReaderAnalyticsEvent('LIBRARYREMOVE_READERM_READER')
+            this._triggerReaderAnalyticsEvent('LIBRARYREMOVE_BOTTOMBAR_READER')
             this.removeFromLibrary()
         },
         
@@ -673,7 +676,7 @@ export default {
 
         /* share */
         openShareModal() {
-            this._triggerReaderAnalyticsEvent('CLICKSHRBOOK_READERM_READER')
+            this._triggerReaderAnalyticsEvent('CLICKSHRBOOK_BOTTOMBAR_READER')
             this.setShareDetails({ data: this.getPratilipiData, type: 'PRATILIPI', screen_name: 'READER', screen_location: 'READERM' })
             $('#share_modal').modal('show')
         },
@@ -702,6 +705,12 @@ export default {
                 this.readerPercentScrolled = Math.max(readerPercentScrolled, 0)
                 $('.reader-progress .progress-bar').css('width', `${this.readerPercentScrolled}%`)
             }
+        },
+        gotoBookPageReview(url) {
+            return url+"#comments-list"
+        },
+        triggerClickReview() {
+            this._triggerReaderAnalyticsEvent('CLICKREVIEW_BOOKEND_READER')
         }
     },
     computed: {
@@ -1509,4 +1518,11 @@ $theme-yellow-color: #2c3e50;
     position: fixed !important;
     padding: 0 10px !important;
 }
+.goto-readerpage-container {
+        text-align: center;
+        margin: 0px 0px 16px 0px; 
+    }    
+    .goto-readerpage-container a {
+        color: #d0021b;
+    }
 </style>

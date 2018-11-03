@@ -300,7 +300,6 @@
             </div>
 
             <OpenInApp v-if="isAndroid() && readerPercentScrolled < 102 && getPratilipiLoadingState === 'LOADING_SUCCESS' && (getCookie('bucket_id') > 40 && getCookie('bucket_id') <= 99)" :isVisible="shouldShowOpenInAppStrip" :pratilipiData="getPratilipiData"></OpenInApp>
-            <SignUpStrip v-if="getPratilipiLoadingState === 'LOADING_SUCCESS' && (getCookie('bucket_id') > 25 && getCookie('bucket_id') <= 40)" :pratilipiData="getPratilipiData" :newreader="true"></SignUpStrip>
             <div class="overlay" @click="closeSidebar"></div>
             <div class="overlay-1" @click="closeReviewModal"></div>
             <div class="overlay-2" @click="closeRatingModal"></div>
@@ -325,7 +324,6 @@ import WebPushStrip from '@/components/WebPushStrip.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
 import Recommendation from '@/components/Recommendation.vue';
 import OpenInApp from '@/components/OpenInApp.vue';
-import SignUpStrip from '@/components/SignUpStrip.vue';
 import ShareStrip from '@/components/ShareStrip.vue';
 import NextPratilipiStrip from '@/components/NextPratilipiStrip.vue'
 import ServerError from '@/components/ServerError.vue';
@@ -365,7 +363,6 @@ export default {
         Recommendation,
         ShareStrip,
         OpenInApp,
-        SignUpStrip,
         NextPratilipiStrip,
         ServerError,
         TranslatingInputTextArea,
@@ -557,7 +554,7 @@ export default {
 
         /* library */
         addPratilipiToLibrary() {
-            this._triggerReaderAnalyticsEvent('LIBRARYADD_READERM_READER')
+            this._triggerReaderAnalyticsEvent('LIBRARYADD_BOTTOMBAR_READER')
             if (this.getUserDetails.isGuest) {
                 this.setAfterLoginAction({action: `${this.$route.meta.store}/addToLibrary`})
                 this.openLoginModal(this.$route.meta.store, 'LIBRARYADD', 'READERM')
@@ -566,7 +563,7 @@ export default {
             }
         },
         removePratilipiFromLibrary() {
-            this._triggerReaderAnalyticsEvent('LIBRARYREMOVE_READERM_READER')
+            this._triggerReaderAnalyticsEvent('LIBRARYREMOVE_BOTTOMBAR_READER')
             this.removeFromLibrary()
         },
 
@@ -682,7 +679,7 @@ export default {
 
         /* share */
         openShareModal() {
-            this._triggerReaderAnalyticsEvent('CLICKSHRBOOK_READERM_READER')
+            this._triggerReaderAnalyticsEvent('CLICKSHRBOOK_BOTTOMBAR_READER')
             this.setShareDetails({ data: this.getPratilipiData, type: 'PRATILIPI', screen_name: 'READER', screen_location: 'READERM' })
             $('#share_modal').modal('show')
         },
