@@ -396,12 +396,14 @@ export default {
             channelUsersData[self.otherUserId] = {
                 profileImageUrl: this.$route.query.profileImageUrl,
                 displayName:this.$route.query.displayName,
-                profileUrl: this.$route.query.profileUrl
+                profileUrl: this.$route.query.profileUrl,
+                chatAllowed: false
             };
             channelUsersData[this.getUserDetails.userId] = {
                 profileImageUrl: this.getUserDetails.profileImageUrl,
                 displayName: this.getUserDetails.displayName,
-                profileUrl: this.getUserDetails.profilePageUrl
+                profileUrl: this.getUserDetails.profilePageUrl,
+                chatAllowed: true
             };
             this.firebaseGrowthDB.ref('/CHATS/channel_metadata/' + self.channelId).set({users: channelUsersData}, function (error) {
                 if (error) {
@@ -512,10 +514,12 @@ export default {
             let watchlistUpdateNeeded = false;
             if (self.isChannelInSelfWatchlist != true) {
                 addChannelToWatchlistUpdate['/CHATS/user_watched_channels/' + this.getUserDetails.userId + '/' + self.channelId] = true;
+                addChannelToWatchlistUpdate['/CHATS/user_watched_channels_aggregated/' + this.getUserDetails.userId + '/' + self.channelId + '/state'] = true;
                 watchlistUpdateNeeded = true;
             }
             if (self.isChannelInOtherUserWatchlist != true) {
                 addChannelToWatchlistUpdate['/CHATS/user_watched_channels/' + self.otherUserId + '/' + self.channelId] = true;
+                addChannelToWatchlistUpdate['/CHATS/user_watched_channels_aggregated/' + self.otherUserId + '/' + self.channelId + '/state'] = true;
                 watchlistUpdateNeeded = true;
             }
             if (watchlistUpdateNeeded == true) {
@@ -548,7 +552,7 @@ export default {
                 }
             });
             self.toSendMessageText = "";
-            
+
             this.triggerAnanlyticsEvent('SENDMESSAGE_USERCHAT_P2PCHAT', 'CONTROL', {
                 'USER_ID': this.getUserDetails.userId,
                 'RECEIVER_ID': this.otherUserId
@@ -570,7 +574,7 @@ export default {
 
         blockUser () {
             this.firebaseGrowthDB.ref('CHATS').child('blocked_users').child(this.getUserDetails.userId).child(this.otherUserId).set(true);
-            
+
             this.triggerAnanlyticsEvent('BLOCKUSER_USERCHAT_P2PCHAT', 'CONTROL', {
                 'USER_ID': this.getUserDetails.userId,
                 'RECEIVER_ID': this.otherUserId
@@ -581,7 +585,7 @@ export default {
         unblockUser () {
             const self = this;
             this.firebaseGrowthDB.ref('/CHATS').child('blocked_users').child(this.getUserDetails.userId).child(self.otherUserId).set(false);
-            
+
             this.triggerAnanlyticsEvent('UNBLOCKUSER_USERCHAT_P2PCHAT', 'CONTROL', {
                 'USER_ID': this.getUserDetails.userId,
                 'RECEIVER_ID': this.otherUserId
@@ -593,6 +597,7 @@ export default {
             self.removeChannelFromCache({channelId: self.channelId});
             let deleteConversationUpdates = {};
             deleteConversationUpdates['/CHATS/user_watched_channels/' + this.getUserDetails.userId + '/' + self.channelId] = {};
+            deleteConversationUpdates['/CHATS/user_watched_channels_aggregated/' + this.getUserDetails.userId + '/' + self.channelId + '/state'] = {};
             deleteConversationUpdates['/CHATS/user_channels/' + this.getUserDetails.userId + '/' + self.channelId + '/lastDeletedMessage'] = self.lastDeliveredMessageId;
             this.firebaseGrowthDB.ref().update(deleteConversationUpdates, function (error) {
                 if (error) {
@@ -601,12 +606,12 @@ export default {
             });
             $('#confirmation').modal('hide');
             self.messageList = [];
-            
+
             this.triggerAnanlyticsEvent('DELETECHAT_USERCHAT_P2PCHAT', 'CONTROL', {
                 'USER_ID': this.getUserDetails.userId,
                 'RECEIVER_ID': this.otherUserId
             });
-            
+
             this.$router.push('/messages');
         },
 
@@ -621,7 +626,7 @@ export default {
 
         redirectToMessagesPage() {
             this.$router.push('/messages');
-            
+
             this.triggerAnanlyticsEvent('VIEWALLCHATS_USERCHAT_P2PCHAT', 'CONTROL', {
                 'USER_ID': this.getUserDetails.userId,
                 'RECEIVER_ID': this.otherUserId
