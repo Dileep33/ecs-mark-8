@@ -149,7 +149,7 @@ export default {
                         self.channelLastMessage[channelId].isUnread = false;
                     }
                 }
-                self.channelLastReadMessage[channelId] = snapshot.val();
+            self.channelLastReadMessage[channelId] = snapshot.val();
                 for(let i=0; i < self.conversations.length; i++) {
                     if(self.conversations[i].channelId == channelId) {
                         if(self.conversations[i].messageId == snapshot.val()) {
@@ -274,7 +274,7 @@ export default {
             // }
             self.firebaseGrowthDB.ref('/CHATS').child('user_profile').child(self.getUserDetails.userId).once('value').then(function(snapshot){
                 if(snapshot.val() == undefined || snapshot.val.displayName != self.getUserDetails.displayName() || snapshot.val.profileImageUrl != self.getUserDetails.profileImageUrl()){
-                    var userProfile = {displayName : self.getUserDetails.displayName, profileImageUrl : self.getUserDetails.profileImageUrl, profileUrl: self.getUserDetails.profilePageUrl};
+                    var userProfile = {displayName : self.getUserDetails.displayName, profileImageUrl : self.getUserDetails.profileImageUrl, profileUrl: self.getUserDetails.profilePageUrl, authorId: self.getUserDetails.authorId};
                     self.firebaseGrowthDB.ref('/CHATS').child('user_profile').child(self.getUserDetails.userId).set(userProfile, function(error){
                         //TODO Figure out error handling
                         // if(error == undefined){
@@ -290,7 +290,7 @@ export default {
 
         loadMessagesForConversation(userId){
             this.$router.push('/messages/' + userId );
-            
+
             this.triggerAnanlyticsEvent('STARTCHAT_ALLCHATS_P2PCHAT', 'CONTROL', {
                 'USER_ID': this.getUserDetails.userId,
                 'RECEIVER_ID': userId
@@ -345,7 +345,7 @@ export default {
                 }
             });
             $('#messagesConfirmation').modal('hide');
-            
+
             this.triggerAnanlyticsEvent('DELETECHAT_ALLCHATS_P2PCHAT', 'CONTROL', {
                 'USER_ID': this.getUserDetails.userId,
                 'RECEIVER_ID': self.fetchedChannelMetadataData[self.toDeleteChannelId].otherUserId
@@ -370,7 +370,7 @@ export default {
 
         blockUser (otherUserId) {
             this.firebaseGrowthDB.ref('CHATS').child('blocked_users').child(this.getUserDetails.userId).child(otherUserId).set(true);
-            
+
             this.triggerAnanlyticsEvent('BLOCKUSER_ALLCHATS_P2PCHAT', 'CONTROL', {
                 'USER_ID': this.getUserDetails.userId,
                 'RECEIVER_ID': otherUserId
@@ -380,7 +380,7 @@ export default {
 
         unblockUser (otherUserId) {
             this.firebaseGrowthDB.ref('/CHATS').child('blocked_users').child(this.getUserDetails.userId).child(otherUserId).set(false);
-            
+
             this.triggerAnanlyticsEvent('UNBLOCKUSER_ALLCHATS_P2PCHAT', 'CONTROL', {
                 'USER_ID': this.getUserDetails.userId,
                 'RECEIVER_ID': otherUserId
