@@ -119,6 +119,15 @@ import { mapGetters, mapActions } from 'vuex'
                                 console.log("Firebase Growth App Login Success ");
                                 that.setFirebaseGrowthDBInitialisedTrue();
                                 that.attachMessageNotificationListener(that.getUserDetails.userId);
+                                const userProfileRef = growthFirebaseApp.database().ref( "CHATS" ).child('user_profile').child( that.getUserDetails.userId ).child( "connections" );
+                                userProfileRef.set({
+                                    connected: true
+                                });
+
+                                userProfileRef.onDisconnect().set({
+                                    connected: false,
+                                    lastOnline: firebase.database.ServerValue.TIMESTAMP
+                                });
                             } else {
                                 console.log("Non Logged-In FB User. Firebase token : ", that.getUserDetails.firebaseToken);
                                 firebase.auth(growthFirebaseApp).signInWithCustomToken( that.getUserDetails.firebaseToken ).catch(function(error) {
