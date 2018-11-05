@@ -194,7 +194,9 @@
                             <ShareStrip
                                 v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId"
                                 :data="getPratilipiData"
-                                :type="'PRATILIPI'">
+                                :type="'PRATILIPI'"
+                                screenName="READER"
+                                screenLocation="BOOKEND">
                             </ShareStrip>
                             <div class="book-bottom-ratings p-lr-15">
                                 <Reviews

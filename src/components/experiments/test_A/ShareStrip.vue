@@ -42,6 +42,19 @@ export default {
         type: {
             type: String,
             required: true
+        },
+        screenName: {
+            type: String,
+            required: true
+        },
+        screenLocation: {
+            type: String,
+            required: true
+        },
+        experimentId: {
+            type: String,
+            required: false,
+            default: 'CONTROL'
         }
     },
     methods: {
@@ -53,7 +66,7 @@ export default {
             if (this.getPratilipiData) {
                 pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
             }
-            this.triggerAnanlyticsEvent(`SHAREBOOKFB_BOOKEND_READER`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`SHAREBOOKFB_${this.screenLocation}_${this.screenName}`, this.experimentId, {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': 'FACEBOOK'
@@ -64,7 +77,7 @@ export default {
             if (this.getPratilipiData) {
                 pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
             }
-            this.triggerAnanlyticsEvent(`SHAREBOOKWA_BOOKEND_READER`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`SHAREBOOKWA_${this.screenLocation}_${this.screenName}`, this.experimentId, {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': 'WHATSAPP'
@@ -75,11 +88,11 @@ export default {
             if (this.getPratilipiData) {
                 pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
             }
-            this.triggerAnanlyticsEvent(`CLICKSHRBOOK_BOOKEND_READER`, 'CONTROL', {
+            this.triggerAnanlyticsEvent(`CLICKSHRBOOK_${this.screenLocation}_${this.screenName}`, this.experimentId, {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
             });
-            this.setShareDetails({ data: this.getPratilipiData, type: 'PRATILIPI', screen_name: 'READER', screen_location: 'BOOKEND' })
+            this.setShareDetails({ data: this.getPratilipiData, type: 'PRATILIPI', screen_name: this.screenName, screen_location: this.screenLocation })
             $('#share_modal').modal('show')
         },
     },
