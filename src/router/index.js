@@ -445,7 +445,9 @@ var router = new Router({
             component: () => {
                 let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 5;
                 console.log("bucket id ", bucketId);
-                if (bucketId >= 50 && bucketId < 75) {
+                if (bucketId >= 25 && bucketId < 50) {
+                    return import ('@/pages/experiments/test_A/ReaderV2.vue');
+                } else if (bucketId >= 50 && bucketId < 75) {
                     return import ('@/pages/experiments/reader_redesign/ReaderV2.vue');
                 } else if (bucketId > 75 && bucketId <= 85) {
                     return import ('@/pages/experiments/reader_redesign/ReaderV2-1.vue');

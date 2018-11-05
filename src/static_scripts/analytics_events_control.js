@@ -1172,6 +1172,11 @@ export default {
         "LOCATION": "BOOKEND",
         "ACTION": "SHAREBOOKWA"
     },
+    "CLICKSHRBOOK_BOOKEND_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "BOOKEND",
+        "ACTION": "CLICKSHRBOOK"
+    },
     "LIBRARYADD_BOTTOMBAR_READER": {
         "SCREEN_NAME": "READER",
         "LOCATION": "BOTTOMBAR",
