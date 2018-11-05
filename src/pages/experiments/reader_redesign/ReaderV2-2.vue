@@ -320,7 +320,6 @@
                 </div>
             </div>
 
-            <OpenInApp v-if="isAndroid() && readerPercentScrolled < 102 && getPratilipiLoadingState === 'LOADING_SUCCESS'" :isVisible="shouldShowOpenInAppStrip" :pratilipiData="getPratilipiData"></OpenInApp>
             <div class="overlay" @click="closeSidebar"></div>
             <div class="overlay-1" @click="closeReviewModal"></div>
             <div class="overlay-2" @click="closeRatingModal"></div>
@@ -345,7 +344,6 @@ import ReviewsNew from '@/components/experiments/reader_redesign/Reviews.vue';
 import WebPushStrip from '@/components/WebPushStrip.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
 import Recommendation from '@/components/Recommendation.vue';
-import OpenInApp from '@/components/OpenInApp.vue';
 import ShareStrip from '@/components/experiments/reader_redesign/ShareStrip.vue';
 import NextPratilipiStrip from '@/components/experiments/reader_redesign/NextPratilipiStrip.vue'
 import ServerError from '@/components/ServerError.vue';
@@ -383,7 +381,6 @@ export default {
         WebPushModal,
         Recommendation,
         ShareStrip,
-        OpenInApp,
         NextPratilipiStrip,
         ServerError,
         TranslatingInputTextArea,

@@ -288,7 +288,6 @@
                     </div>
                 </div>
             </div>
-            <OpenInApp v-if="isAndroid() && percentScrolled < 102 && getPratilipiLoadingState === 'LOADING_SUCCESS'" :isVisible="shouldShowOpenInAppStrip" :pratilipiData="getPratilipiData"></OpenInApp>
             <div class="overlay" @click="closeSidebar"></div>
             <div class="overlay-1" @click="closeReviewModal"></div>
             <div class="overlay-2" @click="closeRatingModal"></div>
@@ -312,7 +311,6 @@ import Reviews from '@/components/Reviews.vue';
 import WebPushStrip from '@/components/WebPushStrip.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
 import Recommendation from '@/components/experiments/Recommendation/Recommendation_v1.vue';
-import OpenInApp from '@/components/OpenInApp.vue';
 import ShareStrip from '@/components/ShareStrip.vue';
 import NextPratilipiStrip from '@/components/NextPratilipiStrip.vue'
 import WebPushUtil from '@/utils/WebPushUtil';
@@ -329,7 +327,6 @@ export default {
         WebPushModal,
         Recommendation,
         ShareStrip,
-        OpenInApp,
         NextPratilipiStrip
     },
     mixins: [
