@@ -69,6 +69,8 @@ export default {
         pratilipiListFunction(listName, state.cursor, null, resultCount, language, timeFilter, function(data) {
             if (data.status === 200) {
                 commit('setListPageDynamicLoadingSuccess', data.response);
+            } else if(data.status === 400 && data.response.type === 'ERR_LIST_NAME_RESPONSE_EMPTY') {
+                commit('setListPageDynamicLoadingSuccess', {});
             } else {
                 commit('setListPageDynamicLoadingError');
             }
