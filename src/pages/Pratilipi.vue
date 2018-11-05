@@ -788,6 +788,10 @@ export default {
                 const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
 
                 let experimentId = 'CONTROL';
+                let bucketId = parseInt(this.getCookie('bucket_id')) || 0;
+                if (bucketId >= 25 && bucketId <= 35) {
+                    experimentId = 'TESTA1';
+                }
                 this.triggerAnanlyticsEvent('LANDED_BOOKM_BOOK', experimentId, {
                     ...pratilipiAnalyticsData,
                     'USER_ID': this.getUserDetails.userId
