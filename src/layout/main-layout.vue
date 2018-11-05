@@ -6,9 +6,7 @@
         <slot></slot>
         <PratilipiModal></PratilipiModal>
         <LoginModal></LoginModal>
-        <ShareModalOne v-if="getCookie('bucket_id') > 70 && getCookie('bucket_id') <= 85 && $route.meta.store !== 'authorpage'"></ShareModalOne>
-        <ShareModalTwo v-else-if="getCookie('bucket_id') > 85 && getCookie('bucket_id') <= 100 && $route.meta.store !== 'authorpage'"></ShareModalTwo>
-        <ShareModal v-else></ShareModal>
+        <ShareModal></ShareModal>
         <InputModal></InputModal>
         <MultiInputModal></MultiInputModal>
         <ConfirmationModal></ConfirmationModal>
@@ -23,8 +21,6 @@ import AppBanner from '@/components/AppBanner.vue';
 import AppBannerTwo from '@/components/experiments/appbanner_v2/AppBanner.vue';
 import PratilipiModal from '@/components/PratilipiModal.vue';
 import LoginModal from '@/components/LoginModal.vue';
-import ShareModalOne from '@/components/experiments/share_ui/Share_v1.vue';
-import ShareModalTwo from '@/components/experiments/share_ui/Share_v2.vue';
 import ShareModal from '@/components/Share.vue';
 import InputModal from '@/components/InputModal.vue';
 import MultiInputModal from '@/components/MultiInputModal.vue';
@@ -67,8 +63,6 @@ export default {
         AppBannerTwo,
         PratilipiModal,
         LoginModal,
-        ShareModalOne,
-        ShareModalTwo,
         ShareModal,
         InputModal,
         MultiInputModal,

@@ -309,21 +309,6 @@ var router = new Router({
                     return new Promise((resolve) => {
                         resolve(PratilipiPageComponent)
                     });
-                } else if (process.env.REALM === 'PROD_BRIDGE') {
-
-                } else {
-                    /*const isTrue = true;
-                    if (getCookie('bucketId') >= 2 && getCookie('bucketId') < 4) {
-                        return import ('@/pages/experiments/book_v1/Pratilipi.vue');
-                    } else if (getCookie('bucketId') >= 4 && getCookie('bucketId') < 6) {
-                        return import ('@/pages/experiments/book_v2/Pratilipi.vue');
-                    } else if (getCookie('bucketId') >= 6 && getCookie('bucketId') < 8) {
-                        return import ('@/pages/experiments/book_v3/Pratilipi.vue');
-                    } else if (getCookie('bucketId') >= 8 && getCookie('bucketId') < 10) {
-                        return import ('@/pages/experiments/book_v4/Pratilipi.vue');
-                    } else {
-                        return import ('@/pages/Pratilipi.vue');
-                    }*/
                 }
             },
             // component: PratilipiPageComponent,
@@ -446,14 +431,6 @@ var router = new Router({
             path: '/read',
             name: 'Reader_Page',
             component: () => {
-                let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 42;
-                console.log("bucket id ", bucketId);
-
-                // if (bucketId > 70 && bucketId <= 100) {
-                //     return import ('@/pages/experiments/ratingpanel_v1/Reader_v1.vue');
-                // } else {
-                //     return new Promise((resolve, reject) => resolve(ReaderPageComponent));
-                // }
                 return new Promise((resolve, reject) => resolve(ReaderPageComponent));
 
             },
@@ -466,17 +443,13 @@ var router = new Router({
             path: '/read/:slug',
             name: 'Reader_Page_V2',
             component: () => {
-                let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 42;
+                let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 5;
                 console.log("bucket id ", bucketId);
-                if (bucketId > 10 && bucketId <= 25) {
-                    return import ('@/pages/experiments/reader_redesign/ReaderV2WithSignIn1.vue');
-                } else if (bucketId > 25 && bucketId <= 40) {
-                    return import ('@/pages/experiments/reader_redesign/ReaderV2WithSignIn2.vue');
-                } else if (bucketId > 40 && bucketId <= 70) {
+                if (bucketId >= 50 && bucketId < 75) {
                     return import ('@/pages/experiments/reader_redesign/ReaderV2.vue');
-                } else if (bucketId > 70 && bucketId <= 85) {
+                } else if (bucketId > 75 && bucketId <= 85) {
                     return import ('@/pages/experiments/reader_redesign/ReaderV2-1.vue');
-                } else if (bucketId > 85 && bucketId <= 100) {
+                } else if (bucketId > 85 && bucketId <= 99) {
                     return import ('@/pages/experiments/reader_redesign/ReaderV2-2.vue');
                 } else {
                     return new Promise((resolve, reject) => resolve(ReaderPageV2Component));

@@ -255,10 +255,7 @@
                             </span>
                         </div>
                         <div class="whatsapp-share-btn" v-if="isMobile()">
-                            <a v-if="readerPercentScrolled > 100 && (getCookie('bucket_id') > 10 && getCookie('bucket_id') <= 25) && getIndexData[getIndexData.length -1].slugId === currentChapterSlugId" :href="getWhatsAppUri" @click="triggerWaGreenEndShareEvent" class="whatsapp green" target="_blank" rel="noopener" aria-label="whatsapp">
-                                <span class="social-icon"><icon name="whatsapp"></icon></span>
-                            </a>
-                            <a v-else :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="whatsapp">
+                            <a :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="whatsapp">
                                 <span class="social-icon"><icon name="whatsapp"></icon></span>
                             </a>
                         </div>
@@ -302,7 +299,6 @@
                 </div>
             </div>
 
-            <OpenInApp v-if="isAndroid() && readerPercentScrolled < 102 && getPratilipiLoadingState === 'LOADING_SUCCESS' && (getCookie('bucket_id') > 40 && getCookie('bucket_id') <= 99)" :isVisible="shouldShowOpenInAppStrip" :pratilipiData="getPratilipiData"></OpenInApp>
             <div class="overlay" @click="closeSidebar"></div>
             <div class="overlay-1" @click="closeReviewModal"></div>
             <div class="overlay-2" @click="closeRatingModal"></div>
@@ -326,7 +322,6 @@ import Reviews from '@/components/Reviews.vue';
 import WebPushStrip from '@/components/WebPushStrip.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
 import Recommendation from '@/components/Recommendation.vue';
-import OpenInApp from '@/components/OpenInApp.vue';
 import ShareStrip from '@/components/ShareStrip.vue';
 import NextPratilipiStrip from '@/components/NextPratilipiStrip.vue'
 import ServerError from '@/components/ServerError.vue';
@@ -365,7 +360,6 @@ export default {
         WebPushModal,
         Recommendation,
         ShareStrip,
-        OpenInApp,
         NextPratilipiStrip,
         ServerError,
         TranslatingInputTextArea,
@@ -697,9 +691,6 @@ export default {
         /* whatsapp share */
         triggerWaEndShareEvent() {
             this._triggerReaderAnalyticsEvent('SHAREBOOKWA_BOTTOMBAR_READER', 'WHATSAPP', null, 'TEST302')
-        },
-        triggerWaGreenEndShareEvent() {
-            this._triggerReaderAnalyticsEvent('SHAREBOOKWAG_BOTTOMBAR_READER', 'WHATSAPP', null, 'TEST302')
         },
 
         /* scroll */

@@ -129,7 +129,7 @@
                                 ></NextPratilipiStrip>
                             </div>
                             <div class="goto-readerpage-container">
-                                <router-link :to="gotoBookPageReview(getPratilipiData.pageUrl)" v-if="getCookie('bucket_id') > 40 && getCookie('bucket_id') <= 70">__("see_all_reviews")</router-link>
+                                <router-link :to="gotoBookPageReview(getPratilipiData.pageUrl)" v-if="selectedChapter == getIndexData.length && getCookie('bucket_id') >= 50 && getCookie('bucket_id') < 75">__("see_all_reviews")</router-link>
                             </div>
                             
                             <ShareStrip
@@ -186,7 +186,7 @@
                                 message="__('web_push_message_2')"
                                 screenName="READER"
                                 :includeDisableButton=true
-                                v-if="selectedChapter == getIndexData.length && isWebPushModalEnabled && (getCookie('bucket_id') > 40 && getCookie('bucket_id') <= 70) && this.currentLocale !== 'en'"></WebPushModal>
+                                v-if="selectedChapter == getIndexData.length && isWebPushModalEnabled && this.currentLocale !== 'en'"></WebPushModal>
                         </div>
                     </div>
                 </div>
@@ -296,7 +296,6 @@
                     </div>
                 </div>
             </div>
-            <OpenInApp v-if="isAndroid() && percentScrolled < 102 && getPratilipiLoadingState === 'LOADING_SUCCESS' && (getCookie('bucket_id') > 40 && getCookie('bucket_id') <= 99)" :isVisible="shouldShowOpenInAppStrip" :pratilipiData="getPratilipiData"></OpenInApp>
             <div class="overlay" @click="closeSidebar"></div>
             <div class="overlay-1" @click="closeReviewModal"></div>
             <div class="overlay-2" @click="closeRatingModal"></div>
@@ -320,7 +319,6 @@ import Reviews from '@/components/Reviews.vue';
 import WebPushStrip from '@/components/WebPushStrip.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
 import Recommendation from '@/components/Recommendation.vue';
-import OpenInApp from '@/components/OpenInApp.vue';
 import ShareStrip from '@/components/ShareStrip.vue';
 import NextPratilipiStrip from '@/components/NextPratilipiStrip.vue'
 import WebPushUtil from '@/utils/WebPushUtil';
@@ -337,7 +335,6 @@ export default {
         WebPushModal,
         Recommendation,
         ShareStrip,
-        OpenInApp,
         NextPratilipiStrip
     },
     mixins: [

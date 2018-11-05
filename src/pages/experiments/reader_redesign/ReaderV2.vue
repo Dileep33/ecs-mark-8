@@ -170,7 +170,7 @@
                                 ></NextPratilipiStrip>
                             </div>
                             <div class="goto-readerpage-container">
-                                <router-link :to="gotoBookPageReview(getPratilipiData.pageUrl)" @click.native="triggerClickReview()" v-if="getCookie('bucket_id') > 40 && getCookie('bucket_id') <= 70">__("see_all_reviews")</router-link>
+                                <router-link :to="gotoBookPageReview(getPratilipiData.pageUrl)" @click.native="triggerClickReview()" v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId && getCookie('bucket_id') >= 50 && getCookie('bucket_id') < 75">__("see_all_reviews")</router-link>
                             </div>
                             <ShareStrip
                                 v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId"

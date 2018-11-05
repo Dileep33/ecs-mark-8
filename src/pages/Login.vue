@@ -14,15 +14,8 @@
                             </div> -->
 
                             <!-- <Login></Login> -->
-                            <RegisterWithCustomMessage
-                                :currentStep="currentStep"
-                                :changeCurrentStep="changeCurrentStep"
-                                :isLoginPage="true"
-                                v-if="getCookie('bucket_id') > 70 && getCookie('bucket_id') < 100"
-                                
-                            ></RegisterWithCustomMessage>
                             
-                            <Register :isLoginPage="true" :currentStep="currentStep" :changeCurrentStep="changeCurrentStep" v-else></Register>
+                            <Register :isLoginPage="true" :currentStep="currentStep" :changeCurrentStep="changeCurrentStep"></Register>
 
                         </div>
                     </div>
@@ -45,7 +38,6 @@
 import MainLayout from '@/layout/main-layout.vue';
 import Spinner from '@/components/Spinner.vue';
 import Register from '@/components/AppLogin.vue';
-import RegisterWithCustomMessage from '@/components/experiments/applogin_v1/AppLogin';
 import mixins from '@/mixins';
 import 'vue-awesome/icons/facebook-f'
 import 'vue-awesome/icons/google'
@@ -56,8 +48,7 @@ export default {
     components: {
         MainLayout,
         Spinner,
-        Register,
-        RegisterWithCustomMessage
+        Register
     },
     mixins: [
         mixins

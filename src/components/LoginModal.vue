@@ -17,21 +17,12 @@
                         </a>
                     </div>
                     <Login :openForgotPasswordInTab="true"></Login>
-                    <RegisterWithCustomMessage
-                        :currentStep="currentStep"
-                        :changeCurrentStep="changeCurrentStep"
-                        :openForgotPasswordInTab="true"
-                        :shouldRemoveError="shouldRemoveError"
-                        :resetShouldRemoveError="resetShouldRemoveError"
-                        v-if="getCookie('bucket_id') > 70 && getCookie('bucket_id') < 100"
-                    ></RegisterWithCustomMessage>
                     <Register
                         :currentStep="currentStep"
                         :changeCurrentStep="changeCurrentStep"
                         :openForgotPasswordInTab="true"
                         :shouldRemoveError="shouldRemoveError"
                         :resetShouldRemoveError="resetShouldRemoveError"
-                        v-else
                     ></Register>
                 </div>
             </div>
@@ -43,7 +34,6 @@ import { mapGetters, mapActions } from 'vuex'
 import Login from '@/components/Login';
 import mixins from '@/mixins';
 import Register from '@/components/AppLogin';
-import RegisterWithCustomMessage from '@/components/experiments/applogin_v1/AppLogin';
 
 export default {
     name: 'login-modal',
@@ -74,16 +64,6 @@ export default {
                 const referDetails = localStorage.getItem('login_modal_refer_details') ? JSON.parse(localStorage.getItem('login_modal_refer_details')) : {};
 
                 let experimentId = 'CONTROL';
-                if (this.getCookie('bucket_id') >= 71 && this.getCookie('bucket_id') < 100) {
-                    switch (referDetails.REFER_ACTION) {
-                        case 'REVIEW':
-                            experimentId = 'WSU002';
-                            break;
-                        default:
-                            experimentId = 'CONTROL';
-                            break;
-                    }
-                }
                 switch(this.getLoginSource) {
                     case 'EMAIL':
                         this.triggerAnanlyticsEvent('SIGNINSUC_EMAIL_GLOBAL', experimentId, {
@@ -160,7 +140,6 @@ export default {
     },
     components: {
         Login,
-        RegisterWithCustomMessage,
         Register
     }
 }

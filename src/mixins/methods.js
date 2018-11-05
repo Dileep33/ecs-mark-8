@@ -409,14 +409,14 @@ export function triggerAnanlyticsEvent(eventName, experimentType, eventProperty)
 
         let experimentId = experimentType;
         const bucketId = getCookie('bucket_id');
-        if (experimentType === 'CONTROL' && bucketId < 10) {
-            experimentId = 'CONTROL';
-        } else if (experimentType === 'CONTROL' && bucketId >= 10 && bucketId < 40) {
-            experimentId = 'TEST1';
-        } else if (experimentType === 'CONTROL' && bucketId >= 40 && bucketId < 70) {
-            experimentId = 'TEST2';
-        } else if (experimentType === 'CONTROL' && bucketId >= 70) {
-            experimentId = 'TEST3';
+        if (experimentType === 'CONTROL' && bucketId < 25) {
+            experimentId = 'NEW CONTROL';
+        } else if (experimentType === 'CONTROL' && bucketId >= 25 && bucketId < 50) {
+            experimentId = 'TEST A';
+        } else if (experimentType === 'CONTROL' && bucketId >= 50 && bucketId < 75) {
+            experimentId = 'TEST B';
+        } else if (experimentType === 'CONTROL' && bucketId >= 75) {
+            experimentId = 'TEST C';
         }
 
         eventProps = {

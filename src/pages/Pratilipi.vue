@@ -6,7 +6,7 @@
                     <div class="book-details col-md-12 col-lg-5 p-0">
                         <div class="card">
                             <div class="book-image-container">
-                                <div class="book-image" :class="{'small-device': getCookie('bucket_id') > 70 && getCookie('bucket_id') < 100}">
+                                <div class="book-image small-device">
                                      <img :src="getPratilipiData.coverImageUrl" :alt="getPratilipiData.title">
                                     <meta itemprop="image" v-bind:content="getPratilipiData.coverImageUrl" />
                                     <div class="progress-bar-read">
@@ -90,8 +90,7 @@
                                             <i class="material-icons">bookmark_border</i>
                                             <i class="material-icons stacked white">add</i>
                                         </span>
-                                        <span class="small-text" v-if="getCookie('bucket_id') > 10 && getCookie('bucket_id') <=40">__("read_later")</span>
-                                        <span v-else>__("library")</span>
+                                        <span>__("library")</span>
                                     </button>
 
                                     <button v-if="getUserPratilipiData.addedToLib" class="library-btn" @click="removeFromLibraryAndTriggerAnalytics(getPratilipiData.pratilipiId)">
@@ -114,15 +113,9 @@
                                   :to="readPageUrl"
                                   @click.native="logReadEvent"
                                   class="read-btn">
-                                  <span class="small-text" v-if="getCookie('bucket_id') > 10 && getCookie('bucket_id') <=40">__("read_now")</span>
-                                  <span v-else>__("read")</span>
+                                  <span>__("read")</span>
                                 </router-link>
                             </div>
-
-                            <!-- Facebook Individual SignUp -->
-                            <FacebookLogin
-                            :directBtn="true"
-                            v-if="this.getUserDetails.isGuest && (getCookie('bucket_id') > 70 && getCookie('bucket_id') <=99)"></FacebookLogin>
 
                             <BookShareStrip
                             :data="getPratilipiData"
@@ -806,10 +799,6 @@ export default {
                         $('html, body').animate({
                            scrollTop: $(".reviews-section").offset().top
                        }, 500);
-                       
-                       this.triggerAnanlyticsEvent(`VIEWREVIEW_BOOKM_BOOK`, 'CONTROL', {
-                           'USER_ID': this.getUserDetails.userId
-                       });
                     }
                 }, 500);
             }

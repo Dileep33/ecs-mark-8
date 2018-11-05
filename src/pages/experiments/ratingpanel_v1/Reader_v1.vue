@@ -193,10 +193,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="social-share-btn">
-                            <a v-if="percentScrolled > 102 && (getCookie('bucket_id') > 85 && getCookie('bucket_id') <= 100)" :href="getWhatsAppUri" @click="triggerWaGreenEndShareEvent" class="whatsapp green" target="_blank" rel="noopener" aria-label="whatsapp">
-                                <span class="social-icon"><icon name="whatsapp"></icon></span>
-                            </a>
-                            <a v-else :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="whatsapp">
+                            <a :href="getWhatsAppUri" @click="triggerWaEndShareEvent" class="whatsapp" target="_blank" rel="noopener" aria-label="whatsapp">
                                 <span class="social-icon"><icon name="whatsapp"></icon></span>
                             </a>
                         </div>
@@ -736,21 +733,8 @@ export default {
                 pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
             }
 
-            let experimentId = 'TEST302';
+            let experimentId = 'CONTROL';
             this.triggerAnanlyticsEvent(`SHAREBOOKWA_BOTTOMBAR_READER`, experimentId, {
-                ...pratilipiAnalyticsData,
-                'USER_ID': this.getUserDetails.userId,
-                'ENTITY_VALUE': 'WHATSAPP'
-            });
-        },
-        triggerWaGreenEndShareEvent() {
-            let pratilipiAnalyticsData = {};
-            if (this.getPratilipiData) {
-                pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.getPratilipiData);
-            }
-
-            let experimentId = 'TEST302';
-            this.triggerAnanlyticsEvent(`SHAREBOOKWAG_BOTTOMBAR_READER`, experimentId, {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
                 'ENTITY_VALUE': 'WHATSAPP'
