@@ -40,7 +40,11 @@ export default {
     setSectionData(state, sectionData) {
         console.log(state);
         state.sections.loading_state = 'LOADING_SUCCESS';
-        state.sections.data = sectionData.sections;
+        state.sections.data = sectionData.widgets.filter(eachWidget => eachWidget.type === 'PRATILIPI_LIST').map((eachWidget) => ({
+            "title": eachWidget.data.displayTitle,
+            "listPageUrl": eachWidget.data.pageUrl,
+            "pratilipiList": eachWidget.data.list
+        }))
     },
 
     setSectionDataLoadingError(state) {
