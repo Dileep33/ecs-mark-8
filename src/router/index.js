@@ -236,9 +236,15 @@ var router = new Router({
             path: '/',
             name: 'Home',
             component: () => {
-                return new Promise((resolve) => {
-                    resolve(Home)
-                });
+                let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 5;
+                console.log("bucket id ", bucketId);
+                if ((bucketId >= 75 && bucketId <= 86) || getLanguageCode(process.env.LANGUAGE) === 'en') {
+                    return import ('@/pages/experiments/home_v2/Home.vue');
+                } else if (bucketId >= 87 && bucketId <= 99) {
+                    return import ('@/pages/experiments/home_v2/HomeWithoutType.vue');
+                } else {
+                    return new Promise((resolve, reject) => resolve(Home));
+                }
             },
             meta: {
                 'store': 'homepage',
@@ -674,7 +680,17 @@ var router = new Router({
         }, {
             path: '/:list_page_url',
             name: 'List_Page',
-            component: ListPageComponent,
+            component: () => {
+                let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 5;
+                console.log("bucket id ", bucketId);
+                if ((bucketId >= 75 && bucketId <= 86) || getLanguageCode(process.env.LANGUAGE) === 'en') {
+                    return import ('@/pages/experiments/home_v2/ListPage.vue');
+                } else if (bucketId >= 87 && bucketId <= 99) {
+                    return import ('@/pages/experiments/home_v2/ListPageWithoutType.vue');
+                } else {
+                    return new Promise((resolve, reject) => resolve(ListPageComponent));
+                }
+            },
             meta: {
                 'store': 'listpage',
                 'title': '__("seo_navigation_page") | __("pratilipi")',
