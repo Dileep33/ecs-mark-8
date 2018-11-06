@@ -4,7 +4,6 @@
             <Banners v-if="getHomePageBannersLoadingState === 'LOADING_SUCCESS'"
                 :banners="getHomePageBanners"
             ></Banners>
-            <DummyLoader></DummyLoader>
             <DummyLoader v-if="getHomePageLoadingState === 'LOADING'"></DummyLoader>
             <div v-if="getHomePageLoadingState === 'LOADING_SUCCESS'" v-for="(eachSection, index) in getHomePageSections" v-bind:key="eachSection.listPageUrl">
                 <PratilipiListComponent
