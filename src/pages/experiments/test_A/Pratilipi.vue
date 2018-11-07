@@ -116,10 +116,20 @@
                                   <span>__("read")</span>
                                 </router-link>
                             </div>
+
+                            <ShareStrip
+                                v-if="getCookie('bucket_id') >= 25 && getCookie('bucket_id') <= 35"
+                                :data="getPratilipiData"
+                                :type="'PRATILIPI'"
+                                screenName="BOOK"
+                                screenLocation="BOOKM"
+                                experimentId="TESTA1">
+                            </ShareStrip>
                                 
                             <BookShareStrip
                             :data="getPratilipiData"
                             :type="'PRATILIPI'"
+                            v-else
                             ></BookShareStrip>
                         </div>
                         <!-- add next Pratilipi here-->
@@ -275,8 +285,9 @@ import MainLayout from '@/layout/main-layout.vue';
 import Recommendation from '@/components/Recommendation.vue';
 import AboutAuthor from '@/components/AboutAuthor.vue';
 import Spinner from '@/components/Spinner.vue';
-import Reviews from '@/components/Reviews.vue';
+import Reviews from '@/components/experiments/test_A/Reviews.vue';
 import BookShareStrip from '@/components/BookShareStrip.vue';
+import ShareStrip from '@/components/experiments/test_A/ShareStrip.vue';
 import ServerError from '@/components/ServerError.vue';
 import WebPushStrip from '@/components/WebPushStrip.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
@@ -695,6 +706,7 @@ export default {
 	    WebPushStrip,
 	    WebPushModal,
         BookShareStrip,
+        ShareStrip,
         MessageButton,
         VapasiQuote,
         VapasiHoroscope,

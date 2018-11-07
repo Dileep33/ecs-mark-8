@@ -311,10 +311,12 @@ var router = new Router({
             path: '/story/:slug_id',
             name: 'Pratilipi',
             component: () => {
-                if (process.env.REALM === 'PROD') {
-                    return new Promise((resolve) => {
-                        resolve(PratilipiPageComponent)
-                    });
+                let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 5;
+                console.log("bucket id ", bucketId);
+                if (bucketId >= 25 && bucketId < 50) {
+                    return import ('@/pages/experiments/test_A/Pratilipi.vue');
+                } else {
+                    return new Promise((resolve, reject) => resolve(PratilipiPageComponent));
                 }
             },
             // component: PratilipiPageComponent,
