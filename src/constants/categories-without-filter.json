@@ -1,5 +1,6 @@
 {
     "bn": [
+        "continue-reading",
         "aleek-kahini",
         "anugalpo",
         "other-articles",
@@ -26,6 +27,7 @@
         "author-of-the-week"
     ],
     "gu": [
+        "continue-reading",
         "arogya-sukh",
         "articles",
         "bhajan",
@@ -64,6 +66,7 @@
         "author-of-the-week"
     ],
     "hi": [
+        "continue-reading",
         "chhoti-kahaniya",
         "gazals",
         "other-articles",
@@ -97,6 +100,7 @@
         "storyweaver-childrenstories"
     ],
     "kn": [
+        "continue-reading",
         "books",
         "life",
         "nonfiction",
@@ -131,6 +135,7 @@
         "aow"
     ],
     "ml": [
+        "continue-reading",
         "classics",
         "family",
         "fiveminute",
@@ -160,6 +165,7 @@
         "contest"
     ],
     "mr": [
+        "continue-reading",
         "bhavishya",
         "laghukatha",
         "other-articles",
@@ -191,6 +197,7 @@
         "author-of-the-week"
     ],
     "ta": [
+        "continue-reading",
         "articles",
         "bookreview",
         "books",
@@ -222,6 +229,7 @@
         "homeevent"
     ],
     "te": [
+        "continue-reading",
         "childwritten",
         "cooking",
         "letters",
@@ -255,6 +263,7 @@
         "authoroftheweek"
     ],
     "en": [
+        "continue-reading",
         "classic-content"
     ]
 }
