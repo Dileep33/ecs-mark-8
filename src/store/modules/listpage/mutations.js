@@ -27,7 +27,13 @@ export default {
 
     setListPageInitialDataLoadingSuccess(state, data) {
         state.loading_state = 'LOADING_SUCCESS';
-        state.data = data.pratilipiList;
+        state.data = data.pratilipiList.map((eachPratilipi) => {
+            if (eachPratilipi.addedToLib === undefined) {
+                eachPratilipi.addedToLib = false;
+            }
+
+            return eachPratilipi;
+        });
         state.cursor = data.cursor ? data.cursor : data.limit + data.offset;
         state.numberFound = data.numberFound ? data.numberFound : data.found;
 
@@ -77,7 +83,13 @@ export default {
         if (!data.pratilipiList || data.pratilipiList.length === 0) {
             state.cursor = null;
         } else {
-            state.data = state.data.concat(data.pratilipiList);
+            state.data = state.data.concat(data.pratilipiList.map((eachPratilipi) => {
+                if (eachPratilipi.addedToLib === undefined) {
+                    eachPratilipi.addedToLib = false;
+                }
+
+                return eachPratilipi;
+            }));
             state.cursor = data.cursor ? data.cursor : data.limit + data.offset;
         }
     },
@@ -114,7 +126,7 @@ export default {
     setNavigationStatusLoadingError(state){
         state.navigationList.loading_state = 'LOADING_ERROR';
     },
-    
+
     setPageTitleNull(state) {
         state.title = '';
         state.titleEn = '';
