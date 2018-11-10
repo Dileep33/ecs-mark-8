@@ -54,7 +54,7 @@
 import MainLayout from '@/layout/main-layout.vue';
 import Spinner from '@/components/Spinner.vue';
 import DummyLoader from '@/components/DummyLoader.vue';
-import PratilipiComponent from '@/components/experiments/category_v1/PratilipiRecommendation.vue';
+import PratilipiComponent from '@/components/experiments/category_v2/PratilipiRecommendation.vue';
 import PageNotFound from '@/components/404.vue';
 import constants from '@/constants'
 import 'vue-awesome/icons/filter'

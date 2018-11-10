@@ -17,10 +17,18 @@
                         </span>
                     </div>
                     <div class="stats-container">
-                        <div class="icons"><i class="material-icons">star</i></div>
-                        <span class="margin-right-10">{{ pratilipiData.averageRating | round(1) }}</span>
-                        <div class="icons"><i class="material-icons">remove_red_eye</i></div>
-                        <span>{{ pratilipiData.readCount | round(1) }}</span>
+                        <div class="rating">
+                            <div class="icons"><i class="material-icons">star</i></div>
+                            <span class="margin-right-10">{{ pratilipiData.averageRating | round(1) }}</span>
+                        </div>
+                        <div class="read-time">
+                            <i class="material-icons">access_time</i>
+                            <span>
+                                <time itemprop="timeRequired" v-bind:datetime="pratilipiData.readingTime | readingTimeSchemaOrgFormat">
+                                    {{ pratilipiData.readingTime | showInMinutesOrHours }}
+    			                </time>
+                            </span>
+                        </div>
                     </div>
                     <p v-if="pratilipiData.clippedContent" class="summary">{{ pratilipiData.clippedContent }}</p>
                 </div>
@@ -387,6 +395,18 @@ export default {
                     vertical-align: middle;
                     i {
                         font-size: 13px;
+                    }
+                }
+
+                .read-time, .rating {
+                    display: inline-block;
+                    i {
+                        font-size: 13px;
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+                    span {
+                        vertical-align: middle;
                     }
                 }
             }
