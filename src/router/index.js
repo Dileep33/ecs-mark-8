@@ -686,7 +686,7 @@ var router = new Router({
                 if ((bucketId >= 75 && bucketId <= 86) || getLanguageCode(process.env.LANGUAGE) === 'en') {
                     return import ('@/pages/experiments/home_v2/ListPage.vue');
                 } else if (bucketId >= 50 && bucketId <= 74) {
-                    return import ('@/pages/experiments/category_v3/ListPage.vue');
+                    return import ('@/pages/experiments/category_v4/ListPage.vue');
                 } else if (bucketId >= 87 && bucketId <= 99) {
                     return import ('@/pages/experiments/home_v2/ListPageWithoutType.vue');
                 } else {

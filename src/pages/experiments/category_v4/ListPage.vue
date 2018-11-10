@@ -192,7 +192,7 @@ export default {
             this.list_type = 'high_rated';
             this.timeFilter.fromSec = 300;
             this.timeFilter.toSec = 1799;
-            this.timeText = "5 mins - 30 mins";
+            // this.timeText = "5 mins - 30 mins";
 
             this.triggerAnanlyticsEvent('GOHIGHRATED_CATEGORYM_CATEGORY', 'CONTROL', {
                 'USER_ID': this.getUserDetails.userId,

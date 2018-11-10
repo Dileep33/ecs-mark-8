@@ -39,7 +39,7 @@
                             :removeFromLibrary="removeFromLibrary"
                             :screenName="'CATEGORY'"
                             :screenLocation="'CATEGORYM'"
-                            :redirectToReader="true"
+                            :redirectToReader="false"
                             ></PratilipiComponent>
                         </div>
                         <DummyLoader v-if="getPratilipiListLoadingState === 'LOADING'" :sectionCount="1" :className="{list: true}"></DummyLoader>

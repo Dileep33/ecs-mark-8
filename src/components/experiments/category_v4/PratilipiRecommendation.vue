@@ -4,11 +4,31 @@
             <router-link :to="redirectToReader ? (pratilipiData.newReadPageUrl ? pratilipiData.newReadPageUrl : pratilipiData.readPageUrl ): pratilipiData.pageUrl" @click.native="triggerReadPratilipiEvent" :title="pratilipiData.title">
                 <div class="recommendation" v-lazy:background-image="pratilipiImageObject">
                     <span class="title">{{ pratilipiData.title ? pratilipiData.title : pratilipiData.displayTitle }}</span>
+                    <div class="image-mask">
+                        <span v-if="!hideAddToLibrary">
+                            <button class="add-library" v-if="!pratilipiData.addedToLib" @click.prevent="addPratilipiToLibrary(pratilipiData.pratilipiId)">
+                                <i class="material-icons">bookmark_border</i>
+                                <i class="material-icons stacked grey">add</i>
+                            </button>
+                            <button class="add-library" v-else @click.prevent="triggerAnalyticsAndRemovePratilipiFromLibrary(pratilipiData.pratilipiId)">
+                                <i class="material-icons added-to-lib">bookmark</i>
+                                <i class="material-icons stacked">check</i>
+                            </button>
+                        </span>
+                    </div>
                     <div class="stats-container">
-                        <div class="icons"><i class="material-icons">star</i></div>
-                        <span class="margin-right-10">{{ pratilipiData.averageRating | round(1) }}</span>
-                        <div class="icons"><i class="material-icons">remove_red_eye</i></div>
-                        <span>{{ pratilipiData.readCount | round(1) }}</span>
+                        <div class="rating">
+                            <div class="icons"><i class="material-icons">star</i></div>
+                            <span class="margin-right-10">{{ pratilipiData.averageRating | round(1) }}</span>
+                        </div>
+                        <div class="read-time">
+                            <i class="material-icons">access_time</i>
+                            <span>
+                                <time itemprop="timeRequired" v-bind:datetime="pratilipiData.readingTime | readingTimeSchemaOrgFormat">
+                                    {{ pratilipiData.readingTime | showInMinutesOrHours }}
+    			                </time>
+                            </span>
+                        </div>
                     </div>
                     <p v-if="pratilipiData.clippedContent" class="summary">{{ pratilipiData.clippedContent }}</p>
                 </div>
@@ -357,7 +377,7 @@ export default {
             span.title {
                 overflow: hidden;
                 width: 100%;
-                max-width: 100%;
+                max-width: 80%;
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 padding: 5px 10px 0;
@@ -375,6 +395,18 @@ export default {
                     vertical-align: middle;
                     i {
                         font-size: 13px;
+                    }
+                }
+
+                .read-time, .rating {
+                    display: inline-block;
+                    i {
+                        font-size: 13px;
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+                    span {
+                        vertical-align: middle;
                     }
                 }
             }
