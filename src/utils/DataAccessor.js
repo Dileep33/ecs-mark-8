@@ -21,6 +21,7 @@ const PRATILIPI_LIST_RECENT_API = "/stats/v2.0/recent_published";
 const PRATILIPI_LIST_FOR_YOU_API = "/stats/for_you";
 const PRATILIPI_LIST_HIGH_RATED_API = "/stats/v2.0/high_rated";
 const PRATILIPI_CONTENT_API = "/pratilipi/content";
+const PRATILIPI_CLIPPED_CONTENT_API = "/content/v1.0/contents/clipped";
 const PRATILIPI_CONTENT_INDEX_API = "/pratilipi/content/index";
 const PRATILIPI_TAGS_UPDATE_API = "/pratilipi/tags/update";
 const PRATILIPI_NEW_API = "/pratilipis";
@@ -163,9 +164,12 @@ const processPostResponse = function(response, status, successCallBack, errorCal
 /* DataAccessor */
 export default {
 
-    getPratilipiBySlug: (slug, includeUserPratilipi, aCallBack) => {
+    getPratilipiBySlug: (slug, includeUserPratilipi, includeClippedContent, aCallBack) => {
         var requests = [];
         requests.push(new request("req1", PRATILIPI_NEW_API, { "slug": slug, "nextPratilipi" : true}));
+
+        if (includeClippedContent)
+            requests.push(new request("req3", PRATILIPI_CLIPPED_CONTENT_API, { "id": "$req1.pratilipiId", "charLength": 200 }));
 
         if (includeUserPratilipi)
             requests.push(new request("req2", USER_PRATILIPI_API, { "pratilipiId": "$req1.pratilipiId" }));
@@ -175,7 +179,8 @@ export default {
                 if (aCallBack != null) {
                     var pratilipi = response.req1 && response.req1.status == 200 ? response.req1.response : null;
                     var userpratilipi = includeUserPratilipi && response.req2 && response.req2.status == 200 ? response.req2.response : null;
-                    aCallBack(pratilipi, userpratilipi);
+                    var clippedContent = includeClippedContent && response.req3 && response.req3.status == 200 ? response.req3.response : null;
+                    aCallBack(pratilipi, userpratilipi, clippedContent);
                 }
             });
     },

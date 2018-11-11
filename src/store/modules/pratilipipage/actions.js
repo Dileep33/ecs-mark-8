@@ -34,7 +34,7 @@ export default {
     fetchPratilipiDetailsAndUserPratilipiData({ commit, state }, slugId) {
         commit('setPratilipiDataLoadingTrue');
         commit('setPratilipiUserDataLoadingTrue');
-        DataAccessor.getPratilipiBySlug(slugId, true, function(pratilipiData, userPratilipiData) {
+        DataAccessor.getPratilipiBySlug(slugId, true, true, function(pratilipiData, userPratilipiData, clippedContent) {
             if (pratilipiData) {
                 commit('setPratilipiDataLoadingSuccess', pratilipiData);
             } else {
@@ -44,6 +44,12 @@ export default {
                 commit('setPratilipiUserDataLoadingSuccess', userPratilipiData);
             } else {
                 commit('setPratilipiUserDataLoadingError');
+            }
+
+            if (clippedContent) {
+                commit('setPratilipiClippedContentDataLoadingSuccess', clippedContent);
+            } else {
+                commit('setPratilipiClippedContentDataLoadingError');
             }
         });
     },
@@ -230,7 +236,7 @@ export default {
             }
         });
     },
-    
+
     submitPrailipiReport ({commit, state} , {name, email, value, pratilipiId , language, dataType }) {
         let phone = null;
         // let dataType = dataType;

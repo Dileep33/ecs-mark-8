@@ -33,6 +33,21 @@ export default {
         state.pratilipi.data = {};
     },
 
+    setPratilipiClippedContentDataLoadingSuccess(state, clippedContentData){
+
+        if (clippedContentData && clippedContentData.length > 0) {
+            clippedContentData.forEach((clippedContent) => {
+                if (state.pratilipi.data.pratilipiId === clippedContent.pratilipiId) {
+                    state.pratilipi.data.clippedContent = clippedContent.clippedContent;
+                }
+            });
+        }
+
+    },
+    setPratilipiClippedContentDataLoadingError(state){
+
+    },
+
 
     addPratilipiToLibrarySuccess(state) {
         state.userPratilipi.data.addedToLib = true;
