@@ -980,7 +980,7 @@ export default {
             align-items: flex-start;
 
             @media screen and (max-height: 667px) {
-                margin-bottom: 0px;
+                margin-bottom: 5px;
             }
         }
         .cover__details-summary {
@@ -1049,14 +1049,7 @@ export default {
             flex-grow: 1;
             max-width: 55%;
             justify-content: center;
-
             @media screen and (max-height: 823px) {
-                max-width: 40%;
-            }
-            @media screen and (max-height: 736px) {
-                max-width: 40%;
-            }
-            @media screen and (max-height: 640px) {
                 max-width: 40%;
             }
             .book-image {
@@ -1066,7 +1059,10 @@ export default {
                 width: 200px;
                 height: 300px;
                 position: relative;
-                @media screen and (max-height: 823px) {
+                @media screen and (max-height: 640px) {
+                    height: 220px;
+                }
+                @media screen and (min-height: 641px) and (max-height: 823px) {
                     height: 230px;
                 }
                 img {
