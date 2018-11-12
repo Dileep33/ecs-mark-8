@@ -74,6 +74,8 @@
                             <BookShareStrip
                             :data="getPratilipiData"
                             :type="'PRATILIPI'"
+                            experimentId="TESTA2"
+                            
                             v-if="getCookie('bucket_id') >= 36 && getCookie('bucket_id') <= 45 && getCookie('last_read_book') == getPratilipiData.pratilipiId"
                             ></BookShareStrip>
                             
