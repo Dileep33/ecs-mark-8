@@ -2716,5 +2716,16 @@ export default {
         "SCREEN_NAME": "BOOK",
         "LOCATION": "BOOKM",
         "ACTION": "VIEWREVIEW"
+    },
+
+    "OPENFILTER_CATEGORYM_CATEGORY": {
+        "SCREEN_NAME": "CATEGORY",
+        "LOCATION": "CATEGORYM",
+        "ACTION": "OPENFILTER"
+    },
+    "REMOVEFILTER_CATEGORYM_CATEGORY": {
+        "SCREEN_NAME": "CATEGORY",
+        "LOCATION": "CATEGORYM",
+        "ACTION": "REMOVEFILTER"
     }
 };

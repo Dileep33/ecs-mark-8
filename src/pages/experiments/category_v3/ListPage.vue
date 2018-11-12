@@ -145,6 +145,10 @@ export default {
             });
         },
         toggleSortMenu() {
+            this.triggerAnanlyticsEvent('OPENFILTER_CATEGORYM_CATEGORY', 'CONTROL', {
+                'USER_ID': this.getUserDetails.userId,
+                'PARENT_ID': this.$route.params.list_page_url
+            });
             $(".sorting-menu").toggle();
         },
         sortList(event, fromSec, toSec, timeText) {
@@ -170,6 +174,11 @@ export default {
             $(".link-clear").hide();
             $(".sorting").removeClass("active");
             $(".sorting-menu").hide();
+
+            this.triggerAnanlyticsEvent('REMOVEFILTER_CATEGORYM_CATEGORY', 'CONTROL', {
+                'USER_ID': this.getUserDetails.userId,
+                'PARENT_ID': this.$route.params.list_page_url
+            });
 
             this.timeText = null;
 
