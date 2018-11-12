@@ -312,7 +312,9 @@ var router = new Router({
             name: 'Pratilipi',
             component: () => {
                 let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 5;
-                if (bucketId >= 50 && bucketId <= 74) {
+                if (bucketId >= 25 && bucketId < 50) {
+                    return import ('@/pages/experiments/test_A/Pratilipi.vue');
+                } else if (bucketId >= 50 && bucketId <= 74) {
                     return import ('@/pages/experiments/pratilipi_v2/Pratilipi.vue');
                 } else {
                     return new Promise((resolve, reject) => resolve(PratilipiPageComponent));
