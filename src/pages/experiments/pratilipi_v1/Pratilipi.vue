@@ -33,8 +33,8 @@
 
 
                                 <div class="tags">
-                                    <span v-for="each_tag in getPratilipiData.tags" :key="each_tag.id">{{ each_tag.name}}</span>
-                                    <span v-for="(each_tag, index) in getPratilipiData.suggestedTags" :key="index">{{ each_tag }}</span>
+                                    <span v-for="(each_tag, index) in getPratilipiData.tags" :key="each_tag.id" v-if="index < 2">{{ each_tag.name}}</span>
+                                    <!-- <span v-for="(each_tag, index) in getPratilipiData.suggestedTags" :key="index">{{ each_tag }}</span> -->
                                 </div>
 
                                 <router-link :to="getPratilipiData.author.pageUrl" @click.native="triggerClickAuthorNameEvent" class="author-name">
@@ -225,7 +225,7 @@
 
 <script>
 import MainLayout from '@/layout/main-layout.vue';
-import Recommendation from '@/components/Recommendation.vue';
+import Recommendation from '@/components/experiments/pratilipi_v1/Recommendation.vue';
 import AboutAuthor from '@/components/AboutAuthor.vue';
 import Spinner from '@/components/Spinner.vue';
 import Reviews from '@/components/Reviews.vue';
@@ -1024,7 +1024,7 @@ export default {
                     background: #e9e9e9;
                     border-radius: 15px;
                     color: #6c757d;
-                    margin: 0px 5px 10px 0px;
+                    margin: 0px 5px 5px 0px;
                     padding: 2px 10px;
                     font-size: 13px;
                 }
