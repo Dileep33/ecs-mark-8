@@ -2727,5 +2727,35 @@ export default {
         "SCREEN_NAME": "CATEGORY",
         "LOCATION": "CATEGORYM",
         "ACTION": "REMOVEFILTER"
+    },
+    "OPENSHRBOOK_RATEREV_BOOK": {
+        "SCREEN_NAME": "BOOK",
+        "LOCATION": "RATEREV",
+        "ACTION": "OPENSHRBOOK"
+    },
+    "SHAREBOOKFB_RATEREV_BOOK": {
+        "SCREEN_NAME": "BOOK",
+        "LOCATION": "RATEREV",
+        "ACTION": "SHAREBOOKFB"
+    },
+    "SHAREBOOKTW_RATEREV_BOOK": {
+        "SCREEN_NAME": "BOOK",
+        "LOCATION": "RATEREV",
+        "ACTION": "SHAREBOOKTW"
+    },
+    "SHAREBOOKGP_RATEREV_BOOK": {
+        "SCREEN_NAME": "BOOK",
+        "LOCATION": "RATEREV",
+        "ACTION": "SHAREBOOKGP"
+    },
+    "SHAREBOOKWA_RATEREV_BOOK": {
+        "SCREEN_NAME": "BOOK",
+        "LOCATION": "RATEREV",
+        "ACTION": "SHAREBOOKWA"
+    },
+    "OPENSHRBOOK_BOOKEND_READER": {
+        "SCREEN_NAME": "READER",
+        "LOCATION": "BOOKEND",
+        "ACTION": "OPENSHRBOOK"
     }
 };
