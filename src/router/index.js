@@ -440,8 +440,13 @@ var router = new Router({
             path: '/read',
             name: 'Reader_Page',
             component: () => {
-                return new Promise((resolve, reject) => resolve(ReaderPageComponent));
-
+                let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 5;
+                console.log("bucket id ", bucketId);
+                if (bucketId >= 50 && bucketId <= 74) {
+                    return import ('@/pages/experiments/pratilipi_v1/Reader.vue');
+                } else {
+                    return new Promise((resolve, reject) => resolve(ReaderPageComponent));
+                }
             },
             meta: {
                 'store': 'readerpage',

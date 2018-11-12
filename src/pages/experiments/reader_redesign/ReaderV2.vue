@@ -320,7 +320,7 @@ import 'vue-awesome/icons/link'
 import Reviews from '@/components/Reviews.vue';
 import WebPushStrip from '@/components/WebPushStrip.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
-import Recommendation from '@/components/Recommendation.vue';
+import Recommendation from '@/components/experiments/pratilipi_v1/Recommendation.vue';
 import ShareStrip from '@/components/ShareStrip.vue';
 import NextPratilipiStrip from '@/components/NextPratilipiStrip.vue'
 import ServerError from '@/components/ServerError.vue';
@@ -560,7 +560,7 @@ export default {
             this._triggerReaderAnalyticsEvent('LIBRARYREMOVE_BOTTOMBAR_READER')
             this.removeFromLibrary()
         },
-        
+
         /* rating */
         openRatingModal() {
             this._triggerReaderAnalyticsEvent('RATEINTENT_BOTTOMBAR_READER', null);
@@ -747,7 +747,7 @@ export default {
     created() {
         this.currentChapterSlugId = window.location.pathname.split('/').pop().split('-').pop();
         this.isNextPratilipiEnabled = this.getPratilipiData.state === "PUBLISHED" && this.getPratilipiData.hasOwnProperty('nextPratilipi') && this.getPratilipiData.nextPratilipi.hasOwnProperty('pratilipiId');
-        
+
         this.currentLocale = this.getLanguageCode(process.env.LANGUAGE);
     },
     mounted() {
@@ -1517,8 +1517,8 @@ $theme-yellow-color: #2c3e50;
 }
 .goto-readerpage-container {
         text-align: center;
-        margin: 0px 0px 16px 0px; 
-    }    
+        margin: 0px 0px 16px 0px;
+    }
     .goto-readerpage-container a {
         color: #d0021b;
     }
