@@ -16,7 +16,8 @@ const RECOMMENDATION_PRATILIPI_API = "/pratilipis";
 
 const PAGE_CONTENT_API = "/page/content";
 const PRATILIPI_API = "/pratilipi?_apiVer=2";
-const PRATILIPI_LIST_API = "/init/v4.0/list";
+const PRATILIPI_LIST_API = "/pratilipi/list?_apiVer=3";
+const PRATILIPI_NEW_LIST_API = "/init/v4.0/list";
 const PRATILIPI_LIST_RECENT_API = "/stats/v2.0/recent_published";
 const PRATILIPI_LIST_FOR_YOU_API = "/stats/for_you";
 const PRATILIPI_LIST_HIGH_RATED_API = "/stats/v2.0/high_rated";
@@ -511,7 +512,7 @@ export default {
         if (resultCount != null) params["resultCount"] = resultCount;
         if (timeFilter.fromSec != null) params["fromSec"] = timeFilter.fromSec;
         if (timeFilter.toSec != null) params["toSec"] = timeFilter.toSec;
-        httpUtil.get(API_PREFIX + PRATILIPI_LIST_API,
+        httpUtil.get(API_PREFIX + PRATILIPI_NEW_LIST_API,
             null,
             params,
             function(response, status) { processGetResponse(response, status, aCallBack) });
