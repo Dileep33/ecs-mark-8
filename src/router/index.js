@@ -463,10 +463,6 @@ var router = new Router({
                     return import ('@/pages/experiments/test_A/ReaderV2.vue');
                 } else if (bucketId >= 50 && bucketId < 75) {
                     return import ('@/pages/experiments/reader_redesign/ReaderV2.vue');
-                } else if (bucketId > 75 && bucketId <= 85) {
-                    return import ('@/pages/experiments/reader_redesign/ReaderV2-1.vue');
-                } else if (bucketId > 85 && bucketId <= 99) {
-                    return import ('@/pages/experiments/reader_redesign/ReaderV2-2.vue');
                 } else {
                     return new Promise((resolve, reject) => resolve(ReaderPageV2Component));
                 }
