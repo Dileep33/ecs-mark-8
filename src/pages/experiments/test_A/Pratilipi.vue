@@ -70,6 +70,15 @@
                                 <span class="read-count">__("pratilipi_count_reads"): {{ getPratilipiData.readCount | showThousandsInCommas() }}</span>
                                 <span class="date">__("pratilipi_listing_date"): <time itemprop="datePublished" v-bind:datetime="getPratilipiData.listingDateMillis | listingDateSchemaOrgFormat">{{ getPratilipiData.listingDateMillis | convertDate }}</time></span>
                             </div>
+                            
+                            <BookShareStrip
+                            :data="getPratilipiData"
+                            :type="'PRATILIPI'"
+                            experimentId="TESTA2"
+                            
+                            v-if="getCookie('bucket_id') >= 36 && getCookie('bucket_id') <= 45 && getCookie('last_read_book') == getPratilipiData.pratilipiId"
+                            ></BookShareStrip>
+                            
                             <div class="main-actions"  v-if="getUserPratilipiLoadingState === 'LOADING_SUCCESS'">
                                 <div class="book-edit-actions" v-if="getPratilipiData.hasAccessToUpdate">
                                     <span v-if="getPratilipiData.state === 'PUBLISHED'">
@@ -129,7 +138,7 @@
                             <BookShareStrip
                             :data="getPratilipiData"
                             :type="'PRATILIPI'"
-                            v-else
+                            v-else-if="!(getCookie('bucket_id') >= 36 && getCookie('bucket_id') <= 45 && getCookie('last_read_book') == getPratilipiData.pratilipiId)"
                             ></BookShareStrip>
                         </div>
                         <!-- add next Pratilipi here-->
