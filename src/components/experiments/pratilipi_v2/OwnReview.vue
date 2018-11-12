@@ -478,7 +478,7 @@ li {
 
                     @media screen and (max-height: 640px) {
                         font-size: 30px;
-                        margin: 2px 15px 0 0;
+                        margin: -6px 15px 0 0;
                     }
                 }
                 label {

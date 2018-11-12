@@ -8,7 +8,7 @@
 
                         <div class="cover__details">
                             <div class="book-image-container">
-                                <div class="book-image small-device">
+                                <div class="book-image">
                                     <img :src="getPratilipiData.coverImageUrl" :alt="getPratilipiData.title">
                                     <meta itemprop="image" v-bind:content="getPratilipiData.coverImageUrl" />
                                     <div class="progress-bar-read">
@@ -1052,17 +1052,6 @@ export default {
                 width: 200px;
                 height: 300px;
                 position: relative;
-                &.small-device {
-                    @media screen and (max-height: 823px) {
-                        height: 235px;
-                    }
-                    @media screen and (max-height: 736px) {
-                        height: 235px;
-                    }
-                    @media screen and (max-height: 640px) {
-                        height: 220px;
-                    }
-                }
                 @media screen and (max-height: 640px) {
                     height: 230px;
                 }
