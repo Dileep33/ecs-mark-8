@@ -214,6 +214,16 @@ export default {
         "LOCATION": "BOOKM",
         "ACTION": "LIBRARYREMOVE"
     },
+    "LIBRARYADD_RECOMMENDBOOK_BOOK": {
+        "SCREEN_NAME": "BOOK",
+        "LOCATION": "BOOKM",
+        "ACTION": "LIBRARYADD"
+    },
+    "LIBRARYREMOVE_RECOMMENDBOOK_BOOK": {
+        "SCREEN_NAME": "BOOK",
+        "LOCATION": "BOOKM",
+        "ACTION": "LIBRARYREMOVE"
+    },
     "PUBLISHBOOK_BOOKM_BOOK": {
         "SCREEN_NAME": "BOOK",
         "LOCATION": "BOOKM",

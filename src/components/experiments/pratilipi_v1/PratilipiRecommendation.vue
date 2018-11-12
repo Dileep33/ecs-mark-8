@@ -16,6 +16,7 @@
             <router-link :to="redirectToReader ? (pratilipiData.newReadPageUrl ? pratilipiData.newReadPageUrl : pratilipiData.readPageUrl ): pratilipiData.pageUrl" @click.native="triggerReadPratilipiEvent" :title="pratilipiData.title">
                 <div class="recommendation" v-lazy:background-image="pratilipiImageObject">
                     <span class="title">{{ pratilipiData.title ? pratilipiData.title : pratilipiData.displayTitle }}</span>
+
                     <div class="stats-container">
                         <div class="rating">
                             <div class="icons"><i class="material-icons">star</i></div>
@@ -116,6 +117,7 @@ export default {
             } else {
                 this.addToLibrary(pratilipiId);
             }
+            return false;
         },
         triggerAnalyticsAndRemovePratilipiFromLibrary(pratilipiId) {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.pratilipiData);
@@ -124,6 +126,7 @@ export default {
                 'USER_ID': this.getUserDetails.userId
             });
             this.removeFromLibrary(pratilipiId);
+            return false;
         },
         triggerReadPratilipiEvent() {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.pratilipiData);
@@ -275,7 +278,7 @@ export default {
                 border-radius: 50%;
                 cursor: pointer;
                 outline: none;
-                border: 1px solid #d0021b;
+                border: 1px solid #e9e9e9;
                 z-index: 2;
                 position: relative;
                 float: right;

@@ -1,21 +1,21 @@
 <template>
     <div class="pratilipi-wrap">
         <div class="pratilipi">
+            <div class="image-mask">
+                <span v-if="!hideAddToLibrary">
+                    <button class="add-library" v-if="!pratilipiData.addedToLib" @click.prevent="addPratilipiToLibrary(pratilipiData.pratilipiId)">
+                        <i class="material-icons">bookmark_border</i>
+                        <i class="material-icons stacked grey">add</i>
+                    </button>
+                    <button class="add-library" v-else @click.prevent="triggerAnalyticsAndRemovePratilipiFromLibrary(pratilipiData.pratilipiId)">
+                        <i class="material-icons added-to-lib">bookmark</i>
+                        <i class="material-icons stacked">check</i>
+                    </button>
+                </span>
+            </div>
             <router-link :to="redirectToReader ? (pratilipiData.newReadPageUrl ? pratilipiData.newReadPageUrl : pratilipiData.readPageUrl ): pratilipiData.pageUrl" @click.native="triggerReadPratilipiEvent" :title="pratilipiData.title">
                 <div class="recommendation" v-lazy:background-image="pratilipiImageObject">
                     <span class="title">{{ pratilipiData.title ? pratilipiData.title : pratilipiData.displayTitle }}</span>
-                    <div class="image-mask">
-                        <span v-if="!hideAddToLibrary">
-                            <button class="add-library" v-if="!pratilipiData.addedToLib" @click.prevent="addPratilipiToLibrary(pratilipiData.pratilipiId)">
-                                <i class="material-icons">bookmark_border</i>
-                                <i class="material-icons stacked grey">add</i>
-                            </button>
-                            <button class="add-library" v-else @click.prevent="triggerAnalyticsAndRemovePratilipiFromLibrary(pratilipiData.pratilipiId)">
-                                <i class="material-icons added-to-lib">bookmark</i>
-                                <i class="material-icons stacked">check</i>
-                            </button>
-                        </span>
-                    </div>
                     <div class="stats-container">
                         <div class="icons"><i class="material-icons">star</i></div>
                         <span class="margin-right-10">{{ pratilipiData.averageRating | round(1) }}</span>
