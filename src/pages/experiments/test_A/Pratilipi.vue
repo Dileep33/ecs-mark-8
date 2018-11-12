@@ -76,7 +76,7 @@
                             :type="'PRATILIPI'"
                             experimentId="TESTA2"
                             
-                            v-if="getCookie('bucket_id') >= 36 && getCookie('bucket_id') <= 45 && getCookie('last_read_book') == getPratilipiData.pratilipiId"
+                            v-if="getCookie('bucket_id') >= 36 && getCookie('bucket_id') <= 49 && getCookie('last_read_book') == getPratilipiData.pratilipiId"
                             ></BookShareStrip>
                             
                             <div class="main-actions"  v-if="getUserPratilipiLoadingState === 'LOADING_SUCCESS'">
@@ -800,6 +800,9 @@ export default {
                 let bucketId = parseInt(this.getCookie('bucket_id')) || 0;
                 if (bucketId >= 25 && bucketId <= 35) {
                     experimentId = 'TESTA1';
+                }
+                else if (bucketId >= 36 && bucketId <= 49 && this.getCookie('last_read_book') == this.getPratilipiData.pratilipiId) {
+                    experimentId = 'TESTA2';
                 }
                 this.triggerAnanlyticsEvent('LANDED_BOOKM_BOOK', experimentId, {
                     ...pratilipiAnalyticsData,

@@ -336,8 +336,10 @@ export default {
                     this.triggerAnanlyticsEvent(`LANDED_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
                         'USER_ID': this.getUserDetails.userId
                     });
-                    // Set/update cookie for last read book with 30mins expiry
-                    this.setCookie( "last_read_book", this.pratilipiData.pratilipiId, (1 * 30) / (24 * 60), "/" );
+                    if (this.getCookie('bucket_id') >= 36 && this.getCookie('bucket_id') <= 49) {
+                        // Set/update cookie for last read book with 30mins expiry
+                        this.setCookie( "last_read_book", this.pratilipiData.pratilipiId, (1 * 30) / (24 * 60), "/" );
+                    }
                 } else {
                     this.triggerAnanlyticsEvent(`VIEWED_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
                         'USER_ID': this.getUserDetails.userId
