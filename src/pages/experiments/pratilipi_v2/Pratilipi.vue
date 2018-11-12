@@ -1066,7 +1066,7 @@ export default {
                 width: 200px;
                 height: 300px;
                 position: relative;
-                @media screen and (max-height: 640px) {
+                @media screen and (max-height: 823px) {
                     height: 230px;
                 }
                 img {
