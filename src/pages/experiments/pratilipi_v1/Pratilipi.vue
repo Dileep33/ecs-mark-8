@@ -1039,12 +1039,6 @@ export default {
             @media screen and (max-height: 823px) {
                 max-width: 40%;
             }
-            @media screen and (max-height: 736px) {
-                max-width: 40%;
-            }
-            @media screen and (max-height: 640px) {
-                max-width: 40%;
-            }
             .book-image {
                 background-repeat: no-repeat;
                 background-size: cover;
@@ -1052,7 +1046,10 @@ export default {
                 width: 200px;
                 height: 300px;
                 position: relative;
-                @media screen and (max-height: 823px) {
+                @media screen and (max-height: 640px) {
+                    height: 220px;
+                }
+                @media screen and (min-height: 641px) and (max-height: 823px) {
                     height: 230px;
                 }
                 img {
