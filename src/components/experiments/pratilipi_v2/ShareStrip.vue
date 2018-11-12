@@ -104,7 +104,7 @@ export default {
 
 <style  lang="scss" scoped>
 .social-share {
-    margin: 10px auto;
+    margin: 5px auto;
     text-align: center;
     span.text {
         font-size: 14px;
@@ -128,6 +128,12 @@ export default {
             text-align: center;
             line-height: 45px;
             margin-right: 5px;
+
+            @media screen and (max-height: 667px) {
+                line-height: 35px;
+                width: 35px;
+                height: 35px;
+            }
         }
         .fa-icon {
             vertical-align: middle;

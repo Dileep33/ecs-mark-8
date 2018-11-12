@@ -49,6 +49,10 @@
                                         <div class="icons"><i class="material-icons">star</i></div>
                                         <span class="margin-right-10">{{ getPratilipiData.averageRating | round(1) }}</span>
                                     </div>
+                                    <div class="read-count">
+                                        <div class="icons"><i class="material-icons">remove_red_eye</i></div>
+                                        <span>{{ getPratilipiData.readCount | round(1) }}</span>
+                                    </div>
                                     <div class="read-time">
                                         <i class="material-icons">access_time</i>
                                         <span>
@@ -56,10 +60,6 @@
                                                 {{ getPratilipiData.readingTime | showInMinutesOrHours }}
                 			                </time>
                                         </span>
-                                    </div>
-                                    <div class="read-count">
-                                        <div class="icons"><i class="material-icons">remove_red_eye</i></div>
-                                        <span>{{ getPratilipiData.readCount | round(1) }}</span>
                                     </div>
                                 </div>
 
@@ -972,6 +972,7 @@ export default {
         .cover__details-summary {
             flex-grow: 2;
             margin: 0px 10px;
+            margin-right: 0px;
             text-align: left;
 
             .stats-container {
@@ -1035,11 +1036,14 @@ export default {
             max-width: 55%;
             justify-content: center;
 
+            @media screen and (max-height: 823px) {
+                max-width: 40%;
+            }
             @media screen and (max-height: 736px) {
                 max-width: 40%;
             }
             @media screen and (max-height: 640px) {
-                max-width: 35%;
+                max-width: 40%;
             }
             .book-image {
                 background-repeat: no-repeat;
@@ -1049,11 +1053,14 @@ export default {
                 height: 300px;
                 position: relative;
                 &.small-device {
+                    @media screen and (max-height: 823px) {
+                        height: 235px;
+                    }
                     @media screen and (max-height: 736px) {
                         height: 235px;
                     }
                     @media screen and (max-height: 640px) {
-                        height: 170px;
+                        height: 220px;
                     }
                 }
                 @media screen and (max-height: 640px) {

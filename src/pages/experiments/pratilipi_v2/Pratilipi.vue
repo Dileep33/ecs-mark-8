@@ -49,6 +49,10 @@
                                         <div class="icons"><i class="material-icons">star</i></div>
                                         <span class="margin-right-10">{{ getPratilipiData.averageRating | round(1) }}</span>
                                     </div>
+                                    <div class="read-count">
+                                        <div class="icons"><i class="material-icons">remove_red_eye</i></div>
+                                        <span>{{ getPratilipiData.readCount | round(1) }}</span>
+                                    </div>
                                     <div class="read-time">
                                         <i class="material-icons">access_time</i>
                                         <span>
@@ -56,10 +60,6 @@
                                                 {{ getPratilipiData.readingTime | showInMinutesOrHours }}
                 			                </time>
                                         </span>
-                                    </div>
-                                    <div class="read-count">
-                                        <div class="icons"><i class="material-icons">remove_red_eye</i></div>
-                                        <span>{{ getPratilipiData.readCount | round(1) }}</span>
                                     </div>
                                 </div>
 
@@ -129,6 +129,10 @@
                         </div>
                         <WebPushStrip screenName="PRATILIPI" message="__('web_push_message_3')" :includeIcon=true :includeDisableButton=false :includeCloseButton=false v-on:WebPushEnabled="isWebPushStripEnabled=false">
                         </WebPushStrip>
+                    </div>
+
+                    <div class="card" v-if="!isMobile()">
+                        <AboutAuthor :authorId="getPratilipiData.author.authorId" :pratilipiData="getPratilipiData"></AboutAuthor>
                     </div>
 
                     <BookTags
@@ -205,7 +209,7 @@
                         <div class="overlay-1" @click="closeReviewModal"></div>
                     </div>
 
-                    <div class="card">
+                    <div class="card" v-if="isMobile()">
                         <AboutAuthor :authorId="getPratilipiData.author.authorId" :pratilipiData="getPratilipiData"></AboutAuthor>
                     </div>
                 </div>
@@ -230,7 +234,7 @@ import MainLayout from '@/layout/main-layout.vue';
 import Recommendation from '@/components/Recommendation.vue';
 import AboutAuthor from '@/components/AboutAuthor.vue';
 import Spinner from '@/components/Spinner.vue';
-import Reviews from '@/components/Reviews.vue';
+import Reviews from '@/components/experiments/pratilipi_v2/Reviews.vue';
 import BookShareStrip from '@/components/BookShareStrip.vue';
 import ShareStrip from '@/components/experiments/pratilipi_v2/ShareStrip.vue';
 import ServerError from '@/components/ServerError.vue';
@@ -908,6 +912,10 @@ export default {
             padding-left: 10px;
             margin: 10px 0;
         }
+        &.reviews-section .head-title {
+            margin: 0px;
+            margin-top: 5px;
+        }
         p {
             text-align: left;
             margin: 10px 10px 5px;
@@ -970,10 +978,15 @@ export default {
             margin: 10px;
             flex-direction: row;
             align-items: flex-start;
+
+            @media screen and (max-height: 667px) {
+                margin-bottom: 0px;
+            }
         }
         .cover__details-summary {
             flex-grow: 2;
             margin: 0px 10px;
+            margin-right: 0px;
             text-align: left;
 
             .stats-container {
@@ -1037,11 +1050,14 @@ export default {
             max-width: 55%;
             justify-content: center;
 
+            @media screen and (max-height: 823px) {
+                max-width: 40%;
+            }
             @media screen and (max-height: 736px) {
                 max-width: 40%;
             }
             @media screen and (max-height: 640px) {
-                max-width: 35%;
+                max-width: 40%;
             }
             .book-image {
                 background-repeat: no-repeat;
@@ -1051,11 +1067,14 @@ export default {
                 height: 300px;
                 position: relative;
                 &.small-device {
+                    @media screen and (max-height: 823px) {
+                        height: 235px;
+                    }
                     @media screen and (max-height: 736px) {
                         height: 235px;
                     }
                     @media screen and (max-height: 640px) {
-                        height: 170px;
+                        height: 220px;
                     }
                 }
                 @media screen and (max-height: 640px) {
@@ -1202,6 +1221,13 @@ export default {
                         font-size: 14px;
                     }
                 }
+
+                @media screen and (max-height: 640px) {
+                    margin: 5px 0 5px;
+                    width: 38%;
+                    height: 40px;
+                    line-height: 40px;
+                }
                 &:hover {
                     text-decoration: none;
                     opacity: 0.8;
@@ -1218,6 +1244,7 @@ export default {
                     position: relative;
                     display: inline-block;
                     vertical-align: middle;
+                    margin-left: 5px;
                 }
                 i {
                     height: 40px;
@@ -1225,6 +1252,13 @@ export default {
                     font-size: 30px;
                     color: #555;
                     vertical-align: middle;
+
+                    @media screen and (max-height: 640px) {
+                        width: 38%;
+                        height: 40px;
+                        line-height: 40px;
+                        font-size: 20px;
+                    }
                     &.stacked {
                         position: absolute;
                         top: -1px;
@@ -1233,17 +1267,32 @@ export default {
                         font-size: 11px;
                         color: #555;
                         font-weight: bold;
+                        @media screen and (max-height: 640px) {
+                            margin-left: 5px;
+                            font-size: 7px;
+                            top: -7px;
+                        }
                         &.white {
                             color: #555;
                             margin-left: 10px;
                             margin-top: 7px;
                             left: 0;
+
+                            @media screen and (max-height: 640px) {
+                                margin-left: 7px;
+                                left: 5px;
+                            }
                         }
                         &.grey {
                             color: #9e9e9e;
                             margin-left: 9px;
                             margin-top: 8px;
                             left: 0;
+
+                            @media screen and (max-height: 640px) {
+                                margin-left: 6px;
+                                left: 6px;
+                            }
                         }
                     }
                 }
