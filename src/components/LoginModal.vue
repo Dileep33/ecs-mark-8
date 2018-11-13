@@ -17,12 +17,21 @@
                         </a>
                     </div>
                     <Login :openForgotPasswordInTab="true"></Login>
+                    <CustomRegister
+                        :currentStep="currentStep"
+                        :changeCurrentStep="changeCurrentStep"
+                        :openForgotPasswordInTab="true"
+                        :shouldRemoveError="shouldRemoveError"
+                        :resetShouldRemoveError="resetShouldRemoveError"
+                        v-if="getCookie('bucket_id') >= 25 && getCookie('bucket_id') <= 49 && ( $route.meta.store === 'pratilipipage' || $route.meta.store === 'readerv2page' ) && (getPostLoginAction.action !== null && (getPostLoginAction.action.indexOf('addToLibrary') > -1 || getPostLoginAction.action.indexOf('setPratilipiRating') > -1))"
+                    ></CustomRegister>
                     <Register
                         :currentStep="currentStep"
                         :changeCurrentStep="changeCurrentStep"
                         :openForgotPasswordInTab="true"
                         :shouldRemoveError="shouldRemoveError"
                         :resetShouldRemoveError="resetShouldRemoveError"
+                        v-else
                     ></Register>
                 </div>
             </div>
@@ -34,6 +43,7 @@ import { mapGetters, mapActions } from 'vuex'
 import Login from '@/components/Login';
 import mixins from '@/mixins';
 import Register from '@/components/AppLogin';
+import CustomRegister from '@/components/experiments/test_A/AppLogin';
 
 export default {
     name: 'login-modal',
@@ -49,7 +59,8 @@ export default {
         ...mapGetters([
             'getUserDetails',
             'getLoginSource',
-            'getSignupSource'
+            'getSignupSource',
+            'getPostLoginAction'
         ])
     },
     mixins: [
@@ -140,7 +151,8 @@ export default {
     },
     components: {
         Login,
-        Register
+        Register,
+        CustomRegister
     }
 }
 

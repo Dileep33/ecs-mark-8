@@ -52,9 +52,10 @@ export default {
         state.loading_state = 'LOADING_ERROR';
     },
 
-    setAfterLoginAction(state, { action, data }) {
+    setAfterLoginAction(state, { action, data, pratilipiData }) {
         state.post_login_action.action = action;
         state.post_login_action.data = data;
+        state.post_login_action.pratilipiData = pratilipiData;
     },
 
     clearPostLoginAction(state) {

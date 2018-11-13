@@ -97,10 +97,11 @@ export default {
         });
     },
 
-    setAfterLoginAction({ commit, state }, { action, data }) {
+    setAfterLoginAction({ commit, state }, { action, data, pratilipiData }) {
         commit('setAfterLoginAction', {
             action,
-            data
+            data,
+            pratilipiData
         });
     },
 
