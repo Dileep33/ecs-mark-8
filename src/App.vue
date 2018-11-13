@@ -34,12 +34,14 @@ import { mapGetters, mapActions } from 'vuex'
         setGuestUserProperties() {
             this.setAnalyticsUserProperty('USER_ID', "0");
             this.setAnalyticsUserProperty('IS_LOGGED_IN', "NO");
+            this.setAnalyticsUserProperty('EXPERIMENT_ID');
         },
 
         setLoggedInUserProperties() {
             this.setAnalyticsUserProperty('USER_ID', this.getUserDetails.userId || "0");
             this.setAnalyticsUserProperty('IS_LOGGED_IN', "YES");
             this.setAnalyticsUserProperty('AUTHOR_ID', this.getUserDetails.authorId);
+            this.setAnalyticsUserProperty('EXPERIMENT_ID');
         },
 
         initializeFbAsyncInit() {

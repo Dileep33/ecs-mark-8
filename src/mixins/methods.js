@@ -278,6 +278,20 @@ export function setAnalyticsUserProperty(propertyName, propertyValue) {
         amplitude.getInstance().identify(identify);
     }
 
+    if (propertyName === 'EXPERIMENT_ID') {
+        const bucketId = getCookie('bucket_id');
+        if (bucketId < 25) {
+            propertyValue = 'NEW CONTROL';
+        } else if (bucketId >= 25 && bucketId < 50) {
+            propertyValue = 'TEST A';
+        } else if (bucketId >= 50 && bucketId < 75) {
+            propertyValue = 'TEST B';
+        } else if (bucketId >= 75) {
+            propertyValue = 'TEST C';
+        }
+    }
+
+
     const propertyObject = {};
     propertyObject[propertyName] = String(propertyValue)
 
