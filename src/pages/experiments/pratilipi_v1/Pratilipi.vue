@@ -130,6 +130,9 @@
                         <WebPushStrip screenName="PRATILIPI" message="__('web_push_message_3')" :includeIcon=true :includeDisableButton=false :includeCloseButton=false v-on:WebPushEnabled="isWebPushStripEnabled=false">
                         </WebPushStrip>
                     </div>
+                    <div class="card" v-if="!isMobile()">
+                        <AboutAuthor :authorId="getPratilipiData.author.authorId" :pratilipiData="getPratilipiData"></AboutAuthor>
+                    </div>
 
                     <BookTags
                         v-if="getPratilipiData.hasAccessToUpdate"
@@ -190,7 +193,7 @@
                             </div>
                         </div>
 
-                        <AboutAuthor :authorId="getPratilipiData.author.authorId" :pratilipiData="getPratilipiData"></AboutAuthor>
+                        <AboutAuthor v-if="isMobile()" :authorId="getPratilipiData.author.authorId" :pratilipiData="getPratilipiData"></AboutAuthor>
 
                     </div>
                     <div class="card reviews-section">
