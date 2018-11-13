@@ -105,7 +105,7 @@ export default {
 
         $('div.modal').on('hide.bs.modal', function() {
             const hash = this.id;
-            that.setAfterLoginAction({ action: null, data: null });
+            that.setAfterLoginAction({ action: null, data: null, pratilipiData: null });
             history.pushState('', document.title, window.location.href.substr(0, window.location.href.indexOf('#')));
         });
     }

@@ -6,7 +6,8 @@ export default {
     logout_user: false,
     post_login_action: {
         action: null,
-        data: null
+        data: null,
+        pratilipiData: null
     },
     loading_error_message: {},
     login_source: null,

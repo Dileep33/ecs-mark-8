@@ -202,7 +202,9 @@ export default {
                     rating: parseInt(e.target.value),
                     pratilipiId: this.userPratilipiData.pratilipiId,
                     pageName: this.$route.meta.store
-                } });
+                },
+                pratilipiData: this.pratilipiData
+             });
                 this.openLoginModal(this.$route.meta.store, 'RATE', this.screenLocation);
             } else {
 

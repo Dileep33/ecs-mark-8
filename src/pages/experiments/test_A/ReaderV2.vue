@@ -520,7 +520,7 @@ export default {
         addPratilipiToLibrary() {
             this._triggerReaderAnalyticsEvent('LIBRARYADD_BOTTOMBAR_READER')
             if (this.getUserDetails.isGuest) {
-                this.setAfterLoginAction({action: `${this.$route.meta.store}/addToLibrary`})
+                this.setAfterLoginAction({action: `${this.$route.meta.store}/addToLibrary`, pratilipiData: this.getPratilipiData})
                 this.openLoginModal(this.$route.meta.store, 'LIBRARYADD', 'READERM')
             } else {
                 this.addToLibrary()
