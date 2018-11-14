@@ -145,6 +145,11 @@ export default {
         },
         toggleSortMenu() {
             $(".sorting-menu").toggle();
+
+            this.triggerAnanlyticsEvent('OPENFILTER_CATEGORYM_CATEGORY', 'CONTROL', {
+                'USER_ID': this.getUserDetails.userId,
+                'PARENT_ID': this.$route.params.list_page_url
+            });
         },
         sortList(event, fromSec, toSec, timeText) {
             $(".sorting-menu span").removeClass("active");
@@ -170,6 +175,11 @@ export default {
             $(".sorting").removeClass("active");
             $(".sorting-menu").hide();
 
+            this.triggerAnanlyticsEvent('REMOVEFILTER_CATEGORYM_CATEGORY', 'CONTROL', {
+                'USER_ID': this.getUserDetails.userId,
+                'PARENT_ID': this.$route.params.list_page_url
+            });
+
             this.timeText = null;
 
 
@@ -180,19 +190,19 @@ export default {
         console.log(this.$route)
         const { list_page_url } = this.$route.params;
         const { uuid, type, value } = this.$route.query;
-        
+
         const currentLocale = this.getLanguageCode(process.env.LANGUAGE);
-        
+
         if (currentLocale === 'en' || categoriesWithoutFilter[currentLocale].indexOf(list_page_url) > -1) {
             this.isFilterActive = false;
         }
-        
+
         if (this.isFilterActive) {
             this.list_type = 'high_rated';
             this.timeFilter.fromSec = 300;
             this.timeFilter.toSec = 1799;
             this.timeText = "5 mins - 30 mins";
-            
+
             this.triggerAnanlyticsEvent('GOHIGHRATED_CATEGORYM_CATEGORY', 'CONTROL', {
                 'USER_ID': this.getUserDetails.userId,
                 'PARENT_ID': this.$route.params.list_page_url
@@ -211,7 +221,7 @@ export default {
                 document.head.querySelector('meta[property="og:description"]').content = metaDescription;
             }
         }
-        
+
         constants.LANGUAGES.forEach((eachLanguage) => {
             if (eachLanguage.shortName === currentLocale) {
                 this.fetchInitialListPagePratilipis({
