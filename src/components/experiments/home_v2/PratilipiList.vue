@@ -138,7 +138,7 @@ export default {
         },
         handleBeforeChange() {
             if (this.$route.meta.store === 'homepage') {
-                this.triggerAnanlyticsEvent(`SWIPE_COLLECTIONS_HOME`, 'VD1', {
+                this.triggerAnanlyticsEvent(`SWIPE_COLLECTIONS_HOME`, 'CONTROL', {
                     'USER_ID': this.getUserDetails.userId,
                     'PARENT_ID': this.listPageUrl
                 });
@@ -150,14 +150,14 @@ export default {
             this.$refs.slick.reSlick();
         },
         triggerListLink() {
-            this.triggerAnanlyticsEvent(`CLICKCOLLECTION_${this.screenLocation}_${this.screenName}`, 'VD1', {
+            this.triggerAnanlyticsEvent(`CLICKCOLLECTION_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
                 'USER_ID': this.getUserDetails.userId,
                 'PARENT_ID': this.listPageUrl,
                 'POSITION': this.position
             });
         },
         triggerMoreListLink() {
-            this.triggerAnanlyticsEvent(`CLICKMORECOLLECTION_${this.screenLocation}_${this.screenName}`, 'VD1', {
+            this.triggerAnanlyticsEvent(`CLICKMORECOLLECTION_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
                 'USER_ID': this.getUserDetails.userId,
                 'PARENT_ID': this.listPageUrl,
                 'POSITION': this.position
@@ -178,7 +178,7 @@ export default {
         'inViewport.now': function(visible) {
             if (visible) {
                 if (this.screenName === 'HOME') {
-                    this.triggerAnanlyticsEvent(`VIEWED_COLLECTIONS_HOME`, 'VD1', {
+                    this.triggerAnanlyticsEvent(`VIEWED_COLLECTIONS_HOME`, 'CONTROL', {
                         'USER_ID': this.getUserDetails.userId,
                         'PARENT_ID': this.listPageUrl,
                         'POSITION': this.position

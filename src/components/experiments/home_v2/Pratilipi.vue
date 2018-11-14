@@ -118,7 +118,7 @@ export default {
         triggerReadPratilipiEvent() {
             const pratilipiAnalyticsData = this.getPratilipiAnalyticsData(this.pratilipiData);
             let action = this.redirectToReader && this.screenLocation === 'LIBRARY' ? 'READBOOK' : 'CLICKBOOK';
-            this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, 'VD1', {
+            this.triggerAnanlyticsEvent(`${action}_${this.screenLocation}_${this.screenName}`, 'CONTROL', {
                 ...pratilipiAnalyticsData,
                 'USER_ID': this.getUserDetails.userId,
                 'INDEX': this.index,

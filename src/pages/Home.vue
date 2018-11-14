@@ -54,14 +54,11 @@
 
 <script>
     import Spinner from '@/components/Spinner.vue';
-    import DummyLoader from '@/components/DummyLoader.vue';
-    import PratilipiListComponent from '@/components/PratilipiList.vue';
+    import DummyLoader from '@/components/experiments/home_v2/DummyLoader.vue';
+    import PratilipiListComponent from '@/components/experiments/home_v2/PratilipiList.vue';
     import MainLayout from '@/layout/main-layout.vue';
     import Banners from '@/components/Banners.vue';
-    // import VapasiQuote from '@/components/VapasiQuote.vue';
     import VapasiShayari from '@/components/VapasiShayari.vue';
-    // import VapasiHoroscope from '@/components/VapasiHoroscope.vue';
-    // import VapasiJoke from '@/components/VapasiJoke.vue';
     import ServerError from '@/components/ServerError.vue';
     import WebPushStrip from '@/components/WebPushStrip.vue';
     import WebPushModal from '@/components/WebPushModal.vue';

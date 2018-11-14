@@ -236,15 +236,7 @@ var router = new Router({
             path: '/',
             name: 'Home',
             component: () => {
-                let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 5;
-                console.log("bucket id ", bucketId);
-                if ((bucketId >= 75 && bucketId <= 86) || getLanguageCode(process.env.LANGUAGE) === 'en') {
-                    return import ('@/pages/experiments/home_v2/Home.vue');
-                } else if (bucketId >= 87 && bucketId <= 99) {
-                    return import ('@/pages/experiments/home_v2/HomeWithoutType.vue');
-                } else {
-                    return new Promise((resolve, reject) => resolve(Home));
-                }
+                return new Promise((resolve, reject) => resolve(Home));
             },
             meta: {
                 'store': 'homepage',
@@ -689,12 +681,8 @@ var router = new Router({
             component: () => {
                 let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 5;
                 console.log("bucket id ", bucketId);
-                if ((bucketId >= 75 && bucketId <= 86) || getLanguageCode(process.env.LANGUAGE) === 'en') {
-                    return import ('@/pages/experiments/home_v2/ListPage.vue');
-                } else if (bucketId >= 50 && bucketId <= 74) {
+                if (bucketId >= 50 && bucketId <= 74) {
                     return import ('@/pages/experiments/category_v0/ListPage.vue');
-                } else if (bucketId >= 87 && bucketId <= 99) {
-                    return import ('@/pages/experiments/home_v2/ListPageWithoutType.vue');
                 } else {
                     return new Promise((resolve, reject) => resolve(ListPageComponent));
                 }
