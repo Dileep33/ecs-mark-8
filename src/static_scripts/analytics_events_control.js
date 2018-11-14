@@ -2712,6 +2712,21 @@ export default {
         "LOCATION": "FACEBOOK",
         "ACTION": "VIEWED"
     },
+    "CLICKED_SIGNUP_BOOK": {
+        "SCREEN_NAME": "BOOK",
+        "LOCATION": "SIGNUP",
+        "ACTION": "CLICKED"
+    },
+    "VIEWED_SIGNUP_BOOK": {
+        "SCREEN_NAME": "BOOK",
+        "LOCATION": "SIGNUP",
+        "ACTION": "VIEWED"
+    },
+    "CLOSED_SIGNUP_BOOK": {
+        "SCREEN_NAME": "BOOK",
+        "LOCATION": "SIGNUP",
+        "ACTION": "CLOSED"
+    },
     "SIGNUPVIEWED_OPENAPP_READER": {
         "SCREEN_NAME": "READER",
         "LOCATION": "OPENAPP",

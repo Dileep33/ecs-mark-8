@@ -92,7 +92,7 @@ export default {
                         });
                         break;
                     case 'FACEBOOK':
-                        this.triggerAnanlyticsEvent('SIGNUPSUC_FACEBOOK_GLOBAL', experimentId, {
+                        this.triggerAnanlyticsEvent('SIGNUPSUC_FACEBOOK_GLOBAL', referDetails.EXPERIMENT_ID ? referDetails.EXPERIMENT_ID : experimentId, {
                             'USER_ID': this.getUserDetails.userId,
                             ...referDetails
                         });

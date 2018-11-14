@@ -1,5 +1,16 @@
 <template>
     <button v-if="directBtn" :class="{direct: directBtn}" @click="loginToFacebookDirect" type="button" name="button" class="fb"><icon name="facebook-f"></icon>__("user_sign_up_with_facebook")</button>
+    <div
+        v-else-if="continueWith"
+        class="fb-login-button"
+        data-max-rows="1"
+        data-size="large"
+        data-button-type="continue_with"
+        data-use-continue-as="true"
+        data-show-faces="false"
+        data-onlogin="loginToFbContinue"
+        data-scope="public_profile,email,user_birthday"
+    ></div>
     <button v-else @click="loginToFacebook" type="button" name="button" class="fb"><icon name="facebook-f"></icon>__("facebook")</button>
 </template>
 
@@ -16,6 +27,9 @@ export default {
     ],
     props: {
         directBtn: {
+            type: Boolean
+        },
+        continueWith: {
             type: Boolean
         },
         'in-viewport-once': {
@@ -36,9 +50,7 @@ export default {
                 REFER_LOCATION: "FACEBOOK"
 
             }));
-            this.triggerAnanlyticsEvent(`CLICKED_FACEBOOK_BOOK`, 'CONTROL', {
-                
-            });
+            this.triggerAnanlyticsEvent(`CLICKED_FACEBOOK_BOOK`, 'CONTROL', {});
             this.loginToFacebook();
         },
         loginToFacebook() {
@@ -51,13 +63,33 @@ export default {
             }, { scope: 'public_profile,email,user_birthday' } );
         }
     },
+    
+    created() {
+        if (this.continueWith) {
+            setTimeout(() => {
+                this.triggerAnanlyticsEvent(`VIEWED_SIGNUP_BOOK`, 'TESTC2', {});
+            },1000);
+        }
+        
+        window.loginToFbContinue = (data) => {
+            localStorage.setItem('login_modal_refer_details', JSON.stringify({
+                REFER_SCREEN: "BOOK",
+                REFER_ACTION: "CLICKED",
+                REFER_LOCATION: "SIGNUP",
+                EXPERIMENT_ID: "TESTC2"
+            }));
+            this.triggerAnanlyticsEvent(`CLICKED_SIGNUP_BOOK`, 'TESTC2', {});
+            
+            if (data.status == "connected") {
+                this.loginUserWithFacebookAccessToken({ facebookAccessToken: data.authResponse.accessToken, language: this.getCurrentLanguage().fullName.toUpperCase() });
+            }
+        };
+        
+    },
     watch: {
         'inViewport.now'(visible) {
             if (visible && this.directBtn) {
-                this.triggerAnanlyticsEvent(`VIEWED_FACEBOOK_BOOK`, 'CONTROL', {
-                    
-                });
-
+                this.triggerAnanlyticsEvent(`VIEWED_FACEBOOK_BOOK`, 'CONTROL', {});
             }
         }
     },

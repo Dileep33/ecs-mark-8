@@ -316,6 +316,8 @@ var router = new Router({
                     return import ('@/pages/experiments/test_A/Pratilipi.vue');
                 } else if (bucketId >= 50 && bucketId <= 74) {
                     return import ('@/pages/experiments/pratilipi_v1/Pratilipi.vue');
+                } else if (bucketId >= 75 && bucketId <= 99) {
+                    return import ('@/pages/experiments/test_C/Pratilipi.vue');
                 } else {
                     return new Promise((resolve, reject) => resolve(PratilipiPageComponent));
                 }
