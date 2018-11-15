@@ -162,6 +162,9 @@ export default {
                 'PARENT_ID': this.listPageUrl,
                 'POSITION': this.position
             });
+        },
+        showSignupModalHome() {
+            return this.getCookie( "HOMESIGNUP_MODAL_VIEWED" ) == null || this.getCookie( "HOMESIGNUP_MODAL_VIEWED" ) == "true"
         }
     },
     mounted() {
@@ -169,6 +172,11 @@ export default {
     	if (this.pratilipiList.length > 0) {
     		this.reInit();
     	}
+        $(this.$el).find('.slick-pratilipis').on('beforeChange', function(event, slick, currentSlide, nextSlide){
+          if (nextSlide == '4' && that.getUserDetails.isGuest && that.getCookie('bucket_id') >= 25 && that.getCookie('bucket_id') <= 49 && that.showSignupModalHome()) {
+              that.openLoginModal(that.$route.meta.store, 'SWIPE', 'COLLECTIONS');
+          }
+        });
     },
     components: {
         PratilipiComponent,
@@ -177,6 +185,9 @@ export default {
     watch: {
         'inViewport.now': function(visible) {
             if (visible) {
+                if (this.position == '2' && this.getUserDetails.isGuest && this.getCookie('bucket_id') >= 25 && this.getCookie('bucket_id') <= 49 && this.showSignupModalHome()) {
+                    this.openLoginModal(this.$route.meta.store, 'SWIPE', 'COLLECTIONS');
+                }
                 if (this.screenName === 'HOME') {
                     this.triggerAnanlyticsEvent(`VIEWED_COLLECTIONS_HOME`, 'CONTROL', {
                         'USER_ID': this.getUserDetails.userId,

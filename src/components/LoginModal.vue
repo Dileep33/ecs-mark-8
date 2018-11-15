@@ -52,7 +52,8 @@ export default {
             email: '',
             password: '',
             currentStep: 'LANDED_LOGIN',
-            shouldRemoveError: false
+            shouldRemoveError: false,
+            cross_count: this.getCookie( "HOMESIGNUP_MODAL_CROSSED" ) == null ? 0 : parseInt( this.getCookie( "HOMESIGNUP_MODAL_CROSSED" ) || 0 )
         }
     },
     computed: {
@@ -105,6 +106,9 @@ export default {
                         break;
                 }
             }
+        },
+        'cross_count': function() {
+            this.execNewCookieLogic();
         }
     },
     methods: {
@@ -118,8 +122,23 @@ export default {
             this.currentStep = 'LANDED_LOGIN';
         },
         removeErrors() {
-            console.log('time to remove errors');
             this.shouldRemoveError = true;
+            const referDetails = localStorage.getItem('login_modal_refer_details') ? JSON.parse(localStorage.getItem('login_modal_refer_details')) : {};
+            if (this.$route.meta.store == 'homepage' && referDetails.REFER_LOCATION == 'COLLECTIONS' && this.getCookie('bucket_id') >= 25 && this.getCookie('bucket_id') <= 49) {
+                this.cross_count++;
+            }
+        },
+        execNewCookieLogic() {
+            if( this.cross_count == 1 )
+                this.setCookie( "HOMESIGNUP_MODAL_VIEWED", 'false', 3, "/" );
+            if( this.cross_count == 2 )
+                this.setCookie( "HOMESIGNUP_MODAL_VIEWED", 'false', 7, "/" );
+            if( this.cross_count == 3 )
+                this.setCookie( "HOMESIGNUP_MODAL_VIEWED", 'false', 30, "/" );
+            if( this.cross_count >= 4 )
+                this.setCookie( "HOMESIGNUP_MODAL_VIEWED", 'false', 365, "/" );
+                
+            this.setCookie( "HOMESIGNUP_MODAL_CROSSED", this.cross_count.toString(), 365, "/" );
         },
         resetShouldRemoveError() {
             this.shouldRemoveError = false;
