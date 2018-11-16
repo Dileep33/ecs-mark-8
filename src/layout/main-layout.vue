@@ -2,7 +2,7 @@
     <div :class="currentLocale">
         <Header :userDetails="getUserDetails" :notificationCount="getNotificationCount" :pendingMessages="messageNotificationList"></Header>
         <AppBannerTwo v-if="$route.meta.store !== 'pratilipipage' && currentLocale !== 'language-en'"></AppBannerTwo>
-        <AppBanner v-else-if="currentLocale !== 'language-en'"></AppBanner>
+        <AppBanner v-else-if="currentLocale !== 'language-en' && !(this.getUserDetails.isGuest && (getCookie('bucket_id') >= 87 && getCookie('bucket_id') <=99))"></AppBanner>
         <slot></slot>
         <PratilipiModal></PratilipiModal>
         <LoginModal></LoginModal>
