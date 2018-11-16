@@ -682,7 +682,7 @@ var router = new Router({
                 let bucketId = getCookie('bucket_id') ? getCookie('bucket_id') : 5;
                 console.log("bucket id ", bucketId);
                 if (bucketId >= 50 && bucketId <= 74) {
-                    return import ('@/pages/experiments/category_v0/ListPage.vue');
+                    return import ('@/pages/experiments/category_v1/ListPage.vue');
                 } else {
                     return new Promise((resolve, reject) => resolve(ListPageComponent));
                 }
