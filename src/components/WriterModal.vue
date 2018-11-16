@@ -38,7 +38,7 @@
                                 <option value="ARTICLE">__('_pratilipi_type_article')</option>
                             </select>
                         </div>
-                        <span class="alert alert-danger">__("legal_violation_text")</span>
+                        <span class="alert-danger">__("legal_violation_text")</span>
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="agree-terms-conditions"
                                    v-model="checkBox">
@@ -201,6 +201,10 @@ export default {
         display: block;
         padding: 10px;
         margin: 5px 0;
+        padding: 0;
+        background: none;
+        border: none;
+        color: #d00b12;
     }
 }
 </style>
