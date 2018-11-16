@@ -2792,5 +2792,10 @@ export default {
         "SCREEN_NAME": "READER",
         "LOCATION": "BOOKEND",
         "ACTION": "OPENSHRBOOK"
+    },
+    "INSTALL_BOOKM_TOPBAR": {
+        "SCREEN_NAME": "TOPBAR",
+        "LOCATION": "BOOKM",
+        "ACTION": "INSTALL"
     }
 };

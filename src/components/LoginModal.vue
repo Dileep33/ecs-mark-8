@@ -78,7 +78,7 @@ export default {
                 let experimentId = 'CONTROL';
                 switch(this.getLoginSource) {
                     case 'EMAIL':
-                        this.triggerAnanlyticsEvent('SIGNINSUC_EMAIL_GLOBAL', experimentId, {
+                        this.triggerAnanlyticsEvent('SIGNINSUC_EMAIL_GLOBAL', referDetails.EXPERIMENT_ID ? referDetails.EXPERIMENT_ID : experimentId, {
                             'USER_ID': this.getUserDetails.userId,
                             ...referDetails
                         });
@@ -87,7 +87,7 @@ export default {
 
                 switch(this.getSignupSource) {
                     case 'EMAIL':
-                        this.triggerAnanlyticsEvent('SIGNUPSUC_EMAIL_GLOBAL', experimentId, {
+                        this.triggerAnanlyticsEvent('SIGNUPSUC_EMAIL_GLOBAL', referDetails.EXPERIMENT_ID ? referDetails.EXPERIMENT_ID : experimentId, {
                             'USER_ID': this.getUserDetails.userId,
                             ...referDetails
                         });
@@ -99,7 +99,7 @@ export default {
                         });
                         break;
                     case 'GOOGLE':
-                        this.triggerAnanlyticsEvent('SIGNUPSUC_GOOGLE_GLOBAL', experimentId, {
+                        this.triggerAnanlyticsEvent('SIGNUPSUC_GOOGLE_GLOBAL', referDetails.EXPERIMENT_ID ? referDetails.EXPERIMENT_ID : experimentId, {
                             'USER_ID': this.getUserDetails.userId,
                             ...referDetails
                         });

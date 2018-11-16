@@ -35,9 +35,9 @@ export function translateWord(word, callback) {
     });
 }
 
-export function openLoginModal(pageSource, action, location) {
+export function openLoginModal(pageSource, action, location, experimentId) {
 
-    let experimentId = 'CONTROL';
+    experimentId = experimentId ? experimentId : 'CONTROL';
     triggerAnanlyticsEvent('LANDED_REGISTERM_GLOBAL', experimentId, {
         REFER_SCREEN: getAnalyticsPageSource(pageSource),
         REFER_ACTION: action,
@@ -47,7 +47,8 @@ export function openLoginModal(pageSource, action, location) {
     localStorage.setItem('login_modal_refer_details', JSON.stringify({
         REFER_SCREEN: getAnalyticsPageSource(pageSource),
         REFER_ACTION: action,
-        REFER_LOCATION: location
+        REFER_LOCATION: location,
+        EXPERIMENT_ID: experimentId ? experimentId : 'CONTROL'
 
     }));
     $('#login_modal').modal('show');
@@ -560,7 +561,7 @@ export function getPratilipiAnalyticsData(pratilipiData) {
     }
 }
 
-export function getAndroidIntentUri( utmParameters ) {``
+export function getAndroidIntentUri( utmParameters ) {
     const SCHEME = 'http';
     const PACKAGE_NAME = 'com.pratilipi.mobile.android';
     const PLAYSTORE_URL = 'https://play.google.com/store/apps/details?id=' + PACKAGE_NAME;

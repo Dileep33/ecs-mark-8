@@ -1,7 +1,8 @@
 <template>
     <div>
         <header v-if="!isHidden">
-            <div class="container">
+            <TopBar v-if="isMobile() && this.$route.meta.store == 'pratilipipage' && this.getUserDetails.isGuest && this.getCookie('bucket_id') >= 75 && this.getCookie('bucket_id') <= 86"></TopBar>
+            <div v-else class="container">
                 <div class="row">
                     <div class="col-lg-2 col-sm-4 col-5 p-r-0">
                         <span
@@ -90,6 +91,7 @@ import constants from '@/constants'
 import mixins from '@/mixins'
 import SearchBox from '@/components/SearchBox.vue'
 import MainMenu from '@/components/MainMenu.vue'
+import TopBar from '@/components/TopBar.vue'
 import SpeechToTextUtil from '@/utils/SpeechToTextUtil'
 import { mapGetters, mapActions } from 'vuex'
 
@@ -138,7 +140,8 @@ export default {
     },
     components: {
         SearchBox,
-        MainMenu
+        MainMenu,
+        TopBar
     },
     methods: {
         changeSearchText(event) {
