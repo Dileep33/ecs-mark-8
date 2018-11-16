@@ -805,6 +805,9 @@ export default {
                 else if (bucketId >= 36 && bucketId <= 49 && this.getCookie('last_read_book') == this.getPratilipiData.pratilipiId) {
                     experimentId = 'TESTA2';
                 }
+                else if (bucketId >= 75 && bucketId <= 86 && this.isMobile() && this.getUserDetails.isGuest) {
+                    experimentId = 'TESTC1';
+                }
                 this.triggerAnanlyticsEvent('LANDED_BOOKM_BOOK', experimentId, {
                     ...pratilipiAnalyticsData,
                     'USER_ID': this.getUserDetails.userId
