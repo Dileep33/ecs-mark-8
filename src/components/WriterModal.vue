@@ -38,6 +38,7 @@
                                 <option value="ARTICLE">__('_pratilipi_type_article')</option>
                             </select>
                         </div>
+                        <span class="alert alert-danger">__("legal_violation_text")</span>
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="agree-terms-conditions"
                                    v-model="checkBox">
@@ -194,6 +195,12 @@ export default {
         float: right;
         font-size: 12px;
         line-height: 33px;
+    }
+    .alert-danger {
+        font-size: 13px;
+        display: block;
+        padding: 10px;
+        margin: 5px 0;
     }
 }
 </style>
