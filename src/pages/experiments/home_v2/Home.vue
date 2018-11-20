@@ -16,30 +16,6 @@
                         :partnership="eachSection.partnership"
                         v-bind="{ addToLibrary, removeFromLibrary }"
                 ></PratilipiListComponent>
-                <div class="card webpush-strip-container" v-if="isWebPushStripEnabled && index === 6 && currentLocale !== 'en'">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="webpush-title">
-                                    __("web_push_section_title")
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <button class="close" @click="closeWebPushStrip()">
-                                    <i class="material-icons">close</i>
-                                </button>
-                            </div>
-                        </div>
-                        <WebPushStrip
-                            screenName="HOME"
-                            message="__('web_push_message_3')"
-                            :includeIcon=true
-                            :includeDisableButton=false
-                            :includeCloseButton=false
-                            v-on:WebPushEnabled="isWebPushStripEnabled=false">
-                        </WebPushStrip>
-                    </div>
-                </div>
             </div>
             <ServerError :action="'homepage/getListOfSections'" :data="getCurrentLanguage().fullName.toUpperCase()" v-if="getHomePageLoadingState === 'LOADING_ERROR'"></ServerError>
             <WebPushModal
@@ -60,7 +36,6 @@
     import Banners from '@/components/Banners.vue';
     import VapasiShayari from '@/components/VapasiShayari.vue';
     import ServerError from '@/components/ServerError.vue';
-    import WebPushStrip from '@/components/WebPushStrip.vue';
     import WebPushModal from '@/components/WebPushModal.vue';
     import constants from '@/constants'
     import mixins from '@/mixins'
@@ -74,7 +49,6 @@ import { mapGetters, mapActions } from 'vuex'
         data() {
             return {
                 sectionList: [],
-                isWebPushStripEnabled: WebPushUtil.canShowCustomPrompt(),
                 isWebPushModalEnabled: false,
                 webPushModalTriggered: false,
                 scrollPosition: null,
@@ -109,11 +83,6 @@ import { mapGetters, mapActions } from 'vuex'
                 'fetchBanners',
                 'fetchForYouListPagePratilipis'
             ]),
-            closeWebPushStrip() {
-                this.isWebPushStripEnabled = false
-                this.triggerAnanlyticsEvent(`CLOSED_WEBPUSHSTRIP_HOME`, 'CONTROL', {'USER_ID': this.getUserDetails.userId, 'ACTION_COUNT': WebPushUtil.getNthActionCount()})
-                WebPushUtil.disabledOnCustomPrompt(this.$route.meta.store)
-            },
             updateScroll() {
                 this.scrollPosition = window.scrollY
                 this.percentScrolled = ($(window).scrollTop()/($(document).height()-$(window).height()))*100
@@ -126,7 +95,6 @@ import { mapGetters, mapActions } from 'vuex'
             Banners,
             ServerError,
             DummyLoader,
-            WebPushStrip,
             WebPushModal,
             VapasiShayari,
         },

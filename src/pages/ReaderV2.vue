@@ -189,18 +189,6 @@
                                     v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId && !openRateReaderm && !openRateRev && getUserPratilipiLoadingState === 'LOADING_SUCCESS'">
                                 </Reviews>
                             </div>
-                            <div class="book-bottom-webpush-subscribe" v-if="this.currentLocale !== 'en'">
-                                   <div class="webpush-container">
-                                    <div class="webpush-inner-container">
-                                       <WebPushStrip
-                                            screenName="READER"
-                                            title="__('web_push_title')"
-                                            message="__('web_push_message_3')"
-                                            v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId && isWebPushStripEnabled">
-                                        </WebPushStrip>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="book-recomendations p-r-10" v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId">
                                 <Recommendation
                                     :contextId="getPratilipiData.pratilipiId"
@@ -320,7 +308,6 @@ import 'vue-awesome/icons/google-plus'
 import 'vue-awesome/icons/whatsapp'
 import 'vue-awesome/icons/link'
 import Reviews from '@/components/Reviews.vue';
-import WebPushStrip from '@/components/WebPushStrip.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
 import Recommendation from '@/components/Recommendation.vue';
 import OpenInApp from '@/components/OpenInApp.vue';
@@ -353,7 +340,6 @@ export default {
         ReadLayout,
         Spinner,
         Reviews,
-        WebPushStrip,
         WebPushModal,
         Recommendation,
         ShareStrip,
@@ -389,7 +375,6 @@ export default {
             openReaderSidebar: false,
             /* web push */
             webPushModalTriggered: false,
-            isWebPushStripEnabled: false,
             isWebPushModalEnabled: false,
             /* user pratilipi calc */
             maxReadPercentage: 0,
@@ -801,7 +786,6 @@ export default {
             // default value for webPushModalTriggered is false
             this.webPushModalTriggered = false
             // setting up values for isWebPushStripEnabled and isWebPushModalEnabled
-            this.isWebPushStripEnabled = this.getPratilipiData.state === "PUBLISHED" && WebPushUtil.canShowCustomPrompt() && (parseInt(this.getCookie('bucketId')) || 0) >= 20 && (parseInt(this.getCookie('bucketId')) || 0) < 30
             this.isWebPushModalEnabled =  this.getPratilipiData.state === "PUBLISHED" && WebPushUtil.canShowCustomPrompt()
         },
         'getUserDetails.userId' (newUserId, oldUserId) {

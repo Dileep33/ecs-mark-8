@@ -114,22 +114,6 @@
                     <div @click="hideStripAndRedirect" class="next-strip-container" v-if="isNextPratilipiEnabled && getPratilipiData.nextPratilipi.pratilipiId>0">
                         <NextPratilipiStrip :pratilipi='getPratilipiData.nextPratilipi'></NextPratilipiStrip>
                     </div>
-                    <div class="card webpush-strip-container" v-if="isWebPushStripEnabled && this.currentLocale !== 'en'">
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="head-title">
-                                    __("web_push_section_title")
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <button class="close" @click="closeWebPushStrip()">
-                                        <i class="material-icons">close</i>
-                                    </button>
-                            </div>
-                        </div>
-                        <WebPushStrip screenName="PRATILIPI" message="__('web_push_message_3')" :includeIcon=true :includeDisableButton=false :includeCloseButton=false v-on:WebPushEnabled="isWebPushStripEnabled=false">
-                        </WebPushStrip>
-                    </div>
                     <div class="card" v-if="!isMobile()">
                         <AboutAuthor :authorId="getPratilipiData.author.authorId" :pratilipiData="getPratilipiData"></AboutAuthor>
                     </div>
@@ -235,7 +219,6 @@ import Reviews from '@/components/Reviews.vue';
 import BookShareStrip from '@/components/BookShareStrip.vue';
 import ShareStrip from '@/components/experiments/pratilipi_v1/ShareStrip.vue';
 import ServerError from '@/components/ServerError.vue';
-import WebPushStrip from '@/components/WebPushStrip.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
 import BookTags from '@/components/BookTags.vue';
 import MessageButton from '@/components/MessageButton.vue';
@@ -268,7 +251,6 @@ export default {
             hasLandedBeenTriggered: false,
             hasNextPratilipiBeenTriggered: false,
             isCreated: null,
-            isWebPushStripEnabled: false,
             isWebPushModalEnabled: false,
             webPushModalTriggered: false,
             scrollPosition: null,
@@ -615,14 +597,6 @@ export default {
                 this.showShowMoreOfSummary = false;
             }
         },
-        closeWebPushStrip() {
-            this.isWebPushStripEnabled = false
-            this.triggerAnanlyticsEvent(`CLOSED_WEBPUSHSTRIP_PRATILIPI`, 'CONTROL', {
-                'USER_ID': this.getUserDetails.userId,
-                'ACTION_COUNT': WebPushUtil.getNthActionCount()
-            })
-            WebPushUtil.disabledOnCustomPrompt(this.$route.meta.store)
-        },
         updateScroll() {
             this.scrollPosition = window.scrollY;
             this.percentScrolled = ($(window).scrollTop() / ($(document).height() - $(window).height())) * 100;
@@ -677,7 +651,6 @@ export default {
         BookTags,
         Reviews,
         ServerError,
-        WebPushStrip,
         WebPushModal,
         BookShareStrip,
         ShareStrip,
@@ -723,9 +696,6 @@ export default {
 
             // default value for webPushModalTriggered is false
             this.webPushModalTriggered = false;
-
-            // setting isWebPushStripEnabled
-            this.isWebPushStripEnabled = this.getPratilipiData.state === "PUBLISHED" && WebPushUtil.canShowCustomPrompt() && (parseInt(this.getCookie('bucketId')) || 0) >= 20 && (parseInt(this.getCookie('bucketId')) || 0) < 50;
 
             // setting isWebPushModalEnabled
             this.isWebPushModalEnabled = this.getPratilipiData.state === "PUBLISHED" && WebPushUtil.canShowCustomPrompt() && (parseInt(this.getCookie('bucketId')) || 0) >= 50 && (parseInt(this.getCookie('bucketId')) || 0) < 100;
