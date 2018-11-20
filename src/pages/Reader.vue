@@ -128,10 +128,9 @@
                                     v-if="isNextPratilipiEnabled && getPratilipiData.nextPratilipi.pratilipiId>0"
                                 ></NextPratilipiStrip>
                             </div>
-                            <div class="goto-readerpage-container">
-                                <router-link :to="gotoBookPageReview(getPratilipiData.pageUrl)" v-if="selectedChapter == getIndexData.length && getCookie('bucket_id') >= 50 && getCookie('bucket_id') < 75">__("see_all_reviews")</router-link>
-                            </div>
-                            
+                           <div class="goto-readerpage-container">
+                                <router-link :to="gotoBookPageReview(getPratilipiData.pageUrl)" @click.native="triggerClickReview()" v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId">__("see_all_reviews")</router-link>
+                            </div> 
                             <ShareStrip
                                 v-if="selectedChapter == getIndexData.length"
                                 :data="getPratilipiData"
@@ -757,6 +756,9 @@ export default {
         },
         gotoBookPageReview(url) {
             return url+"#comments-list"
+        },
+        triggerClickReview() {
+            this._triggerReaderAnalyticsEvent('CLICKREVIEW_BOOKEND_READER')
         }
     },
     computed: {

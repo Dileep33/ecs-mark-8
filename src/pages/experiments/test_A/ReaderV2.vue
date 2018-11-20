@@ -169,6 +169,9 @@
                                     v-if="isNextPratilipiEnabled"
                                 ></NextPratilipiStrip>
                             </div>
+                            <div class="goto-readerpage-container">
+                                <router-link :to="gotoBookPageReview(getPratilipiData.pageUrl)" @click.native="triggerClickReview()" v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId">__("see_all_reviews")</router-link>
+                            </div>
                             <ShareStrip
                                 v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId"
                                 :data="getPratilipiData"
@@ -676,6 +679,12 @@ export default {
                 this.readerPercentScrolled = Math.max(readerPercentScrolled, 0)
                 $('.reader-progress .progress-bar').css('width', `${this.readerPercentScrolled}%`)
             }
+        },
+        gotoBookPageReview(url) {
+            return url+"#comments-list"
+        },
+        triggerClickReview() {
+            this._triggerReaderAnalyticsEvent('CLICKREVIEW_BOOKEND_READER')
         }
     },
     computed: {
@@ -1595,5 +1604,12 @@ $theme-yellow-color: #2c3e50;
     height: 100vh !important;
     position: fixed !important;
     padding: 0 10px !important;
+}
+.goto-readerpage-container {
+    text-align: center;
+    margin: 0px 0px 16px 0px;
+}
+.goto-readerpage-container a {
+    color: #d0021b;
 }
 </style>
