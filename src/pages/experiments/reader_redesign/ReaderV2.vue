@@ -170,7 +170,7 @@
                                 ></NextPratilipiStrip>
                             </div>
                             <div class="goto-readerpage-container">
-                                <router-link :to="gotoBookPageReview(getPratilipiData.pageUrl)" @click.native="triggerClickReview()" v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId && getCookie('bucket_id') >= 50 && getCookie('bucket_id') < 75">__("see_all_reviews")</router-link>
+                                <router-link :to="gotoBookPageReview(getPratilipiData.pageUrl)" @click.native="triggerClickReview()" v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId">__("see_all_reviews")</router-link>
                             </div>
                             <ShareStrip
                                 v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId"
@@ -1520,10 +1520,10 @@ $theme-yellow-color: #2c3e50;
     padding: 0 10px !important;
 }
 .goto-readerpage-container {
-        text-align: center;
-        margin: 0px 0px 16px 0px;
-    }
-    .goto-readerpage-container a {
-        color: #d0021b;
-    }
+    text-align: center;
+    margin: 0px 0px 16px 0px;
+}
+.goto-readerpage-container a {
+    color: #d0021b;
+}
 </style>
