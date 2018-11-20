@@ -218,12 +218,18 @@
                                     __("reader_goto_home_page")
                                 </button>
                             </div>
+                            <WebPushModalV2
+                                title="__('web_push_title')"
+                                message="__('web_push_message_2')"
+                                screenName="READER"
+                                :includeDisableButton=true
+                                v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId && isWebPushModalEnabled && this.currentLocale !== 'en' && getCookie('bucket_id') >= 36 && getCookie('bucket_id') < 50"></WebPushModalV2>
                             <WebPushModal
                                 title="__('web_push_title')"
                                 message="__('web_push_message_2')"
                                 screenName="READER"
                                 :includeDisableButton=true
-                                v-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId && isWebPushModalEnabled && this.currentLocale !== 'en'"></WebPushModal>
+                                v-else-if="getIndexData[getIndexData.length -1].slugId === currentChapterSlugId && isWebPushModalEnabled && this.currentLocale !== 'en' && !(getCookie('bucket_id') >= 36 && getCookie('bucket_id') < 50)"></WebPushModal>
                         </div>
                     </div>
                 </div>
@@ -324,6 +330,7 @@ import 'vue-awesome/icons/link'
 import Reviews from '@/components/experiments/test_A/Reviews.vue';
 import WebPushStrip from '@/components/WebPushStrip.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
+import WebPushModalV2 from '@/components/experiments/test_A/WebPushModal.vue';
 import Recommendation from '@/components/Recommendation.vue';
 import OpenInApp from '@/components/OpenInApp.vue';
 import ShareStrip from '@/components/experiments/test_A/ShareStrip.vue';
@@ -357,6 +364,7 @@ export default {
         Reviews,
         WebPushStrip,
         WebPushModal,
+        WebPushModalV2,
         Recommendation,
         ShareStrip,
         OpenInApp,

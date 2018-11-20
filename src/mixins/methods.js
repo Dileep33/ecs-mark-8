@@ -118,6 +118,9 @@ export function getAnalyticsPageSource(pageSource) {
         case 'messages':
             analyticsPageSource = 'MESSAGES';
             break;
+        case 'readerv2page':
+            analyticsPageSource = 'READER';
+            break;
     }
     return analyticsPageSource;
 }

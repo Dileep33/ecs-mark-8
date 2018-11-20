@@ -74,23 +74,29 @@ const WebpushUtil = (function () { // eslint-disable-line
 
     // enabledOnCustomPrompt => As the name defines
     const enabledOnCustomPrompt = (pageSource) => {
+        
+        let experimentId = 'CONTROL';
+        let bucketId = parseInt(getCookie('bucket_id')) || 0;
+        if (bucketId >= 36 && bucketId <= 49) {
+            experimentId = 'TESTA2';
+        }
         const SCREEN_NAME = getAnalyticsPageSource(pageSource)
         // assumption => The next line of code fires up the popup
         if ((window.Notification.permission !== 'granted') && (window.Notification.permission !== 'denied')) {
-            triggerAnanlyticsEvent('VIEWED_BROWSERWEBPUSH_GLOBAL', 'CONTROL', {SCREEN_NAME})
+            triggerAnanlyticsEvent('VIEWED_BROWSERWEBPUSH_GLOBAL', experimentId, {SCREEN_NAME})
         }
 
         // Just a method to fire some events
         const _fireAnalyticsEvents = () => {
             // user had clicked on 'Allow'
             if (window.Notification.permission === 'granted') {
-                triggerAnanlyticsEvent('ALLOW_BROWSERWEBPUSH_GLOBAL', 'CONTROL', {SCREEN_NAME})
+                triggerAnanlyticsEvent('ALLOW_BROWSERWEBPUSH_GLOBAL', experimentId, {SCREEN_NAME})
             // user had clicked on 'Disallow'
             } else if (window.Notification.permission === 'denied') {
-                triggerAnanlyticsEvent('DISALLOW_BROWSERWEBPUSH_GLOBAL', 'CONTROL', {SCREEN_NAME})
+                triggerAnanlyticsEvent('DISALLOW_BROWSERWEBPUSH_GLOBAL', experimentId, {SCREEN_NAME})
             // user had clicked on 'Close'
             } else {
-                triggerAnanlyticsEvent('CLOSE_BROWSERWEBPUSH_GLOBAL', 'CONTROL', {SCREEN_NAME})
+                triggerAnanlyticsEvent('CLOSE_BROWSERWEBPUSH_GLOBAL', experimentId, {SCREEN_NAME})
                 // user is trying to play with us, cool down the user by not showing it for the session
                 setCookie(WEB_PUSH_SESSION_COOKIE_NAME, Date.now(), null, '/')
             }
