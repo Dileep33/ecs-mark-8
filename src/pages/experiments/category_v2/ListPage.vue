@@ -98,8 +98,8 @@ export default {
     },
     methods: {
         ...mapActions('listpage', [
-            'fetchInitialListPagePratilipis',
-            'fetchMorePratilipisForListPage',
+            'fetchInitialListPagePratilipisV2',
+            'fetchMorePratilipisForListPageV2',
             'addToLibrary',
             'removeFromLibrary',
             'updateUserPreference',
@@ -136,7 +136,7 @@ export default {
             const list_type = tab_id.split('tab-').pop();
             this.list_type = list_type;
             const { list_page_url } = this.$route.params;
-            this.fetchInitialListPagePratilipis({
+            this.fetchInitialListPagePratilipisV2({
                 language: this.getCurrentLanguage().fullName.toUpperCase(),
                 listName: list_page_url,
                 resultCount: 20,
@@ -224,7 +224,7 @@ export default {
 
         constants.LANGUAGES.forEach((eachLanguage) => {
             if (eachLanguage.shortName === currentLocale) {
-                this.fetchInitialListPagePratilipis({
+                this.fetchInitialListPagePratilipisV2({
                     language: eachLanguage.fullName.toUpperCase(),
                     listName: list_page_url,
                     resultCount: 20,
@@ -250,7 +250,7 @@ export default {
                 const currentLocale = process.env.LANGUAGE;
                 constants.LANGUAGES.forEach((eachLanguage) => {
                     if (eachLanguage.shortName === currentLocale) {
-                        this.fetchMorePratilipisForListPage({
+                        this.fetchMorePratilipisForListPageV2({
                             language: eachLanguage.fullName.toUpperCase(),
                             listName: list_page_url,
                             resultCount: 20,
@@ -265,7 +265,7 @@ export default {
             const currentLocale = process.env.LANGUAGE;
             constants.LANGUAGES.forEach((eachLanguage) => {
                 if (eachLanguage.shortName === currentLocale) {
-                    this.fetchInitialListPagePratilipis({
+                    this.fetchInitialListPagePratilipisV2({
                         language: eachLanguage.fullName.toUpperCase(),
                         listName: list_page_url,
                         resultCount: 20,
@@ -278,7 +278,7 @@ export default {
             document.title = title + " | Pratilipi";
         },
         'timeFilter'(timeFilter) {
-            this.fetchInitialListPagePratilipis({
+            this.fetchInitialListPagePratilipisV2({
                 language: this.getCurrentLanguage().fullName.toUpperCase(),
                 listName: this.$route.params.list_page_url,
                 resultCount: 20,
