@@ -401,7 +401,8 @@ export default {
             isNextPratilipiEnabled: false,
             /* metaDescription */
             metaDescription: '',
-            currentLocale: ''
+            currentLocale: '',
+            directWebPushTrigger: false
         }
     },
     methods: {
@@ -840,8 +841,15 @@ export default {
         'readerPercentScrolled'() {
             // webpush modal trigger
             if (this.getIndexData[this.getIndexData.length -1].slugId === this.currentChapterSlugId && this.readerPercentScrolled > 80 && !this.webPushModalTriggered) {
-                this.webPushModalTriggered = true
-                this.openWebPushModal()
+                if ((parseInt(this.getCookie('bucket_id')) || 0) >= 25 && (parseInt(this.getCookie('bucket_id')) || 0) <= 35 && !this.directWebPushTrigger) {
+                    WebPushUtil.enabledOnCustomPrompt(this.$route.meta.store)
+                    this.directWebPushTrigger = true
+                }
+                else if(!((parseInt(this.getCookie('bucket_id')) || 0) >= 25 && (parseInt(this.getCookie('bucket_id')) || 0) <= 35)) {
+                    this.webPushModalTriggered = true
+                    this.openWebPushModal()
+                }
+                
             }
             // next pratilipi trigger
             if (this.getIndexData[this.getIndexData.length -1].slugId == this.currentChapterSlugId && !this.isNextPratilipiEnabled) {

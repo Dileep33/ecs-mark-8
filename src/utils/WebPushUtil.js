@@ -77,7 +77,10 @@ const WebpushUtil = (function () { // eslint-disable-line
         
         let experimentId = 'CONTROL';
         let bucketId = parseInt(getCookie('bucket_id')) || 0;
-        if (bucketId >= 36 && bucketId <= 49) {
+        if (bucketId >= 25 && bucketId <= 35) {
+            experimentId = 'TESTA1';
+        }
+        else if (bucketId >= 36 && bucketId <= 49) {
             experimentId = 'TESTA2';
         }
         const SCREEN_NAME = getAnalyticsPageSource(pageSource)
