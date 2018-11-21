@@ -5,5 +5,6 @@ export default {
         author_update_state: 'LOADING_SUCCESS',
         data: {},
     },
-    marketing_frequency: null
+    marketing_frequency: null,
+    referral_unsubscribe: null
 }

@@ -22,12 +22,12 @@ export default {
     setAuthorDataLoadingTrue(state) {
         state.author.loading_state = 'LOADING';
     },
-    
+
     setAuthorDataLoadingSuccess(state, authorData) {
         state.author.data = authorData;
         state.author.loading_state = 'LOADING_SUCCESS';
     },
-    
+
     setAuthorDataLoadingError(state) {
         state.author.loading_state = 'LOADING_ERROR';
     },
@@ -59,5 +59,16 @@ export default {
     },
     setMarketingFrequencyLoadingError(state) {
         state.marketing_frequency = "LOADING_ERROR";
+    },
+
+    setReferralUnsubscribeLoadingTrue(state) {
+        state.referral_unsubscribe = "LOADING";
+    },
+    setReferralUnsubscribeLoadingSuccess(state) {
+        state.referral_unsubscribe = "LOADING_SUCCESS";
+    },
+    setReferralUnsubscribeLoadingError(state) {
+        state.referral_unsubscribe = "LOADING_ERROR";
     }
+
 }

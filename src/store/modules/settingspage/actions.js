@@ -63,5 +63,15 @@ export default {
         }, () => {
             commit('setMarketingFrequencyLoadingError');
         });
+    },
+
+    // This is for unsubscribe non logged in page
+    updateReferralUnsubscribe({ commit, state }, { invitationId, channelAddress, reason }) {
+        commit('setReferralUnsubscribeLoadingTrue');
+        DataAccessor.postReferralUnsubscribe(invitationId, channelAddress, reason, (data) => {
+            commit('setReferralUnsubscribeLoadingSuccess');
+        }, () => {
+            commit('setReferralUnsubscribeLoadingError');
+        });
     }
 }

@@ -36,6 +36,7 @@ import ChatStoryComponent from '@/pages/ChatStory.vue'
 import EndChatStoryComponent from '@/pages/EndChatStory.vue'
 import AuthorDashboardComponent from '@/pages/AuthorDashboard.vue'
 import NotFoundPageComponent from '@/pages/404.vue'
+import ReferralUnSubscribePageComponent from '@/pages/ReferralUnSubscribe.vue'
 
 import {
     getCookie,
@@ -514,6 +515,13 @@ var router = new Router({
             path: '/newsletter/unsubscribe',
             name: 'Newsletter',
             component: NewsletterUnSubscribePageComponent,
+            meta: {
+                'title': '__("seo_home_page")'
+            }
+        }, {
+            path: '/referral/unsubscribe',
+            name: 'Referral',
+            component: ReferralUnSubscribePageComponent,
             meta: {
                 'title': '__("seo_home_page")'
             }
