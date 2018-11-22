@@ -458,6 +458,8 @@ var router = new Router({
                     return import ('@/pages/experiments/test_A/ReaderV2.vue');
                 } else if (bucketId >= 50 && bucketId < 75) {
                     return import ('@/pages/experiments/reader_redesign/ReaderV2.vue');
+                } else if (bucketId >= 75 && bucketId < 100) {
+                    return import ('@/pages/experiments/test_C/ReaderV2.vue');
                 } else {
                     return new Promise((resolve, reject) => resolve(ReaderPageV2Component));
                 }
