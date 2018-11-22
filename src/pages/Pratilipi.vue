@@ -5,122 +5,23 @@
                 <div class="row" v-if="getPratilipiLoadingState === 'LOADING_SUCCESS'" itemscope itemtype="http://schema.org/Book">
                     <div class="book-details col-md-12 col-lg-5 p-0">
                         <div class="card">
-                            <div class="book-image-container">
-                                <div class="book-image">
-                                     <img :src="getPratilipiData.coverImageUrl" :alt="getPratilipiData.title">
-                                    <meta itemprop="image" v-bind:content="getPratilipiData.coverImageUrl" />
-                                    <div class="progress-bar-read">
-                                        <div
-                                            class="reader-progress"
-                                            v-bind:style="{width: getPratilipiData.userPratilipi.percentageRead  + '%'}"
-                                        ></div>
-                                    </div>
-                                    <button class="update-img"
-                                            v-if="getPratilipiData.hasAccessToUpdate"
-                                            @click="uploadImage('pratilipi-image')">
-                                        <i class="material-icons">camera_alt</i>
-                                    </button>
-                                    <input type="file"
-                                           hidden name="pratilipiimage"
-                                           @change="triggerPratilipiImageUpload($event)"
-                                           accept="image/*"
-                                           id="pratilipiimage-uploader">
-                                    <div class="uploading" v-if="getImageUploadLoadingState === 'LOADING'">
-                                        <Spinner></Spinner>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="book-title"><h1 itemprop="name">{{ getPratilipiData.title }}</h1> <button class="edit" @click="editPratilipiTitle" v-if="getPratilipiData.hasAccessToUpdate"><i class="material-icons">mode_edit</i></button></div>
-			    <meta itemprop="inLanguage" v-bind:content="getPratilipiData.language" />
-			    <meta itemprop="url" v-bind:content="currentPageUrl" />
-			    <meta v-for="tag in selectedTags" itemprop="genre" v-bind:content="tag.nameEn"/>
-                            <router-link
-                              :to="getPratilipiData.author.pageUrl"
-                              @click.native="triggerClickAuthorNameEvent"
-                              class="author-name">
-			      <span itemprop="author" itemscope itemtype="http://schema.org/Person">
-                              	<span itemprop="name">{{ getPratilipiData.author.name }}</span>
-                              </span>
-                            </router-link>
-                            <MessageButton
-                                 v-if="getAuthorDetails.user && getAuthorDetails.user.userId && getUserDetails.userId !== getAuthorDetails.user.userId"
-                                :authorId="getAuthorDetails.authorId"
-                                :getRouteToMessageUserState="getRouteToMessageUserState"
-                                :triggerRouteToMessageUser="triggerRouteToMessageUser"
-                                :authorUserId="getAuthorDetails.user.userId"
-                                :profileImageUrl="getAuthorDetails.profileImageUrl"
-                                :fullName="getAuthorDetails.fullName"
-                                :pageUrl="getAuthorDetails.pageUrl"
-                                :className="'message-icon'"
-                                :hideText="true"
-                                :screenName="'BOOK'"
-                                :locationName="'BOOKM'"
-                                ></MessageButton>
-                            <div v-if="getPratilipiData.ratingCount" class="book-stats" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-                                <span class="avg-rating stars-green" ><span class="rating-text" itemprop="ratingValue">{{ getPratilipiData.averageRating | round(1) }}</span> <i class="material-icons">star_rate</i></span>
-                                <span class="review-count"> <span itemprop="ratingCount">{{ getPratilipiData.ratingCount }}</span> __("rating_ratings")</span>
-                                <meta itemprop="bestRating" v-bind:content="5"/>
-                                <meta itemprop="worstRating" v-bind:content="1"/>
-                            </div>
-                            <div class="book-stats">
-                                <span class="read-time" >__("pratilipi_reading_time"): <time itemprop="timeRequired" v-bind:datetime="getPratilipiData.readingTime | readingTimeSchemaOrgFormat">{{ getPratilipiData.readingTime | showInMinutesOrHours }}</time></span>
-                            </div>
-                            <div class="book-stats">
-                                <span class="read-count">__("pratilipi_count_reads"): {{ getPratilipiData.readCount | showThousandsInCommas() }}</span>
-                                <span class="date">__("pratilipi_listing_date"): <time itemprop="datePublished" v-bind:datetime="getPratilipiData.listingDateMillis | listingDateSchemaOrgFormat">{{ getPratilipiData.listingDateMillis | convertDate }}</time></span>
-                            </div>
-                            <div class="main-actions"  v-if="getUserPratilipiLoadingState === 'LOADING_SUCCESS'">
-                                <div class="book-edit-actions" v-if="getPratilipiData.hasAccessToUpdate">
-                                    <span v-if="getPratilipiData.state === 'PUBLISHED'">
-                                        <button @click="askConfirmationAndUnpublishOrPublishBook({ bookState: 'DRAFTED' })">__("pratilipi_move_to_drafts")</button>
-                                    </span>
-                                    <span>
-                                        <button v-if="isMobile()" @click="showAlertToGoToDesktop"><i class="material-icons">mode_edit</i> __("pratilipi_edit_content")</button>
-                                        <a v-else @click="triggerEditBookEvent" :href="getPratilipiData.writePageUrl"><button><i class="material-icons">mode_edit</i> __("pratilipi_edit_content")</button></a>
-                                    </span>
-                                    <span v-if="getPratilipiData.state === 'DRAFTED'">
-                                        <button @click="triggerEventAndUnpublishOrPublishBook({ bookState: 'PUBLISHED' })">__("pratilipi_publish_it")</button>
-                                        <button @click="confirmAndDeletePratilipi"><i class="material-icons">delete</i> __("pratilipi_delete_content")</button>
-                                    </span>
-                                </div>
-                                <span v-if="!getPratilipiData.hasAccessToUpdate">
-                                    <button v-if="!getUserPratilipiData.addedToLib" class="library-btn" @click="addPratilipiToLibrary(getPratilipiData.pratilipiId)">
-                                        <span>
-                                            <i class="material-icons">bookmark_border</i>
-                                            <i class="material-icons stacked white">add</i>
-                                        </span>
-                                        <span>__("library")</span>
-                                    </button>
-
-                                    <button v-if="getUserPratilipiData.addedToLib" class="library-btn" @click="removeFromLibraryAndTriggerAnalytics(getPratilipiData.pratilipiId)">
-                                        <span>
-                                            <i class="material-icons added-to-lib">bookmark</i>
-                                            <i class="material-icons stacked grey">check</i>
-                                        </span>
-                                        <span>__("library")</span>
-                                    </button>
-                                </span>
-
-                                <router-link
-                                  v-if="getPratilipiData.hasAccessToUpdate && getPratilipiData.state === 'DRAFTED'"
-                                  :to="readPageUrl"
-                                  class="read-btn">
-                                  <span>__("writer_preview")</span>
-                                </router-link>
-                                <router-link
-                                  v-else
-                                  :to="readPageUrl"
-                                  @click.native="logReadEvent"
-                                  class="read-btn">
-                                  <span>__("read")</span>
-                                </router-link>
-                            </div>
-                                
-                            <BookShareStrip
-                            :data="getPratilipiData"
-                            :type="'PRATILIPI'"
-                            ></BookShareStrip>
+                            <SummaryCard
+                                :pratilipiData="getPratilipiData"
+                                :userPratilipiData="getUserPratilipiData"
+                                :selectedTags="selectedTags"
+                                :currentPageUrl="currentPageUrl || ''"
+                                :userPratilipiLoadingState="getUserPratilipiLoadingState"
+                                :imageUploadLoadingState="getImageUploadLoadingState"
+                                :readPageUrl="readPageUrl || ''"
+                                :triggerEventAndUnpublishOrPublishBook="triggerEventAndUnpublishOrPublishBook"
+                                :askConfirmationAndUnpublishOrPublishBook="askConfirmationAndUnpublishOrPublishBook"
+                                :addPratilipiToLibrary="addPratilipiToLibrary"
+                                :removeFromLibraryAndTriggerAnalytics="removeFromLibraryAndTriggerAnalytics"
+                                :uploadImage="uploadImage"
+                                :triggerPratilipiImageUpload="triggerPratilipiImageUpload"
+                                :editPratilipiTitle="editPratilipiTitle"
+                                :showAlertToGoToDesktop="showAlertToGoToDesktop"
+                                :triggerClickAuthorNameEvent="triggerClickAuthorNameEvent"></SummaryCard>
                         </div>
                         <!-- add next Pratilipi here-->
                         <div @click="hideStripAndRedirect"
@@ -132,6 +33,7 @@
                         </div>
 
                         <BookTags
+                            v-if="getPratilipiData.hasAccessToUpdate"
                             :selectedPratilipiType="selectedPratilipiType"
                             :isTagSelected="isTagSelected"
                             :selectedTags="selectedTags"
@@ -190,7 +92,7 @@
                               </div>
                             </div>
 
-                            <AboutAuthor :authorId="getPratilipiData.author.authorId" :pratilipiData="getPratilipiData"></AboutAuthor>
+                            <AboutAuthor v-if="!getPratilipiData.hasAccessToUpdate" :authorId="getPratilipiData.author.authorId" :pratilipiData="getPratilipiData"></AboutAuthor>
 
                         </div>
                         <div class="card reviews-section">
@@ -268,6 +170,7 @@ import VapasiQuote from '@/components/VapasiQuote.vue';
 import VapasiHoroscope from '@/components/VapasiHoroscope.vue';
 import VapasiJoke from '@/components/VapasiJoke.vue';
 import PratilipiPublishShareModal from '@/components/PratilipiPublishShareModal.vue';
+import SummaryCard from '@/components/SummaryCard.vue';
 import FacebookLogin from '@/components/FacebookLogin';
 
 export default {
@@ -652,7 +555,7 @@ export default {
         document.title = this.getPratilipiData.title;
 
         this.fetchPratilipiDetailsAndUserPratilipiData(slug_id);
-        
+
         this.currentLocale = this.getLanguageCode(process.env.LANGUAGE);
     },
     components: {
@@ -671,7 +574,8 @@ export default {
         VapasiJoke,
         NextPratilipiStrip,
         PratilipiPublishShareModal,
-        FacebookLogin
+        FacebookLogin,
+        SummaryCard
     },
     mounted() {
         window.addEventListener('scroll', this.updateScroll);
@@ -764,7 +668,7 @@ export default {
                     this.getPratilipiData.newReadPageUrl
                     ? this.getPratilipiData.newReadPageUrl : this.getPratilipiData.readPageUrl
                 // this.readPageUrl = this.getPratilipiData.readPageUrl
-                
+
                 // Scroll to All reviews
                 setTimeout(() => {
                     if (this.$route.hash === '#comments-list') {

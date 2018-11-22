@@ -193,6 +193,7 @@
     "show_more": "show more",
     "show_less": "show less",
     "read": "Read",
+    "read_now": "Read now",
     "write": "Write",
     "free": "FREE !",
     "saving": "Saving ...",
@@ -644,17 +645,17 @@
     "share_ui_title_4_1": "",
     "share_ui_title_4_2": "",
     "welcome_pratilipi": "",
-    
+
     "sorting_relevant": "For You",
     "sorting_latest": "New",
     "sorting_highly_rated": "Most Rated",
     "sorting_clear": "clear",
     "sorting_showing_results": "Showing results",
-    
+
     "read_now": "Read Now",
     "read_later": "Read Later",
     "see_all_reviews":"See all reviews",
     "signup_to_read": "Signup to read",
-    
+
     "legal_violation_text": "Content theft is a legal violation. Appropriate action would be taken if found guilty."
 }

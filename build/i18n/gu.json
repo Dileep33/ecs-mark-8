@@ -193,6 +193,7 @@
     "show_more": "વધુ જુઓ",
     "show_less": "ઓછું જુઓ",
     "read": "વાંચો",
+    "read_now": "હમણાં વાંચો",
     "write": "લખો",
     "free": "વિનામૂલ્યે",
     "saving": "સુરક્ષિત કરવાની પ્રક્રિયા ચાલુ છે",
@@ -636,23 +637,23 @@
     "signinbanner_enjoy_reading": "વાંચવું ગમે છે?",
     "signinbanner_desc_2": "અમારા શ્રેષ્ઠ લેખકોને વાંચવા માટે અને આપની વાંચનની આદતને વધારવા માટે સાઈન-અપ કરો.",
     "for_you": "તમારા માટે",
-    
+
     "share_ui_title_1": "રચના પસંદ આવી? મિત્રો સાથે શેર કરો",
     "share_ui_title_2": "તમારા મિત્રોને આ રચના વાંચવા આમંત્રિત કરો",
     "share_ui_title_3": "આ રચના તમને ગમશે ",
     "share_ui_title_4_1": "તમારે ",
     "share_ui_title_4_2": " વાંચવી જોઈએ",
-    
+
     "sorting_relevant": "તમારા માટે",
     "sorting_latest": "નવું",
     "sorting_highly_rated": "લોકપ્રિય",
     "sorting_clear": "હટાવો ",
     "sorting_showing_results": "શોધના પરિણામો",
-    
+
     "read_now": "અત્યારે વાંચો",
     "read_later": "પછીથી વાંચો",
     "see_all_reviews":"ટિપ્પણી જુઓ ",
     "signup_to_read": "વાંચવા માટે સાઈનઅપ કરો",
-    
+
     "legal_violation_text": "અન્યોની રચના કોપી પેસ્ટ કરવી એક કાનૂની અપરાધ છે. દોષિત વ્યક્તિ સામે યોગ્ય પગલાં લેવામાં આવશે."
 }
