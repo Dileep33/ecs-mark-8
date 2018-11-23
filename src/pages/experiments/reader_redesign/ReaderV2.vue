@@ -309,7 +309,7 @@ import 'vue-awesome/icons/whatsapp'
 import 'vue-awesome/icons/link'
 import Reviews from '@/components/Reviews.vue';
 import WebPushModal from '@/components/WebPushModal.vue';
-import Recommendation from '@/components/experiments/pratilipi_v2/Recommendation.vue';
+import Recommendation from '@/components/experiments/recommendation_v2/Recommendation.vue';
 import OpenInApp from '@/components/OpenInApp.vue';
 import ShareStrip from '@/components/ShareStrip.vue';
 import NextPratilipiStrip from '@/components/NextPratilipiStrip.vue'
