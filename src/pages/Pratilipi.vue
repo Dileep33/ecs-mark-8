@@ -152,7 +152,7 @@
 
 <script>
 import MainLayout from '@/layout/main-layout.vue';
-import Recommendation from '@/components/Recommendation.vue';
+import Recommendation from '@/components/experiments/recommendation_v2/Recommendation.vue';
 import AboutAuthor from '@/components/AboutAuthor.vue';
 import Spinner from '@/components/Spinner.vue';
 import Reviews from '@/components/Reviews.vue';
