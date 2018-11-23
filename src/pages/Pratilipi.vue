@@ -67,7 +67,7 @@
                     </div>-->
 
                     <div class="book-synopsis col-md-12 col-lg-7 p-0">
-                        <div class="card">
+                        <div class="card" v-if="getPratilipiData.hasAccessToUpdate">
                             <div v-if="getPratilipiData.summary.trim() || getPratilipiData.state === 'DRAFTED' || getPratilipiData.hasAccessToUpdate">
                                 <div class="head-title">__("pratilipi_summary")
                                     <button class="edit" @click="editPratilipiSummary" v-if="getPratilipiData.hasAccessToUpdate"><i class="material-icons">mode_edit</i></button>

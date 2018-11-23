@@ -52,8 +52,7 @@
                 </div>
 
                 <div class="tags">
-                    <span v-for="each_tag in pratilipiData.tags" :key="each_tag.id">{{ each_tag.name}}</span>
-                    <span v-for="(each_tag, index) in pratilipiData.suggestedTags" :key="index">{{ each_tag }}</span>
+                    <span v-for="(each_tag, index) in pratilipiData.tags" :key="each_tag.id" v-if="index < 2">{{ each_tag.name}}</span>
                 </div>
 
                 <p class="summary">{{ pratilipiData.summary || pratilipiData.clippedContent }}</p>
@@ -77,8 +76,8 @@
             <span v-if="!pratilipiData.hasAccessToUpdate">
                     <button v-if="!userPratilipiData.addedToLib" class="library-btn" @click="addPratilipiToLibrary(pratilipiData.pratilipiId)">
                         <span>
-                            <i class="material-icons">bookmark_border</i>
                             <i class="material-icons stacked white">add</i>
+                            <i class="material-icons">bookmark_border</i>
                         </span>
             <span>__("library")</span>
             </button>
@@ -350,6 +349,13 @@ export default {
     h1 {
         line-height: 1.5em;
         margin-bottom: 0px;
+        display: inline;
+        word-break: break-all;
+    }
+    button {
+        vertical-align: middle;
+        background-color: transparent;
+        border: none;
     }
 }
 .author-name {
@@ -470,7 +476,6 @@ export default {
             position: relative;
             display: inline-block;
             vertical-align: middle;
-            margin-left: 5px;
         }
         i {
             height: 40px;
@@ -479,8 +484,8 @@ export default {
             color: #555;
             vertical-align: middle;
 
-            @media screen and (max-height: 640px) {
-                width: 38%;
+            @media screen and (max-width: 360px) {
+                // width: 38%;
                 height: 40px;
                 line-height: 40px;
                 font-size: 20px;
@@ -488,13 +493,13 @@ export default {
             &.stacked {
                 position: absolute;
                 top: -1px;
-                left: -1px;
-                margin-left: 14px;
+                // left: -1px;
+                // margin-left: 14px;
                 font-size: 11px;
                 color: #555;
                 font-weight: bold;
-                @media screen and (max-height: 640px) {
-                    margin-left: 5px;
+                @media screen and (max-width: 360px) {
+                    // margin-left: 5px;
                     font-size: 7px;
                     top: -7px;
                 }
@@ -502,11 +507,11 @@ export default {
                     color: #555;
                     margin-left: 10px;
                     margin-top: 7px;
-                    left: 0;
+                    // left: 0;
 
-                    @media screen and (max-height: 640px) {
+                    @media screen and (max-width: 360px) {
                         margin-left: 7px;
-                        left: 5px;
+                        // left: 5px;
                     }
                 }
                 &.grey {
@@ -515,9 +520,9 @@ export default {
                     margin-top: 8px;
                     left: 0;
 
-                    @media screen and (max-height: 640px) {
+                    @media screen and (max-width: 360px) {
                         margin-left: 6px;
-                        left: 6px;
+                        // left: 6px;
                     }
                 }
             }
